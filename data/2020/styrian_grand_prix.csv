@@ -1,1 +1,1 @@
-LapNumber,LapTime,Compound,TyreLife,TrackStatus,Stint,DistanceToDriverAhead,DriverAhead
+LapStartTime,LapNumber,LapTime,Compound,TyreLife,TrackStatus,Stint,DistanceToDriverAhead,DriverAhead,Track
