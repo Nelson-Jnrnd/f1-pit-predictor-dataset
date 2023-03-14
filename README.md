@@ -10,9 +10,10 @@ The data is organized into separate CSV files for each race, as well as a single
 
 This dataset contains lap-by-lap data for each drivers during races and contains the following columns:
 
-* LapStartTime: The start time of the lap in HH:MM:SS format.
+* LapStartTime: The start time of the lap in seconds.
 * LapNumber: The number of the lap.
-* LapTime: The duration of the lap in HH:MM:SS format .
+* LapTime: The duration of the lap in seconds.
+* DriverNumber: The number of the driver who set the lap (44, 77, etc).
 * Compound: The type of tire compound used for the lap.
 * TyreLife: The number of laps made on this set of tire.
 * TrackStatus: Single digit status codes (‘1’: Track clear, ‘2’: Yellow flag, ‘4’: Safety Car, ‘5’: Red Flag, ‘6’: Virtual Safety Car deployed, ‘7’: Virtual Safety Car ending).
@@ -20,7 +21,6 @@ This dataset contains lap-by-lap data for each drivers during races and contains
 * DistanceToDriverAhead: The distance to the driver ahead in meters.
 * DriverAhead: The name tag (HAM, ALO, etc) of the driver ahead.
 * Track: The name of the track where the race took place.
-* Time: The time of the lap in HH:MM:SS format.
 * AirTemp: The temperature of the air in degrees Celsius.
 * Humidity: The humidity in percentage.
 * Pressure: The pressure in hPa.
