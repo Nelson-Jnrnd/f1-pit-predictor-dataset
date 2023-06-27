@@ -1,4 +1,6 @@
 #Sensitivity model
+Le modèle optimisé avec le score de sensitivité devrait prendre plus de risque. Il essaie de prédire le plus de vrais positifs possible au détriment des faux négatifs. On devrait voir plus de prédictions positives.
+
 Modèle RandomForestClassifier avec les paramètres suivants :
 ```python
 ...
@@ -32,13 +34,12 @@ Résultats sur le jeu de données de validation (7 courses de 2023):
    macro avg       0.54      0.70      0.52      7436
 weighted avg       0.95      0.80      0.86      7436
 ```
-
-On observe que les performances sont similaire sur le jeu de données de test et de validation. On peut donc conclure que le modèle ne souffre pas d'overfitting.
+On observe plus de faux positifs mais pas beaucoup plus de vrais positifs par rapport au modèle specifique.
 ## ROC curve
 ![roc_curve](figures/roc_curve.svg)
 ## Performance course par course
 ![f1_score_per_track](figures/f1_score_per_track.svg)
-On peut voir que les performances sont très variables d'une course à l'autre. Parce que les courses n'ont pas la même difficulté...
+Les performances sont en général moins bonne avec un maximum de 0.35 pour le circuit de Sakhir. Il n'y a pas de course où le F1-score est nul mais il reste très faible.
 ![safety_car](figures/sc_or_vsc_periods.svg)
 ### Barcelone
 ![barcelone](figures/predictions_by_lapNumber_9.svg)
