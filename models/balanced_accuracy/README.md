@@ -1,4 +1,8 @@
-#Specificity model
+#Balanced Accuracy model
+Le modèle optimisé avec le score de balanced accuracy devrait être plus équilibré. La balanced accuracy est définie comme :
+$$
+\frac{\text{specificity} + \text{sensitivity}}{2}
+$$
 Modèle RandomForestClassifier avec les paramètres suivants :
 ```python
 score : 0.7958320909904882
@@ -43,12 +47,12 @@ Résultats sur le jeu de données de validation (7 courses de 2023):
 weighted avg       0.95      0.89      0.92      7436
 ```
 
-On observe que les performances sont similaire sur le jeu de données de test et de validation. On peut donc conclure que le modèle ne souffre pas d'overfitting.
+Les résultats entre test et validation sont assez similaires, on remarque simplement une baisse du recall sur la validation. On a appriori, pas de surapprentissage.
 ## ROC curve
 ![roc_curve](figures/roc_curve.svg)
 ## Performance course par course
 ![f1_score_per_track](figures/f1_score_per_track.svg)
-On peut voir que les performances sont très variables d'une course à l'autre. Parce que les courses n'ont pas la même difficulté...
+Il est intéressant de noter que les résultats sont pas simplement meilleur que ceux des modèles specificity et sensitivity. 
 ![safety_car](figures/sc_or_vsc_periods.svg)
 ### Barcelone
 ![barcelone](figures/predictions_by_lapNumber_9.svg)
@@ -64,3 +68,5 @@ On peut voir que les performances sont très variables d'une course à l'autre. 
 ![miami](figures/predictions_by_lapNumber_24.svg)
 ### Sakhir
 ![sakhir](figures/predictions_by_lapNumber_34.svg)
+
+## Conclusion
