@@ -49,3 +49,12 @@ Les performances sont moins bonnes que pour les autres courses. Cela est peut-ê
 Parmis les 4 courses observées, 2 des piltoes commencent par un cours relai en medium suivis d'un long en soft et les 2 autres font l'inverse.
 
 Les modèles sembles tous suggérer un arrêt au stand autour du tour 15, peut-importe la gomme de pneu. Cela est peut-être du au fait que le modèle prend trop en compte l'age des pneus dans sa décision. Ou alors le circuit de miami est particulièrement peu exigeant pour les pneus.
+
+### Melbourne
+Le grand prix d'Australie dur 58 tours, il y a eu une courte période de virtual safety car de 1 tour en début de course suivit d'une longue période de safety car du tour 11 au tour 16.
+
+![melbourne](figures/Melbourne_confusion_matrices.svg)
+![melbourne](figures/Melbourne_metrics.svg)
+
+
+![melbourne](figures/predictions_3.svg)
