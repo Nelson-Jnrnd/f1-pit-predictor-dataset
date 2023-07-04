@@ -35,4 +35,17 @@ Le grand prix du Canada dur 70 tours, il y a eu une courte période de virtual s
 On retrouve le même comportement que pour le grand prix de Bahrein mais avec des scores plus élévés, particulièrement pour le modèle équilibré.
 
 ![montreal](figures/predictions_5.svg)
-Cette course est intéressante car elle place les modèles dans une situation où une voiture de sécurité arrive tôt dans la course. 
+Cette course est intéressante car elle place les modèles dans une situation où une voiture de sécurité arrive tôt dans la course. On peut observer que le modèle sensible prédit une arrêt au stand pour les pilotes 1 et 4 pour la première période virtual safety car. On peut noter que les pilotes 1 et 4 sont en gomme médium comparés au autres.
+
+De plus, en observant la course du pilote 10, qui s'est arrêté au stand entre les 2 périodes de safety car. Le modèle sensible re-suggère un arrêt pendant la deuxième période. Se qui est intéressant car cela serait un bon choix si il ne s'était pas déjà arrêté. On voit là peut-être une nécessité de prendre en compte plus d'un tour de course en compte.
+
+### Miami
+Le grand prix de Miami dur 57 tours, n'as pas eu de période de vsc, sc ou de drapeau jaune.
+
+![miami](figures/Miami_confusion_matrices.svg)
+![miami](figures/Miami_metrics.svg)
+Les performances sont moins bonnes que pour les autres courses. Cela est peut-être du au fait qu'il est plus facile de prédire un arrêt au stand pendant une période de voiture de sécurité. On peut aussi observer que le modèle sensible à le meilleur f1-score.
+![miami](figures/predictions_4.svg)
+Parmis les 4 courses observées, 2 des piltoes commencent par un cours relai en medium suivis d'un long en soft et les 2 autres font l'inverse.
+
+Les modèles sembles tous suggérer un arrêt au stand autour du tour 15, peut-importe la gomme de pneu. Cela est peut-être du au fait que le modèle prend trop en compte l'age des pneus dans sa décision. Ou alors le circuit de miami est particulièrement peu exigeant pour les pneus.
