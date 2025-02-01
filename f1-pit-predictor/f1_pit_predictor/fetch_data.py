@@ -9,6 +9,7 @@ from loguru import logger
 from tqdm import tqdm
 from f1_pit_predictor.config import RAW_DATA_DIR
 from datetime import datetime
+from typing_extensions import Annotated
 
 
 app = typer.Typer()
@@ -174,59 +175,77 @@ def add_weather_to_laps(laps: Laps, weather) -> pd.DataFrame:
     return lapsWithWeather
 
 @app.command()
-def get_season_data(year: int, save_all_races: bool=True, verbose: bool=False) -> pd.DataFrame:
+def get_race_data(year: int, round_number: int, save: bool=True, verbose: bool=False) -> pd.DataFrame:
     """
-    Get the data for a whole season. The data is saved in a folder named after the year.
+    Get the data for a specific race. The data is saved in a folder named after the year.
     """
+    if year == 2018 and round_number < 3: # The 2 first races of 2018 do not have telemetry data
+        logger.info("Skipping the first races of 2018 for which there is no telemetry data")
+        return
+
     if not verbose:
         ff1.set_log_level(logging.CRITICAL)
-    schedule = ff1.get_event_schedule(year, include_testing=False)
+    session = ff1.get_session(year, round_number, 'R')
+
+    if datetime.now() < session.event['Session5DateUtc']:
+        logger.info("Skipping future event")
+        return
 
     path: Path = RAW_DATA_DIR / str(year)
     # Create a directory for the year if it doesn't exist
     if not path.exists():
         logger.info(f"Creating directory for year {year}")
         path.mkdir()
-
-    df_season = get_empty_dataframe()
-    for _, event in tqdm(schedule.iterrows(), total=len(schedule), desc=f"Processing {year} season"):
-        if year == 2018 and event['RoundNumber'] < 3: # The 2 first races of 2018 do not have telemetry data
-            continue
-        if datetime.now() < event['Session5DateUtc']:
-            logger.info("Skipping future event")
-            break
-        race = event.get_race()
-        race.load()
-        df_event = get_empty_dataframe()
-        api_laps = load_api_data(race)
-
-        for driver in tqdm(race.drivers, desc=f"Processing {event['EventName']} drivers"):
-            try:
-                df_driver_laps = get_laps_of_driver(driver, api_laps)
-                if not df_driver_laps.empty:
-                    df_event = pd.concat([df_event, df_driver_laps], ignore_index=True)
-            except NoLapException as e:
-                logger.error(e)
     
-        df_event['RoundNumber'] = event['RoundNumber']
-        df_event['Track'] = event['Location']
-        df_event['TotalLaps'] = api_laps['LapNumber'].max()
-        df_event['Year'] = year
+    session.load()
+    df_event = get_empty_dataframe()
+    api_laps = load_api_data(session)
+
+    for driver in tqdm(session.drivers, desc=f"Processing {session.event['EventName']} drivers"):
         try:
-            df_event = add_weather_to_laps(df_event, race.weather_data)
-            df_event = df_event.drop(columns=['Time'])
-            # Convert the laptime column to total seconds if it's not a NAN value
-            df_event['LapTime'] = df_event['LapTime'].apply(lambda x: x.total_seconds() if not pd.isna(x) else x)
-            df_event['LapStartTime'] = df_event['LapStartTime'].apply(lambda x: x.total_seconds() if not pd.isna(x) else x)
+            df_driver_laps = get_laps_of_driver(driver, api_laps)
+            if not df_driver_laps.empty:
+                df_event = pd.concat([df_event, df_driver_laps], ignore_index=True)
         except NoLapException as e:
             logger.error(e)
-        if save_all_races:
-            # Save it to a csv file
-            df_event.to_csv(path / f"{event.EventName.replace(' ', '_').lower()}.csv", index=False)
+
+    df_event['RoundNumber'] = round_number
+    df_event['Track'] = session.event['Location']
+    df_event['TotalLaps'] = api_laps['LapNumber'].max()
+    df_event['Year'] = year
+    try:
+        df_event = add_weather_to_laps(df_event, session.weather_data)
+        df_event = df_event.drop(columns=['Time'])
+        # Convert the laptime column to total seconds if it's not a NAN value
+        df_event['LapTime'] = df_event['LapTime'].apply(lambda x: x.total_seconds() if not pd.isna(x) else x)
+        df_event['LapStartTime'] = df_event['LapStartTime'].apply(lambda x: x.total_seconds() if not pd.isna(x) else x)
+    except NoLapException as e:
+        logger.error(e)
+    if save:
+        # Save it to a csv file
+        df_event.to_csv(path / f"{session.event.EventName.replace(' ', '_').lower()}.csv", index=False)
+    return df_event
+
+@app.command()
+def get_season_data(
+    year: int, 
+    save_all_races: Annotated[bool, typer.Option(help="Save the data for each race in a separate file")] = True,
+    verbose: bool=False
+    ) -> pd.DataFrame:
+    """
+    Get the data for a whole season. The data is saved in a folder named after the year.
+    """
+    df_season = get_empty_dataframe()
+    schedule = ff1.get_event_schedule(year, include_testing=False)
+
+    for _, event in tqdm(schedule.iterrows(), total=len(schedule), desc=f"Processing {year} season"):
+        df_event = get_race_data(year, event['RoundNumber'], save=save_all_races, verbose=verbose)
         if df_season.empty:
             df_season = df_event
         else:
             df_season = pd.concat([df_season, df_event], axis=0)
+    
+    path: Path = RAW_DATA_DIR / str(year)
     # Save the data for the whole season
     df_season.to_csv(path / f"{year}.csv", index=False)
     return df_season
