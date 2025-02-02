@@ -175,7 +175,7 @@ def add_weather_to_laps(laps: Laps, weather) -> pd.DataFrame:
     return lapsWithWeather
 
 @app.command()
-def get_race_data(year: int, round_number: int, save: bool=True, verbose: bool=False) -> pd.DataFrame:
+def get_race_data(year: int, round_number: int, save: bool=True, verbose: bool=False, output_path: Path = RAW_DATA_DIR) -> pd.DataFrame:
     """
     Get the data for a specific race. The data is saved in a folder named after the year.
     """
@@ -191,11 +191,11 @@ def get_race_data(year: int, round_number: int, save: bool=True, verbose: bool=F
         logger.info("Skipping future event")
         return
 
-    path: Path = RAW_DATA_DIR / str(year)
+    save_path: Path = output_path / str(year)
     # Create a directory for the year if it doesn't exist
-    if not path.exists():
+    if not save_path.exists():
         logger.info(f"Creating directory for year {year}")
-        path.mkdir()
+        save_path.mkdir()
     
     session.load()
     df_event = get_empty_dataframe()
@@ -223,14 +223,15 @@ def get_race_data(year: int, round_number: int, save: bool=True, verbose: bool=F
         logger.error(e)
     if save:
         # Save it to a csv file
-        df_event.to_csv(path / f"{session.event.EventName.replace(' ', '_').lower()}.csv", index=False)
+        df_event.to_csv(save_path / f"{session.event.EventName.replace(' ', '_').lower()}.csv", index=False)
     return df_event
 
 @app.command()
 def get_season_data(
     year: int, 
-    save_all_races: Annotated[bool, typer.Option(help="Save the data for each race in a separate file")] = True,
-    verbose: bool=False
+    save_season: Annotated[bool, typer.Option(help="Save a concatenation of the data for the whole season in a separate file")] = False,
+    verbose: bool=False,
+    output_path: Path = RAW_DATA_DIR
     ) -> pd.DataFrame:
     """
     Get the data for a whole season. The data is saved in a folder named after the year.
@@ -239,15 +240,16 @@ def get_season_data(
     schedule = ff1.get_event_schedule(year, include_testing=False)
 
     for _, event in tqdm(schedule.iterrows(), total=len(schedule), desc=f"Processing {year} season"):
-        df_event = get_race_data(year, event['RoundNumber'], save=save_all_races, verbose=verbose)
+        df_event = get_race_data(year, event['RoundNumber'], verbose=verbose, output_path=output_path)
         if df_season.empty:
             df_season = df_event
         else:
             df_season = pd.concat([df_season, df_event], axis=0)
     
-    path: Path = RAW_DATA_DIR / str(year)
-    # Save the data for the whole season
-    df_season.to_csv(path / f"{year}.csv", index=False)
+    if save_season:
+        save_path: Path = output_path / str(year)
+        # Save the data for the whole season
+        df_season.to_csv(save_path / f"{year}.csv", index=False)
     return df_season
 
 if __name__ == "__main__":
