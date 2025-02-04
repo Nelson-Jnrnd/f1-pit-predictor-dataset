@@ -21,7 +21,7 @@ class NoLapException(Exception):
 
 
 # Set up FastF1 cache on script startup
-cache_path: Path = RAW_DATA_DIR / "cache"
+cache_path: Path = RAW_DATA_DIR / "..cache"
 cache_path.mkdir(parents=True, exist_ok=True)  # Ensure cache directory exists
 ff1.Cache.enable_cache(cache_path)
 logger.success("FastF1 cache enabled.")
@@ -228,7 +228,7 @@ def get_race_data(year: int, round_number: int, save: bool=True, verbose: bool=F
 
 @app.command()
 def get_season_data(
-    year: int, 
+    year: int,
     save_season: Annotated[bool, typer.Option(help="Save a concatenation of the data for the whole season in a separate file")] = False,
     verbose: bool=False,
     output_path: Path = RAW_DATA_DIR
@@ -251,6 +251,26 @@ def get_season_data(
         # Save the data for the whole season
         df_season.to_csv(save_path / f"{year}.csv", index=False)
     return df_season
+
+@app.command()
+def get_data(
+    start_year: int,
+    end_year: int,
+    save_season: Annotated[bool, typer.Option(help="Save a concatenation of the data for the whole season in a separate file")] = False,
+    verbose: bool=False,
+    output_path: Path = RAW_DATA_DIR
+    ) -> pd.DataFrame:
+    """
+    Get the data for a range of years. The data is saved in a folder named after the year.
+    """
+    df_all = get_empty_dataframe()
+    for year in range(start_year, end_year+1):
+        df_season = get_season_data(year, save_season=save_season, verbose=verbose, output_path=output_path)
+        if df_all.empty:
+            df_all = df_season
+        else:
+            df_all = pd.concat([df_all, df_season], axis=0)
+    return df_all
 
 if __name__ == "__main__":
     app()

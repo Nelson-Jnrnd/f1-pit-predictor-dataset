@@ -1,0 +1,7 @@
+epochs: 900
+tuning:
+  - learning-rate: 0.945
+  - max_depth: 7
+paths:
+  - labels: 'materials/labels'
+  - truth: 'materials/ground'

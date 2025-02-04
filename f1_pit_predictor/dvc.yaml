@@ -1,0 +1,46 @@
+stages:
+  extract:
+    cmd: python extraction.py get-data 2019 2024
+    deps:
+      - extraction.py
+    outs:
+      - ../data/raw
+
+  clean:
+    cmd: python preparation.py clean
+    deps:
+      - perparation.py
+      - ../data/raw
+    outs:
+      - ../data/processed/clean.csv
+    
+  split:
+    cmd: python preparation.py split
+    deps:
+      - preparation.py
+      - ../data/processed/clean.csv
+    outs:
+      - ../data/processed/train.csv
+      - ../data/processed/test.csv
+    
+  prepare:
+    cmd: python preparation.py prepare
+    deps:
+      - preparation.py
+      - ../data/processed/train.csv
+      - ../data/processed/test.csv
+    outs:
+      - ../data/processed/train_processed.csv
+      - ../data/processed/test_processed.csv
+      - ../data/processed/encoder.pkl
+    
+  train:
+    cmd: python train.py
+    deps:
+      - train.py
+      - ../data/processed/train_processed.csv
+      - ../data/processed/test_processed.csv
+      - ../data/processed/encoder.pkl
+    params:
+      - epochs
+      - tuning
