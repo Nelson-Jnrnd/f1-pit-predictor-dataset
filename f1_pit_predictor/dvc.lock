@@ -78,3 +78,31 @@ stages:
       hash: md5
       md5: cc0c2212c8e38dd9eed16301570199e5
       size: 3017849
+  train:
+    cmd: python train.py
+    deps:
+    - path: ../data/processed/encoder.pkl
+      hash: md5
+      md5: 4e9eab7ce5447db95406574862e80fdd
+      size: 884
+    - path: ../data/processed/test_processed.csv
+      hash: md5
+      md5: e999e429e27bb6c166d628ab9d1cfbf5
+      size: 765760
+    - path: ../data/processed/train_processed.csv
+      hash: md5
+      md5: cc0c2212c8e38dd9eed16301570199e5
+      size: 3017849
+    - path: train.py
+      hash: md5
+      md5: 72c63decb9959a8cd09aa1d2ab7d7db5
+      size: 556
+    params:
+      params.yaml:
+        epochs: 900
+        paths:
+        - labels: materials/labels
+        - truth: materials/ground
+        tuning:
+        - learning-rate: 0.945
+        - max_depth: 7

@@ -44,3 +44,4 @@ stages:
     params:
       - epochs
       - tuning
+      - paths

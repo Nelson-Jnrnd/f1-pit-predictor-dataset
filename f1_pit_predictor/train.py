@@ -15,7 +15,7 @@ def main(
     model_path: Path = MODELS_DIR,
 ):
     logger.info("Training model...")
-    params = dvc.api.param_show()
+    params = dvc.api.params_show()
     logger.info(f"Parameters: {params}")
     
 

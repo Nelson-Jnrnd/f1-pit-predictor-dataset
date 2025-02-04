@@ -16,4 +16,5 @@ tqdm
 typer
 fastf1
 mlflow
+dvc
 -e .
