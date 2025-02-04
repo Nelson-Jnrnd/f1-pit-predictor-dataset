@@ -1,0 +1,80 @@
+schema: '2.0'
+stages:
+  extract:
+    cmd: python extraction.py get-data 2019 2019
+    deps:
+    - path: extraction.py
+      hash: md5
+      md5: d6af1bb289e2692cba5de570df0e7672
+      size: 12154
+    outs:
+    - path: ../data/raw
+      hash: md5
+      md5: 166e68dfca4be31d0b13371a852cfd39.dir
+      size: 3794524
+      nfiles: 21
+  clean:
+    cmd: python preparation.py clean
+    deps:
+    - path: ../data/raw
+      hash: md5
+      md5: 166e68dfca4be31d0b13371a852cfd39.dir
+      size: 3794524
+      nfiles: 21
+    - path: preparation.py
+      hash: md5
+      md5: 36bef36db8d90441ac1149d3da2e72c4
+      size: 4959
+    outs:
+    - path: ../data/processed/clean.csv
+      hash: md5
+      md5: 7a4c169f49ba2425c24ee410a9e35f93
+      size: 4037771
+  split:
+    cmd: python preparation.py split
+    deps:
+    - path: ../data/processed/clean.csv
+      hash: md5
+      md5: 7a4c169f49ba2425c24ee410a9e35f93
+      size: 4037771
+    - path: preparation.py
+      hash: md5
+      md5: 36bef36db8d90441ac1149d3da2e72c4
+      size: 4959
+    outs:
+    - path: ../data/processed/test.csv
+      hash: md5
+      md5: bfe1057bedf72003fc5e948eff64805e
+      size: 813501
+    - path: ../data/processed/train.csv
+      hash: md5
+      md5: 40c72b8f4394c44e031ac5040e011f6b
+      size: 3221539
+  prepare:
+    cmd: python preparation.py prepare
+    deps:
+    - path: ../data/processed/test.csv
+      hash: md5
+      md5: bfe1057bedf72003fc5e948eff64805e
+      size: 813501
+    - path: ../data/processed/train.csv
+      hash: md5
+      md5: 40c72b8f4394c44e031ac5040e011f6b
+      size: 3221539
+    - path: preparation.py
+      hash: md5
+      md5: 36bef36db8d90441ac1149d3da2e72c4
+      size: 4959
+    outs:
+    - path: ../data/processed/encoder.pkl
+      hash: md5
+      md5: 4e9eab7ce5447db95406574862e80fdd
+      size: 884
+    - path: ../data/processed/test_processed.csv
+      hash: md5
+      md5: e999e429e27bb6c166d628ab9d1cfbf5
+      size: 765760
+    - path: ../data/processed/train_processed.csv
+      hash: md5
+      md5: cc0c2212c8e38dd9eed16301570199e5
+      size: 3017849

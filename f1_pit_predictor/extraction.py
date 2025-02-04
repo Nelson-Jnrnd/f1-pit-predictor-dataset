@@ -1,13 +1,13 @@
 import pandas as pd
 import numpy as np
 import fastf1 as ff1
-from fastf1.core import Session, Telemetry, Laps, Lap
+from fastf1.core import Session, Telemetry, Laps, Lap, DataNotLoadedError
 from fastf1.logger import logging
 from pathlib import Path
 import typer
 from loguru import logger
 from tqdm import tqdm
-from f1_pit_predictor.config import RAW_DATA_DIR
+from f1_pit_predictor.config import RAW_DATA_DIR, DATA_DIR
 from datetime import datetime
 from typing_extensions import Annotated
 
@@ -21,11 +21,12 @@ class NoLapException(Exception):
 
 
 # Set up FastF1 cache on script startup
-cache_path: Path = RAW_DATA_DIR / "..cache"
+cache_path: Path = DATA_DIR / "cache"
 cache_path.mkdir(parents=True, exist_ok=True)  # Ensure cache directory exists
 ff1.Cache.enable_cache(cache_path)
 logger.success("FastF1 cache enabled.")
 
+RAW_DATA_DIR.mkdir(parents=True, exist_ok=True)  # Ensure raw data directory exists
 
 def extract_number(s):
     """
@@ -50,7 +51,13 @@ def load_api_data(session: Session) -> pd.DataFrame:
     api_data = pd.merge_asof(laps_data.sort_values('Time'), stream_data.sort_values('Time'), on='Time', by='Driver')
 
     # Discretize the time data for one sample per lap
-    merged_laps = pd.merge(session.laps, api_data[['Driver', 'Time', 'NumberOfLaps', 'NumberOfPitStops', 'GapToLeader', 'IntervalToPositionAhead']], left_on=['LapNumber', 'DriverNumber'], right_on=['NumberOfLaps', 'Driver'])
+    merged_laps = None
+    try:
+        merged_laps = pd.merge(session.laps, api_data[['Driver', 'Time', 'NumberOfLaps', 'NumberOfPitStops', 'GapToLeader', 'IntervalToPositionAhead']], left_on=['LapNumber', 'DriverNumber'], right_on=['NumberOfLaps', 'Driver'])
+    except DataNotLoadedError as e:
+        logger.error(e)
+        session.load()
+        merged_laps = pd.merge(session.laps, api_data[['Driver', 'Time', 'NumberOfLaps', 'NumberOfPitStops', 'GapToLeader', 'IntervalToPositionAhead']], left_on=['LapNumber', 'DriverNumber'], right_on=['NumberOfLaps', 'Driver'])
 
     # Fix the data types
     merged_laps['LapsToLeader'] = merged_laps['GapToLeader'].map(extract_number)

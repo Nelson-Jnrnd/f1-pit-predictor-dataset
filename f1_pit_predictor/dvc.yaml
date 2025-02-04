@@ -1,6 +1,6 @@
 stages:
   extract:
-    cmd: python extraction.py get-data 2019 2024
+    cmd: python extraction.py get-data 2019 2019
     deps:
       - extraction.py
     outs:
@@ -9,7 +9,7 @@ stages:
   clean:
     cmd: python preparation.py clean
     deps:
-      - perparation.py
+      - preparation.py
       - ../data/raw
     outs:
       - ../data/processed/clean.csv
