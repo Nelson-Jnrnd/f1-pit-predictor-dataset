@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
-import mlflow
 from sklearn.metrics import accuracy_score
-
+from dvclive import Live
+from loguru import logger
 class BaseTrainer(ABC):
     """
     Abstract base class for model training.
@@ -12,7 +12,6 @@ class BaseTrainer(ABC):
         self.config = config
         self.name = name
         self.model = None
-        mlflow.set_experiment(config["experiment_name"])
     
     @abstractmethod
     def train(self, x, y):
@@ -21,16 +20,18 @@ class BaseTrainer(ABC):
         """
         pass
 
-    @abstractmethod
     def evaluate(self, x, y):
         """
         Evaluate the model.
         """
         y_pred = self.predict(x)
         acc = accuracy_score(y, y_pred)
-
-        mlflow.log_metric("accuracy", acc)
-        return acc
+        try :
+            with Live(resume=True) as live:
+                live.log_params(self.config)
+                live.log_metric("accuracy", acc)
+        except Exception as e:
+            logger.error(f"Failed to start dvclive: {e}")
 
     @abstractmethod
     def predict(self, x):

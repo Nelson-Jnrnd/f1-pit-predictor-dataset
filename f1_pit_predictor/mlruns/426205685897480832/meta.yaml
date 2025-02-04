@@ -1,0 +1,6 @@
+artifact_location: file:///Users/nelson/Desktop/f1-pit-predictor-dataset/f1_pit_predictor/mlruns/426205685897480832
+creation_time: 1738681948801
+experiment_id: '426205685897480832'
+last_update_time: 1738681948801
+lifecycle_stage: active
+name: random_forest_test

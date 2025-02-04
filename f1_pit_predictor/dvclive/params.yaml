@@ -1,7 +1,6 @@
 random_state: 42
 experiment_name: random_forest_test
 target: is_pitting
-
 random_forest:
   n_estimators: 100
   max_depth: 10

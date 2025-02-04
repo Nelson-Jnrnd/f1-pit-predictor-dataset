@@ -93,16 +93,31 @@ stages:
       hash: md5
       md5: cc0c2212c8e38dd9eed16301570199e5
       size: 3017849
+    - path: modeling/base_trainer.py
+      hash: md5
+      md5: c2dad5dca039b760dca85013fef45113
+      size: 1130
+    - path: modeling/random_forest_trainer.py
+      hash: md5
+      md5: 03810151023ee1543802f424ca710d4f
+      size: 680
     - path: train.py
       hash: md5
-      md5: 72c63decb9959a8cd09aa1d2ab7d7db5
-      size: 556
+      md5: 3842dec177bb16422dbf00016d892b13
+      size: 1399
     params:
       params.yaml:
-        epochs: 900
-        paths:
-        - labels: materials/labels
-        - truth: materials/ground
-        tuning:
-        - learning-rate: 0.945
-        - max_depth: 7
+        experiment_name: random_forest_test
+        random_forest:
+          n_estimators: 100
+          max_depth: 10
+          min_samples_split: 2
+          class_weight: balanced
+          n_jobs: -1
+        random_state: 42
+        target: is_pitting
+    outs:
+    - path: ../models/random_forest.pkl
+      hash: md5
+      md5: a90588c794c22d8db398b6027f7ae89a
+      size: 3237078
