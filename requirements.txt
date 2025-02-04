@@ -15,4 +15,5 @@ scikit-learn
 tqdm
 typer
 fastf1
+mlflow
 -e .
