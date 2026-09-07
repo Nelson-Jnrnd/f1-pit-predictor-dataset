@@ -28,3 +28,9 @@ This dataset contains lap-by-lap data for each drivers during races and contains
 * TrackTemp: The temperature of the track in degrees Celsius.
 * WindDirection: The direction of the wind.
 * WindSpeed: The speed of the wind in meters per second.
+
+## V2 specification workflow
+
+V2 work is specification-first. Start with [`AGENTS.md`](AGENTS.md), then read the governance files it references before authoring or reviewing a bounded specification slice.
+
+The workflow separates project/research direction, bounded semantic analysis, integration, architecture/design, verification, and implementation. Historical thesis branches remain evidence/source material and are not to be casually merged or rewritten as part of V2 specification work.
