@@ -23,7 +23,7 @@ Before working on a bounded task, read:
 5. One semantic concept has one canonical owner. Consumers reference the owning artifact rather than duplicating or redefining it.
 6. Human-reserved decisions are defined in `governance/DECISION_BOUNDARIES.md`; do not escalate routine technical or documentation choices.
 7. Authoring work receives one full independent review and, after rework, at most one bounded re-review before the task is split/rescoped/escalated.
-8. Historical thesis work (`main`, `training_rf`, `training_svm`, `cleaning`, and legacy artifacts) is evidence and baseline material. Do not merge, rewrite, or delete it during specification work unless a later explicit task authorizes that action.
+8. `main` is the evolving V2 integration branch. Thesis-era artifacts and commits that predate the V2 bootstrap, plus the historical branches `training_rf`, `training_svm`, and `cleaning`, are evidence and baseline material only. Do not rewrite/delete that historical material or merge the legacy branches during specification work unless a later explicit task authorizes it.
 9. Normal V2 work uses short-lived task branches and reaches `main` through pull requests.
 10. A chat decision is not durable. Persist approved material decisions in the canonical artifact and under `decisions/` when reusable.
 11. Integration gates check cross-slice consistency; they do not reopen approved slices without a demonstrated contradiction.
