@@ -2,7 +2,7 @@
 
 ## Status
 
-Draft — Product Owner direction approved on 2026-09-08; pending independent review.
+Approved — Product Owner direction approved on 2026-09-08; full independent scoped review passed on PR #3.
 
 ## Abstraction level
 
@@ -84,3 +84,11 @@ These are research motivations, not commitments to specific metrics or algorithm
 | Define exact output semantics, uncertainty representation, and horizon | Cross-slice | Prediction Output / Replay Semantics | Wave 1 |
 | Define evaluation units, splits, metrics, and backtest protocol | Cross-slice | Evaluation / Backtesting | Wave 1 |
 | Select model family, features, calibration method, or technical pipeline | Later-phase | Design / experimentation | Deferred |
+
+## Review record
+
+- **Status:** Approved
+- **Reviewer:** Independent scoped reviewer; GitHub review recorded by `Nelson-Jnrnd`.
+- **Review reference:** PR #3 review `pullrequestreview-5139550659`, PASS on head `567c1c851526e310cdbf083f3599804603812272`.
+- **Review date:** 2026-09-08
+- **Findings:** No Blocking, Major, or Minor findings.
