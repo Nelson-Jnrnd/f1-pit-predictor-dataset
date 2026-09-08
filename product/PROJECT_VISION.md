@@ -2,7 +2,7 @@
 
 ## Status
 
-Draft — Product Owner direction approved on 2026-09-08; pending independent review.
+Approved — Product Owner direction approved on 2026-09-08; full independent scoped review passed on PR #3.
 
 ## Abstraction level
 
@@ -79,5 +79,13 @@ V2 predicts what a team/driver is likely to do. It does not recommend what they 
 
 - Project direction: approved by Product Owner on 2026-09-08 and persisted in the durable decision record.
 - Thesis continuity: established at Wave 0 level.
-- Independent Wave 0 review: pending.
+- Independent Wave 0 review: passed on PR #3.
 - No technical implementation choices are frozen here.
+
+## Review record
+
+- **Status:** Approved
+- **Reviewer:** Independent scoped reviewer; GitHub review recorded by `Nelson-Jnrnd`.
+- **Review reference:** PR #3 review `pullrequestreview-5139550659`, PASS on head `567c1c851526e310cdbf083f3599804603812272`.
+- **Review date:** 2026-09-08
+- **Findings:** No Blocking, Major, or Minor findings.
