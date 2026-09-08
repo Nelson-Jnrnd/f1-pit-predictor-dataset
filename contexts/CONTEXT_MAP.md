@@ -2,7 +2,7 @@
 
 ## Status
 
-Draft — Product Owner direction approved on 2026-09-08; ready for Wave 0 independent review.
+Approved — Product Owner direction approved on 2026-09-08; full independent scoped review passed on PR #3.
 
 ## Abstraction level
 
@@ -141,3 +141,11 @@ Once Wave 0 is approved through independent review and merged, the five slices a
 | Exact pit-window representation/horizon | Cross-slice | Prediction Output / Replay Semantics | Wave 1 |
 | Exact evaluation protocol | Cross-slice | Evaluation / Backtesting | Wave 1 |
 | Technical contracts/components | Later-phase | Architecture / design | Deferred |
+
+## Review record
+
+- **Status:** Approved
+- **Reviewer:** Independent scoped reviewer; GitHub review recorded by `Nelson-Jnrnd`.
+- **Review reference:** PR #3 review `pullrequestreview-5139550659`, PASS on head `567c1c851526e310cdbf083f3599804603812272`.
+- **Review date:** 2026-09-08
+- **Findings:** No Blocking, Major, or Minor findings.
