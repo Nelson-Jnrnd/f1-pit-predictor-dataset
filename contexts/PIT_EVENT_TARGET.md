@@ -2,7 +2,7 @@
 
 ## Status
 
-Blocked — one Product Owner-reserved current-scope decision remains: the material definition of the V2 pit event. All other semantics below are drafted subject to that event definition and the required independent review.
+Blocked — Product Owner approved the tyre-service-only event scope in `decisions/2026-09-08-v2-pit-event-scope.md`. One Product Owner-reserved current-scope decision remains: the semantic occurrence anchor within a qualifying tyre-service pit visit. Independent review must wait until that timing meaning is resolved and persisted.
 
 ## Abstraction level
 
@@ -10,7 +10,7 @@ Wave 1 — semantic specification.
 
 ## Outcome
 
-Define the canonical V2 relationship between an approved point-in-time race observation and the driver's next relevant pit event, including target lifecycle, eligibility, terminal no-event/censoring, and truncation semantics without choosing a dataset encoding or model formulation.
+Define the canonical V2 relationship between an approved point-in-time race observation and the driver's next relevant tyre-service pit event, including target lifecycle, eligibility, terminal no-event/censoring, and truncation semantics without choosing a dataset encoding or model formulation.
 
 ## Scope
 
@@ -35,7 +35,8 @@ Define the canonical V2 relationship between an approved point-in-time race obse
 ## Upstream inputs / semantic locks
 
 - `decisions/2026-09-08-v2-project-direction.md` — V2 predicts likely timing of a driver's next pit stop from legitimately available information; it predicts behavior rather than recommending strategy; historical replay/backtesting is the initial ambition.
-- `product/RESEARCH_PROBLEM.md` — exact pit-event definition is intentionally delegated to this slice; the target remains next-pit timing rather than the thesis-era next-lap binary formulation.
+- `decisions/2026-09-08-v2-pit-event-scope.md` — Product Owner approved a tyre-service-only pit-event scope; pit visits without tyre service are excluded.
+- `product/RESEARCH_PROBLEM.md` — exact pit-event semantics are delegated to this slice; the target remains next-pit timing rather than the thesis-era next-lap binary formulation.
 - `product/SYSTEM_SCOPE.md` — exact target/censoring semantics belong here; live inference, next-compound prediction, and recommendation remain outside the initial core.
 - `contexts/CONTEXT_MAP.md` — this slice canonically owns pit-event identity, relation to the prediction point, target lifecycle, and censoring/eligibility semantics.
 - `contexts/RACE_OBSERVATION_STATE.md` — every target attaches to one approved driver-specific observation; its prediction instant is the authoritative temporal boundary, and this slice must not redefine information availability.
@@ -71,31 +72,42 @@ This slice does not create additional prediction points. It only determines the 
 
 The observation state at `T` remains immutable. The later event outcome is retrospective target truth used for replay/evaluation; it is not information that becomes available to the prediction at `T`.
 
-### 2. Relevant V2 pit event — Product Owner decision pending
+### 2. Relevant V2 pit event qualification — approved
 
-The material interpretation of the event the model predicts is Product Owner-reserved under `governance/DECISION_BOUNDARIES.md`. Wave 0 deliberately left the exact pit-event definition undecided, and legacy `InLap` behavior is non-normative evidence.
+The Product Owner approved a **tyre-service-only** event scope in `decisions/2026-09-08-v2-pit-event-scope.md`.
 
-Until the Product Owner approves and the decision is persisted, **relevant pit event** below is an abstract placeholder for the approved event definition. No provider field, lap label, pit timestamp, tyre change, service action, or pit-lane transition is normative merely because it exists in historical data.
+A candidate race pit visit for the selected driver qualifies as a **relevant V2 pit event** only when tyre service occurs during that visit. At semantic level, tyre service means that one or more of the car's fitted race tyres are changed as part of the pit visit.
 
-The recommended proposal for Product Owner approval is:
+Consequences:
 
-> A relevant V2 pit event is the start of a race pit-lane visit by the selected driver that results in a genuine pit stop/service during that visit. It includes ordinary tyre service, repairs or adjustments, and a stationary penalty served as part of the stop. It excludes a drive-through/pass-through with no stop, pre-race/grid movements, and garage/pit-lane movements after the driver's race participation has already ended. The event occurrence is anchored to the start of that qualifying pit-lane visit, not to later service completion or pit exit.
+- an ordinary tyre-change stop qualifies;
+- a tyre change performed because of damage or puncture qualifies;
+- a visit that combines tyre service with repairs, adjustments, or a stationary penalty still qualifies because tyre service occurred;
+- a drive-through/pass-through with no tyre service does not qualify;
+- a repair-only or adjustment-only stop without tyre service does not qualify;
+- a stationary-penalty-only stop without tyre service does not qualify;
+- pre-race/grid movements are not race pit events for this target;
+- post-finish or post-retirement pit/garage movements after the driver's participation is terminal are outside target scope.
 
-This proposal intentionally predicts **when the driver commits to the qualifying pit visit**, while requiring that the visit actually qualifies as a pit stop rather than treating every pit-lane traversal as the predicted event. The exact technical evidence used to establish the event later belongs to data/design and verification.
+The motive for the tyre stop does not determine qualification. Strategy, Safety Car/VSC context, weather, damage, or penalty context may explain a stop but does not change the tyre-service rule.
+
+No provider field, legacy `InLap` label, pit timestamp, or tyre-change column is normative merely because it exists in historical data. Later data/design and verification work must establish a defensible reconstruction of this semantic event.
+
+The **occurrence anchor** of a qualifying visit remains unresolved: this slice must still decide whether the event is semantically considered to occur when the driver enters/commits to the qualifying pit visit or when the tyre-service stop itself begins. That choice changes what timing the prediction means and is therefore Product Owner-reserved.
 
 ### 3. "Next" is ordered by event occurrence after the prediction instant
 
-For an eligible observation at prediction instant `T`, the **next relevant pit event** is the earliest relevant event for the same driver entry and race session whose event occurrence is demonstrably **strictly after** `T`.
+For an eligible observation at prediction instant `T`, the **next relevant pit event** is the earliest qualifying tyre-service pit event for the same driver entry and race session whose approved event occurrence is demonstrably **strictly after** `T`.
 
 Consequences:
 
 - "Next" is defined by race-event occurrence ordering, not by dataframe row order, minimum later lap number, provider record order, or legacy label shifting.
-- An event that has already occurred by `T` is not the target for that observation even if its record or confirmation becomes available only later.
-- An event already in progress at `T` is not a future event merely because the visit or service finishes after `T`; the next target, if any, is the next distinct relevant event that starts after `T`.
+- An event whose approved occurrence has already happened by `T` is not the target for that observation even if its record or confirmation becomes available only later.
+- An event already in progress at `T` under the approved occurrence anchor is not a future event merely because later phases of the visit finish after `T`; the next target, if any, is the next distinct qualifying event after `T`.
 - If more than one qualifying event can occur within the same official race lap, the earliest qualifying occurrence after `T` is the target. Shared lap identity does not collapse multiple visits into one event.
-- If ordering between `T` and a candidate event cannot be established from the eventual evidence, later data/verification work must treat the relation conservatively rather than assume the event is future.
+- If ordering between `T` and a candidate event cannot be established from eventual evidence, later data/verification work must treat the relation conservatively rather than assume the event is future.
 
-The future-event relation uses eventual event occurrence truth to construct the target. It does **not** grant the prediction access to that future truth at `T`.
+The future-event relation uses eventual event truth to construct the target. It does **not** grant the prediction access to that future truth at `T`.
 
 ### 4. Target lifecycle
 
@@ -103,8 +115,8 @@ For one eligible prediction-target pair:
 
 1. **Open:** the target episode opens at the observation's prediction instant `T`.
 2. **At risk:** while the driver entry remains within the race-participation scope and no later relevant event has yet occurred, the target remains open.
-3. **Observed event:** if a relevant event occurs strictly after `T` before the target reaches a terminal boundary, the earliest such event closes the target as an observed next-pit event.
-4. **Terminal no-event / domain censoring:** if the driver entry reaches its terminal race-participation boundary, or the race session reaches its terminal boundary for that entry, without a later relevant event, the timing target closes without an observed event. Semantically, no later relevant pit event occurred within the remaining race scope. This is the canonical domain-level no-event/censoring outcome; later statistical encoding is not fixed here.
+3. **Observed event:** if a relevant tyre-service pit event occurs strictly after `T` before the target reaches a terminal boundary, the earliest such event closes the target as an observed next-pit event.
+4. **Terminal no-event / domain censoring:** if the driver entry reaches its terminal race-participation boundary, or the race session reaches its terminal boundary for that entry, without a later relevant event, the timing target closes without an observed event. Semantically, no later relevant tyre-service pit event occurred within the remaining race scope. This is the canonical domain-level no-event/censoring outcome; later statistical encoding is not fixed here.
 5. **Truncated / non-observable follow-up:** if the available historical evidence ends or becomes insufficient before either an observed event or a defensible terminal boundary can be established, the pair is truncated/indeterminate rather than being silently treated as a normal no-event outcome.
 
 Once closed, a target episode is not reopened by later corrections to unrelated race facts. If later evidence changes whether the event itself occurred or whether a terminal boundary was correctly reconstructed, data/verification must resolve that target truth under an explicit reconstruction policy; it must not alter the earlier observation state.
@@ -115,10 +127,10 @@ A canonical race observation is **target-eligible** only when all of the followi
 
 1. the observation is valid under `contexts/RACE_OBSERVATION_STATE.md` for one identifiable race session and driver entry;
 2. the selected driver entry has not already reached a terminal race-participation state by `T`;
-3. there remains race progression in which a later relevant pit event could semantically occur for that entry; and
+3. there remains race progression in which a later relevant tyre-service pit event could semantically occur for that entry; and
 4. the prediction-target relation can be anchored to `T` without requiring future information to alter the observation itself.
 
-Eligibility is about whether the target question "what is this driver's next relevant pit event after now?" is meaningful at that observation. It does not require knowing at `T` that a future event will occur.
+Eligibility is about whether the target question "what is this driver's next relevant tyre-service pit event after now?" is meaningful at that observation. It does not require knowing at `T` that a future event will occur.
 
 Therefore:
 
@@ -134,11 +146,11 @@ The target stops following a driver entry when that entry's participation has re
 
 Examples include a completed race/finish for that entry, definitive retirement/withdrawal from further race participation, or another race-status outcome that makes later participation impossible. Exact provider status values, classification codes, or reconstruction rules are later data/design concerns.
 
-If a qualifying relevant pit event occurs before or as part of the sequence that leads to retirement, the event is observed if and only if it satisfies the approved event definition and its occurrence is after `T`. Retirement does not erase an already-observed qualifying event.
+If a qualifying tyre-service pit event occurs before or as part of the sequence that leads to retirement, the event is observed if and only if it satisfies the approved event definition and its approved occurrence is after `T`. Retirement does not erase an already-observed qualifying event.
 
 ### 7. End of race and no future pit
 
-If the race or the selected driver's participation ends without another relevant pit event after `T`, the target has a **known race-bounded no-event outcome**: no next relevant pit event occurred before the semantic target boundary.
+If the race or the selected driver's participation ends without another relevant tyre-service pit event after `T`, the target has a **known race-bounded no-event outcome**: no next relevant event occurred before the semantic target boundary.
 
 At this semantic level, that outcome is called **terminal no-event / domain censoring** because the next-event timing is unobserved within the finite race follow-up. This terminology does not force later modeling to use a particular censoring variable, survival formulation, infinite time, extra class, or output bin.
 
@@ -151,7 +163,7 @@ A pair is **truncated/indeterminate** when the historical evidence is insufficie
 - the next relevant event after `T`, or
 - a defensible terminal boundary proving that no such event occurred within the remaining race scope.
 
-Examples can include missing event coverage, incomplete race records, unresolved ordering around `T`, or an evidence gap that prevents determining whether a candidate pit visit qualifies under the approved event definition.
+Examples can include missing event coverage, incomplete race records, unresolved ordering around `T`, or an evidence gap that prevents determining whether a candidate pit visit included tyre service.
 
 Truncation is an evidence/reconstruction failure, not a semantic negative. Later data/verification work may define exclusion, conservative handling, or validation requirements, but it must not silently convert indeterminate follow-up into a no-event target.
 
@@ -170,25 +182,27 @@ Conversely, later event truth must not be used to alter:
 
 ### 10. Edge-case rules at semantic level
 
-Subject to the approved event definition:
-
-- **Multiple stops:** the first distinct relevant event strictly after `T` is the target; later stops belong to later target episodes from later eligible observations.
-- **Same-lap stops:** lap equality does not determine event equality or ordering; occurrence ordering governs.
-- **Pit event already underway at `T`:** it is not the future target; only a later distinct relevant event can be next.
-- **Safety-car, VSC, red-flag, weather, damage, or penalty context:** motive does not by itself change event identity. A visit counts or does not count according to the approved event definition, not whether it was strategically planned.
-- **Retirement after a qualifying stop:** the qualifying event remains the observed target if it occurred first after `T`.
-- **Retirement without a later qualifying stop:** close at the driver's terminal boundary as terminal no-event/domain censoring.
-- **Race finish without a later qualifying stop:** close at the applicable terminal boundary as terminal no-event/domain censoring.
+- **Multiple qualifying tyre stops:** the first distinct qualifying event strictly after `T` is the target; later stops belong to later target episodes from later eligible observations.
+- **Same-lap qualifying stops:** lap equality does not determine event equality or ordering; approved event occurrence ordering governs.
+- **Qualifying visit already underway at `T`:** whether it is already the past event or remains future depends on the approved occurrence anchor; the anchor must make this unambiguous before approval.
+- **Mixed-service stop:** a stop with tyre service plus repairs, adjustments, or a stationary penalty qualifies.
+- **Repair-only or penalty-only stop:** does not qualify without tyre service; target follow-up remains open if race participation continues.
+- **Drive-through/pass-through:** does not qualify; target follow-up remains open if race participation continues.
+- **Safety-car, VSC, red-flag, weather, damage, or penalty context:** motive does not by itself change event identity; tyre service is the qualifying criterion.
+- **Retirement after a qualifying tyre stop:** the qualifying event remains the observed target if its approved occurrence was first after `T`.
+- **Retirement without a later qualifying tyre stop:** close at the driver's terminal boundary as terminal no-event/domain censoring.
+- **Race finish without a later qualifying tyre stop:** close at the applicable terminal boundary as terminal no-event/domain censoring.
 - **Post-finish/post-retirement garage movement:** outside the race target scope once participation is terminal.
-- **Ambiguous event classification or ordering:** truncated/indeterminate until a later approved data/verification policy can establish defensible truth; do not guess for semantic convenience.
+- **Ambiguous tyre-service classification or temporal ordering:** truncated/indeterminate until a later approved data/verification policy can establish defensible truth; do not guess for semantic convenience.
 
 ### 11. Downstream event/target contract
 
 Prediction Output / Replay and Evaluation / Backtesting must consume the following canonical contract:
 
 - Every target attaches to one approved driver-specific observation and its prediction instant `T`.
-- The target asks for the first relevant V2 pit event for the same driver entry and race session occurring strictly after `T`.
-- "Next" is determined by event occurrence ordering, not implementation row/lap convenience.
+- A relevant V2 pit event is a race pit visit in which one or more fitted race tyres are changed; pit visits without tyre service are excluded.
+- The target asks for the first relevant event for the same driver entry and race session whose approved occurrence is strictly after `T`.
+- "Next" is determined by approved event occurrence ordering, not implementation row/lap convenience.
 - Eligibility is determined at the semantic observation boundary and does not depend on whether a future event later occurs.
 - A later qualifying event closes the target as observed.
 - End of driver participation or race scope without a later qualifying event closes the target as terminal no-event/domain censoring.
@@ -202,33 +216,34 @@ Consumers may refine only their owned representation/evaluation questions; they 
 
 | Question | Classification | Owner / next artifact | Status |
 | --- | --- | --- | --- |
-| What materially counts as the V2 pit event (qualifying service visit versus materially different alternatives)? | Current-scope decision — Product Owner reserved | Product Owner / this artifact + durable decision record | **Blocking — approval requested** |
+| What pit visits qualify as the V2 event? | Current-scope decision — Product Owner reserved | Product Owner / `decisions/2026-09-08-v2-pit-event-scope.md` | **Satisfied — tyre-service-only scope approved** |
+| What semantic instant within a qualifying tyre-service visit is the event occurrence anchor? | Current-scope decision — Product Owner reserved | Product Owner / this artifact + durable decision record | **Blocking — approval required before review** |
 | What exact future horizon/window/probability representation is emitted, including representation beyond race end? | Cross-slice dependency | Prediction Output / Replay Semantics | Unresolved here by design |
 | How are observed, terminal no-event/censored, and truncated pairs scored, weighted, sampled, or aggregated? | Cross-slice dependency | Evaluation / Backtesting | Unresolved here by design |
-| Which provider fields/events prove a qualifying pit visit, event occurrence time, terminal state, or ordering around `T`? | Later-phase decision | Data/design + verification | Deferred; must implement this contract without changing it |
+| Which provider fields/events prove tyre service, event occurrence time, terminal state, or ordering around `T`? | Later-phase decision | Data/design + verification | Deferred; must implement this contract without changing it |
 | How are terminal no-event/censoring and truncation represented in concrete labels/tables/tensors? | Later-phase decision | Data/model design | Deferred |
 | What conservative policy applies when provider history cannot establish event classification or temporal ordering? | Later-phase decision | Data/design + verification | Deferred; may exclude/mark indeterminate but may not invent target truth |
 | What model family, hazard/survival/regression/classification formulation, features, schemas, APIs, storage, or runtime implements the target? | Later-phase decision | Architecture / model / implementation | Deferred |
 
-No other unresolved Current-scope decision is presently identified. The event-definition row must be resolved and persisted before this artifact can enter independent review as semantically complete.
+No other unresolved Current-scope decision is presently identified.
 
 ## Acceptance criteria
 
-- [ ] The relevant pit event is defined unambiguously enough to determine whether an event occurred for a driver. **Blocked on Product Owner decision.**
-- [x] "Next pit" is defined relative to the canonical prediction point rather than by implementation convenience.
+- [ ] The relevant pit event is defined unambiguously enough to determine whether an event occurred for a driver. **Qualification is approved; occurrence anchor remains blocking.**
+- [x] "Next pit" is defined relative to the canonical prediction point rather than by implementation convenience, subject only to the remaining occurrence-anchor decision.
 - [x] Eligibility for a prediction-target pair is explicit at semantic level.
 - [x] Censoring/truncation/end-of-race and no-future-event cases have coherent domain semantics.
 - [x] Event/target semantics do not rely on future information being available at the prediction point.
 - [x] The target meaning is independent of any chosen dataset encoding or model formulation.
-- [x] Prediction Output / Replay and Evaluation / Backtesting receive one canonical event/target contract.
+- [x] Prediction Output / Replay and Evaluation / Backtesting receive one canonical event/target contract, with the occurrence anchor still to be locked before approval.
 - [x] Observation timing, output representation, metrics, schemas, features, architecture, and implementation remain outside scope.
 - [x] Every unresolved question is classified as Current-scope, Cross-slice, or Later-phase.
-- [ ] Any human-reserved change to the material meaning of the predicted event is escalated under `governance/USER_INTERACTION.md` and persisted only after approval. **Escalation pending Product Owner response; no semantic decision has been persisted as approved.**
+- [x] The Product Owner-reserved tyre-service-only event-scope decision was escalated and persisted only after approval; the remaining occurrence-anchor decision is likewise being withheld from normative status pending Product Owner approval.
 - [ ] Required independent review is completed before approval.
 
 ## Review record
 
-- Full scoped review: pending; do not request until the Product Owner-reserved event definition is resolved and persisted.
+- Full scoped review: pending; do not request until the Product Owner-reserved event occurrence anchor is resolved and persisted.
 - Rework: pending / not yet applicable.
 - Bounded re-review: pending / not yet applicable.
 - Approval evidence: pending.
