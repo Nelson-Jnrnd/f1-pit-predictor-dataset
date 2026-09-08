@@ -4,6 +4,8 @@
 
 Draft | In review | Approved | Changes required | Blocked
 
+`Approved` may be set only after the required independent review has an explicit passing outcome for the current artifact state. The author may not self-approve. Record the reviewer and GitHub review/PR reference below; Product Owner approval is additionally required only for Product Owner-reserved decisions.
+
 ## Abstraction level
 
 <Wave / phase and level owned by this slice>
@@ -52,6 +54,7 @@ This slice does not own:
 
 ## Review record
 
-- Full scoped review: <pending / result + reference>
+- Full scoped review: <pending / result + reviewer + GitHub reference>
 - Rework: <pending / summary>
-- Bounded re-review: <pending / result + reference>
+- Bounded re-review: <pending / result + reviewer + GitHub reference>
+- Approval evidence: <passing review/re-review reference or pending>
