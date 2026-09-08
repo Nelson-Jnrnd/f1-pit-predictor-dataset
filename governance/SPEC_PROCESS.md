@@ -98,14 +98,16 @@ Use short-lived branches from `main`, for example:
 
 Merge through pull requests. Do not use the thesis branches as V2 integration branches.
 
-## Historical thesis branches
+## Historical thesis material
 
-`main`, `training_rf`, `training_svm`, and `cleaning` are historical evidence/source material for the thesis-era work. During specification work:
+`main` is the evolving V2 integration branch. Thesis-era artifacts and commits that predate the V2 bootstrap and remain reachable from `main` are historical evidence/source material, not V2 semantic authority. The separate branches `training_rf`, `training_svm`, and `cleaning` remain historical thesis branches.
 
-- inspect them as evidence when a task requires it;
+During specification work:
+
+- inspect thesis-era artifacts/commits and the historical branches as evidence when a task requires it;
 - cite or summarize relevant findings in `legacy/` or the owning specification;
-- do not merge them together;
-- do not rewrite/delete historical code or notebooks;
+- do not merge the historical branches together or use them as V2 integration branches;
+- do not rewrite/delete thesis-era code, notebooks, or historical commits merely to establish V2 specifications;
 - do not treat legacy behavior as authoritative V2 semantics.
 
 ## Semantic locks
