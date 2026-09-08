@@ -2,15 +2,19 @@
 
 ## Status
 
-Blocked — Product Owner direction required before this artifact can become normative.
+Draft — Product Owner direction approved on 2026-09-08; pending independent review.
 
 ## Abstraction level
 
 Wave 0 — product / research direction.
 
+## Durable direction
+
+See `decisions/2026-09-08-v2-project-direction.md`.
+
 ## Concise project statement
 
-**Proposed, pending Product Owner approval:** continue the thesis-era F1 pit-prediction work by estimating when a driver's next pit stop is likely to occur from information legitimately available at a declared race moment, producing a pit-window style prediction for replay/evaluation rather than prescribing an optimal strategy.
+Continue the thesis-era F1 pit-prediction work by estimating when a driver's next pit stop is likely to occur from information legitimately available at a declared race moment, producing a pit-window style prediction for replay/evaluation rather than prescribing an optimal strategy.
 
 ## Why this project exists
 
@@ -36,7 +40,7 @@ Historical evidence references:
 
 ## Value V2 should add
 
-Subject to Product Owner approval of the proposed direction, V2 should add:
+V2 should add:
 
 1. a prediction outcome that communicates likely pit timing over more than a single binary instant;
 2. explicit point-in-time information rules so replay predictions are causally legitimate;
@@ -52,19 +56,19 @@ The value is not tied to a particular model family, feature set, library, API, d
 
 ## User-facing outcome
 
-**Proposed, pending Product Owner approval:** the first user-facing outcome is a historical race replay/backtesting experience in which a point-in-time race state can be associated with a pit-window prediction for a driver and compared with what subsequently happened.
+The first user-facing outcome is a historical race replay/backtesting experience in which a point-in-time race state can be associated with a pit-window prediction for a driver and compared with what subsequently happened.
 
 Live inference is a possible later extension, not an initial product commitment.
 
 ## Explicit boundary
 
-**Proposed, pending Product Owner approval:** V2 predicts what a team/driver is likely to do. It does not recommend what they should do and does not optimize race strategy.
+V2 predicts what a team/driver is likely to do. It does not recommend what they should do and does not optimize race strategy.
 
 ## Unknown routing
 
 | Question | Classification | Owner / next artifact | Status |
 | --- | --- | --- | --- |
-| Approve the proposed V2 objective, predictive-vs-prescriptive boundary, and historical-replay-first ambition | Current-scope | Product Owner | Blocking |
+| V2 objective, predictive-vs-prescriptive boundary, and historical-replay-first ambition | Current-scope | Product Owner | Satisfied — `decisions/2026-09-08-v2-project-direction.md` |
 | Exact observation moment and information available then | Cross-slice | Race Observation / State | Wave 1 |
 | Exact pit-event identity, target construction, and censoring | Cross-slice | Pit Event / Target Semantics | Wave 1 |
 | Exact pit-window / uncertainty representation and prediction horizon | Cross-slice | Prediction Output / Replay Semantics | Wave 1 |
@@ -73,6 +77,7 @@ Live inference is a possible later extension, not an initial product commitment.
 
 ## Acceptance state
 
-- Project direction: pending Product Owner approval.
+- Project direction: approved by Product Owner on 2026-09-08 and persisted in the durable decision record.
 - Thesis continuity: established at Wave 0 level.
+- Independent Wave 0 review: pending.
 - No technical implementation choices are frozen here.

@@ -2,15 +2,17 @@
 
 ## Status
 
-Blocked — Product Owner direction required for the proposed primary problem.
+Draft — Product Owner direction approved on 2026-09-08; pending independent review.
 
 ## Abstraction level
 
 Wave 0 — product / research direction. This file defines what is being predicted conceptually, not its statistical formulation.
 
-## Primary problem
+## Durable direction
 
-**Proposed, pending Product Owner approval:**
+See `decisions/2026-09-08-v2-project-direction.md`.
+
+## Primary problem
 
 Given the race information legitimately available at a declared prediction moment for a driver, estimate when that driver's next pit stop is likely to occur, expressed conceptually as a pit window / likelihood over future race progression.
 
@@ -38,7 +40,7 @@ Recommendation asks: **What should the team/driver do to improve an objective su
 
 That requires counterfactual assumptions, objective functions, action alternatives, and optimization semantics that are materially different from behavior prediction.
 
-**Proposed V2 boundary:** recommendation/optimization is not part of the core V2 prediction problem.
+**V2 boundary:** recommendation/optimization is not part of the core V2 prediction problem.
 
 ## Point-in-time correctness principle
 
@@ -75,8 +77,8 @@ These are research motivations, not commitments to specific metrics or algorithm
 
 | Question | Classification | Owner / next artifact | Status |
 | --- | --- | --- | --- |
-| Approve pit-window-style next-pit timing prediction as the primary V2 objective | Current-scope | Product Owner | Blocking |
-| Approve prediction rather than strategy recommendation/optimization as the core intent | Current-scope | Product Owner | Blocking |
+| Pit-window-style next-pit timing prediction as the primary V2 objective | Current-scope | Product Owner | Satisfied — `decisions/2026-09-08-v2-project-direction.md` |
+| Prediction rather than strategy recommendation/optimization as the core intent | Current-scope | Product Owner | Satisfied — `decisions/2026-09-08-v2-project-direction.md` |
 | Define the legal prediction moment and information boundary | Cross-slice | Race Observation / State | Wave 1 |
 | Define the pit event, target relation, and censoring semantics | Cross-slice | Pit Event / Target Semantics | Wave 1 |
 | Define exact output semantics, uncertainty representation, and horizon | Cross-slice | Prediction Output / Replay Semantics | Wave 1 |

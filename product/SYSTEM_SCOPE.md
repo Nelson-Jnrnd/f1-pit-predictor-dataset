@@ -2,15 +2,17 @@
 
 ## Status
 
-Blocked — core scope depends on Product Owner approval of the proposed project direction.
+Draft — Product Owner direction approved on 2026-09-08; pending independent review.
 
 ## Abstraction level
 
 Wave 0 — product / research scope. This file does not define architecture or implementation.
 
-## Core scope
+## Durable direction
 
-**Proposed, pending Product Owner approval:**
+See `decisions/2026-09-08-v2-project-direction.md`.
+
+## Core scope
 
 V2 core scope is a leakage-aware F1 pit-timing prediction project that:
 
@@ -22,7 +24,7 @@ V2 core scope is a leakage-aware F1 pit-timing prediction project that:
 
 ## Initial user ambition
 
-**Proposed:** historical race replay/backtesting is the first consumption mode.
+Historical race replay/backtesting is the first consumption mode.
 
 The project should be able to reconstruct a historical prediction point, show or expose the prediction associated with that state, and evaluate it against subsequent race events. This statement does not define a UI.
 
@@ -83,8 +85,8 @@ Exact data-availability semantics are delegated to the Race Observation / State 
 
 | Question | Classification | Owner / next artifact | Status |
 | --- | --- | --- | --- |
-| Core V2 scope and prediction-vs-optimization boundary | Current-scope | Product Owner | Blocking |
-| Historical replay first, live later | Current-scope | Product Owner | Blocking |
+| Core V2 scope and prediction-vs-optimization boundary | Current-scope | Product Owner | Satisfied — `decisions/2026-09-08-v2-project-direction.md` |
+| Historical replay first, live later | Current-scope | Product Owner | Satisfied — `decisions/2026-09-08-v2-project-direction.md` |
 | Exact state available at a prediction point | Cross-slice | Race Observation / State | Wave 1 |
 | Exact event/target/censoring scope | Cross-slice | Pit Event / Target Semantics | Wave 1 |
 | Exact replay/output contract | Cross-slice | Prediction Output / Replay Semantics | Wave 1 |

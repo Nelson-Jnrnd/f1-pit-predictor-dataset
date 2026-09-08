@@ -2,7 +2,7 @@
 
 ## Status
 
-Draft — structurally usable for Wave 1 planning; final Wave 0 approval remains blocked by the Product Owner direction recorded in the product artifacts.
+Draft — Product Owner direction approved on 2026-09-08; ready for Wave 0 independent review.
 
 ## Abstraction level
 
@@ -58,7 +58,7 @@ Consumes the Race Observation / State contract rather than redefining prediction
 Owns:
 
 - what a V2 prediction communicates to a consumer;
-- conceptual pit-window / future-lap likelihood semantics after Product Owner direction is approved;
+- conceptual pit-window / future-lap likelihood semantics within the approved V2 direction;
 - replay interpretation and update semantics;
 - relationship between output and the target/event contract.
 
@@ -129,13 +129,13 @@ Dotted edges carry historical evidence, not semantic authority.
 
 ## Wave 1 launch shape
 
-Once Wave 0 is approved, the five slices above can be issued as bounded work packages. Legacy evidence may proceed independently. Race Observation / State should establish the first semantic contract needed by the other prediction slices. Pit Event / Target may analyze its internal concepts in parallel where they do not depend on unresolved observation timing. Output and Evaluation must not invent missing upstream semantics.
+Once Wave 0 is approved through independent review and merged, the five slices above can be issued as bounded work packages. Legacy evidence may proceed independently. Race Observation / State should establish the first semantic contract needed by the other prediction slices. Pit Event / Target may analyze its internal concepts in parallel where they do not depend on unresolved observation timing. Output and Evaluation must not invent missing upstream semantics.
 
 ## Unknown routing
 
 | Question | Classification | Owner / next artifact | Status |
 | --- | --- | --- | --- |
-| Whether the proposed project direction is approved | Current-scope | Product Owner / Wave 0 product artifacts | Blocking Wave 0 approval |
+| Approved project direction | Current-scope | Product Owner / Wave 0 product artifacts | Satisfied — `decisions/2026-09-08-v2-project-direction.md` |
 | Exact observation timing/information | Cross-slice | Race Observation / State | Wave 1 |
 | Exact target/censoring | Cross-slice | Pit Event / Target Semantics | Wave 1 |
 | Exact pit-window representation/horizon | Cross-slice | Prediction Output / Replay Semantics | Wave 1 |
