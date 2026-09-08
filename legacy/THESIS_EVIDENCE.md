@@ -1,6 +1,6 @@
 # Legacy thesis evidence
 
-Status: **Rework complete — awaiting bounded re-review**  
+Status: **Approved — bounded re-review passed on PR #10**  
 Owner: Wave 1 issue #4 — factual legacy evidence only
 
 This document records what the repository shows about the thesis-era pit-prediction work. It is an evidence baseline for V2 specification work, not V2 semantic authority. Nothing here defines the V2 observation point, pit event, target, output, horizon, evaluation protocol, feature set, model, or architecture.
@@ -93,8 +93,10 @@ There is no Product Owner decision required by this evidence slice. Any later V2
 
 ## Review record
 
-- **Full scoped review:** PR #10 review `pullrequestreview-5140919429` on head `281ad8479dbd4f010c8c35897eb02516e05c7028` — **REWORK REQUIRED**.
+- **Status:** Approved
 - **Reviewer:** Independent scoped reviewer; GitHub review recorded by `Nelson-Jnrnd`.
-- **Findings:** one Major (shifted-target ordering overstated) and one Minor (selection filters described too broadly).
-- **Rework:** both findings addressed in the current branch state by describing the pre-filter shift ordering and the exact driver-race filtering heuristics.
-- **Current gate:** bounded re-review required before this artifact may transition to `Approved`.
+- **Full scoped review:** PR #10 review `pullrequestreview-5140919429` on head `281ad8479dbd4f010c8c35897eb02516e05c7028` — **REWORK REQUIRED**; one Major and one Minor finding.
+- **Rework:** both findings addressed on head `78eea6d96a2b52b97ff4f235742806817f19d6e8` by describing the pre-filter shift ordering and exact driver-race filtering heuristics.
+- **Bounded re-review:** PR #10 review `pullrequestreview-5141211663` on head `78eea6d96a2b52b97ff4f235742806817f19d6e8` — **PASS**.
+- **Review date:** 2026-09-08
+- **Findings after re-review:** No Blocking, Major, or Minor findings remain.
