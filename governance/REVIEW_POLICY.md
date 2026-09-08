@@ -12,6 +12,14 @@ Review an artifact against its declared scope, abstraction level, acceptance cri
 
 The bounded re-review is not a fresh unlimited red-team pass.
 
+## Approval state
+
+An author may not approve their own substantive artifact.
+
+A slice may transition to `Approved` only when the required independent review has an explicit passing outcome for the current artifact state. If rework was required, that passing outcome must come from the bounded re-review rather than the earlier review.
+
+The artifact's review record must identify the reviewer and the GitHub review/PR reference that provides the passing outcome. Product Owner approval is additionally required only for decisions reserved to the Product Owner under `governance/DECISION_BOUNDARIES.md`; routine delegated specification work does not require a separate Product Owner approval step.
+
 ## Finding severity
 
 ### Blocking
