@@ -2,7 +2,7 @@
 
 ## Status
 
-In review — Product Owner approved the complete material event meaning in `decisions/2026-09-08-v2-pit-event-scope.md`: tyre-service-only qualification with occurrence anchored to pit-lane entry. The semantic slice is complete at its declared abstraction level and awaits the required independent scoped review.
+Approved — the complete material event meaning is persisted in `decisions/2026-09-08-v2-pit-event-scope.md`: tyre-service-only qualification with occurrence anchored to pit-lane entry. The required full independent scoped review passed on PR #11 with no Blocking, Major, or Minor findings.
 
 ## Abstraction level
 
@@ -242,11 +242,12 @@ There are no unresolved Current-scope decisions in this slice.
 - [x] Observation timing, output representation, metrics, schemas, features, architecture, and implementation remain outside scope.
 - [x] Every unresolved question is classified as Current-scope, Cross-slice, or Later-phase.
 - [x] Human-reserved changes to the material meaning of the predicted event were escalated under `governance/USER_INTERACTION.md` and persisted only after Product Owner approval in `decisions/2026-09-08-v2-pit-event-scope.md`.
-- [ ] Required independent review is completed before approval.
+- [x] Required independent review is completed before approval.
 
 ## Review record
 
-- Full scoped review: pending — artifact is ready for the required independent scoped review on PR #11.
-- Rework: pending / not yet applicable.
-- Bounded re-review: pending / not yet applicable.
-- Approval evidence: pending.
+- Full scoped review: **PASS** on reviewed head `4fc50c6f2895f636f2f4494bb0aa4f906ffea23e`, recorded on PR #11 on 2026-09-08. Review found no Blocking, Major, or Minor findings.
+- Reviewer reference: independent scoped review recorded in GitHub review `PRR_kwDOJBBaD88AAAABMoKQAw` / PR review comment `#5142384643`.
+- Rework: none required.
+- Bounded re-review: not applicable.
+- Approval evidence: passing full scoped review on the reviewed semantics. This commit changes review metadata/traceability only, as explicitly permitted by the passing review; it does not alter the reviewed semantics.
