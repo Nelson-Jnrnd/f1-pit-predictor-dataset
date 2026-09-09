@@ -2,7 +2,7 @@
 
 ## Status
 
-In review
+Approved — full independent scoped review passed on PR #13 with no Blocking, Major, or Minor findings.
 
 ## Abstraction level
 
@@ -167,7 +167,6 @@ A backtest must therefore preserve both **prediction-episode identity** and **ev
 ### 9. Repeated within-race forecasts must not be mistaken for independent races
 
 Although each eligible prediction-target pair is an atomic evaluation unit, many such units can be strongly related because they come from the same driver, race, and evolving event trajectory.
-
 A valid backtest claim must state the evaluation population and grouping/aggregation level clearly enough that repeated checkpoints cannot silently dominate the interpretation. In particular:
 
 - reporting every checkpoint is semantically valid when the claim concerns per-checkpoint forecast quality;
@@ -279,11 +278,11 @@ There are no unresolved Current-scope decisions in this slice and no Product Own
 - [x] Exact metrics, split algorithms, models, features, schemas, architecture, and implementation remain outside scope.
 - [x] Every unresolved question is classified as Current-scope, Cross-slice, or Later-phase; no unresolved Current-scope question remains.
 - [x] No human-reserved change to the intended replay/evaluation ambition is required; approved Product Owner semantics are preserved.
-- [ ] Required independent review is completed before approval.
+- [x] Required independent review is completed before approval.
 
 ## Review record
 
-- Full scoped review: pending on the Issue #8 review PR.
-- Rework: pending review outcome.
-- Bounded re-review: not applicable unless substantive rework is required.
-- Approval evidence: pending a passing independent review for the current artifact state.
+- Full scoped review: **PASS** — independent scoped reviewer; GitHub review recorded by `Nelson-Jnrnd` on PR #13, review `pullrequestreview-5154583807`, against head `f134d0ef666938d6d4b6b836e3a8e14263c18fa6` on 2026-09-09. No Blocking, Major, or Minor findings.
+- Rework: none required; only review metadata/traceability was updated after the passing review, as explicitly requested by the reviewer.
+- Bounded re-review: not applicable because no substantive rework was required.
+- Approval evidence: passing PR #13 review `pullrequestreview-5154583807`; artifact transitioned to `Approved` without semantic changes.
