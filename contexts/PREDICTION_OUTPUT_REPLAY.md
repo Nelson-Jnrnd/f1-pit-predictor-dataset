@@ -2,7 +2,7 @@
 
 ## Status
 
-In review — the full scoped review on PR #12 found one Blocking target-lifecycle ownership conflict and no other Blocking, Major, or Minor findings. The bounded rework below aligns successive-prediction semantics with `contexts/PIT_EVENT_TARGET.md`; the slice now awaits the required bounded re-review.
+Approved
 
 ## Abstraction level
 
@@ -220,11 +220,11 @@ There are no unresolved Current-scope decisions in this slice.
 - [x] Observation timing, event/censoring meaning, metrics, models, features, schemas, architecture, UI technology, and implementation remain outside scope.
 - [x] Every unresolved question is classified as Current-scope, Cross-slice, or Later-phase.
 - [x] The human-reserved prediction-semantics choice was escalated under `governance/USER_INTERACTION.md`, approved by the Product Owner, and persisted in `decisions/2026-09-09-v2-prediction-output-semantics.md` before being made normative here.
-- [ ] Required independent review is completed before approval.
+- [x] Required independent review is completed before approval.
 
 ## Review record
 
 - Full scoped review: **FAIL — rework required** on PR #12, review `PRR_kwDOJBBaD88AAAABMx5WHg` / `pullrequestreview-5152593438`, submitted 2026-09-09. One Blocking finding: successive predictions were incorrectly described as sharing the same target episode, conflicting with the approved per-observation target lifecycle in `contexts/PIT_EVENT_TARGET.md`. No other Blocking, Major, or Minor findings were identified.
 - Rework: completed — §5 and the downstream Evaluation / Backtesting contract now state that every eligible observation has a distinct prediction-target episode; successive predictions may nevertheless resolve to the same eventual next qualifying event when no qualifying event occurs between their prediction instants. Related ownership wording was tightened without changing Product Owner-approved output semantics.
-- Bounded re-review: pending on PR #12; scope is the prior Blocking finding, regressions caused by this rework, and the original acceptance criteria.
-- Approval evidence: pending a passing bounded re-review as required by `governance/REVIEW_POLICY.md`.
+- Bounded re-review: **PASS** on PR #12, review `pullrequestreview-5153070390`, against head `38dca7c22a690b320d3e21342404fae50b115cf3` on 2026-09-09. The prior Blocking finding is resolved; no regressions or remaining Blocking, Major, or Minor findings were identified, and the original Issue #7 acceptance criteria remain satisfied.
+- Approval evidence: passing bounded re-review `pullrequestreview-5153070390`; artifact transitioned to `Approved` without semantic changes.
