@@ -2,7 +2,7 @@
 
 ## Status
 
-In review — the Product Owner approved the remaining-race probability-distribution semantics on 2026-09-09 and the decision is persisted in `decisions/2026-09-09-v2-prediction-output-semantics.md`. The semantic slice is complete at its declared abstraction level and awaits the required independent scoped review on PR #12.
+In review — the full scoped review on PR #12 found one Blocking target-lifecycle ownership conflict and no other Blocking, Major, or Minor findings. The bounded rework below aligns successive-prediction semantics with `contexts/PIT_EVENT_TARGET.md`; the slice now awaits the required bounded re-review.
 
 ## Abstraction level
 
@@ -41,7 +41,7 @@ Define what one V2 next-pit prediction means to a consumer and how successive po
 - `product/SYSTEM_SCOPE.md` — live inference and recommendation/optimization are outside the initial core.
 - `contexts/CONTEXT_MAP.md` — this slice owns prediction-output meaning and replay/update semantics and provides the canonical output contract to Evaluation / Backtesting.
 - `contexts/RACE_OBSERVATION_STATE.md` — every prediction attaches to one canonical driver-specific observation and prediction instant `T`; information legitimacy is fixed by that observation, and later knowledge never retroactively changes it.
-- `contexts/PIT_EVENT_TARGET.md` — the target is the first qualifying tyre-service pit event for the same driver entry and race session whose pit-lane-entry occurrence is strictly after `T`; terminal no-event/domain censoring and truncation/indeterminate follow-up retain their canonical target meanings.
+- `contexts/PIT_EVENT_TARGET.md` — each eligible observation forms its own prediction-target pair and target episode; its target is the first qualifying tyre-service pit event for the same driver entry and race session whose pit-lane-entry occurrence is strictly after that observation's `T`; terminal no-event/domain censoring and truncation/indeterminate follow-up retain their canonical target meanings.
 - `decisions/2026-09-08-v2-pit-event-scope.md` — qualifying events require tyre service and occur semantically at pit-lane entry.
 - `legacy/THESIS_EVIDENCE.md`, when useful — historical baseline evidence only; legacy next-lap binary behavior is not V2 semantic authority.
 
@@ -59,7 +59,7 @@ This slice owns:
 This slice does not own:
 
 - observation timing or legitimate-information rules;
-- pit-event identity, target eligibility, terminal boundaries, censoring, or truncation;
+- pit-event identity, target eligibility, target lifecycle, terminal boundaries, censoring, or truncation;
 - evaluation metrics or scoring;
 - mathematical/statistical parameterization or technical representation;
 - model, feature, schema, API, UI, architecture, persistence, or implementation choices.
@@ -104,13 +104,15 @@ When replay advances to a later eligible prediction instant `T2`, the new predic
 
 Later corrections, event qualification, final race truth, or later model outputs may affect retrospective target reconstruction or evaluation under their owning policies, but they must not change what prediction was associated with the historical observation at `T1`.
 
-### 5. Successive predictions may or may not concern the same eventual event
+### 5. Successive predictions are distinct episodes but may concern the same eventual event
 
-Two successive predictions can be interpreted as updates about the same open target episode only when no qualifying pit event has occurred between their prediction instants and the later observation remains target-eligible.
+Each target-eligible canonical observation creates its own prediction-target pair and therefore its own target episode under `contexts/PIT_EVENT_TARGET.md`. A prediction at `T2` is never a continuation of the target episode opened by an earlier observation at `T1`, even when no qualifying pit event occurs between them.
 
-If a qualifying event occurs between them, the earlier target episode has closed. The later prediction begins from the later observation and refers to the next qualifying event after that later instant, if the target remains meaningful.
+When no qualifying pit event occurs between `T1` and `T2` and the later observation remains target-eligible, the two distinct prediction-target episodes may retrospectively resolve to the **same eventual next qualifying pit event**. In replay, the later prediction may therefore be understood as an updated current forecast about the same eventual race event, while the two predictions and their target episodes remain separate historical objects tied to separate observations.
 
-Replay or evaluation must therefore not assume that every adjacent prediction for a driver forecasts one fixed pit event across the whole race.
+If a qualifying event occurs between `T1` and `T2`, the earlier episode may close on that event, while the later prediction refers to the next distinct qualifying event after `T2`, if the target remains meaningful.
+
+Replay or evaluation must therefore distinguish event identity from target-episode identity: adjacent predictions can ultimately concern the same eventual event without sharing one target episode, and they must not be assumed to forecast one fixed pit event across the whole race.
 
 ### 6. Updating means new information, not historical revision
 
@@ -124,18 +126,18 @@ The contract does not require predictions to change monotonically, smoothly, or 
 
 Per `decisions/2026-09-09-v2-prediction-output-semantics.md`, one V2 prediction expresses a **probability distribution over the complete remaining semantic target scope**.
 
-For an eligible observation at `T`, the event-timing part of the distribution assigns probability to mutually exclusive future race-progression regions in which the canonical next relevant pit event may occur. These regions collectively represent possible timing locations for the first qualifying pit entry strictly after `T` while the target episode remains open.
+For an eligible observation at `T`, the event-timing part of the distribution assigns probability to mutually exclusive future race-progression regions in which the canonical next relevant pit event may occur. These regions collectively represent possible timing locations for the first qualifying pit entry strictly after `T` while that observation's target episode remains open.
 
 The exact region boundaries, number of regions, granularity, and whether the eventual statistical representation is discrete, continuous, or otherwise parameterized are not defined here. Whatever later representation is chosen must preserve the consumer-level meaning established by this slice.
 
 ### 8. Complete coverage and explicit terminal no-event probability
 
-Prediction coverage is not a fixed finite number of future laps. It extends across the complete remaining target scope defined by `contexts/PIT_EVENT_TARGET.md`: from prediction instant `T` until the target episode closes either by the next qualifying event or by the canonical terminal boundary for that driver entry/race scope.
+Prediction coverage is not a fixed finite number of future laps. It extends across the complete remaining target scope defined by `contexts/PIT_EVENT_TARGET.md`: from prediction instant `T` until that observation's target episode closes either by the next qualifying event or by the canonical terminal boundary for that driver entry/race scope.
 
 The output therefore includes two collectively exhaustive kinds of possibility:
 
 1. the first qualifying pit event occurs in one of the represented future race-progression timing regions; or
-2. no later qualifying event occurs before the target episode reaches its canonical terminal boundary.
+2. no later qualifying event occurs before that target episode reaches its canonical terminal boundary.
 
 The second possibility has explicit **terminal no-event probability**. At semantic level, the event-timing probability mass plus terminal no-event probability is normalized across the complete target question.
 
@@ -175,20 +177,21 @@ Exact field names, IDs, storage types, serialization, versioning mechanism, or A
 Evaluation / Backtesting must consume the following canonical prediction-output contract:
 
 - one prediction is attached to one target-eligible canonical observation and prediction instant;
-- the prediction concerns the canonical first qualifying tyre-service pit entry strictly after that instant;
+- each eligible observation forms its own prediction-target pair and distinct target episode under `contexts/PIT_EVENT_TARGET.md`;
+- the prediction concerns the canonical first qualifying tyre-service pit entry strictly after that observation's prediction instant;
 - output meaning is predictive behavior estimation, not recommendation/optimization;
 - the canonical uncertainty form is a probability distribution over the complete remaining semantic target scope;
 - mutually exclusive future race-progression regions carry the event-timing probability for when that next qualifying event may occur;
-- explicit terminal no-event probability represents the possibility that no qualifying event occurs before the target episode's canonical terminal boundary;
+- explicit terminal no-event probability represents the possibility that no qualifying event occurs before that observation's target episode reaches its canonical terminal boundary;
 - event-timing mass plus terminal no-event probability is collectively exhaustive and normalized at semantic level;
 - there is no hidden finite-horizon residual category in the canonical output;
 - a pit-window display is a summary of concentrated timing probability and must not redefine or discard the complete distribution;
 - truncated/indeterminate historical follow-up is not a predicted outcome category;
 - each historical prediction snapshot is immutable and later predictions are separate later-state forecasts;
-- adjacent predictions concern the same target episode only while no qualifying event has occurred between them;
+- adjacent predictions may retrospectively resolve to the same eventual next qualifying event when no qualifying event occurs between their prediction instants, but they remain distinct prediction-target episodes tied to distinct observations;
 - later target truth may be used to judge an earlier prediction but may not be treated as prediction-time information.
 
-Evaluation / Backtesting may define metrics, scoring rules, weighting, sampling, grouping, aggregation, and comparison procedures. It may not redefine the target, observation boundary, probability meaning, coverage, terminal no-event interpretation, pit-window meaning, or replay immutability established here.
+Evaluation / Backtesting may define metrics, scoring rules, weighting, sampling, grouping, aggregation, and comparison procedures. It may not redefine the target, target-episode lifecycle, observation boundary, probability meaning, coverage, terminal no-event interpretation, pit-window meaning, or replay immutability established by the owning artifacts.
 
 ## Unknown routing
 
@@ -221,7 +224,7 @@ There are no unresolved Current-scope decisions in this slice.
 
 ## Review record
 
-- Full scoped review: pending on PR #12 against the completed semantic artifact.
-- Rework: pending review outcome.
-- Bounded re-review: pending only if substantive rework is required after the full review.
-- Approval evidence: pending a passing independent review or bounded re-review as required by `governance/REVIEW_POLICY.md`.
+- Full scoped review: **FAIL — rework required** on PR #12, review `PRR_kwDOJBBaD88AAAABMx5WHg` / `pullrequestreview-5152593438`, submitted 2026-09-09. One Blocking finding: successive predictions were incorrectly described as sharing the same target episode, conflicting with the approved per-observation target lifecycle in `contexts/PIT_EVENT_TARGET.md`. No other Blocking, Major, or Minor findings were identified.
+- Rework: completed — §5 and the downstream Evaluation / Backtesting contract now state that every eligible observation has a distinct prediction-target episode; successive predictions may nevertheless resolve to the same eventual next qualifying event when no qualifying event occurs between their prediction instants. Related ownership wording was tightened without changing Product Owner-approved output semantics.
+- Bounded re-review: pending on PR #12; scope is the prior Blocking finding, regressions caused by this rework, and the original acceptance criteria.
+- Approval evidence: pending a passing bounded re-review as required by `governance/REVIEW_POLICY.md`.
