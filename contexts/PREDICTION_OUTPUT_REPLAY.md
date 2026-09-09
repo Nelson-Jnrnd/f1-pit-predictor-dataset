@@ -2,7 +2,7 @@
 
 ## Status
 
-Blocked — non-reserved replay and target-alignment semantics are established below, but the Product Owner must approve the material consumer-facing likelihood/coverage semantics before this slice can be completed.
+In review — the Product Owner approved the remaining-race probability-distribution semantics on 2026-09-09 and the decision is persisted in `decisions/2026-09-09-v2-prediction-output-semantics.md`. The semantic slice is complete at its declared abstraction level and awaits the required independent scoped review on PR #12.
 
 ## Abstraction level
 
@@ -35,6 +35,7 @@ Define what one V2 next-pit prediction means to a consumer and how successive po
 ## Upstream inputs / semantic locks
 
 - `decisions/2026-09-08-v2-project-direction.md` — V2 estimates when a driver's next pit stop is likely to occur, predicts likely team/driver behavior rather than recommending strategy, and is historical-replay/backtesting first.
+- `decisions/2026-09-09-v2-prediction-output-semantics.md` — the canonical output is a probability distribution across the complete remaining target scope, with explicit terminal no-event probability; a pit window is a summary of concentrated timing probability rather than the complete semantic output.
 - `product/PROJECT_VISION.md` — the output should communicate likely pit timing over more than a single binary instant and support replay/evaluation.
 - `product/RESEARCH_PROBLEM.md` — the primary problem is next-pit timing expressed conceptually as a pit window / likelihood over future race progression; exact output semantics, horizon, and uncertainty representation are owned here.
 - `product/SYSTEM_SCOPE.md` — live inference and recommendation/optimization are outside the initial core.
@@ -49,8 +50,9 @@ Define what one V2 next-pit prediction means to a consumer and how successive po
 This slice owns:
 
 - what a V2 prediction communicates about likely future next-pit timing;
-- how any approved likelihood/uncertainty statement relates to future race progression and the canonical next relevant pit event;
-- the semantic meaning of declared output coverage/horizon and any residual/outside-coverage possibility;
+- how probability/uncertainty relates to future race progression and the canonical next relevant pit event;
+- complete remaining-target-scope coverage and explicit terminal no-event probability;
+- the relationship between the complete probability distribution and a consumer-facing pit-window summary;
 - how successive predictions are interpreted, supersede one another as current forecasts, and remain historically immutable;
 - the prediction-output contract consumed by Evaluation / Backtesting.
 
@@ -92,7 +94,7 @@ It must not be described as:
 - an estimate of the best race-time or finishing-position decision; or
 - a counterfactual claim about what should happen under alternative actions.
 
-A high likelihood assigned to a future pit timing means only that the behavior is judged more plausible under the prediction semantics eventually approved for this slice. It does not imply strategic desirability.
+A high probability assigned to a future pit timing means only that the behavior is judged more plausible under this prediction contract. It does not imply strategic desirability.
 
 ### 4. Historical prediction snapshots are immutable
 
@@ -112,24 +114,52 @@ Replay or evaluation must therefore not assume that every adjacent prediction fo
 
 ### 6. Updating means new information, not historical revision
 
-A change between successive predictions is semantically an update caused by moving to a later canonical observation with a later information boundary. The change may reflect newly legitimate race information and the reduced/changed future race progression still available.
+A change between successive predictions is semantically an update caused by moving to a later canonical observation with a later information boundary. The change may reflect newly legitimate race information and the reduced or otherwise changed future race progression still available.
+
+Each successive prediction is a complete new probability distribution for its own observation and remaining target scope. Probability mass from the prior prediction is not mechanically carried forward, renormalized, or edited by this semantic contract; exact model update mechanics are later design concerns.
 
 The contract does not require predictions to change monotonically, smoothly, or by any particular amount. Stability, calibration, responsiveness, and scoring are evaluation/model questions, not semantic requirements here.
 
-### 7. Coverage/horizon and likelihood semantics are a current-scope Product Owner decision
+### 7. Canonical uncertainty form — remaining-race probability distribution
 
-The approved upstream direction intentionally left the exact pit-window representation, prediction horizon, and uncertainty representation open. These choices materially determine what a consumer understands a V2 prediction to mean and are Product Owner-reserved under `governance/DECISION_BOUNDARIES.md`.
+Per `decisions/2026-09-09-v2-prediction-output-semantics.md`, one V2 prediction expresses a **probability distribution over the complete remaining semantic target scope**.
 
-Before this slice can be completed, the Product Owner must approve a coherent semantic form that answers at least:
+For an eligible observation at `T`, the event-timing part of the distribution assigns probability to mutually exclusive future race-progression regions in which the canonical next relevant pit event may occur. These regions collectively represent possible timing locations for the first qualifying pit entry strictly after `T` while the target episode remains open.
 
-- whether the output expresses probability/likelihood across mutually exclusive future race-progression regions, a central window with confidence, or another consumer-facing uncertainty form;
-- whether coverage is a finite declared future horizon or the remaining race scope;
-- how possibilities outside the explicitly presented window/coverage are represented so omitted future outcomes are not mistaken for impossible outcomes; and
-- how terminal no-event/domain-censoring possibility is interpreted within that output without redefining the target contract.
+The exact region boundaries, number of regions, granularity, and whether the eventual statistical representation is discrete, continuous, or otherwise parameterized are not defined here. Whatever later representation is chosen must preserve the consumer-level meaning established by this slice.
 
-No option is normative until a durable Product Owner decision is persisted and this section is revised accordingly.
+### 8. Complete coverage and explicit terminal no-event probability
 
-### 8. Output identity without a technical schema
+Prediction coverage is not a fixed finite number of future laps. It extends across the complete remaining target scope defined by `contexts/PIT_EVENT_TARGET.md`: from prediction instant `T` until the target episode closes either by the next qualifying event or by the canonical terminal boundary for that driver entry/race scope.
+
+The output therefore includes two collectively exhaustive kinds of possibility:
+
+1. the first qualifying pit event occurs in one of the represented future race-progression timing regions; or
+2. no later qualifying event occurs before the target episode reaches its canonical terminal boundary.
+
+The second possibility has explicit **terminal no-event probability**. At semantic level, the event-timing probability mass plus terminal no-event probability is normalized across the complete target question.
+
+Because coverage is the complete remaining target scope, the canonical V2 prediction has no hidden finite-horizon cutoff and no residual "pit after the horizon" category. A later presentation may choose to display only part of the timing distribution for usability, but it may not silently discard omitted probability mass or imply that unshown timings are impossible.
+
+This section does not redefine terminal no-event/domain censoring. Its underlying target meaning remains owned by `contexts/PIT_EVENT_TARGET.md`; this slice only specifies that the possibility receives explicit prediction probability.
+
+### 9. Meaning of the pit window
+
+The **pit window** is the consumer-facing summary of where the prediction's next-pit timing probability is concentrated within the complete remaining-race distribution.
+
+It is not a separate target, a hard allowed interval, or a claim that a pit outside the highlighted window has zero probability. A pit window may summarize the most relevant portion of the distribution, but the canonical output contract remains the complete timing distribution plus terminal no-event probability.
+
+The exact rule used to derive or display a window — for example a probability threshold, central interval, top-ranked regions, width constraint, or visualization choice — is not fixed at this semantic level. Later design may choose a presentation rule only if it faithfully represents the approved complete-distribution semantics.
+
+### 10. Truncation is not a prediction outcome
+
+`contexts/PIT_EVENT_TARGET.md` distinguishes a known terminal no-event outcome from truncated/indeterminate historical follow-up caused by insufficient evidence.
+
+The prediction models race behavior, not whether the historical dataset will later contain adequate evidence. Therefore truncation/indeterminate follow-up does **not** receive a probability category in the canonical output.
+
+If retrospective follow-up is truncated, Evaluation / Backtesting must decide whether and how that prediction can be scored without converting the evidence failure into terminal no-event truth.
+
+### 11. Output identity without a technical schema
 
 At semantic level, a persisted or replayed prediction must be unambiguously attributable to:
 
@@ -140,49 +170,58 @@ At semantic level, a persisted or replayed prediction must be unambiguously attr
 
 Exact field names, IDs, storage types, serialization, versioning mechanism, or API shape are later design decisions.
 
-### 9. Contract to Evaluation / Backtesting
+### 12. Contract to Evaluation / Backtesting
 
-Evaluation / Backtesting must consume the following settled parts of this output contract:
+Evaluation / Backtesting must consume the following canonical prediction-output contract:
 
 - one prediction is attached to one target-eligible canonical observation and prediction instant;
 - the prediction concerns the canonical first qualifying tyre-service pit entry strictly after that instant;
 - output meaning is predictive behavior estimation, not recommendation/optimization;
+- the canonical uncertainty form is a probability distribution over the complete remaining semantic target scope;
+- mutually exclusive future race-progression regions carry the event-timing probability for when that next qualifying event may occur;
+- explicit terminal no-event probability represents the possibility that no qualifying event occurs before the target episode's canonical terminal boundary;
+- event-timing mass plus terminal no-event probability is collectively exhaustive and normalized at semantic level;
+- there is no hidden finite-horizon residual category in the canonical output;
+- a pit-window display is a summary of concentrated timing probability and must not redefine or discard the complete distribution;
+- truncated/indeterminate historical follow-up is not a predicted outcome category;
 - each historical prediction snapshot is immutable and later predictions are separate later-state forecasts;
 - adjacent predictions concern the same target episode only while no qualifying event has occurred between them;
-- later target truth may be used to judge an earlier prediction but may not be treated as prediction-time information;
-- evaluation may choose metrics and scoring only after consuming the final approved likelihood/coverage semantics from this slice.
+- later target truth may be used to judge an earlier prediction but may not be treated as prediction-time information.
 
-Evaluation / Backtesting may define how these predictions are scored, weighted, sampled, grouped, and compared. It may not redefine their target, observation boundary, consumer-facing meaning, or replay immutability.
+Evaluation / Backtesting may define metrics, scoring rules, weighting, sampling, grouping, aggregation, and comparison procedures. It may not redefine the target, observation boundary, probability meaning, coverage, terminal no-event interpretation, pit-window meaning, or replay immutability established here.
 
 ## Unknown routing
 
 | Question | Classification | Owner / next artifact | Status |
 | --- | --- | --- | --- |
-| What exact consumer-facing likelihood/uncertainty form and coverage/horizon should a V2 pit-window prediction use, including treatment of outside-coverage and terminal no-event possibility? | Current-scope decision — Product Owner reserved | Product Owner / this slice + durable decision under `decisions/` | **Blocking — approval required** |
+| What consumer-facing likelihood/uncertainty form and coverage/horizon should a V2 pit-window prediction use, including terminal no-event treatment? | Current-scope decision — Product Owner reserved | Product Owner / `decisions/2026-09-09-v2-prediction-output-semantics.md` | **Satisfied — remaining-race probability distribution + explicit terminal no-event approved** |
 | How should approved output semantics be scored against observed-event, terminal no-event, and truncated target outcomes? | Cross-slice dependency | Evaluation / Backtesting | Unresolved here by design |
 | What metrics, split policy, sampling/weighting, aggregation, and model-selection criteria should be used? | Cross-slice dependency | Evaluation / Backtesting | Unresolved here by design |
 | What exact mathematical formulation realizes the approved output semantics? | Later-phase decision | Model/design + verification | Deferred |
-| What exact probability parameterization, binning, calibration procedure, loss, or uncertainty estimation method is used? | Later-phase decision | Model/design + experimentation | Deferred |
+| What exact future-region partitioning, probability parameterization, binning, calibration procedure, loss, or uncertainty estimation method is used? | Later-phase decision | Model/design + experimentation | Deferred |
+| What exact rule derives a displayed pit window from the canonical distribution? | Later-phase decision | Product/design + verification | Deferred; must faithfully summarize the approved distribution without implying zero probability outside the window |
 | What schema, serialization, IDs, versioning mechanism, API, persistence, chart, or UI implements the output? | Later-phase decision | Architecture / implementation | Deferred |
 | How should a future live product consume or refresh these predictions intra-lap? | Later-phase decision | Future product/semantic extension | Deferred; must not silently change the V2 core checkpoint semantics |
 
+There are no unresolved Current-scope decisions in this slice.
+
 ## Acceptance criteria
 
-- [x] A consumer can explain which future event one V2 prediction concerns without reference to a model family or file format.
+- [x] A consumer can explain what one V2 prediction means without reference to a specific model family or file format.
 - [x] The output is clearly predictive of likely team/driver behavior and cannot be mistaken for strategy recommendation/optimization.
-- [x] The relationship between the prediction and the canonical next-pit event is explicit.
-- [ ] Horizon/coverage semantics are explicit enough that omitted future possibilities are not silently misinterpreted. Blocked on Product Owner decision.
+- [x] The relationship between future race-progression likelihood and the canonical next-pit event is explicit.
+- [x] Horizon/coverage semantics are explicit enough that omitted future possibilities are not silently misinterpreted.
 - [x] Successive replay predictions have coherent historical/update semantics and later predictions do not retroactively alter earlier outputs.
-- [ ] Uncertainty/likelihood meaning is explicit at the approved abstraction level without freezing a statistical implementation. Blocked on Product Owner decision.
-- [ ] Evaluation / Backtesting receives one complete canonical prediction-output contract. Pending the same Product Owner decision.
+- [x] Uncertainty/likelihood meaning is explicit at the approved abstraction level without freezing a statistical implementation.
+- [x] Evaluation / Backtesting receives one complete canonical prediction-output contract.
 - [x] Observation timing, event/censoring meaning, metrics, models, features, schemas, architecture, UI technology, and implementation remain outside scope.
 - [x] Every unresolved question is classified as Current-scope, Cross-slice, or Later-phase.
-- [ ] Any human-reserved choice that materially changes prediction semantics or uncertainty representation is escalated under `governance/USER_INTERACTION.md` and persisted only after approval. Escalation required now.
+- [x] The human-reserved prediction-semantics choice was escalated under `governance/USER_INTERACTION.md`, approved by the Product Owner, and persisted in `decisions/2026-09-09-v2-prediction-output-semantics.md` before being made normative here.
 - [ ] Required independent review is completed before approval.
 
 ## Review record
 
-- Full scoped review: pending completion of the Product Owner-reserved current-scope decision.
-- Rework: pending.
-- Bounded re-review: pending if substantive rework is required after full review.
-- Approval evidence: pending.
+- Full scoped review: pending on PR #12 against the completed semantic artifact.
+- Rework: pending review outcome.
+- Bounded re-review: pending only if substantive rework is required after the full review.
+- Approval evidence: pending a passing independent review or bounded re-review as required by `governance/REVIEW_POLICY.md`.
