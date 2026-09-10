@@ -2,7 +2,7 @@
 
 ## Status
 
-Draft — Issue #18, branch `design/observation-reconstruction`.
+Draft — reworked after the full scoped review on PR #24. Bounded re-review required before approval.
 
 ## Abstraction level
 
@@ -16,24 +16,26 @@ This artifact does not define target reconstruction, target-episode internals, m
 - Parent: #16
 - Upstream architecture: #17 / `design/SYSTEM_ARCHITECTURE.md`
 - Branch: `design/observation-reconstruction`
+- PR: #24
 
 ## Outcome
 
-V2 reconstructs each historical observation from **source-ordered evidence**, not from a final lap row truncated by lap number.
+V2 reconstructs each historical observation from evidence whose **historical availability semantics are defensible**, not from a final lap row truncated by lap number and not from archive timestamp/order alone.
 
-For the historical FastF1-backed workflow, the preferred information-time evidence is the archived F1 live-timing `jsonStream` record envelope: source-stream timestamp plus record order. Processed FastF1 views and the repository's existing lap CSVs remain useful evidence and validation material, but they are not authoritative proof of what was available at a prediction instant when their construction has merged, aligned, corrected, or finalized information.
+For FastF1-backed historical work, archived F1 live-timing `jsonStream` files are valuable candidate evidence because the frozen archive preserves record prefixes and within-file order. However, those properties by themselves prove only the structure of the archive snapshot fetched later. They do **not** prove that a prefix is a contemporaneous publication/availability timestamp or that the archive preserves exactly the versions visible at that historical instant.
 
-The canonical transformation is:
+The canonical transformation is therefore:
 
 ```text
 immutable source snapshot
-    -> raw source records with source order
-    -> normalized facts with separate effective and availability evidence
+    -> archive/source records with source structure
+    -> availability-authority validation
+    -> normalized facts with separate effective and proven availability evidence
     -> as-of reduction at one canonical checkpoint boundary
     -> immutable canonical observation + provenance/quality record
 ```
 
-A fact is admitted only when its availability is defensible at or before the selected driver's prediction boundary. Ambiguous ties, final-only historical values, and later corrections are never silently backfilled.
+A mutable fact is admitted only when its source or acquisition mode has passed the required availability-authority validation for the relevant endpoint/era and the individual fact is defensibly available at or before the selected driver's prediction boundary. Unverified archives, ambiguous ties, final-only historical values, and later corrections are never silently backfilled.
 
 ## Upstream locks consumed unchanged
 
@@ -57,7 +59,7 @@ The current repository persists lap-level CSV files under `data/<year>/`. A repr
 The approved legacy evidence record documents the later visible extraction implementation on historical branch head `fe5abd65acd335c05a472db1e5a45bdbe8cac5b9`. That extractor:
 
 - calls `fastf1.core.api.timing_data(session.api_path)` and merges parsed timing-lap and timing-stream values;
-- joins the resulting timing values to `session.laps` by driver and lap number;
+- joins resulting timing values to `session.laps` by driver and lap number;
 - samples `DriverAhead` / `DistanceToDriverAhead` from telemetry during a one-second window after `LapStartDate`;
 - backward-as-of joins weather to `LapStartTime`;
 - derives `PitStatus` from lap-level `PitOutTime` / `PitInTime`;
@@ -70,11 +72,11 @@ Stable evidence reference:
 
 - `f1_pit_predictor/extraction.py` at historical commit `fe5abd65acd335c05a472db1e5a45bdbe8cac5b9`.
 
-### Current provider implementation evidence inspected
+### Current FastF1 implementation evidence inspected
 
-For this design, FastF1 upstream was inspected at commit `227cf301fb4bcf1705bcb1866de1fe5dbcef6071` (2026-08-28). This is provider implementation evidence, not a dependency version commitment.
+FastF1 upstream was inspected at commit `227cf301fb4bcf1705bcb1866de1fe5dbcef6071` (2026-08-28). This is provider implementation evidence, not a dependency version commitment.
 
-FastF1's current source exposes F1 live-timing endpoints including:
+FastF1 exposes historical/static F1 live-timing endpoints including:
 
 - `SessionInfo.jsonStream`;
 - `DriverList.jsonStream`;
@@ -88,74 +90,142 @@ FastF1's current source exposes F1 live-timing endpoints including:
 - `Position.z.jsonStream`;
 - `LapCount.jsonStream`.
 
-FastF1's `fetch_page` implementation preserves `jsonStream` line order and separates each line into the leading source timestamp and parsed payload. This provides stronger historical information-order evidence than a postprocessed lap dataframe.
+FastF1's `fetch_page` implementation preserves the line order present in the fetched `jsonStream` archive and separates each line into a leading timestamp prefix and parsed payload. This establishes the structure of the **fetched archive snapshot**.
 
-FastF1's time documentation states that `SessionTime` is provided by the F1 live-timing API and shares a session-level reference across data streams. It also states that lap `Time` marks when a lap was set/finished, while `LapStartTime`, sector session times, and pit times are additional calculated timestamps whose millisecond accuracy cannot be verified.
+FastF1's time documentation states that `SessionTime` is provided by the F1 live-timing API and shares a session-level reference across API data. It also states that lap `Time` marks when a lap was set/finished, while `LapStartTime`, sector session times, and pit times are additional calculated timestamps whose millisecond accuracy cannot be verified.
 
-Crucially, FastF1's processed lap construction may align driver lap timestamps using gap information, and `Session.load` may mix multiple endpoints to correct errors or add information. Therefore **processed `Session.laps.Time` is an effective/reconstructed lap-end timestamp, not the V2 availability authority**.
+FastF1's processed lap construction may align driver lap timestamps using gap information, and `Session.load` may mix multiple endpoints to correct errors or add information. Therefore **processed `Session.laps.Time` is an effective/reconstructed lap-end timestamp, not availability authority**.
+
+### Evidence limitation established by review
+
+The inspected FastF1 implementation/documentation does **not** establish either of these stronger claims:
+
+1. that the leading timestamp of a static archived `jsonStream` record is guaranteed to be the time at which that payload/version became observable to a contemporaneous consumer; or
+2. that a static archive fetched later preserves the exact historical sequence of payload versions originally observable, without retrospective correction, replacement, or backfill.
+
+Accordingly, archive prefix/order is not automatically promoted to historical availability evidence. Freezing a 2026 archive makes a reconstruction run reproducible against that 2026 snapshot; it does not by itself make the snapshot a faithful record of 2019/2020/etc. historical knowledge.
 
 Stable upstream evidence references:
 
-- `theOehrly/Fast-F1` `fastf1/_api.py` at `227cf301fb4bcf1705bcb1866de1fe5dbcef6071` — endpoint map, `fetch_page`, timing parsing, and lap alignment;
+- `theOehrly/Fast-F1` `fastf1/_api.py` at `227cf301fb4bcf1705bcb1866de1fe5dbcef6071` — endpoint map, archive fetching/parsing, timing parsing, and lap alignment;
 - `theOehrly/Fast-F1` `fastf1/core.py` at the same commit — `Session` source views and note that loaded data may be mixed/corrected;
 - `theOehrly/Fast-F1` `docs/data_reference/time_explanation.rst` at the same commit — SessionTime and lap-time semantics.
 
-## Source classes and V2 authority
+## Source classes and authority
 
-| Source class | Concrete examples | What it proves | V2 use | Limitation |
-| --- | --- | --- | --- | --- |
-| Raw ordered live-timing stream | `TimingData.jsonStream`, `SessionStatus.jsonStream`, `WeatherData.jsonStream`, etc. | Source publication timestamp and within-stream record order; payload version observable at that source point | Preferred basis for mutable point-in-time facts and checkpoints | Historical archive is source-publication evidence, not local network-receipt latency; cross-stream ties do not have a shared sequence |
-| Raw high-frequency streams | `CarData.z.jsonStream`, `Position.z.jsonStream` | Source record order plus telemetry/position sample content | Optional partial-lap/race-wide state when available | Large; provider parser may interpolate/merge if using processed views; raw record lineage must be retained |
-| Processed FastF1 session views | `Session.laps`, `session.weather_data`, `session.track_status`, `session.race_control_messages`, telemetry objects | Useful effective/event values and validation against provider parser | Validation, normalization assistance where it does not destroy source lineage, and static metadata | May mix endpoints, calculate timestamps, align laps, or expose final corrected state; cannot alone prove earlier availability |
-| Legacy repository CSVs | `data/<year>/*.csv` | Thesis-era derived lap-level values | Historical comparison, migration checks, evidence | Mixed temporal semantics; no raw record order/revision history; not canonical V2 observation input |
-| Static acquisition/session metadata | requested year/round/session plus verified session metadata | Stable session addressing and descriptive aliases | Technical identity/provenance where not outcome-derived | Display names/track names are not canonical IDs; final race results cannot be used as dynamic state |
-| Final-only or reconstructed historical value | final classification, postprocessed corrected lap row, legacy `TotalLaps=max(observed lap)` | Retrospective truth only | Audit/validation if explicitly separated | Not proof that the value was knowable at an earlier prediction instant |
+| Source class | Concrete examples | What the evidence proves without extra validation | Point-in-time use |
+| --- | --- | --- | --- |
+| Historical static live-timing archive | `TimingData.jsonStream`, `SessionStatus.jsonStream`, `WeatherData.jsonStream`, etc. fetched after the event | Record timestamp prefixes and line order in the exact frozen archive snapshot | **Not availability-authoritative by default.** May be upgraded only for validated endpoint/era/acquisition scopes. |
+| Contemporaneous captured stream | Raw records captured while the session was occurring, with local receipt time and immutable capture provenance | What the capture process received and when it received it, subject to clock/capture validation | Can provide strong availability evidence for that capture; this is an evidence class, not an initial live-product commitment. |
+| Raw high-frequency historical archive | `CarData.z.jsonStream`, `Position.z.jsonStream` | Sample content and archive structure/order in the frozen snapshot | Optional state only after the same historical-availability validation; otherwise omitted. |
+| Processed FastF1 session views | `Session.laps`, weather/track-status/race-control dataframes, telemetry objects | Useful effective/event values and a provider's current reconstruction | Validation/normalization assistance only where lineage remains explicit; not availability authority. |
+| Legacy repository CSVs | `data/<year>/*.csv` | Thesis-era derived lap-level values | Historical comparison, QA, migration evidence; never canonical availability authority. |
+| Static acquisition/session metadata | requested season/round/session plus independently verified identifiers | Stable addressing/identity information | May be `STATIC_PRIOR` when independently proven available before race start. |
+| Final-only/reconstructed historical value | final classification, corrected lap row, `TotalLaps=max(observed lap)` | Retrospective/final truth | Audit/validation only; not point-in-time knowledge. |
+
+## Historical availability-authority validation
+
+### Principle
+
+`ArchiveRecordKey` and source order are **archive structure**. `SourceAvailabilityKey` is an **availability claim**. The second may be created from the first only after a validation record establishes that the relevant archive/acquisition mode is suitable for historical point-in-time use.
+
+Validation is scoped, not global. A result applies to an explicit tuple such as:
+
+```text
+AvailabilityAuthorityScope = (
+    provider/source family,
+    acquisition_mode,
+    endpoint/stream,
+    season/era range,
+    archive/provider revision where relevant
+)
+```
+
+A validation for one endpoint or era does not silently authorize another.
+
+### Validation requirements for historical archives
+
+Before a historical static archive scope may be classified as availability-authoritative, the project must have a persisted `AvailabilityAuthorityValidation` with sufficient evidence for both:
+
+1. **timestamp meaning** — evidence that the record prefix/order used as an availability key corresponds to source publication/observability ordering, not merely event/effective/log time; and
+2. **revision fidelity** — evidence that later historical retrieval preserves the contemporaneous version sequence sufficiently for the claimed use, or a documented rule that bounds/identifies retrospective revisions so they cannot be mistaken for earlier knowledge.
+
+Acceptable evidence can include provider/F1 archival documentation with an explicit guarantee, verified source implementation behavior where semantics are contractual, paired contemporaneous captures against later archives, or another independently reproducible validation fixture. Mere presence of timestamps in the archive, current parser behavior, or successful re-fetching is insufficient.
+
+The validation record must identify:
+
+- exact source/acquisition/endpoint/era scope;
+- evidence references and dates;
+- validation procedure/version;
+- timestamp-semantics outcome;
+- archive-revision/fidelity outcome;
+- any known exceptions/gaps;
+- resulting authority level;
+- reviewer/verification artifact reference once the verification phase approves it.
+
+### Authority levels
+
+A validated scope receives one of these levels:
+
+| Authority level | Meaning | Can create checkpoint boundary? | Can admit mutable facts? |
+| --- | --- | ---: | ---: |
+| `VERIFIED_STREAM_ORDERED` | Historical availability time and within-stream order are defensible for the scope | Yes | Yes, subject to tie/gap rules |
+| `VERIFIED_TIMESTAMP_ONLY` | Historical availability timestamp is defensible but equal-time source order is not | Yes only when trigger is unambiguous at timestamp level | Yes only when strictly earlier or independently ordered |
+| `VERIFIED_BOUNDED_TIME` | Only conservative availability bounds are defensible | Only if checkpoint boundary is unambiguous under bounds | Yes only when latest possible availability is safely before boundary |
+| `UNVERIFIED_ARCHIVE` | Archive structure exists but historical availability semantics/revision fidelity are unproven | No | No |
+| `UNSUPPORTED` | Evidence demonstrates the source cannot support the required historical availability claim | No | No |
+
+No implementation may map `UNVERIFIED_ARCHIVE` to a verified class as a convenience fallback.
+
+### Initial support boundary
+
+At #18 design time, the inspected FastF1 static archive is classified **`UNVERIFIED_ARCHIVE` for historical availability authority** because the required publication-time and revision-fidelity guarantees have not yet been demonstrated.
+
+Therefore this design does not claim that the existing 2018–2023 historical corpus is already reconstructable into ordinary V2 observations. Supported seasons/endpoints are established later by the required verification matrix. A session/endpoint remains fail-closed until its scope has a passing authority validation.
+
+This limitation is deliberate: historical replay is the product ambition, but a reproducible hindsight snapshot is not equivalent to historically faithful knowledge.
 
 ## Historical source snapshot contract
 
-A V2 reconstruction run starts by freezing the source evidence it uses. Re-fetching the same historical session later may return changed provider/archive content, so a URL or FastF1 call alone is not reproducibility.
+A reconstruction run freezes the exact source evidence it uses. Re-fetching the same historical session later may return changed archive content, so a URL or FastF1 call alone is not reproducibility.
 
-The logical `SourceSnapshotManifest` must record, at minimum:
+The logical `SourceSnapshotManifest` records, at minimum:
 
 - canonical race-session key;
 - provider/source family;
-- acquisition mode, including `historical_archive` versus any future live capture;
+- acquisition mode, including `historical_archive` versus contemporaneous capture where available;
 - provider API path/session locator;
 - each endpoint/stream included;
 - exact payload/content hash or equivalent immutable content identity per endpoint;
-- record count and first/last source timestamp where applicable;
-- retrieval timestamp;
+- record count and first/last archive/source timestamp where applicable;
+- retrieval/capture timestamp;
 - FastF1/provider-adapter version or source revision used to obtain/parse the data;
 - completeness status and known gaps/errors per endpoint;
+- `AvailabilityAuthorityScope` and validation reference/status per endpoint;
 - repository/code revision and reconstruction-run identity.
 
-Exact serialization and hash algorithm belong to implementation. The design requirement is that source content used by a run is immutable and independently identifiable.
+Freezing and authority validation are separate requirements: freezing establishes reproducibility of the input; authority validation establishes whether that input can support historical availability claims.
+
+Exact serialization and hash algorithm belong to implementation.
 
 ### Required versus optional source evidence
 
-To emit an ordinary canonical observation, the reconstruction must be able to establish:
+To emit an ordinary canonical observation, reconstruction must establish:
 
 1. a stable race-session identity;
 2. a stable driver-entry identity;
 3. the canonical checkpoint occurrence as an observable source update; and
-4. a defensible prediction information boundary for that checkpoint.
+4. a **verified** prediction information boundary for that checkpoint.
 
-Race-wide, environmental, tyre, telemetry, or other state domains may be partially unavailable. Missing optional domains produce explicit omissions rather than causing the reconstruction to invent values or discard an otherwise valid checkpoint.
+For the FastF1-backed design, `SessionStatus` is the candidate source for race-start checkpoints and `TimingData` is the candidate source for driver lap-completion checkpoints. They may create V2 checkpoint boundaries only for scopes whose historical availability authority has been validated to the required level.
 
-For the initial FastF1-backed design:
+If the trigger source is `UNVERIFIED_ARCHIVE` or `UNSUPPORTED`, the checkpoint is `INDETERMINATE_CHECKPOINT`; scheduled time, processed FastF1 lap time, event/effective timestamp, legacy CSV rows, or a later final value are not fallbacks.
 
-- the race-start checkpoint is sourced from the ordered `SessionStatus` stream transition that marks the official session start;
-- driver lap-completion checkpoints are sourced from the ordered `TimingData` stream update in which that driver's official completed-lap count first advances to the checkpoint lap;
-- `DriverList` and/or the timing stream provide driver-entry evidence;
-- other streams enrich the as-of state only when their availability is admissible under this design.
-
-The exact provider token used to identify the start-state transition and representative edge cases must be covered by the later verification baseline. Scheduled start time is not a fallback for an unobservable official-start update.
+Race-wide, environmental, tyre, telemetry, or other state domains may be partially unavailable or unverified. Missing/unverified optional domains produce explicit omissions rather than fabricated facts or automatic rejection of an otherwise valid checkpoint.
 
 ## Canonical technical identities
 
 ### Race session key
-
-The canonical race-session identity is a structured key:
 
 ```text
 RaceSessionKey = (
@@ -166,21 +236,17 @@ RaceSessionKey = (
 )
 ```
 
-`season` and `round_number` come from the acquisition/session selection and must be cross-checked against provider session metadata. A provider meeting/session key and FastF1 `api_path` are retained as provenance aliases when available.
+`season` and `round_number` come from acquisition/session selection and must be cross-checked against provider session metadata. Provider meeting/session keys and FastF1 `api_path` are retained as provenance aliases where available.
 
-Event name, circuit/location, team name, and display strings are descriptive metadata only and must not be used as the canonical key.
-
-If the selected year/round/session cannot be reconciled with the loaded provider session, reconstruction fails identity validation rather than falling back to a name match.
+Event name, circuit/location, team name, and display strings are descriptive metadata only and must not be canonical keys. If year/round/session cannot be reconciled with loaded provider metadata, reconstruction fails identity validation rather than falling back to a name match.
 
 ### Driver entry key
-
-Within a race session:
 
 ```text
 DriverEntryKey = (RaceSessionKey, racing_number)
 ```
 
-The racing number must be evidenced as a unique entry in the selected session by the source roster/timing data. Provider-specific driver IDs may be stored as aliases. Abbreviation, surname, display name, or team name are never sufficient canonical keys.
+The racing number must be evidenced as a unique entry in the selected session by roster/timing evidence. Provider-specific driver IDs may be stored as aliases. Abbreviation, surname, display name, or team name are never sufficient canonical keys.
 
 Missing or non-unique racing-number evidence produces an identity failure.
 
@@ -203,103 +269,118 @@ A duplicate source update for the same completed-lap count does not create a sec
 
 ### Semantic observation key versus artifact identity
 
-The stable semantic key identifies the driver's checkpoint. The persisted observation artifact has a separate immutable artifact identity tied to the exact source snapshot and reconstruction version.
+The stable semantic key identifies the driver's checkpoint. The persisted observation artifact has a separate immutable artifact identity tied to the exact source snapshot, authority-validation state, and reconstruction version.
 
-This distinction permits a later corrected source snapshot or reconstruction policy to produce a new observation artifact for the same semantic checkpoint without overwriting historical runs.
-
-Downstream consumers receive both the semantic checkpoint identity and the exact observation artifact reference.
+A later corrected source snapshot, stronger validation, or reconstruction policy may produce a new observation artifact for the same semantic checkpoint without overwriting historical runs. Downstream consumers receive both the semantic checkpoint identity and exact observation artifact reference.
 
 ## Information-time representation
 
-### Source availability key
+### Archive record key
 
-For an ordered `jsonStream` record, the historical availability evidence is represented logically as:
+Every raw historical archive record may have a structural key even when it is not availability-authoritative:
 
 ```text
-SourceAvailabilityKey = (
-    session_clock,
+ArchiveRecordKey = (
+    source_snapshot_id,
     stream_name,
-    source_stream_time,
+    archive_timestamp_prefix,
     record_ordinal
 )
 ```
 
-`source_stream_time` is the source timestamp prefix attached to the archived live-timing record. `record_ordinal` is its stable position within the exact frozen endpoint snapshot.
+This key means only: this payload occupied this position with this prefix in this exact frozen archive snapshot.
 
-This represents **source publication order for historical replay**, not actual network receipt time at an F1 team or at a future live deployment.
+### Source availability key
 
-The raw record itself is the evidence. A timestamp copied into a later processed dataframe does not retain the same proof unless its raw-record lineage is preserved.
+A `SourceAvailabilityKey` exists only when the record's source scope has a verified authority classification:
+
+```text
+SourceAvailabilityKey = (
+    authority_validation_ref,
+    session_clock,
+    stream_name,
+    availability_time_or_bound,
+    record_ordinal_if_verified
+)
+```
+
+For `VERIFIED_STREAM_ORDERED`, the validated mapping may use the archive/source timestamp and stable within-stream ordinal. For weaker verified classes, only the proven timestamp/bounds/order fields are populated.
+
+An archive timestamp copied into a processed dataframe or normalized fact is not availability proof by itself.
 
 ### Effective/occurrence time remains separate
 
-A normalized fact may also have an effective or occurrence time indicating when the described race event/sample applies. This is never substituted for availability.
+A normalized fact may have an effective or occurrence time indicating when the described event/sample applies. This is never substituted for availability.
 
 Examples:
 
-- a race-control message may contain an event/message UTC time while the containing raw stream record provides the source-availability evidence;
-- a telemetry sample time describes the sample's effective point in the session, while the raw stream envelope/order establishes when that sample record appears in the source stream;
-- a correction published later may have an effective time referring to an earlier event, but its availability remains the later correction record.
+- race-control message UTC/event time may describe the message/event while the availability key, if validated, describes when the information became observable;
+- telemetry sample time describes the sample's effective point in the session;
+- a correction may refer to an earlier effective event while becoming available only later;
+- a static archive record with an old prefix remains `UNVERIFIED_ARCHIVE` if historical publication semantics are not established.
 
-## Availability evidence classes
+## Availability evidence classes for normalized facts
 
-Every mutable normalized fact carries one of these logical availability classes:
+Every mutable normalized fact carries one of these classes:
 
-| Class | Evidence | Admissibility rule |
+| Class | Required evidence | Admissibility rule |
 | --- | --- | --- |
-| `STREAM_ORDERED` | Source stream timestamp + stable ordinal in frozen raw stream | May be admitted using the full tie rules below |
-| `TIMESTAMP_ONLY` | Availability/source-publication timestamp but no stable same-time order | Admit only when demonstrably earlier than the boundary; equal-time tie is ambiguous |
-| `BOUNDED_TIME` | Conservative interval/bounds for availability | Admit only when the latest possible availability is before the boundary, or at the boundary with independent ordering proof |
-| `EFFECTIVE_ONLY` | Event/sample time only; no availability evidence | Mutable fact is not admissible as point-in-time knowledge |
-| `FINAL_SNAPSHOT_ONLY` | Final/corrected value with no historical version availability | Mutable fact is not admissible for an earlier observation |
-| `STATIC_PRIOR` | Stable metadata independently proven available before race start | May be admitted from the initial checkpoint onward |
+| `STREAM_ORDERED` | Source scope is `VERIFIED_STREAM_ORDERED` plus exact source-record lineage | May be admitted using full tie/order rules |
+| `TIMESTAMP_ONLY` | Source scope is `VERIFIED_TIMESTAMP_ONLY` | Admit only when demonstrably earlier than boundary; equal-time tie is ambiguous unless independently ordered |
+| `BOUNDED_TIME` | Source scope is `VERIFIED_BOUNDED_TIME` | Admit only when latest possible availability is before boundary, or boundary ordering is independently proven |
+| `UNVERIFIED_ARCHIVE` | Frozen archive record exists but publication/revision semantics are unproven | Not admissible as mutable point-in-time knowledge |
+| `EFFECTIVE_ONLY` | Event/sample time only | Not admissible as mutable point-in-time knowledge |
+| `FINAL_SNAPSHOT_ONLY` | Final/corrected value with no historical version availability | Not admissible for earlier observation |
+| `STATIC_PRIOR` | Stable metadata independently proven available before race start | May be admitted from initial checkpoint onward |
 | `UNKNOWN` | No defensible timing evidence | Not admissible |
 
-These classes describe evidence strength, not feature value or model quality.
+These classes describe evidence strength, not model or feature quality.
 
 ## Prediction boundary reconstruction
 
 ### Race-start checkpoint
 
-The first checkpoint is created when the ordered session-status source first makes the official race-start transition observable.
+The race-start checkpoint is created only when an availability-authoritative `SessionStatus` source first makes the official race-start transition observable.
 
-The checkpoint boundary is the availability key of that source record. The selected driver's completed-race-lap count is `0`.
+The checkpoint boundary is the verified availability key of that source record. The selected driver's completed-race-lap count is `0`.
 
 Rules:
 
-- scheduled session time is not sufficient to create the checkpoint;
-- FastF1 `session_start_time` may validate the event/effective time but does not replace raw source-order evidence for V2;
-- if the official start transition cannot be established from the frozen source evidence, the start observation is indeterminate and is not fabricated;
+- scheduled session time is not sufficient;
+- FastF1 `session_start_time` may validate effective/event time but does not replace verified availability evidence;
+- an `UNVERIFIED_ARCHIVE` `SessionStatus` record cannot create a V2 checkpoint;
+- if official start availability cannot be established, the start observation is `INDETERMINATE_CHECKPOINT`;
 - a driver entry must be established for the session before emitting that driver's start observation.
 
 ### Driver lap-completion checkpoint
 
-For selected driver `D`, checkpoint `L` is triggered by the **first ordered `TimingData` source record** that makes `D`'s official completed-lap count advance to `L`.
+For selected driver `D`, checkpoint `L` is triggered by the first **availability-authoritative** `TimingData` update that makes `D`'s official completed-lap count advance to `L`.
 
-The prediction boundary is that raw record's source-availability key. V2 does not use FastF1's later aligned `Session.laps.Time` as this boundary.
+The prediction boundary is that update's verified `SourceAvailabilityKey`. V2 does not use FastF1's later aligned `Session.laps.Time` or an unverified archive prefix as this boundary.
 
 Rules:
 
-1. The first source update that establishes completed count `L` owns the checkpoint time.
+1. The first verified source update establishing completed count `L` owns the checkpoint boundary.
 2. Duplicate updates with count `L` do not create duplicate checkpoints.
-3. A later correction does not move or rewrite the earlier observation boundary.
-4. If source history jumps over one or more lap counts, no earlier checkpoint time is invented for the skipped counts. The skipped checkpoint(s) are recorded as unreconstructable from this source snapshot; the reported current count may still establish its own checkpoint.
-5. If the source temporarily regresses or later retracts/corrects progression, raw history is preserved. The earlier observation remains the knowledge state actually observable then; the correction affects only later as-of state. Rare cases where the canonical official-lap identity itself becomes indeterminate are surfaced by a checkpoint-quality reason and routed to verification/evaluation handling rather than silently renumbered.
+3. A later correction does not move or rewrite an earlier observation boundary.
+4. If verified source history jumps over lap counts, skipped checkpoints are unreconstructable rather than assigned invented times.
+5. If progression regresses/retracts, append-only source history is preserved and later knowledge affects later observations only.
+6. If the relevant historical `TimingData` scope is unverified, the lap-completion checkpoint is indeterminate even if the current archive contains a plausible timestamp and count.
 
 ## Cross-stream ordering and tie rule
 
-The selected driver's checkpoint record defines boundary `T` on the common live-timing session clock.
+The selected driver's checkpoint record defines boundary `T` on a validated information clock.
 
-For a candidate fact with availability evidence `A`:
+For a candidate fact with verified availability evidence `A`:
 
 1. If `A.time < T.time`, the fact may be admitted.
-2. If `A.time > T.time`, the fact is future and is excluded.
-3. If `A.time == T.time` and the fact is from the **same raw stream**, its stable record ordinal is used. Facts in records at or before the trigger record are admissible; later same-time records are not.
-4. If `A.time == T.time` and the fact is from a **different stream**, equality alone is not proof of cross-stream order. The fact is excluded unless an explicit cross-stream ordering witness/guarantee is recorded by the source adapter.
-5. If either time is coarse or bounded and the ranges overlap so ordering cannot be proven, the candidate fact is omitted as an ambiguous tie.
+2. If `A.time > T.time`, it is future and excluded.
+3. If `A.time == T.time` and both records are from the same `VERIFIED_STREAM_ORDERED` source, stable within-stream ordinal decides the tie.
+4. If `A.time == T.time` across streams, equality alone is not proof of cross-stream order. Exclude unless an explicit validated cross-stream ordering witness/guarantee exists.
+5. If either time is coarse/bounded and ranges overlap, omit unless ordering is independently proven.
+6. If either source scope is `UNVERIFIED_ARCHIVE`, no timestamp comparison upgrades it into admissible knowledge.
 
-The reconstruction must never invent a global sequence by sorting different streams alphabetically, by dataframe order, by fetch order, or by arbitrary stable-sort behavior.
-
-This conservative tie rule operationalizes the approved inclusive boundary without treating timestamp equality as causal proof.
+The reconstruction must never invent a global sequence from stream names, dataframe order, fetch order, or stable-sort behavior.
 
 ## Raw record -> normalized fact boundary
 
@@ -311,12 +392,14 @@ A raw source record is immutable evidence. Its logical contract includes:
 - session ID;
 - endpoint/stream name;
 - record ordinal;
-- raw source timestamp/prefix if present;
-- raw payload reference or content hash;
+- raw timestamp/prefix if present;
+- raw payload reference/content hash;
+- acquisition mode;
+- authority-validation scope/reference/status;
 - parser/source-adapter version;
 - parse status.
 
-Raw records are never edited to contain corrected later values.
+Raw records are never edited to contain corrected later values. A raw record may exist even when its availability authority is unverified.
 
 ### Normalized fact
 
@@ -324,20 +407,21 @@ A normalized fact is a provider-neutral claim derived from one or more raw recor
 
 - fact identity;
 - race-session identity;
-- subject identity (driver entry, session, track/race scope, or environmental scope as applicable);
+- subject identity;
 - fact kind and value/state;
 - effective/occurrence time or range when meaningful;
-- availability class and availability key/bounds;
+- availability class and key/bounds only when defensible;
+- authority-validation reference/status;
 - exact source-record lineage;
-- revision/supersession relation when the source corrects a prior claim;
+- revision/supersession relation when established;
 - normalization/source-adapter version;
 - fact-level quality/reason codes.
 
-Normalization may decode provider delta messages, map provider identifiers, and preserve explicit tombstones/retractions. It may not collapse a later correction into the earlier fact's source record or replace availability with effective time.
+Normalization may decode provider delta messages, map identifiers, and preserve explicit tombstones/retractions. It may not convert archive structure into historical availability authority, collapse a later correction into an earlier fact, or replace availability with effective time.
 
 ### Endpoint ownership for initial normalization
 
-The initial provider adapter should keep one primary source family for each raw claim type instead of merging semantically similar final views by convenience:
+Candidate primary source families are:
 
 - session lifecycle/start: `SessionStatus`;
 - driver roster/aliases: `DriverList` plus session metadata cross-check;
@@ -349,81 +433,77 @@ The initial provider adapter should keep one primary source family for each raw 
 - car telemetry: raw `CarData`;
 - position samples: raw `Position`.
 
-This table establishes reconstruction ownership only. It does not require every domain to become a model input.
+This table establishes normalization ownership, not availability authority. Each endpoint/era still requires its own authority-validation status before mutable facts can enter canonical observations.
 
-Processed FastF1 views may be used as validation aids or parser helpers if the adapter can still trace each admitted mutable fact to the raw ordered evidence that proves its availability.
+Processed FastF1 views may be validation aids/parser helpers if exact raw lineage and authority status remain explicit.
 
 ## Delta streams and state reduction
 
-Most live-timing feeds are update streams rather than independent full snapshots. Normalization therefore preserves update semantics and the canonical observation is produced by an as-of reducer.
-
-For each canonical state key:
+Many feeds are update streams rather than full snapshots. For each canonical state key:
 
 1. consider only normalized facts admissible at boundary `T`;
-2. apply them in defensible source order within their owning stream/domain;
+2. apply them in defensible verified order within the owning stream/domain;
 3. retain the latest legitimately available version at `T`;
-4. apply explicit retraction/tombstone semantics when the source provides them;
-5. treat a missing field in a delta record as "no new claim" only when the endpoint contract establishes delta semantics;
-6. never translate an absent historical update into a known negative/default value without source evidence.
+4. apply explicit retraction/tombstone semantics where defined;
+5. treat missing delta fields as "no new claim" only when endpoint behavior is established;
+6. never translate absent historical updates into known negative/default values;
+7. never carry facts from an unverified source into state merely because the archive is chronologically sortable.
 
-If a stream has a known gap that prevents continuity from being established, affected state becomes `unknown` after the gap until a defensible full-state/reset record or later evidence restores knowledge. The reducer does not carry a stale fact silently across an unknown interval.
+If a verified stream has a gap that breaks continuity, affected state becomes unknown after the gap until a defensible reset/full-state update restores knowledge. The reducer does not silently carry stale state across an unknown interval.
 
-## Corrections, supersession, and later confirmation
+## Corrections, supersession, archive revisions, and later confirmation
 
-Corrections are represented append-only.
-
-Example:
+Within an availability-authoritative history, corrections are append-only:
 
 ```text
-T1: fact F1 published -> effective value V1
-T2: correction F2 published -> supersedes F1, effective value V2
+T1: fact F1 becomes available -> value V1
+T2: correction F2 becomes available -> supersedes F1 with V2
 ```
 
-An observation at `T1` contains V1 if otherwise admissible. An observation at or after `T2` may contain V2. The effective time of V2 may refer to an earlier race event; that does not make V2 available before T2.
+An observation at `T1` contains V1 if otherwise admissible. An observation at/after `T2` may contain V2. V2's effective time may refer to an earlier event; that does not make V2 historically available before T2.
+
+Separate archive-level rule: if a later static archive may have replaced/backfilled the historical sequence and this revision behavior is unproven, the archive cannot be treated as append-only contemporaneous knowledge. Its affected scope remains `UNVERIFIED_ARCHIVE`, regardless of how internally ordered the current file appears.
 
 Rules:
 
-- raw source evidence is never rewritten;
-- normalized correction facts link to what they supersede when this can be established;
+- raw source snapshots are immutable once frozen for a run;
+- normalized correction facts link to superseded facts only when evidence supports that relation;
 - earlier canonical observations are immutable;
-- later source confirmation may improve later state but cannot backfill earlier certainty;
-- when only a final corrected value survives and prior version history is absent, the mutable value is classified `FINAL_SNAPSHOT_ONLY` and excluded from earlier observations;
-- improved source data or reconstruction logic creates a new source/reconstruction version and new observation artifact, not an in-place mutation of an artifact already used by a run.
+- later confirmation improves later knowledge only;
+- final corrected values without version history are `FINAL_SNAPSHOT_ONLY`;
+- archive retrieval at a later date does not retroactively validate historical knowledge;
+- improved source evidence, authority validation, or reconstruction logic creates new versioned observation artifacts, never in-place mutations.
 
 ## Partial-lap and race-wide alignment
 
-Observation indexing is driver-relative, but state reduction is always time-relative.
+Observation indexing is driver-relative; state reduction is time-relative.
 
 At selected driver `D`'s checkpoint boundary `T`:
 
 - `D.completed_laps` equals the checkpoint lap count;
-- every other driver's state is reduced independently to information available by the same `T`;
-- another driver may have completed fewer or more laps, be in a partial lap, be in the pit lane, or have no currently known state;
-- a completed-lap summary for another driver is available only if that driver's completion update is admissible by `T`;
-- telemetry/position/weather/race-control facts during `D`'s just-completed lap may be included if they became available by `T`;
-- no race-wide join uses `other_driver.LapNumber == D.LapNumber` as an alignment rule.
-
-This specifically replaces the legacy lap-row synchronization model.
+- every other driver's state is reduced independently to **verified information available by the same `T`**;
+- another driver may have completed fewer/more laps, be mid-lap, in the pit lane, or have unknown state;
+- a completed-lap summary for another driver is available only if its availability is admissible by `T`;
+- telemetry/position/weather/race-control facts may be included only from verified/admissible source evidence;
+- no race-wide join uses `other_driver.LapNumber == D.LapNumber` as its alignment rule.
 
 ### Weather
 
-The legacy extractor backward-joined weather to each row's `LapStartTime`. V2 instead reduces the weather stream to the selected driver's actual prediction boundary `T`. A weather update that became available during the lap may therefore legitimately be present at the lap-completion checkpoint; a later update is excluded.
+The legacy extractor backward-joined weather to `LapStartTime`. V2 instead reduces verified weather information to prediction boundary `T`. If historical weather archive availability is unverified for the scope, weather is omitted rather than treated as available from archive sample time alone.
 
 ### Telemetry and position
 
-The legacy extractor sampled driver-ahead state within one second after lap start. V2 does not give lap-start samples privileged status. If telemetry/position is included in a canonical observation, it is reduced/sampled only from records admissible by `T`, with the sampling/aggregation derivation carrying its own causal lineage.
+The legacy extractor sampled driver-ahead state near lap start. V2 gives no privilege to that sample. Telemetry/position may enter a canonical observation only when availability authority for the source scope is verified and the chosen causal derivation uses records admissible by `T`.
 
-Exact telemetry aggregation is a later feature/design choice; raw point-in-time admissibility is fixed here.
+Exact aggregation is a later feature/design choice.
 
 ### Completed-lap facts
 
-A selected driver's completed-lap `LapTime` or other official timing value may be included at checkpoint `L` only when the source update establishing that value is available at or before the checkpoint boundary under the tie rules above. The fact is not admitted merely because FastF1's final `Laps` row contains it.
+A selected driver's completed-lap `LapTime` or other timing value may be included at checkpoint `L` only when the source update establishing that value has verified availability at or before the checkpoint boundary. FastF1's final `Laps` row is not sufficient proof.
 
-## Deterministic derivations inside observation artifacts
+## Deterministic derivations inside observations
 
-This issue does not select features. It defines only the rule for any derived state that a later design may request.
-
-A derivation persisted in an observation must carry:
+This issue does not select features. Any persisted derivation must carry:
 
 - derivation identifier/version;
 - exact input fact references;
@@ -431,13 +511,9 @@ A derivation persisted in an observation must carry:
 - output quality;
 - proof that every input fact is admissible at the same prediction boundary.
 
-A derivation is invalid for that observation if it uses any input first available after `T`, a final race result, a future normalization statistic, a later source correction, or an unavailable value filled from hindsight.
-
-Derived state may be omitted while retaining the underlying canonical observation.
+A derivation is invalid if it uses input first available after `T`, an unverified historical archive fact, final race result, future normalization statistic, later correction, or hindsight-filled value.
 
 ## Canonical observation artifact contract
-
-The canonical observation is an immutable as-of artifact. The logical schema is:
 
 ```text
 CanonicalObservation
@@ -447,10 +523,11 @@ CanonicalObservation
     driver_entry_key
     checkpoint_key
   prediction_boundary
+    authority_validation_ref
     source_clock
-    source_time
+    source_time_or_bound
     trigger_stream
-    trigger_record_ordinal
+    trigger_record_ordinal_if_verified
     timestamp_precision / ordering metadata
   selected_driver_completed_laps
   canonical_state
@@ -464,6 +541,7 @@ CanonicalObservation
     observation_reconstruction_run_ref
     reconstruction_policy_version
     source_adapter/normalizer_version
+    authority_validation_refs
     repository_revision
   quality
     status
@@ -471,48 +549,44 @@ CanonicalObservation
     omitted_domains/facts summary
 ```
 
-The physical format, exact column types, and storage partitioning are intentionally not fixed here.
+The physical format, exact column types, and storage partitioning are not fixed here.
 
-`canonical_state` is a provider-neutral as-of fact/state collection, not a model feature vector. A later model-facing design may select or derive predictors only from this artifact and may not reach around it to retrospective source truth.
+`canonical_state` is a provider-neutral as-of collection, not a model feature vector. Later model-facing design may consume only this causal observation boundary and may not reach around it to retrospective source truth.
 
 ## Reconstruction run manifest
 
-Each observation reconstruction run must persist enough metadata to reproduce and audit the set of observations:
+Each run persists:
 
 - run ID;
 - source snapshot manifest IDs;
 - exact repository/code revision;
 - reconstruction policy version;
 - provider/source adapter and normalizer versions;
+- availability-authority validation IDs/statuses and support matrix version;
 - clock conversion/reference configuration;
-- requested season/round/session scope and driver scope;
+- requested season/round/session/driver scope;
 - endpoint completeness/gap summary;
 - counts by emitted/omitted/indeterminate status and reason;
-- observation artifact IDs emitted by the run;
-- configuration inputs that can affect reconstruction;
-- deterministic randomness seed only if a future reconstruction step genuinely needs randomness; the initial reconstruction should not.
+- observation artifact IDs emitted;
+- configuration inputs affecting reconstruction.
 
-A notebook session, local cache directory, current branch name, or file modification time is not sufficient provenance.
+A notebook state, cache directory, branch name, or file modification time is insufficient provenance.
 
-## Observation quality and reconstruction failure states
-
-Quality is explicit at both observation and fact/domain level.
-
-### Observation-level status
+## Observation quality and failure states
 
 | Status | Meaning | Downstream use |
 | --- | --- | --- |
-| `VALID` | Identity and checkpoint boundary are defensible; every represented fact satisfies the availability contract | Ordinary downstream consumption |
-| `VALID_WITH_OMISSIONS` | Core identity/checkpoint are defensible, but one or more optional domains/facts were conservatively omitted because source evidence is missing or ambiguous | Downstream may consume only represented/known state and must retain quality metadata |
-| `INDETERMINATE_IDENTITY` | Session or driver-entry identity cannot be established unambiguously | No canonical prediction observation emitted |
-| `INDETERMINATE_CHECKPOINT` | Official start/lap-completion availability boundary cannot be reconstructed | No canonical prediction observation emitted for that checkpoint |
-| `INDETERMINATE_SOURCE` | Source gaps/corruption prevent the minimum required reconstruction from being established | No canonical prediction observation emitted |
+| `VALID` | Identity/checkpoint boundary are defensible and every represented mutable fact satisfies verified availability rules | Ordinary downstream consumption |
+| `VALID_WITH_OMISSIONS` | Core identity/checkpoint are defensible; optional domains/facts were omitted because evidence was missing, unverified, or ambiguous | Consume represented state and retain quality metadata |
+| `INDETERMINATE_IDENTITY` | Session/driver identity cannot be established | No canonical prediction observation |
+| `INDETERMINATE_CHECKPOINT` | Official start/lap-completion **availability** boundary cannot be reconstructed with verified authority | No canonical prediction observation for that checkpoint |
+| `INDETERMINATE_SOURCE` | Source gaps/corruption/unsupported authority prevent minimum reconstruction | No canonical prediction observation |
 
-Failure/indeterminate attempts are still recorded in the reconstruction-run accounting so dataset coverage is auditable.
+Failure/indeterminate attempts remain in run accounting.
 
 ### Standard reason codes
 
-The design reserves at least these reason classes:
+At minimum:
 
 - `SESSION_ID_MISMATCH`;
 - `DRIVER_ID_MISSING_OR_NONUNIQUE`;
@@ -523,6 +597,9 @@ The design reserves at least these reason classes:
 - `SOURCE_STREAM_MISSING`;
 - `SOURCE_STREAM_GAP`;
 - `RAW_RECORD_PARSE_ERROR`;
+- `ARCHIVE_AVAILABILITY_UNVERIFIED`;
+- `ARCHIVE_REVISION_BEHAVIOR_UNVERIFIED`;
+- `SOURCE_AUTHORITY_UNSUPPORTED`;
 - `CROSS_STREAM_TIE_OMITTED`;
 - `COARSE_TIME_AMBIGUITY`;
 - `FINAL_ONLY_VALUE_OMITTED`;
@@ -535,34 +612,34 @@ Implementations may refine codes without weakening these distinctions.
 
 ## Legacy data handling
 
-The existing CSV corpus remains historical evidence and may be used for comparison, QA, or migration checks, but it is not a canonical V2 observation store.
+The existing CSV corpus remains historical evidence/QA material, not a canonical V2 observation store.
 
 In particular:
 
-- `LapStartTime` is an effective lap-start time, not the lap-completion prediction boundary;
-- `LapTime` describes a completed lap and cannot be paired blindly with start-of-lap values;
-- legacy weather is sampled/as-of joined to lap start rather than the V2 checkpoint boundary;
-- legacy `DriverAhead`/distance is sampled around lap start;
-- legacy `PitStatus` is a retrospective lap-level derivation and is not copied into V2 observations as a target/proxy field;
-- legacy `TotalLaps` created as maximum observed lap count is retrospective race information, not proof of scheduled total laps known at an earlier checkpoint;
-- final position/gap/stint/tyre values in a row are not assumed point-in-time legal without raw availability evidence.
+- `LapStartTime` is effective lap-start time, not the lap-completion prediction boundary;
+- `LapTime` cannot be paired blindly with start-of-lap values;
+- legacy weather is joined to lap start, not V2 checkpoint time;
+- legacy driver-ahead/distance is sampled around lap start;
+- legacy `PitStatus` is retrospective lap-level derivation and is not copied as target/proxy state;
+- legacy `TotalLaps=max(observed lap)` is retrospective race information;
+- final position/gap/stint/tyre values are not assumed point-in-time legal.
 
-V2 implementation should re-acquire/freeze the underlying historical source streams where available. A session for which the minimum source-order evidence cannot be obtained is reported as incomplete/indeterminate rather than reconstructed from hindsight.
+V2 implementation may re-acquire/freeze historical source streams, but **freezing alone is insufficient**. Ordinary observations are emitted only for source scopes whose historical availability authority is validated. Unsupported/unverified sessions are reported explicitly rather than reconstructed from hindsight.
 
-The historical extractor's special skip of the first two 2018 races because telemetry was unavailable is not inherited as a V2 semantic filter. Telemetry is optional to the core observation contract; a race with valid identity/checkpoint timing may still yield observations with telemetry omitted.
+The historical extractor's skip of the first two 2018 races due to missing telemetry is not inherited. Telemetry is optional to the core observation contract.
 
-## Provider-version and private-API boundary
+## Provider-version/private-API boundary
 
-FastF1 currently marks parts of its API layer as private/subject to change. #18 therefore does not make a specific private Python function a permanent architectural interface.
+FastF1 marks parts of its API layer as private/subject to change. The implementation requirement is therefore to:
 
-The implementation requirement is instead:
+- isolate FastF1/F1-live-timing parsing behind the source adapter;
+- freeze exact source content;
+- record FastF1/adapter version;
+- keep archive structure separate from availability authority;
+- require a versioned authority-validation result before an endpoint/era is used for historical checkpoint/fact availability;
+- invalidate/re-run relevant validation when provider/archive behavior changes materially.
 
-- isolate FastF1/F1-live-timing parsing behind the source adapter boundary;
-- freeze raw source content;
-- record FastF1/adapter version in provenance;
-- test source semantics against representative historical fixtures before relying on a changed provider version.
-
-Pinning exact package versions and implementing adapter code belong to implementation/verification work.
+Pinning package versions and implementing adapter code belong to implementation/verification work.
 
 ## Downstream contract
 
@@ -573,35 +650,40 @@ Pinning exact package versions and implementing adapter code belong to implement
 - exact `CanonicalObservation` artifact identity;
 - race-session and driver-entry keys;
 - checkpoint key;
-- prediction boundary;
+- verified prediction boundary;
 - observation quality/provenance.
 
 #19 may initialize target eligibility/episode identity from this causal observation contract but may not require #18 to expose retrospective target truth.
 
 ### #20 — prediction/model-facing contract
 
-#20 may define a model-facing representation derived from canonical observation state. It may not use processed source values that bypass the observation artifact or change the information boundary.
+#20 may define a model-facing representation derived from canonical observation state. It may not use processed/unverified source values that bypass the observation artifact or change the information boundary.
 
 ### #21 — replay/backtest execution
 
-#21 can order observations by their canonical checkpoint/prediction boundaries and retain exact artifact/provenance references. It must not rewrite observations after later corrections or target resolution.
+#21 can order observations by canonical verified checkpoint boundaries and retain exact artifact/provenance references. It must preserve unsupported/indeterminate coverage accounting and never rewrite observations after later corrections or target resolution.
 
 ## Verification handoff
 
-The later verification baseline must test, at minimum:
+The verification baseline must establish a **source-authority support matrix** before implementation/backtesting claims a historical scope. At minimum it must test/establish:
 
-1. representative `SessionStatus` start transitions across supported seasons;
-2. raw `TimingData` lap-count progression and duplicate/jump/correction cases;
-3. that archived `jsonStream` timestamps/order are preserved by the source adapter;
-4. common session-clock alignment across streams and the conservative cross-stream tie behavior;
-5. source gaps/corrupt records and recovery behavior;
-6. examples where FastF1 processed lap alignment differs from raw timing-record publication time;
-7. delayed/corrected facts proving that earlier observations do not change;
-8. partial-lap/race-wide alignment where drivers are on different lap counts;
-9. source-version/provenance replay yielding identical observation artifacts for identical frozen inputs;
-10. coverage across the historical race set, with sessions lacking sufficient source evidence explicitly reported rather than silently backfilled.
+1. historical meaning of the archive record prefix for each relied-upon endpoint/era: publication/observability versus effective/event/log time;
+2. archive revision behavior: whether later static retrieval preserves contemporaneous payload versions/order, including comparisons against contemporaneous captures or another authoritative record where available;
+3. explicit downgrade to `UNVERIFIED_ARCHIVE`/`UNSUPPORTED` when either timestamp meaning or revision fidelity cannot be established;
+4. representative `SessionStatus` start transitions only within validated authority scopes;
+5. raw `TimingData` lap-count progression and duplicate/jump/correction cases only within validated authority scopes;
+6. that the adapter preserves exact frozen archive bytes, prefixes, ordinals, hashes, and validation references without promoting them implicitly;
+7. common-clock and cross-stream tie behavior for streams whose availability semantics are actually validated;
+8. source gaps/corrupt records and recovery behavior;
+9. cases where processed FastF1 lap alignment differs from raw/archive timing structure;
+10. delayed/corrected facts proving earlier observations remain unchanged;
+11. partial-lap/race-wide alignment with drivers on different progression states;
+12. identical frozen inputs + identical validation/configuration yielding identical observation artifacts;
+13. season/endpoint coverage reporting showing which historical sessions are supported, valid-with-omissions, or indeterminate because authority cannot be proven.
 
-These are verification obligations, not permission to change this design's point-in-time semantics.
+A verification result may validate only a subset of seasons/endpoints. The support matrix, not the existence of an archive file, defines the reconstructable historical scope.
+
+These are verification obligations; they may not weaken the approved availability-time semantics.
 
 ## Decisions intentionally deferred
 
@@ -611,26 +693,50 @@ These are verification obligations, not permission to change this design's point
 | Model feature set, feature aggregation, timing-region/probability representation, model artifact | #20 / later model verification |
 | Replay ordering beyond consuming observation boundaries, development/final-evaluation split, scoring/accounting protocol | #21 / verification |
 | Exact metrics/statistical estimators and dependence treatment | Verification/statistical phase |
-| Exact physical schemas, file formats, hash algorithm, package versions, CLI commands, cache implementation | Implementation unless a later design issue explicitly needs them |
+| Empirical source-authority support matrix by endpoint/season and fixtures proving archive publication/revision semantics | Verification baseline after #22 |
+| Exact physical schemas, formats, hash algorithm, package versions, CLI/cache implementation | Implementation unless later design explicitly requires them |
 | Live ingestion receipt-time clocks, network latency, intra-lap live triggers | Future bounded live design |
 
 ## Acceptance mapping
 
-- **Concrete source/timing inventory:** repository CSV/extractor evidence and current FastF1 raw/processed source classes are explicitly separated.
-- **Canonical identities:** race session, driver entry, checkpoint, semantic observation, and artifact identity are defined without display-name coincidence.
-- **Transformation ownership:** raw source record -> normalized fact -> canonical observation boundaries are explicit.
-- **Availability/order handling:** source availability classes, same-stream order, cross-stream tie exclusion, coarse/bounded times, and effective-only/final-only handling are explicit.
-- **Corrections/supersession:** append-only revisions and no retroactive observation mutation are explicit.
-- **Partial-lap/race-wide alignment:** all state is reduced by selected-driver prediction time, never by equal lap number.
-- **Observation provenance:** source snapshot, adapter/reconstruction versions, repository revision, trigger lineage, and run accounting are required.
-- **Failure/quality states:** valid-with-omission versus identity/checkpoint/source indeterminacy are distinguished.
-- **Downstream consumability:** #19–#21 receive stable observation/provenance contracts without redefining point-in-time semantics.
-- **Scope discipline:** no target algorithm, feature selection, model choice, output parameterization, metric, live runtime, or production code is selected.
+- **Concrete source/timing inventory:** repository CSV/extractor evidence and FastF1 raw/archive/processed source classes are separated, including the explicit limitation that archive prefix/order does not itself prove historical availability.
+- **Canonical identities:** race session, driver entry, checkpoint, semantic observation, and artifact identity are unambiguous without display-name coincidence.
+- **Transformation ownership:** source snapshot -> raw/archive record -> authority validation -> normalized fact -> canonical observation boundaries are explicit.
+- **Availability/order handling:** validated source authority, unverified-archive fail-closed handling, same-stream order, cross-stream ties, coarse/bounded times, and effective/final-only distinctions are explicit.
+- **Corrections/supersession:** fact revisions and archive-level revision uncertainty are separate; neither can rewrite earlier observations.
+- **Partial-lap/race-wide alignment:** all represented state is reduced by selected-driver prediction time, never equal lap number.
+- **Observation provenance:** source snapshot, adapter/reconstruction versions, authority validations, repository revision, trigger lineage, and run accounting are required.
+- **Failure/quality states:** valid-with-omission versus identity/checkpoint/source indeterminacy are explicit, including unsupported/unverified availability authority.
+- **Downstream consumability:** #19–#21 receive stable causal observation/provenance contracts without redefining point-in-time semantics.
+- **Scope discipline:** empirical source validation is routed to verification; no target algorithm, feature/model choice, probability parameterization, metric, live runtime, or production code is selected.
 
 ## Product Owner decisions
 
-None required. This design implements the already-approved availability-time and replay-first semantics with conservative source-order rules. It does not change which kind of information is legitimate in principle, the target meaning, prediction meaning, or product scope.
+None required. Failing closed when historical availability cannot be proven implements the already-approved availability-time semantic lock. It does not change the product, target, prediction meaning, or historical-replay ambition; it makes the empirically supportable historical scope explicit.
 
-## Review
+## Review record
 
-This artifact requires one independent full scoped review under `governance/REVIEW_POLICY.md` before approval. Review should judge the detailed observation-reconstruction/provenance design against Issue #18, `contexts/RACE_OBSERVATION_STATE.md`, and the approved #17 architecture boundary. Downstream target/model/evaluation details explicitly owned elsewhere are not defects unless this observation contract makes them impossible to consume coherently.
+### Full scoped review — FAIL, rework required
+
+- PR: #24
+- Review: `PRR_kwDOJBBaD88AAAABM_bHXQ`
+- Date: 2026-09-10
+- Outcome: **FAIL — rework required**
+- Blocking finding: archived `jsonStream` timestamp/order was treated as proven historical availability evidence without establishing publication-time semantics or archive revision fidelity.
+- Product Owner decision: none required.
+
+### Rework
+
+The design now:
+
+1. separates `ArchiveRecordKey` (frozen archive structure) from `SourceAvailabilityKey` (validated historical availability claim);
+2. introduces a scoped `AvailabilityAuthorityValidation` gate with explicit timestamp-meaning and archive-revision-fidelity requirements;
+3. classifies the currently inspected historical FastF1 archive as `UNVERIFIED_ARCHIVE` until verification establishes stronger authority for a specific endpoint/era;
+4. forbids unverified archives from creating prediction checkpoints or contributing mutable facts, while allowing optional unverified domains to be omitted explicitly;
+5. makes source/era support a versioned verification matrix rather than an assumption that all archived seasons are reconstructable;
+6. adds authority validation to source, fact, observation, run-provenance, failure-code, and downstream contracts;
+7. adds explicit verification obligations for archive publication semantics and revision behavior, not merely parser preservation of current file order/timestamps.
+
+### Bounded re-review
+
+Required under `governance/REVIEW_POLICY.md`. It should verify the prior Blocking finding, regressions introduced by this rework, and the original #18 acceptance criteria. It is not a fresh unlimited review.
