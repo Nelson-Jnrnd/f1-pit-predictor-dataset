@@ -79,18 +79,15 @@ flowchart TD
     O --> OS[Canonical observation snapshots]
     T --> TS[Canonical target episodes]
 
-    OS --> P[Prediction procedure]
-    MA[Fixed model / prediction artifact] --> P
-    P --> PS[Immutable prediction snapshots]
-
     OS --> D[Development dataset assembly]
     TS --> D
     D --> M[Model development / fitting]
-    M --> MA
+    M --> MA[Fixed model / prediction artifact]
 
     OS --> R[Replay orchestrator]
-    MA --> R
-    R --> PS
+    R --> P[Prediction procedure]
+    MA --> P
+    P --> PS[Immutable prediction snapshots]
 
     PS --> B[Backtest assembly / evaluation]
     TS --> B
@@ -111,7 +108,7 @@ The diagram contains two important joins:
 - Observation and target artifacts may be joined for **development/training** only under the declared development temporal boundary.
 - Prediction and target artifacts may be joined for **evaluation** only after the prediction snapshot is fixed.
 
-There is no target-to-observation or target-to-prediction edge in the forecast execution path.
+There is no target-to-observation or target-to-prediction edge in the forecast execution path. The replay orchestrator passes each ordered observation to the prediction procedure; it does not produce the prediction independently.
 
 ## Logical components and responsibilities
 
