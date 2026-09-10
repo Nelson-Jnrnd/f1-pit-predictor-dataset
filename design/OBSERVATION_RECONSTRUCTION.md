@@ -2,7 +2,7 @@
 
 ## Status
 
-Draft — reworked after the full scoped review on PR #24. Bounded re-review required before approval.
+Approved — bounded re-review PASS recorded on PR #24 for substantive head `e8fd27c46415e6637ff91f0287e087abcbf4277c`.
 
 ## Abstraction level
 
@@ -719,7 +719,7 @@ None required. Failing closed when historical availability cannot be proven impl
 ### Full scoped review — FAIL, rework required
 
 - PR: #24
-- Review: `PRR_kwDOJBBaD88AAAABM_bHXQ`
+- Review: `PRR_kwDOJBBaD88AAAABM_bHXQ` / `pullrequestreview-5166778205`
 - Date: 2026-09-10
 - Outcome: **FAIL — rework required**
 - Blocking finding: archived `jsonStream` timestamp/order was treated as proven historical availability evidence without establishing publication-time semantics or archive revision fidelity.
@@ -737,6 +737,15 @@ The design now:
 6. adds authority validation to source, fact, observation, run-provenance, failure-code, and downstream contracts;
 7. adds explicit verification obligations for archive publication semantics and revision behavior, not merely parser preservation of current file order/timestamps.
 
-### Bounded re-review
+### Bounded re-review — PASS
 
-Required under `governance/REVIEW_POLICY.md`. It should verify the prior Blocking finding, regressions introduced by this rework, and the original #18 acceptance criteria. It is not a fresh unlimited review.
+- PR: #24
+- Review: `PRR_kwDOJBBaD88AAAABM_yi7w` / `pullrequestreview-5167162095`
+- Date: 2026-09-10
+- Reviewed substantive head: `e8fd27c46415e6637ff91f0287e087abcbf4277c`
+- Outcome: **PASS** — no Blocking, Major, or Minor findings remain.
+- Prior Blocking finding: resolved; archive structure and historical availability authority are separated, validation is scoped, and unverified archives fail closed.
+- Regression check: passed against Issue #18, the approved #17 architecture, `contexts/RACE_OBSERVATION_STATE.md`, the Wave 1 integration gate, and the original #18 acceptance criteria.
+- Product Owner decision: none required.
+
+This final metadata-only commit records the passing bounded re-review and does not change the reviewed substantive design.
