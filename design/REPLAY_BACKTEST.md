@@ -2,7 +2,7 @@
 
 ## Status
 
-Draft — authored for Issue #21. Independent full scoped review required before approval.
+Draft — reworked after the full scoped review on PR #28. Bounded re-review required before approval.
 
 ## Abstraction level
 
@@ -16,334 +16,414 @@ This artifact does not define observation, target, or prediction semantics or th
 - Parent: #16
 - Upstream: #17 `design/SYSTEM_ARCHITECTURE.md`; #18 `design/OBSERVATION_RECONSTRUCTION.md`; #19 `design/TARGET_RECONSTRUCTION.md`; #20 `design/PREDICTION_CONTRACT.md` (all approved and merged)
 - Branch: `ccr-d8f3e250-t7uix3` (session task branch used in place of the suggested `design/replay-backtest-contract`)
+- PR: #28
 
 ## Outcome
 
-V2 historical evaluation is executed as four kinds of immutable run, each with a manifest:
+V2 historical evaluation is executed as four kinds of immutable run:
 
 ```text
-ReplayRun            ordered observations + eligibility -> prediction snapshots / failures
-DevelopmentRun       development-partition observations + selected resolutions -> model artifact(s)
-BacktestRun          one completed ReplayRun + selected resolutions -> evaluation units + accounting
-ScoreRun             one BacktestRun + a versioned scorer -> score artifacts
+DevelopmentRun   development-allowed observations + selected resolutions -> ModelArtifact(s)
+ReplayRun        observations + eligibility + model schedule -> prediction snapshots / failures
+BacktestRun      replay run(s) + selected resolutions -> record-level accounting + evaluation units
+ScoreRun         one BacktestRun + a versioned scorer -> ScoreArtifact (its own manifest)
 ```
 
-The temporal protocol is **season-ordered rolling-origin development followed by a locked, single-use final holdout**:
+The temporal protocol is **season-ordered rolling-origin development followed by a locked final holdout whose outcomes are opened at most once per race**:
 
-- prediction-producing choices are made only from development folds, in which each validation season is predicted by procedures fitted on strictly earlier races;
-- the chosen procedure is then frozen in an `EvaluationLock` before any final-partition outcome is joined;
-- each final partition records, in an append-only ledger, every time its outcomes were opened. Only the first locked procedure evaluated on it may be reported as the primary final claim.
+- prediction-producing choices are made only from development folds, in which every validation race is predicted by models trained on strictly earlier races;
+- the chosen procedure, its seeds, and its exact model schedule are frozen in an `EvaluationLock` before any final-partition outcome is joined by any run;
+- an append-only `FinalEvaluationLedger`, keyed by **race session**, records every opening of a final-partition outcome. Only the first locked evaluation of a race can be its primary final evidence.
 
-The evaluation unit stays the #20 `PredictionSnapshot` joined to the selected #19 resolution of its own `target_episode_key`. Every candidate checkpoint lands in exactly one accounting category, so nothing disappears silently.
+The evaluation unit stays the #20 `PredictionSnapshot` joined to the selected #19 resolution of its own `target_episode_key`. Every candidate checkpoint gets exactly one record-level accounting category. Per-record exclusions are limited to causal gates and truncation. Missing or unmappable outcome data is treated as a run-validity defect, never as a silent cohort filter.
 
 ## Upstream locks consumed unchanged
 
-- `contexts/EVALUATION_BACKTESTING.md` — replay versus backtest, the atomic prediction-target unit, entry conditions, end-to-end point-in-time legitimacy, observed-event, terminal no-event and truncation comparison semantics, repeated-forecast identity, no outcome-peeking cohort selection, development versus final separation, temporal ordering, declared protocol, and reproducibility.
+- `contexts/EVALUATION_BACKTESTING.md` — replay versus backtest, the atomic prediction-target unit, entry conditions, end-to-end point-in-time legitimacy, observed-event, terminal no-event and truncation comparison semantics, repeated-forecast identity, no outcome-peeking cohort selection (§10), development versus final separation (§§11–12), declared protocol, and reproducibility.
 - `contexts/PREDICTION_OUTPUT_REPLAY.md` and `decisions/2026-09-09-v2-prediction-output-semantics.md` — immutable successive snapshots; complete distribution plus terminal no-event; truncation is not a prediction category.
 - `design/SYSTEM_ARCHITECTURE.md` — replay coordinates but never creates prediction contents. Development assembly and backtest assembly are the only controlled joins with retrospective truth. Rerunning creates new runs.
-- `design/OBSERVATION_RECONSTRUCTION.md` — checkpoint boundaries, observation quality states, and source-authority support. Unsupported or unverified scopes stay explicitly indeterminate.
-- `design/TARGET_RECONSTRUCTION.md` — `EligibilityDecision`, `TargetEpisodeInitialization`, resolution states, and exactly one selected `TargetResolutionArtifact` per episode per declared `resolution_run_ref`.
-- `design/PREDICTION_CONTRACT.md` — `PredictionSnapshot`, `PredictionFailureRecord`, `prediction_run_ref`, `RegionGrid`, and the realized-target mapping with kinds `REALIZED_REGION`, `REALIZED_REGION_SET`, `REALIZED_NO_EVENT`, `NOT_REALIZED`, `MAPPING_CONFLICT`, and `MAPPING_UNAVAILABLE`.
+- `design/OBSERVATION_RECONSTRUCTION.md` — `RaceSessionKey`, `DriverEntryKey`, `CheckpointKey`, checkpoint boundaries, observation quality states, and source-authority support.
+- `design/TARGET_RECONSTRUCTION.md` — `EligibilityDecision`, `TargetEpisodeInitialization`, resolution states, `event_key`, and exactly one selected `TargetResolutionArtifact` per episode per declared `resolution_run_ref`.
+- `design/PREDICTION_CONTRACT.md` — `PredictionSnapshot` (`prediction_key`, `content_digest`, `request_digest`), `PredictionFailureRecord`, `RegionGrid`, the declared deterministic tolerance, and the realized-target mapping kinds.
 
-## Replay execution
+## Temporal reference
 
-### Inputs
+- Races are ordered by official race-session start time. A race is identified by its `RaceSessionKey`.
+- A model artifact's **training cutoff** is a `RaceSessionKey` `c`, with start time `t(c)`. It is **exclusive**: only races whose session concluded before `t(c)` may contribute observations, resolved targets, preprocessing statistics, calibration data, or selection evidence. This value fills #20 `development_temporal_boundary_ref`.
+- A model with cutoff `c` may predict race `r` only if `t(c) ≤ t(r)`. In particular, cutoff `c = r` (trained on everything before `r`) is valid for predicting `r`.
 
-```text
-ReplayRunConfig
-  replay_scope: list of RaceSessionKey
-  observation_reconstruction_run_ref       # #18 run supplying observations
-  target_initialization_run_ref            # #19 eligibility/initialization run
-  model_artifact_ref                       # exactly one fixed model per replay run
-  inference_seed_policy                    # e.g. derived from (run seed, prediction_key)
-  prediction_contract_version
-  repository_revision, dependency_lock_ref
-```
+This single convention is used by the lock, refits, leakage control 2, and verification item 4.
 
-A replay run consumes no `TargetResolutionArtifact`, no `QualifyingPitEventArtifact`, no realized outcome, and no score. Its dependency closure is checked when the run starts (see *Leakage controls*).
-
-### Ordering
-
-Within one race session, replay processes checkpoint records in the total order:
-
-```text
-(prediction_boundary T on the validated information clock,
- trigger_record_ordinal_if_verified,
- driver_entry_key,
- checkpoint_key.completed_laps)
-```
-
-- For a fixed driver entry, the order is strictly increasing in `completed_laps`, because #18 boundaries are monotone per driver.
-- Across drivers, ties or bounded boundaries are ordered by the deterministic keys above. That order affects only manifest order and presentation, never prediction content. Each prediction depends only on its own observation (#20 input boundary), so it cannot see an "earlier" competitor's prediction.
-- Sessions are processed in `RaceSessionKey` order. Sessions are independent in a replay run.
-
-### Per-checkpoint step
-
-For each attempted checkpoint reported by the referenced #18 run, in replay order:
-
-1. If no `CanonicalObservation` exists (`INDETERMINATE_CHECKPOINT`, unsupported source, or another #18 failure state), record the accounting state and continue.
-2. Read the #19 `EligibilityDecision` for that observation. If it is `INELIGIBLE` or `INDETERMINATE`, record it and continue. No prediction is requested.
-3. If it is `ELIGIBLE`, pass the observation and its `TargetEpisodeInitialization` to the #20 prediction procedure, together with the run's model artifact and seed.
-4. Record the returned `snapshot_id` or `PredictionFailureRecord` reference in the manifest.
-5. Never revisit or rewrite an earlier record.
-
-The replay orchestrator does not compute eligibility, construct inputs, or create snapshot contents.
-
-### Prediction run identity
-
-Each replay run has exactly one `prediction_run_ref`, equal to its `replay_run_id`. This fills the #20 `prediction_key` field. A snapshot is therefore unique per `(target_episode_key, model_artifact_ref, replay_run_id)`.
-
-### Replay run manifest
-
-```text
-ReplayRunManifest
-  replay_run_id                     # digest of config + start record
-  config: ReplayRunConfig (+ digest)
-  records[]:                        # one per attempted checkpoint, in replay order
-    semantic_observation_key
-    observation_artifact_ref?
-    observation_quality_status
-    eligibility_decision_ref? / eligibility_status?
-    target_episode_key?
-    snapshot_id? | prediction_failure_ref?
-  counts by state
-  status: COMPLETED | ABORTED (+ reason)
-  started_at / completed_at          # provenance only
-```
-
-A manifest is immutable once its status is `COMPLETED` or `ABORTED`. An aborted run is never resumed in place; a new run is started instead.
-
-## Run identity, provenance, and reproduction
-
-Every run manifest records, as applicable:
-
-- the run type and id, and the config with its content digest;
-- repository revision and dependency lock;
-- the semantic and design versions it implements (decision/context/design references and `prediction_contract_version`);
-- exact upstream run references (observation reconstruction, target initialization, resolution run, development run, replay run);
-- the source snapshot manifests, carried through upstream manifests;
-- the model artifact reference and its development provenance;
-- the protocol and partition references (below);
-- randomness: run seed and seed-derivation rule;
-- the content digests of all produced artifacts.
-
-**Reproduction rule.** Re-executing a declared run creates a new run id. It is a *reproduction* of the earlier run only if every produced artifact's content digest matches: `content_digest` for snapshots, and record-level digests for evaluation units and accounting. If any digest differs, it is a new, unrelated run; the earlier run and its artifacts are never replaced. A reproduction report artifact records the comparison.
-
-## Temporal development versus final-evaluation protocol
-
-### Temporal unit
-
-The partition unit is the **race session**. All driver entries and checkpoints of one race fall on the same side of any boundary. Races are ordered by official race-session start time.
-
-A model artifact's **training cutoff** is a race-session ordinal `c`. Only races whose session concluded before race `c` started may contribute observations, resolved targets, preprocessing statistics, calibration data, or selection evidence (#20 `development_temporal_boundary_ref`).
-
-### Protocol declaration
+## Protocol
 
 ```text
 BacktestProtocol
   protocol_id                       # digest of this declaration
-  supported_scope                   # race sessions supported by the #18/#19 verification support matrix
-  development_partition             # ordered list of seasons/sessions
-  final_partition                   # strictly later than every development session
-  development_folds                 # rolling-origin rule (below)
+  supported_scope                   # race sessions supported by the #18/#19 verification support
+                                    # matrices, including EntryLapContext support (Issue #27)
+  candidate_scope_rule              # pre-race attributes only (season, session list, entry list)
+  development_partition             # ordered race sessions
+  final_partition                   # every race strictly later than all development races
+  development_fold_rule             # see Development folds
   final_refit_cadence: NONE | PER_SEASON | PER_RACE
   resolution_run_ref                # selects exactly one resolution per episode
-  primary_cohort_rule_version       # see Cohort selection
-  candidate_scope_rule              # which sessions/drivers/checkpoints are candidates
+  primary_cohort_rule_version       # cohort/v2
+  prior_exposure[]                  # known earlier uses of final-partition races (see below)
   declared_at, repository_revision
 ```
 
 Constraints:
 
-1. `max(development_partition) < min(final_partition)` in race order.
-2. The protocol is committed and digested before any final-partition outcome is joined. Changing it creates a new `protocol_id`.
-3. Exact seasons are configuration, not design. **Default shape** for the current repository (thesis-era data covering 2018–2023): the latest supported season forms `final_partition`, and all earlier supported seasons form `development_partition`. If the verification support matrix supports fewer than three seasons, the protocol must say so, and the final claim is labeled as low-power. No unsupported season is substituted.
+1. `development_partition`, `final_partition` ⊆ `supported_scope`, and every development race precedes every final race.
+2. The protocol is committed and digested before any final-partition outcome is opened. Changing it creates a new `protocol_id`; it does not reset the ledger (see *Ledger*).
+3. A final partition is valid for a new primary claim only if **every** race in it is unopened in the ledger.
+4. **Prior exposure.** The protocol lists known earlier exposure of final-partition races to prediction-producing choices: thesis-era work (which used random season-mixing splits over the 2018–2023 data in `data/`, per `legacy/THESIS_EVIDENCE.md`), exploratory notebooks, and so on. If the list is non-empty, every final claim carries the qualifier `PRIOR_EXPOSURE_DECLARED`.
+5. **Default allocation shape** (configuration, not design): prefer a final partition made of supported seasons absent from thesis-era data (2024 or later) when the support matrices cover them. Otherwise use the latest supported season, with prior exposure declared. All earlier supported seasons form the development partition. Unsupported seasons are never substituted.
 
-### Development folds (model selection)
+### Development folds
 
-Rolling origin by season inside `development_partition`:
+`development_fold_rule` is one of:
 
-```text
-for each development season s_k after the first:
-    fit candidate procedures on development races before s_k
-    replay s_k  -> ReplayRun(role = DEVELOPMENT_VALIDATION, fold = k)
-    BacktestRun on that replay
-```
+- `ROLLING_SEASON` (default when the development partition spans at least 3 supported seasons). For each development season `s_k` after the first, fit with cutoff = the first race of `s_k`, and validate on all races of `s_k`.
+- `ROLLING_RACE_BLOCK` (fallback for 2 seasons, or 1 season). The development races are split into consecutive blocks of a declared size `b`. Each block is validated by models with cutoff = the block's first race, starting from a declared minimum training block.
+- `PRESPECIFIED`. No selection is performed: a single `ProcedureSpec` is fixed before any development outcome is examined, and `selection_evidence_refs` is empty by declaration. Required when fewer development races exist than the declared minimum.
 
-Selection among procedures (model family, input view, hyperparameters, calibration, output form, probability floor) may use only fold BacktestRun/ScoreRun results. Non-temporal resampling inside the training races of a fold is allowed as development evidence, but must be labeled as such.
+The fold rule, `b`, and minimums are part of the protocol digest. A protocol with fewer than three supported development seasons carries the qualifier `LOW_POWER`.
+
+## Run contracts
+
+### Common provenance
+
+Every run manifest records, as applicable:
+
+- run type and id, and the config with its digest;
+- repository revision and dependency lock;
+- `protocol_id`, `partition_role` (`DEVELOPMENT_FIT`, `DEVELOPMENT_VALIDATION`, `FINAL_REFIT`, `FINAL_EVALUATION`), `fold_id?`, and `lock_id?`;
+- semantic and design versions (decision/context/design references, `prediction_contract_version`, mapping version);
+- exact upstream run references (observation reconstruction, target initialization, resolution run, development runs, replay runs);
+- source snapshot manifests, carried through upstream manifests;
+- every seed (fit seeds, inference seed policy) and the seed-derivation rule;
+- content digests of all produced artifacts.
+
+### ProcedureSpec
 
 ```text
 ProcedureSpec
   procedure_id                      # digest
   estimator/config, input_view_version, calibration config, output_form
-  fitting rule (how a ModelArtifact is produced given a cutoff)
+  fitting rule: how a ModelArtifact is produced given a cutoff
+  fit_seed_rule, inference_seed_policy
+  handling of truncated / set-valued outcomes in fitting
 ```
 
-### Locking and final evaluation
+### DevelopmentRun
+
+```text
+DevelopmentRunConfig
+  protocol_id, partition_role (DEVELOPMENT_FIT | FINAL_REFIT), fold_id?, lock_id?
+  procedure_id
+  cutoff c
+  training_races                    # all races r with t(r) concluded before t(c), within supported_scope
+  observation/initialization run refs, resolution_run_ref, mapping version
+```
+
+The development join (#17 rule 7) enforces:
+
+1. Every training race has concluded before `t(c)`.
+2. If any training race is in the protocol's `final_partition`, the run must be `FINAL_REFIT` and must reference a `lock_id` whose procedure and seeds it uses. Before a lock exists, final-partition races are refused.
+3. Every final-partition race it reads is recorded in the ledger as an opening (`FINAL_REFIT_TRAINING`) before the join executes.
+
+It produces record-level development accounting (see *Development categories*) and a #20 `ModelArtifact` with `development_run_ref` and `development_temporal_boundary_ref = c`.
+
+### ReplayRun
+
+```text
+ReplayRunConfig
+  protocol_id, partition_role (DEVELOPMENT_VALIDATION | FINAL_EVALUATION), fold_id?, lock_id?
+  replay_scope: list of RaceSessionKey
+  model_schedule: RaceSessionKey -> model_artifact_ref   # one entry per race; constant if no refit
+  observation_reconstruction_run_ref
+  target_initialization_run_ref
+  inference_seed_policy
+  prediction_contract_version
+  repository_revision, dependency_lock_ref
+```
+
+Rules:
+
+- **Direct-input allowlist:** the run's direct inputs may be only the observation run, the initialization run, the model artifacts in `model_schedule`, and the config. A model artifact's own provenance legitimately references development resolutions; that is not a direct input. Any direct reference to a resolution, event, mapping, backtest, or score aborts the run.
+- **Per-race cutoff check:** for every race `r` in scope, `t(cutoff(model_schedule[r])) ≤ t(r)`.
+- **Final evaluation:** `model_schedule` must equal the lock's `final_model_schedule` exactly.
+
+#### Ordering
+
+Manifest records use the total order `(race_session_key, driver_entry_key, checkpoint_key.completed_laps)`. This order does not depend on `T`, so it also covers attempts that have no canonical observation.
+
+For a chronological replay stream (presentation and audit), records with a canonical observation are ordered within a session by the prediction boundary `T`:
+
+- comparable exact values are ordered numerically;
+- bounded values are ordered by `(upper bound, lower bound)`;
+- remaining ties are broken by the manifest key.
+
+For one driver entry, both orders give strictly increasing `completed_laps`. Every prediction depends only on its own observation (#20 input boundary), so cross-driver order never affects prediction contents.
+
+#### Per-checkpoint step
+
+For each attempted checkpoint record of the referenced #18 run:
+
+1. If there is no canonical observation, record the #18 state.
+2. Otherwise read the #19 decision. If there is no decision, or the decision is `ELIGIBLE` but has no `TargetEpisodeInitialization`, record an upstream-linkage defect.
+3. If the decision is `INELIGIBLE` or `INDETERMINATE`, record it. No prediction is requested.
+4. If it is `ELIGIBLE`, call the #20 prediction procedure with the observation, the initialization, `model_schedule[r]`, and the seed derived from the policy.
+5. Record the returned `snapshot_id` or `PredictionFailureRecord` reference. Earlier records are never revisited.
+
+Each replay run has exactly one `prediction_run_ref`, equal to its `replay_run_id`.
+
+```text
+ReplayRunManifest
+  replay_run_id, config + digest
+  records[] (manifest order):
+    semantic_observation_key, observation_artifact_ref?, observation_quality_status
+    eligibility_decision_ref?, eligibility_status?, target_episode_key?
+    model_artifact_ref?, snapshot_id? | prediction_failure_ref?
+  status: COMPLETED | ABORTED (+ reason)      # aborted runs are never resumed in place
+```
+
+**Cross-slice dependency (#18):** this step requires the #18 run manifest to list every attempted checkpoint, with its semantic key and failure state, not only counts and emitted IDs. This is recorded for confirmation at #22.
+
+### BacktestRun
+
+```text
+BacktestRunConfig
+  protocol_id, partition_role (DEVELOPMENT_VALIDATION | FINAL_EVALUATION), fold_id?, lock_id?
+  replay_run_refs[]                 # one or more, same lock/fold; together cover the scope
+  resolution_run_ref, mapping_version
+```
+
+The backtest join (#17 rule 8) enforces:
+
+1. **Coverage:** the union of replay scopes equals `partition ∩ supported_scope ∩ candidate scope` (for a fold, its validation races). A missing race is a run-validity defect.
+2. **Final gating:** for `FINAL_EVALUATION`, a lock is required, every replay must carry the lock's model schedule, and the ledger openings are written **before** any final-partition resolution is read. The ledger assigns the role; the caller does not.
+
+Outputs: record-level accounting, evaluation units, and the manifest.
+
+```text
+BacktestRunManifest
+  backtest_run_id, config + digest
+  ledger_entry_refs[]               # FINAL_EVALUATION only
+  run_validity: VALID | DEFECTIVE (+ defect counts)
+  accounting_table_ref              # one row per candidate record (below)
+  evaluation_unit_table_ref
+  per-category counts, overall and per group
+  record_digests (semantic-keyed; see Reproduction)
+  qualifiers: LOW_POWER?, PRIOR_EXPOSURE_DECLARED?
+```
+
+### ScoreRun
+
+A `ScoreRun` has no separate manifest: its manifest is the `ScoreArtifact` (see *Scorer plug-in boundary*).
+
+## Evaluation lock and ledger
 
 ```text
 EvaluationLock
   lock_id
   protocol_id
-  procedure_id                      # chosen from development evidence only
-  final_model_artifact_refs[]       # fitted with cutoff = first final race
-                                    # (+ later refits per final_refit_cadence)
+  procedure_id                      # chosen from development evidence only (or PRESPECIFIED)
+  seeds: fit seeds + inference seed policy
+  final_model_schedule              # RaceSessionKey -> ModelArtifact or deterministic refit rule
   selection_evidence_refs[]         # development ScoreRuns that justified the choice
   locked_at
 ```
 
+With `final_refit_cadence ≠ NONE`, refits use the lock's procedure and seeds with cutoff = the predicted race (or the first race of its season). Every refit is a `FINAL_REFIT` `DevelopmentRun` that references the lock. Refits are reproducible from the lock and do not change the procedure.
+
+```text
+FinalEvaluationLedger               # append-only, keyed by RaceSessionKey
+  entry
+    race_session_key
+    opening_kind: FINAL_EVALUATION | FINAL_REFIT_TRAINING | AD_HOC_OPENING
+    lock_id?, protocol_id?, run_ref?
+    resolution_run_ref
+    label (assigned by the ledger)
+    recorded_at
+```
+
+Labels for `FINAL_EVALUATION` openings of race `r`:
+
+| Condition | Label |
+| --- | --- |
+| first `FINAL_EVALUATION` of `r`, and no earlier `AD_HOC_OPENING` of `r` | `PRIMARY_FINAL` |
+| same lock as the primary, same `resolution_run_ref`, and record contents equal to the primary under the reproduction rule | `REPRODUCTION` |
+| same lock as the primary, different `resolution_run_ref` declared as a resolution correction | `RESOLUTION_REEVALUATION`, reported alongside the primary and never replacing it |
+| anything else (different lock, procedure, seeds, schedule, or non-matching contents) | `POST_HOC` (development evidence) |
+| first evaluation of `r` after an `AD_HOC_OPENING` of `r` | `POST_HOC` |
+
 Rules:
 
-1. A final-partition `BacktestRun` requires an `EvaluationLock`. The backtest assembly refuses to join final-partition resolutions without one.
-2. With `final_refit_cadence ≠ NONE`, every refit follows the locked `ProcedureSpec` with cutoff equal to the evaluated race (or season), so no final race's outcome reaches its own prediction or an earlier one. Refits are listed in the lock or derived deterministically from it, and do not change the procedure.
-3. **Final evaluation ledger:** an append-only `FinalEvaluationLedger` per `final_partition` records every final `BacktestRun` (`lock_id`, `procedure_id`, time).
-   - The first lock evaluated on a partition is `PRIMARY_FINAL`.
-   - Any later lock evaluated on the same partition with a **different** `procedure_id` is `POST_HOC`. Its results are development evidence and may not be reported as a final claim.
-   - A reproduction of the same lock is `REPRODUCTION`.
-4. A new primary final claim after a procedure change requires a final partition containing races not yet opened in the ledger.
+- `FINAL_REFIT_TRAINING` openings of race `r` are legitimate only when the refit cutoff is later than `r`, under the same lock. They do not change `r`'s label.
+- Final-partition resolution artifacts are accessed only through the backtest and development joins. Any other read (notebooks, exploratory analysis) must be registered as an `AD_HOC_OPENING` before it happens. Unregistered access is a protocol violation, and the affected races must be treated as opened.
+- A race's label is determined by its own ledger history. Redefining partitions or protocols cannot reset it.
 
-These mechanics implement `contexts/EVALUATION_BACKTESTING.md` §§11–12 without fixing metrics or exact seasons.
+## Accounting
 
-### Development dataset assembly
+### Backtest categories
 
-A `DevelopmentRun` builds its training view through the #17 development join, from:
+Every candidate record gets exactly one category. The categories are evaluated in order:
 
-- observations and initializations of races before its cutoff;
-- the selected resolutions under `resolution_run_ref`;
-- realized outcomes from the #20 mapping, applied with each observation's own `RegionGrid`.
-
-It records, for the training races, the same accounting categories as a backtest. How fitting treats truncated, `MAPPING_UNAVAILABLE`, or set-valued outcomes is a model and statistical choice, recorded in the `ProcedureSpec`. The output is a #20 `ModelArtifact` whose `development_run_ref` and `development_temporal_boundary_ref` point to this run and cutoff.
-
-## Backtest assembly
-
-### Inputs
-
-`BacktestRunConfig`: one completed `ReplayRunManifest`, `protocol_id`, `lock_id` (required when the replay covers the final partition), the role (`DEVELOPMENT_VALIDATION` or `FINAL_EVALUATION`), `resolution_run_ref`, and the mapping version.
-
-### Candidate population
-
-The candidates are every record in the referenced replay manifest whose race session lies in the declared partition and candidate scope. The candidate scope may restrict sessions or driver entries only by attributes fixed **before** the race and declared in the protocol, such as season, session list, or entry list. It may never use target timing, resolution state, prediction values, or error.
-
-### Accounting categories
-
-Each candidate record receives exactly one category. The categories are evaluated in order:
-
-| # | Category | Condition | Scored in primary cohort |
+| # | Category | Condition | Class |
 | --- | --- | --- | --- |
-| A1 | `NO_CANONICAL_OBSERVATION` | #18 produced no valid canonical observation (indeterminate checkpoint, unsupported source, identity failure) | No |
-| A2 | `TARGET_INELIGIBLE` | #19 `INELIGIBLE` | No (not an evaluation unit) |
-| A3 | `ELIGIBILITY_INDETERMINATE` | #19 `INDETERMINATE` | No |
-| A4 | `PREDICTION_FAILED` | #20 `PredictionFailureRecord` | No (reported as a procedure defect) |
-| A5 | `RESOLUTION_MISSING` | no selected resolution under `resolution_run_ref` | No (pipeline defect) |
-| A6 | `TRUNCATED` | mapping `NOT_REALIZED` | No |
-| A7 | `MAPPING_CONFLICT` | mapping `MAPPING_CONFLICT` | No (reconstruction defect) |
-| A8 | `MAPPING_UNAVAILABLE` | mapping `MAPPING_UNAVAILABLE` | No |
-| A9 | `SCORED_EVENT_REGION` | `REALIZED_REGION` | Yes |
-| A10 | `SCORED_EVENT_REGION_SET` | `REALIZED_REGION_SET` | Yes |
-| A11 | `SCORED_TERMINAL_NO_EVENT` | `REALIZED_NO_EVENT` | Yes |
+| A0 | `UPSTREAM_LINKAGE_DEFECT` | canonical observation without a decision, or `ELIGIBLE` without an initialization | run defect |
+| A1 | `NO_CANONICAL_OBSERVATION` | #18 produced no valid canonical observation | causal exclusion |
+| A2 | `TARGET_INELIGIBLE` | #19 `INELIGIBLE` | causal exclusion (not an evaluation unit) |
+| A3 | `ELIGIBILITY_INDETERMINATE` | #19 `INDETERMINATE` | causal exclusion |
+| A4 | `PREDICTION_FAILED` | #20 `PredictionFailureRecord` | causal exclusion (procedure defect, reported) |
+| A5 | `RESOLUTION_MISSING` | no selected resolution under `resolution_run_ref` | run defect |
+| A6 | `TRUNCATED` | mapping `NOT_REALIZED` | resolvability exclusion |
+| A7 | `MAPPING_CONFLICT` | mapping `MAPPING_CONFLICT` | run defect |
+| A8 | `MAPPING_UNAVAILABLE` | mapping `MAPPING_UNAVAILABLE` | run defect |
+| A9 | `SCORED_EVENT_REGION` | `REALIZED_REGION` | primary cohort |
+| A10 | `SCORED_EVENT_REGION_SET` | `REALIZED_REGION_SET` | primary cohort |
+| A11 | `SCORED_TERMINAL_NO_EVENT` | `REALIZED_NO_EVENT` | primary cohort |
 
-Properties:
+### Primary cohort (`cohort/v2`)
 
-- A2 records are counted but are never turned into evaluation units or negatives.
-- A6 is never converted to A11, and A8 is never converted to A6 or A11.
-- A4, A5, and A7 count as run defects in reports; they are not excluded silently.
-- The **primary cohort** is A9 ∪ A10 ∪ A11 (`primary_cohort_rule_version = cohort/v1`). Inclusion depends only on observation validity, causal eligibility, prediction validity, and the canonical resolvability and mapping state. It never depends on realized timing, distance to the pit stop, prediction value, or error. This matches the gates that `contexts/EVALUATION_BACKTESTING.md` §10 permits.
-- Every report shows each category's counts per partition, season, race, and driver entry, so outcome-correlated loss (for example truncation concentrated in some races) can be inspected. Statistical sensitivity treatment of A6/A8 is routed to verification.
+- **Per-record exclusions** are only:
+  - the causal gates A1–A4: observation validity, eligibility, and prediction validity, all fixed at `T`;
+  - the resolvability gate A6 (truncation).
+  
+  These are exactly the gates that `contexts/EVALUATION_BACKTESTING.md` §10 permits.
+- **A0, A5, A7, and A8 are not cohort filters.** They are run-validity defects. A backtest run with any of them in scope is `DEFECTIVE`, and none of its scores may carry analysis class `PRIMARY`. Because A7 and A8 can occur only for observed events, filtering them per record would select by outcome type.
+- To evaluate despite such defects, races or eras must be removed beforehand through `supported_scope`, for example by the `EntryLapContext` support matrix. They are never removed record by record.
+- The primary cohort of a `VALID` run is A9 ∪ A10 ∪ A11. It is recomputed from the categories and checked against the unit table.
+- **Comparing procedures:** comparisons use the intersection of their scored records, or report A4 counts alongside the scores.
+
+### Record-level accounting table
+
+One row per candidate record:
+
+```text
+semantic_observation_key, grouping keys, category, observation_artifact_ref?,
+target_episode_key?, snapshot_id?, prediction_failure_ref?,
+target_resolution_artifact_ref?, resolution_state?, realized_outcome_kind?
+```
+
+Statistical sensitivity treatment of A6 and other analyses operate on this table.
+
+### Development categories
+
+Development runs use the same table, with these differences:
+
+- A4 is replaced by `GRID_UNAVAILABLE` (no legitimate `N_T`, so no `RegionGrid` can be built);
+- no snapshot column.
+
+How fitting treats A6 or set-valued outcomes is recorded in the `ProcedureSpec`. A0, A5, A7, and A8 in training races are reported as defects.
 
 ### Evaluation unit
 
 ```text
 EvaluationUnit
-  evaluation_unit_id                # digest of (backtest_run_id, snapshot_id)
+  evaluation_unit_id                # run-scoped
   backtest_run_id
-  snapshot_id                       # #20, immutable
+  snapshot_id                       # #20, immutable, referenced not copied
   target_episode_key
-  target_resolution_artifact_ref    # selected under resolution_run_ref
+  target_resolution_artifact_ref
   realized_outcome                  # #20 RealizedOutcome
   accounting_category               # A9 | A10 | A11
   grouping: GroupingKeys
-  partition_role, fold_id?, lock_id?
 ```
 
-Each eligible snapshot produces exactly one unit. Snapshots are referenced, never copied or modified. Units are never deduplicated because they share an eventual event.
+Units exist only for A9–A11, one per such record. They are never deduplicated because they share an eventual event.
 
 ### Grouping metadata
 
 ```text
 GroupingKeys
-  season
-  race_event_key
-  race_session_key
+  season, race_session_key          # #18 RaceSessionKey; one race per event in scope
   driver_entry_key
   driver_race_key = (race_session_key, driver_entry_key)
   checkpoint_completed_laps L
+  region_count K_T                  # from RegionGrid
   target_episode_key
-  eventual_event_key?               # qualifying_event_ref for OBSERVED_EVENT; retrospective
-  event_trajectory_key?             # (driver_race_key, eventual_event_key)
-  region_count K_T                  # from RegionGrid, causal
+  eventual_event_key?               # #19 event_key, OBSERVED_EVENT only
+  event_trajectory_key              # (driver_race_key, eventual_event_key) for events;
+                                    # (driver_race_key, TERMINAL) for terminal no-event
 ```
 
-- Keys derived from causal inputs (season, race, driver, L, `K_T`) may define primary reporting groups.
-- `eventual_event_key`, `event_trajectory_key`, and any distance-to-event value are **retrospective**. They may be used for dependence-aware clustering (for example, repeated forecasts of one stop) and for diagnostics labeled `RETROSPECTIVE_DIAGNOSTIC`. They may never be used for primary cohort inclusion.
-- No key implies statistical independence. Weighting, clustering, and uncertainty estimators belong to verification.
+- Causal keys (season, race, driver, `L`, `K_T`) may define primary reporting groups.
+- `eventual_event_key`, `event_trajectory_key`, and distance-to-event are retrospective. They may be used for dependence-aware clustering and for `RETROSPECTIVE_DIAGNOSTIC` analyses, never for primary inclusion.
+- No key implies independence. Weighting, clustering, and uncertainty estimators belong to verification.
 
-### Backtest run manifest
+## Reproduction rule
 
-```text
-BacktestRunManifest
-  backtest_run_id
-  config + digest
-  replay_run_ref, protocol_id, lock_id?, ledger_entry_ref?, resolution_run_ref, mapping_version
-  accounting: per-category counts, overall and per group
-  evaluation_unit_refs (or a digest of the unit table)
-  record_digests
-  status
-```
+A re-executed run gets a new run id. It is a reproduction of an earlier run only if, after removing run-scoped identifiers (`run ids`, `snapshot_id`, `evaluation_unit_id`, `prediction_run_ref`) and keying records by semantic keys (`semantic_observation_key`, `target_episode_key`), the following all hold:
+
+- the record sets are identical;
+- the categories are identical;
+- the resolution references are identical;
+- each prediction's `request_digest` is equal;
+- each prediction's distribution is equal within #20's declared deterministic tolerance.
+
+A reproduction report artifact records the comparison. A non-matching re-execution is a new, unrelated run; nothing earlier is replaced.
 
 ## Scorer plug-in boundary
 
 ```text
 Scorer
   scorer_id, scorer_version
+  supported_kinds ⊆ {A9, A10, A11}
   declared_population: primary cohort | named subset rule
-  declared_grouping_level: unit | episode | driver_race | race | event_trajectory | ...
-  score(units: read-only EvaluationUnit set with snapshots) -> ScoreArtifact
+  declared_grouping_level
+  score(read-only accounting + units + snapshots) -> ScoreArtifact
+
+ScoreArtifact                       # also the ScoreRun manifest
+  score_run_id, scorer_version, backtest_run_id, population, grouping level
+  ledger_role: DEVELOPMENT | PRIMARY_FINAL | REPRODUCTION | RESOLUTION_REEVALUATION | POST_HOC
+  analysis_class: PRIMARY | SECONDARY | RETROSPECTIVE_DIAGNOSTIC
+  qualifiers: LOW_POWER?, PRIOR_EXPOSURE_DECLARED?
+  results
 ```
 
 Rules:
 
-1. A scorer reads `CanonicalDistribution` and `RealizedOutcome`. It cannot change units, outcomes, snapshots, or accounting.
-2. A scorer must accept all three scored kinds (A9–A11), or declare explicitly which it does not support. Silently dropping a kind is forbidden, and terminal no-event is scored through `q`, never through an artificial final lap.
-3. A pit-window summary may be scored only in a separately labeled secondary analysis. It never replaces the canonical distribution.
-4. Every `ScoreArtifact` records the scorer version, `backtest_run_id`, population, grouping level, and `role` (`DEVELOPMENT`, `PRIMARY_FINAL`, `POST_HOC`, `REPRODUCTION`, `RETROSPECTIVE_DIAGNOSTIC`).
-5. Which metrics, set-valued outcome scoring, aggregation, and confidence procedures to use is owned by the verification/statistical phase. New scorers plug in without changing units or the protocol.
+1. A scorer reads the canonical distribution and the realized outcome. It cannot change units, outcomes, snapshots, or accounting.
+2. `analysis_class = PRIMARY` requires all of:
+   - `supported_kinds = {A9, A10, A11}`;
+   - the population is the full primary cohort;
+   - the backtest run is `VALID`.
+   
+   Terminal no-event is then scored through `q`, never through an artificial final lap.
+3. A scorer that omits a kind, or uses a subset defined by outcomes, is forced to `SECONDARY` (an outcome-free subset rule) or `RETROSPECTIVE_DIAGNOSTIC` (an outcome-defined subset).
+4. Pit-window summaries may be scored only as `SECONDARY` and never replace the canonical distribution.
+5. `ledger_role` is copied from the ledger labels of the races in the run. A run mixing labels reports per-label results.
+6. Metrics, set-valued outcome scoring, aggregation, and confidence procedures are owned by verification/statistics. New scorers plug in without changes here.
 
 ## Leakage controls
 
-1. **Dependency closure check:** before a replay run starts, its inputs are checked against an allowlist: observation run, initialization run, model artifact, and config. Any resolution, event, mapping, or score reference aborts the run.
-2. **Model cutoff check:** the prediction procedure path refuses a model artifact whose training cutoff is not strictly before the earliest replayed race. For per-race refits, the check is per race.
-3. **Lock check:** a final-partition backtest without an `EvaluationLock`, or with a protocol digest that does not match, is refused.
-4. **Ledger check:** every final backtest writes a ledger entry first, and its role is derived from the ledger, not chosen by the caller.
-5. **Cohort rule check:** the primary cohort is recomputed from categories alone and compared with the unit set.
+1. **Replay direct-input allowlist** (see *ReplayRun*).
+2. **Per-race cutoff check** using the single convention `t(cutoff) ≤ t(r)`.
+3. **Lock check:** a final backtest requires a lock, a matching protocol digest, and replays whose model schedule equals the lock's.
+4. **Development-join check:** final-partition races are refused before a lock exists, and require `FINAL_REFIT` with the lock after it.
+5. **Ledger-first:** every final-partition resolution read through a join writes its ledger opening first. Ad hoc reads must be registered.
+6. **Coverage check:** final backtest replays cover the declared scope.
+7. **Cohort check:** the primary cohort is recomputed from categories, and run validity from defect categories.
 
 ## Minimum audit artifacts
 
-Enough to reproduce or audit a declared claim:
-
-- `BacktestProtocol` and its digest;
-- `EvaluationLock`, plus the `FinalEvaluationLedger` excerpt (for final claims);
-- the referenced development `ProcedureSpec`s, `DevelopmentRun` manifests, and model artifacts;
-- the upstream observation, initialization, and resolution run manifests, and their source manifests;
-- the `ReplayRunManifest` (all records, including non-predicted ones);
-- the `BacktestRunManifest` with the full accounting table and evaluation unit table;
-- the `ScoreArtifact`s with roles;
-- a reproduction report, when a reproduction is claimed.
+- `BacktestProtocol` (including `prior_exposure`) and its digest;
+- `EvaluationLock`, the `ProcedureSpec`s, and the full ledger history of every race in the claim;
+- `DevelopmentRun` manifests, model artifacts, and refit runs;
+- upstream observation, initialization, and resolution run manifests, and their source manifests;
+- all `ReplayRunManifest`s, with every record;
+- the `BacktestRunManifest`, the record-level accounting table, and the evaluation unit table;
+- the `ScoreArtifact`s with ledger role, analysis class, and qualifiers;
+- reproduction reports when a reproduction is claimed.
 
 ## Scope guards
 
 - Replay never feeds back into observations, eligibility, or snapshots; backtests never feed back into replay runs.
 - No live triggers, streaming, or monitoring are defined.
-- No metric, estimator, model family, or exact season allocation is fixed. The default allocation shape is configuration.
+- No metric, estimator, model family, or exact season allocation is fixed; the allocation shape and fold rules are configuration.
 - No recommendation or optimization semantics are introduced.
 - No production code is introduced.
 
@@ -351,12 +431,13 @@ Enough to reproduce or audit a declared claim:
 
 | Question | Classification | Owner | Status |
 | --- | --- | --- | --- |
-| Which seasons/sessions are actually supported for checkpoints and target truth | Cross-slice dependency | Verification support matrices (#18/#19 handoffs) | Unresolved; the protocol consumes it via `supported_scope` |
-| `EntryLapContext` adoption (otherwise all observed events are A8) | Cross-slice dependency | #19 amendment, Issue #27; confirmed at #22 | Not yet satisfied |
+| Supported seasons/sessions for checkpoints, target truth, and lap-at-entry | Cross-slice dependency | Verification support matrices (#18/#19 handoffs; Issue #27) | Unresolved; consumed via `supported_scope` |
+| Per-attempt checkpoint records in the #18 run manifest | Cross-slice dependency | #18; confirmed at #22 | Required guarantee stated here |
+| `EntryLapContext` adoption | Cross-slice dependency | #19 amendment, Issue #27; confirmed at #22 | Not yet satisfied; without it, in-scope runs are `DEFECTIVE` (A8) |
 | Metrics, set-valued outcome scoring, dependence-aware uncertainty, weighting | Later-phase decision | Verification/statistical phase | Deferred |
-| Statistical handling of A6/A8 in fitting and sensitivity analysis | Later-phase decision | Verification/statistical + model experimentation | Deferred; accounting is defined here |
-| Exact final/development season allocation and refit cadence | Later-phase decision | Verification/experimentation (protocol config) | Shape fixed here; values configurable |
-| Serialization, digest algorithm, storage layout, CLI | Later-phase decision | Implementation | Deferred |
+| Statistical handling of A6 in fitting and sensitivity analysis | Later-phase decision | Verification/statistics + model experimentation | Deferred; record-level table provided |
+| Exact season allocation, block size, minimums, refit cadence | Later-phase decision | Verification/experimentation (protocol config) | Shape fixed here; values configurable |
+| Serialization, digest algorithm, storage layout, CLI, access control for the gated joins | Later-phase decision | Implementation | Deferred |
 
 There are no unresolved current-scope decisions.
 
@@ -364,29 +445,31 @@ There are no unresolved current-scope decisions.
 
 The verification baseline must include at least:
 
-1. replay-order determinism, including cross-driver ties and per-driver strictly increasing `L`;
-2. a replay dependency-closure fixture: injecting a resolution or score reference aborts the run;
-3. a fixture proving that no snapshot changes when a later replay, resolution version, or backtest runs;
-4. a model-cutoff refusal fixture (cutoff at or after the replayed race), including per-race refits;
-5. lock and ledger fixtures: a final backtest without a lock is refused; a second procedure on the same final partition is labeled `POST_HOC`; the same lock is labeled `REPRODUCTION`;
-6. accounting fixtures covering every category A1–A11, mutual exclusivity, and evaluation order;
-7. a cohort fixture proving inclusion does not change when realized timing or prediction values are perturbed within the same category;
-8. a successive-forecast fixture: two units sharing `eventual_event_key` with distinct `target_episode_key`s, both retained;
-9. a reproduction fixture: an identical declared run gives matching digests and a new run id; changed code gives a non-reproduction;
-10. a scorer fixture: a scorer that ignores A11 must declare it, and cannot mutate units.
+1. manifest-order and chronological-order determinism, including bounded `T`, ties, and attempts without an observation;
+2. direct-input allowlist fixtures: a direct resolution reference aborts the run; a model artifact provenance link does not;
+3. a fixture proving no snapshot changes when later replays, resolution versions, or backtests run;
+4. cutoff fixtures under `t(cutoff) ≤ t(r)`: `cutoff = r` accepted, cutoff after `r` refused, checked per race with `PER_RACE` schedules;
+5. lock and ledger fixtures: no lock refused; first evaluation `PRIMARY_FINAL`; a matching rerun `REPRODUCTION`; a non-matching rerun or reseeded rerun under the same lock `POST_HOC`; a new protocol over opened races `POST_HOC`; a partition with one fresh race rejected for a new primary claim; an ad hoc opening making a later evaluation `POST_HOC`; a resolution correction labelled `RESOLUTION_REEVALUATION`;
+6. a development-join fixture: final-partition races are refused before a lock, and a `FINAL_REFIT` records its openings;
+7. accounting fixtures for A0–A11 and the development categories: exhaustiveness, mutual exclusivity, and order;
+8. a cohort fixture: inclusion is unchanged under perturbations of realized timing or prediction values; a nonzero A8 (or A5, A7, A0) count marks the run `DEFECTIVE` and blocks `PRIMARY` scores;
+9. a successive-forecast fixture: units sharing `eventual_event_key` with distinct `target_episode_key`s are both retained;
+10. reproduction fixtures: semantic-keyed comparison, tolerance boundary, and a new run id;
+11. scorer fixtures: a scorer omitting A11 cannot produce `PRIMARY`; an outcome-defined subset is forced to `RETROSPECTIVE_DIAGNOSTIC`;
+12. a coverage fixture: a missing final race marks the run `DEFECTIVE`.
 
 ## Acceptance mapping
 
-- **Replay ordering and snapshot generation:** *Replay execution* defines the order, per-checkpoint steps, and manifest. Snapshots are created only by the #20 procedure.
-- **Run identity, configuration, and provenance:** run manifests and the provenance list, plus the reproduction rule.
-- **Temporal development versus final mechanism:** race-session temporal unit, rolling-origin development folds, `EvaluationLock`, and `FinalEvaluationLedger`.
-- **No-peek inclusion:** candidate scope fixed before the race; primary cohort determined by categories only.
-- **Ineligible and truncated accounting:** categories A1–A11.
-- **Grouping metadata:** `GroupingKeys`, separating causal keys from retrospective keys.
-- **Scorer plug-in:** the `Scorer` boundary.
+- **Replay ordering and snapshot generation:** *ReplayRun* covers manifest and chronological order, the per-checkpoint step, and the model schedule. Snapshots are created only by #20.
+- **Run identity, configuration, and provenance:** common provenance, run contracts, and the semantic-keyed reproduction rule.
+- **Temporal development versus final mechanism:** the single cutoff convention, fold rules with fallbacks, the gated development and backtest joins, the lock with seeds and schedule, the per-race ledger, and prior-exposure declaration.
+- **No-peek inclusion:** per-record exclusions only for causal gates and truncation; outcome-data defects are run validity; candidate scope uses pre-race attributes.
+- **Ineligible and truncated accounting:** A2 and A6, plus the record-level table.
+- **Grouping metadata:** `GroupingKeys`, with causal keys separate from retrospective keys.
+- **Scorer plug-in:** two-dimensional role, plus the PRIMARY requirements.
 - **Statistical selection routed:** see *Unknown routing*.
 - **Live and production out of scope:** see *Scope guards*.
-- **Independent review:** pending.
+- **Independent review:** full scoped review FAIL; rework complete; bounded re-review pending.
 
 ## Product Owner decisions
 
@@ -394,4 +477,37 @@ None required. The protocol shape, lock and ledger, accounting categories, and r
 
 ## Review record
 
-Pending independent full scoped review under `governance/REVIEW_POLICY.md`.
+### Full scoped review — FAIL, rework required
+
+- PR: #28
+- Reviewer: independent review agent; recorded on PR #28 as a `COMMENT` review through the connected account
+- Date: 2026-10-09
+- Outcome: **FAIL — rework required**
+- Blocking: contradictory training-cutoff convention.
+- Major:
+  - per-race/per-season refits were not expressible;
+  - the ledger could be gamed;
+  - final outcomes were gated only at the backtest join, and prior exposure was undeclared;
+  - per-record A5/A7/A8 exclusions exceeded the §10 gates;
+  - scorers could produce primary-labelled scores on outcome-selected subsets.
+- Minor: incomplete categories and count-only accounting; dependence of ordering on `T` and on #18 per-attempt records; reproduction digests depending on run ids; grouping-key ownership; no fallback for few seasons; allowlist scope, role naming, and coverage check.
+- Product Owner decision: none required.
+
+### Rework
+
+1. One exclusive cutoff convention, `t(cutoff) ≤ t(r)`, used everywhere.
+2. Replay `model_schedule` per race, matched against the lock; backtests accept multiple replay runs; `partition_role` and fold fields added.
+3. Ledger keyed by race session, with labels assigned by the ledger (including `REPRODUCTION` only on verified match, `RESOLUTION_REEVALUATION`, and `AD_HOC_OPENING`); seeds in `ProcedureSpec` and the lock; a new primary claim requires all-unopened races.
+4. `DevelopmentRun` contract with a protocol reference, refusal of final-partition races before the lock, `FINAL_REFIT` openings, and a `prior_exposure` declaration and qualifier.
+5. A0/A5/A7/A8 reclassified as run-validity defects (`DEFECTIVE` runs cannot produce `PRIMARY` scores); exclusions by scope only.
+6. Two-dimensional score role (ledger role × analysis class), with PRIMARY requiring all kinds and the full cohort.
+7. A0 linkage category, record-level accounting table, development categories, and corrected unit wording.
+8. Manifest order independent of `T`; bounded-`T` chronological rule; #18 per-attempt records routed.
+9. Semantic-keyed reproduction honouring #20's tolerance.
+10. Grouping keys aligned to #18/#19 owners; terminal trajectory key.
+11. `ROLLING_RACE_BLOCK` and `PRESPECIFIED` fallbacks and the `LOW_POWER` qualifier.
+12. Direct-input allowlist wording, `partition_role` rename, and coverage check; `ScoreArtifact` as the `ScoreRun` manifest.
+
+### Bounded re-review
+
+Required under `governance/REVIEW_POLICY.md`.
