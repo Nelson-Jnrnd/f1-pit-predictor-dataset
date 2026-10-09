@@ -4,7 +4,7 @@
 
 Approved — bounded re-review PASS recorded on PR #25 for substantive head `50d9e5f8c58d6c49f333418c19f55d3057c0567f`; Product Owner confirmed merge.
 
-**Amendment A1 (Issue #27):** draft, under independent review bounded to the amendment. It adds `EntryLapContext` and the target-initialization run manifest, which the #22 integration gate requires (findings F1 and F4). The amendment is additive and changes no event, episode, eligibility, or resolution semantics.
+**Amendment A1 (Issue #27):** approved; independent bounded review PASS on PR #31. It adds `EntryLapContext` and the target-initialization run manifest, which the #22 integration gate requires (findings F1 and F4). The amendment is additive and changes no event, episode, eligibility, or resolution semantics.
 
 ## Abstraction level
 
@@ -96,7 +96,7 @@ A logical `TargetTruthSourceManifest` records at least:
 
 - `RaceSessionKey`;
 - source/provider family and acquisition mode;
-- endpoint/source names used for pit-entry, tyre-service, participation, and terminal evidence;
+- endpoint/source names used for pit-entry, tyre-service, participation, terminal, and lap-completion (Amendment A1) evidence;
 - exact frozen content identities/hashes;
 - retrieval/capture date;
 - parser/adapter revision;
@@ -396,7 +396,7 @@ Lap-completion occurrence times `C_1 < C_2 < …` are reconstructed from frozen 
 
 ### Derivation
 
-Given the qualifying event's `pit_entry_occurrence` `E` (exact or bounds `[e_lo, e_hi]`), and lap-completion occurrences (exact or bounded):
+This is the derivation defined in `design/PREDICTION_CONTRACT.md` (#20), restated here for the producer. Given the qualifying event's `pit_entry_occurrence` `E` (exact or bounds `[e_lo, e_hi]`), and lap-completion occurrences (exact or bounded):
 
 ```text
 exact:    c(E) = #{ k : C_k ≤ E }
@@ -404,7 +404,7 @@ bounded:  c_lo = #{ k : C_k.upper ≤ E.lower }      # certainly completed befor
           c_hi = #{ k : C_k.lower ≤ E.upper }      # possibly completed before entry
 ```
 
-A lap completion occurring at the same instant as the entry counts as completed. If `c_lo == c_hi`, the value is exact. If a lap-completion evidence gap makes even the bounds undefensible, no `EntryLapContext` is produced. The reason is recorded on the resolution artifact as `entry_lap_context_absent_reason`, and #20 then maps the outcome to `MAPPING_UNAVAILABLE`.
+A lap completion occurring at the same instant as the entry counts as completed. If `c_lo == c_hi`, the value is exact. The formulas assume every official lap completion up to `E.upper` is present in the evidence. A completion that is **missing**, not merely imprecisely timed, shifts the count without widening the bounds, so a lap-completion coverage gap in that window makes the bounds undefensible. If evidence makes even the bounds undefensible, no `EntryLapContext` is produced. The reason is recorded on the resolution artifact as `entry_lap_context_absent_reason`, and #20 then maps the outcome to `MAPPING_UNAVAILABLE`.
 
 ### Artifact
 
@@ -475,7 +475,7 @@ No later outcome is backfilled into this artifact.
 
 ### Target episode identity
 
-Exactly one `TargetEpisodeInitialization` is created for each `ELIGIBLE` observation. No ordinary episode is created for `INELIGIBLE` or `INDETERMINATE` decisions.
+Within one target-initialization run, exactly one `TargetEpisodeInitialization` is created for each `ELIGIBLE` observation. No ordinary episode is created for `INELIGIBLE` or `INDETERMINATE` decisions.
 
 ```text
 TargetEpisodeInitialization
@@ -534,6 +534,7 @@ A resolver consumes:
 - one immutable `TargetEpisodeInitialization`;
 - its exact observation/prediction-boundary references;
 - the reconstructed pit-visit/event catalog for the same driver entry/session;
+- lap-completion occurrence evidence for the same driver entry (Amendment A1, for `EntryLapContext`);
 - the applicable retrospective terminal boundary and participation evidence;
 - reconstruction coverage/support metadata;
 - target-resolution policy/configuration/version.
@@ -657,6 +658,7 @@ TargetEvidenceCoverage
   race_participation_scope_coverage
   tyre_service_positive_coverage
   tyre_service_negative_coverage
+  lap_completion_coverage        # Amendment A1
   terminal_coverage
   known_gaps[]
   support_validation_refs[]
@@ -684,7 +686,7 @@ TargetResolutionArtifact
   terminal_boundary_ref?         # required whenever used to prove scope/closure
   truncation_reasons[]            # TRUNCATED_INDETERMINATE
   evidence_coverage
-  target_initialization_run_ref  # Amendment A1
+  target_initialization_run_ref  # Amendment A1; every resolution run declares exactly one
   source_manifest_refs
   event_reconstruction_policy_version
   tyre_service_policy_version
@@ -694,6 +696,8 @@ TargetResolutionArtifact
   supersedes_resolution_ref?
   provenance
 ```
+
+Field presence (Amendment A1): for `OBSERVED_EVENT`, exactly one of `entry_lap_context_ref` or `entry_lap_context_absent_reason` is present; for other states, neither is. A resolution run declares exactly one `target_initialization_run_ref`, and resolves only initializations from that run. Selection by `target_episode_key` is therefore unambiguous within the run.
 
 A resolution artifact is immutable for one declared source/configuration/policy/run. Improved evidence or reconstruction creates a new artifact/version; it does not mutate a result already consumed by a replay/backtest run.
 
@@ -756,8 +760,8 @@ Physical columns/types/file format are implementation choices. Observed-event, t
 
 ```text
 CanonicalObservation
-  1 -> 1 EligibilityDecision
-  1 -> 0..1 TargetEpisodeInitialization
+  1 -> 1 EligibilityDecision per target-initialization run
+  1 -> 0..1 TargetEpisodeInitialization per target-initialization run
 
 DriverEntry
   1 -> many PitVisitArtifact
@@ -929,5 +933,14 @@ This final metadata-only commit records the passing bounded re-review and does n
 
 - Scope: `EntryLapContext`, the lap-completion support capability, the target-initialization run manifest, the resolution/dataset reference fields, and verification items 23–25.
 - Trigger: #22 integration gate findings F1 (Blocking) and F4 (Minor).
-- Independent review bounded to the amendment: pending.
+- PR: #31
+- Reviewer: independent review agent; recorded on PR #31 as a `COMMENT` review through the connected account
+- Date: 2026-10-09
+- Reviewed head: `93e244299d6e98bb38ae1ba9d395e6641e2400c0`
+- Outcome: **PASS**. No Blocking or Major findings. F1 and F4 (#19 part) are satisfied, with no regressions in #20 or #21.
+- Minor findings fixed in the follow-up commit:
+  1. eligibility and initialization cardinality is now scoped per target-initialization run, and each resolution run declares exactly one initialization run;
+  2. lap-completion evidence is added to the resolution inputs and to `TargetTruthSourceManifest`.
+- Observations adopted: the missing-completion coverage rule, a cross-reference to the #20 formula, the field-presence rule, and `lap_completion_coverage`.
+- Product Owner decision: none required.
 
