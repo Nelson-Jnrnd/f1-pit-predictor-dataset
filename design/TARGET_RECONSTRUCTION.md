@@ -2,7 +2,7 @@
 
 ## Status
 
-Draft — reworked after the full scoped review on PR #25. Bounded re-review required before approval.
+Approved — bounded re-review PASS recorded on PR #25 for substantive head `50d9e5f8c58d6c49f333418c19f55d3057c0567f`; Product Owner confirmed merge.
 
 ## Abstraction level
 
@@ -815,6 +815,16 @@ The design now:
 6. adds terminal/race-scope handling to candidate traversal, event creation, ambiguity rules, coverage, and verification fixtures;
 7. clarifies resolution lineage as one episode to many immutable resolution versions globally, with exactly one selected resolution per declared resolution run.
 
-### Bounded re-review
+### Bounded re-review — PASS
 
-Required under `governance/REVIEW_POLICY.md`. It should verify the prior Blocking and Minor findings, regressions introduced by this rework, and the original #19 acceptance criteria. It is not a fresh unlimited review.
+- PR: #25
+- Review: `pullrequestreview-5178920202`
+- Date: 2026-09-11
+- Reviewed substantive head: `50d9e5f8c58d6c49f333418c19f55d3057c0567f`
+- Outcome: **PASS** — no Blocking, Major, or Minor findings remain.
+- Prior Blocking finding: resolved; target-at-risk interval is `(T, B)`, post-terminal visits are excluded, and event/terminal overlap resolves to `TRUNCATED_INDETERMINATE` when it could change target membership.
+- Prior Minor finding: resolved; one episode to `0..many` immutable resolution versions globally, exactly one selected resolution per declared resolution run.
+- Regression check: passed against Issue #19, the approved #17 architecture, the approved #18 observation contract, and the original #19 acceptance criteria.
+- Product Owner decision: none required; Product Owner confirmed the PR is good to merge.
+
+This final metadata-only commit records the passing bounded re-review and does not change the reviewed substantive design.
