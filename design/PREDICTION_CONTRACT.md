@@ -2,7 +2,7 @@
 
 ## Status
 
-Draft — authored for Issue #20. Independent full scoped review required before approval.
+Draft — reworked after the full scoped review on PR #26. Bounded re-review required before approval.
 
 ## Abstraction level
 
@@ -137,29 +137,58 @@ The mapping converts one selected immutable `TargetResolutionArtifact` (#19) for
 
 ### Inputs
 
-- the snapshot's `RegionGrid` (`L`, `K_T`);
+- the `RegionGrid` for the episode's observation. It is the deterministic `(L, N_T, region_representation_version)` grid computed from the `CanonicalObservation`. When a snapshot exists, the grid stored in the snapshot is used and must equal that computation. Development assembly, which has no snapshot, computes the same grid from the observation.
 - the selected `TargetResolutionArtifact` and its `resolution_state`;
-- for `OBSERVED_EVENT`: the qualifying event's `pit_entry_occurrence` (exact or bounded) and a retrospective **lap-count-at-entry** value `c(E)`, exact or as integer bounds `[c_lo, c_hi]`, derived from frozen race evidence by a versioned derivation (`entry_lap_derivation_version`).
+- for `OBSERVED_EVENT`: the `EntryLapContext` linked to the referenced `QualifyingPitEventArtifact` (defined below).
+
+### Lap count at pit entry, `c(E)`
+
+**Counter.** `c(E)` is measured on the same official completed-race-lap counter whose advancement defines #18 checkpoint `L`. It is the selected driver's as-raced sequence of official race-lap completions, ordered by **occurrence** time. A later classification adjustment (for example a red-flag countback) is not substituted for this sequence. Because lap `L`'s completion is on this counter and occurs no later than `T`, `c(E) ≥ L` holds whenever `E > T`. The coverage proof depends on exactly this property.
+
+**Definition.** Let `C_1 < C_2 < …` be the occurrence times (exact or bounded) of the driver's official lap completions on that counter, and let `E` be the pit-entry occurrence (exact or bounds `[e_lo, e_hi]`) carried by #19's qualifying event:
+
+```text
+exact E and exact C_k:   c(E) = #{ k : C_k ≤ E }
+bounded:                 c_lo = #{ k : C_k.upper ≤ E.lower }    # certainly completed before entry
+                         c_hi = #{ k : C_k.lower ≤ E.upper }    # possibly completed before entry
+```
+
+A lap completion occurring at the same instant as the entry counts as completed (`≤`). If `c_lo == c_hi`, `c(E)` is exact.
+
+**Owner and artifact (cross-slice dependency on #19).** `c(E)` is retrospective race truth derived from frozen source evidence. Under #17 dependency rules 4, 7 and 8, only the target subsystem's retrospective-resolution boundary may read retrospective source evidence. The development join and the backtest join may not. This contract therefore requires the following additive retrospective artifact from the #19 target subsystem:
+
+```text
+EntryLapContext
+  artifact_id
+  qualifying_event_ref
+  driver_entry_key
+  lap_counter_ref              # same official counter as #18 checkpoints
+  c_exact? | c_lo, c_hi
+  lap_completion_evidence_refs
+  entry_lap_derivation_version
+  provenance
+```
+
+The guarantee required here is the definition above. The artifact is additive: it changes no #19 event, episode, or resolution semantics. Until #19's owner adopts it, `OBSERVED_EVENT` resolutions without an `EntryLapContext` map to `MAPPING_UNAVAILABLE` (below) rather than being guessed. The #22 integration gate must confirm adoption. The empirical support matrix for lap-completion evidence belongs to verification.
 
 ### Rule
 
+Evaluated top to bottom; the first matching line applies.
+
 ```text
-OBSERVED_EVENT, c(E) exact:
-    j = min(c(E) − L, K_T − 1)            -> REALIZED_REGION {j}
-
-OBSERVED_EVENT, c(E) bounded [c_lo, c_hi]:
-    a = min(c_lo − L, K_T − 1)
-    b = min(c_hi − L, K_T − 1)
-    if a == b                             -> REALIZED_REGION {a}
-    else                                  -> REALIZED_REGION_SET {a .. b}
-
-OBSERVED_EVENT, c_lo < L (contradicts E > T)
-                                          -> MAPPING_CONFLICT
-
-TERMINAL_NO_EVENT                         -> REALIZED_NO_EVENT
-
-TRUNCATED_INDETERMINATE                   -> NOT_REALIZED
+TRUNCATED_INDETERMINATE                         -> NOT_REALIZED
+TERMINAL_NO_EVENT                               -> REALIZED_NO_EVENT
+OBSERVED_EVENT, no EntryLapContext              -> MAPPING_UNAVAILABLE
+OBSERVED_EVENT, c_hi < L   (exact: c(E) < L)    -> MAPPING_CONFLICT
+OBSERVED_EVENT, otherwise:
+    c_lo' = max(c_lo, L)          # E > T proves c(E) ≥ L; tighten the bound
+    a = min(c_lo' − L, K_T − 1)
+    b = min(c_hi  − L, K_T − 1)
+    a == b                                      -> REALIZED_REGION {a}
+    a <  b                                      -> REALIZED_REGION_SET {a .. b}
 ```
+
+For exact `c(E)`, `c_lo = c_hi = c(E)`, so the same lines apply.
 
 ```text
 RealizedOutcome
@@ -168,9 +197,9 @@ RealizedOutcome
   resolution_run_ref
   region_grid (L, K_T, region_representation_version)
   kind: REALIZED_REGION | REALIZED_REGION_SET | REALIZED_NO_EVENT
-        | NOT_REALIZED | MAPPING_CONFLICT
+        | NOT_REALIZED | MAPPING_CONFLICT | MAPPING_UNAVAILABLE
   region_index_low? / region_index_high?
-  entry_lap_count_ref? / entry_lap_derivation_version?
+  entry_lap_context_ref? / entry_lap_derivation_version?
   mapping_version
 ```
 
@@ -179,8 +208,9 @@ Properties:
 - The mapping never changes event meaning: it consumes the pit-entry occurrence fixed by #19 and only locates it on the lap axis. Service time, pit exit, or stint labels are never substituted.
 - `REALIZED_REGION_SET` is not truncation. The target outcome is known; only its lap offset is bounded. The predicted probability of the realized outcome is `sum(p_a … p_b)`, which is well defined. How scoring treats set-valued outcomes is owned by the verification/statistical phase.
 - `NOT_REALIZED` is never converted to `REALIZED_NO_EVENT` or to any region. Accounting is owned by #21.
-- `MAPPING_CONFLICT` indicates contradictory retrospective evidence (the target contract guarantees `E > T`, hence `c(E) ≥ L`). It is a reconstruction defect routed to accounting/verification, never silently clipped to region 0.
-- The mapping uses the grid stored in the snapshot, so a later change to `N_T` evidence cannot move a realized outcome between grids.
+- `MAPPING_CONFLICT` occurs only when even the upper bound `c_hi` is below `L`, which contradicts the #19 guarantee `E > T`. It is a reconstruction defect routed to accounting and verification, never silently clipped to region 0. A loose lower bound (`c_lo < L ≤ c_hi`) is not a conflict; it is tightened with `max(c_lo, L)`.
+- `MAPPING_UNAVAILABLE` means the event is known but its lap offset is not yet derivable. It is neither truncation nor no-event; #21 owns its accounting.
+- The grid is a pure function of the observation. Storing it in the snapshot means a later change to `N_T` evidence cannot move a realized outcome between grids.
 
 ## Model-facing interface
 
@@ -201,14 +231,16 @@ ModelInputView
   derivation_input_fact_refs            # causal facts consumed
   omissions                             # facts unavailable at T, kept explicit
 
-Estimator.predict(model_artifact, PredictionRequest) -> RawModelOutput
+Estimator.predict(model_artifact, input_view, region_grid) -> RawModelOutput
 ```
+
+The estimator receives only `input_view` and `region_grid`. Identity references stay inside the prediction procedure, so an estimator has no structural route to any other artifact.
 
 Rules:
 
-1. `ModelInputView` is a deterministic function of exactly one `CanonicalObservation` (plus static, version-pinned configuration). It may not read source evidence, processed provider tables, other observations with later boundaries, target resolution artifacts, qualifying events, terminal boundaries, or evaluation results. This keeps the forecast-time dependency closure identical to the #17 architecture.
+1. `ModelInputView` is a deterministic function of exactly one `CanonicalObservation`, plus configuration that is either (a) hand-written and contains no statistics computed from race data, or (b) part of the frozen `ModelArtifact` and therefore bound by its `development_temporal_boundary_ref`. It may not read source evidence, processed provider tables, any other observation artifact, target resolution artifacts, qualifying events, terminal boundaries, or evaluation results. Earlier legitimate information reaches the view only through the selected observation's own `canonical_state`. This keeps the forecast-time dependency closure identical to the #17 architecture.
 2. `TargetEpisodeInitialization` is passed for identity linkage only; it carries no outcome truth by #19's contract.
-3. The estimator is a pure function of `(model_artifact, PredictionRequest)`. If an estimator is stochastic at inference time, its seed is part of the request provenance and is recorded in the snapshot.
+3. The estimator is a pure function of `(model_artifact, input_view, region_grid)`. If an estimator is stochastic at inference time, its seed is part of the request provenance and is recorded in the snapshot.
 4. The estimator is invoked only for `ELIGIBLE` decisions. `INELIGIBLE` or `INDETERMINATE` decisions produce no request.
 5. Missing optional facts arrive as explicit omissions; the input view may not impute them from retrospective data.
 
@@ -239,8 +271,20 @@ DISCRETE_HAZARD adapter (hazard/v1):
   for j in 0 .. K_T−2:   p_j = λ_j · S_j ;  S_{j+1} = S_j · (1 − λ_j)
   final region:          p_{K_T−1} = (1 − q_open) · S_{K_T−1}
                          q          = q_open · S_{K_T−1}
-  requires all λ_j, q_open in [0, 1]
 ```
+
+Raw-output checks run **before** any adapter. Failing any of them produces a `PredictionFailureRecord`:
+
+| Code | Check |
+| --- | --- |
+| `R1_FORM_MATCH` | the output form equals the model artifact's declared `output_form` |
+| `R2_RAW_LENGTH` | PMF: `len(p) == K_T`, `q` present; hazard: `len(λ) == K_T − 1`, `q_open` present |
+| `R3_RAW_FINITE` | every raw value is finite |
+| `R4_RAW_RANGE` | PMF: every `p_j`, `q` in `[0, 1]`; hazard: every `λ_j` and `q_open` in `[0, 1]` |
+
+After conversion, the canonical invariants `V1`–`V7` are checked again.
+
+`λ_j` conditions on "no qualifying entry in earlier regions". That condition includes trajectories that have already reached the terminal boundary (for example retirements). It is therefore a subdistribution-style hazard: retirement is a competing terminal outcome that ends up in `q`, not a censoring of the event. An estimator trained with retirement treated as censoring does not produce this form without an explicit conversion.
 
 Because the final region is open-ended, the hazard form needs `q_open` to split surviving mass between "pits on the final scheduled lap or later before `B`" and terminal no-event. Both adapters preserve the canonical meaning; neither introduces a horizon residual.
 
@@ -272,7 +316,7 @@ A model artifact is immutable. Calibration, re-fitting, or any change to the fro
 
 ```text
 PredictionSnapshot
-  snapshot_id                         # digest of identity fields + distribution
+  snapshot_id                         # digest of prediction_key + content_digest
   prediction_key
     target_episode_key
     model_artifact_ref
@@ -289,7 +333,9 @@ PredictionSnapshot
   prediction_contract_version
   semantic_refs                       # approved decision/context versions
   prediction_procedure_revision
-  validation: PASS (all V1–V7)
+  content_digest                      # digest of request_digest + distribution
+  request_digest                      # digest of input_view, region_grid, model_artifact_ref, inference_seed
+  validation: PASS (R1–R4, V1–V7)
   recorded_at                         # wall clock; provenance only, not identity
 ```
 
@@ -298,7 +344,7 @@ PredictionFailureRecord
   prediction_key
   observation_artifact_ref
   target_episode_initialization_ref
-  failure_codes[]                     # REQUIRED_CONTEXT_MISSING, V1..V7,
+  failure_codes[]                     # REQUIRED_CONTEXT_MISSING, R1..R4, V1..V7,
                                       # MODEL_INCOMPATIBLE, FORBIDDEN_INPUT, ESTIMATOR_ERROR
   details
   prediction_contract_version
@@ -311,8 +357,9 @@ PredictionFailureRecord
 2. Successive checkpoints are distinct snapshots because their `target_episode_key`s are distinct (#19). Snapshots are never chained, carried forward, or edited.
 3. Different model artifacts or runs for the same episode produce different `prediction_key`s; neither replaces the other.
 4. A snapshot never stores a resolution reference, realized outcome, or score. Those live in retrospective join artifacts that reference the snapshot.
-5. Re-executing the same request with the same model artifact, input view, and seed must reproduce the same `distribution` bit-for-bit or to within the declared deterministic tolerance; otherwise it is a new run, not a correction.
+5. Reproducibility is judged on content, not on run identity. Re-executing with the same `request_digest` must reproduce the same `distribution`, and hence the same `content_digest`, bit for bit or within a declared deterministic tolerance. The re-execution is still a new run with a new `prediction_key` and `snapshot_id`; it never replaces the earlier snapshot.
 6. Linkage: `snapshot → observation_artifact_ref → semantic_observation_key` identifies race session, driver entry, checkpoint, and `T`; `snapshot → target_episode_key` connects to the selected resolution in a declared resolution run; many snapshots may resolve to the same `QualifyingPitEventArtifact`.
+7. `prediction_run_ref` identifies the prediction-procedure execution. #21 defines how it relates to replay and backtest runs.
 
 ## Pit-window derivation
 
@@ -326,7 +373,7 @@ Parameter: window mass level `α ∈ (0, 1]` recorded in the presentation config
 P_event = sum(p)
 
 if P_event == 0:
-    window = NONE
+    return window = NONE        # in = 0, before = 0, after = 0
 
 target = α · P_event
 
@@ -339,6 +386,10 @@ choose the candidate with:
     3. then smallest a.
 ```
 
+All sums are taken left to right in increasing index order, so the result is bit-reproducible. A candidate always exists, because `[0, K_T−1]` has mass `P_event ≥ target`.
+
+`α` is relative to the event mass: an "α = 0.8 window" holds 80 % of the probability **that a stop occurs**, not an 80 % chance of stopping in the window. That chance is `mass_in_window`, which is always reported.
+
 ### Required window output
 
 ```text
@@ -346,7 +397,7 @@ PitWindowSummary
   snapshot_id
   window_rule_version = "pit-window/v1"
   alpha
-  window: NONE | [a, b]
+  window: NONE | [a, b]               # NONE: in/before/after masses are 0
   in_lap_range: (L + a + 1) .. (L + b + 1)   # b = K_T−1 shown as "L + K_T or later"
   mass_in_window       = sum(p_a .. p_b)
   mass_before_window   = sum(p_0 .. p_{a−1})
@@ -389,9 +440,9 @@ PitWindowSummary
 | Question | Classification | Owner | Status |
 | --- | --- | --- | --- |
 | Scheduled race distance `N_T` must be represented as a legitimate fact in `CanonicalObservation` (e.g. `STATIC_PRIOR`, updated if a change is available by `T`) | Cross-slice dependency | #18 observation reconstruction; verification support matrix | Assumed expressible under #18's existing fact classes; missing fact fails closed as `REQUIRED_CONTEXT_MISSING` |
-| Retrospective `c(E)` (lap count at pit-entry occurrence) derivation and its evidence support | Cross-slice dependency (retrospective evidence) | Verification baseline; derivation consumes #19's `pit_entry_occurrence` and frozen race evidence | Contract defined here; empirical support matrix deferred |
-| Which component physically runs the realized-target mapping and how `NOT_REALIZED` / `MAPPING_CONFLICT` are accounted | Cross-slice dependency | #21 replay/backtest | Mapping function owned here; orchestration/accounting owned by #21 |
-| Development temporal boundary referenced by `ModelArtifact` | Cross-slice dependency | #21 | Field reserved here |
+| `EntryLapContext` (`c(E)` on the #18 lap counter) produced by retrospective target reconstruction | Cross-slice dependency | #19 target subsystem (additive artifact); adoption confirmed at the #22 gate; evidence support matrix owned by verification | **Not yet satisfied**: required guarantee defined here; until adopted, affected outcomes are `MAPPING_UNAVAILABLE` |
+| Which component physically runs the realized-target mapping and how `NOT_REALIZED` / `MAPPING_CONFLICT` / `MAPPING_UNAVAILABLE` are accounted | Cross-slice dependency | #21 replay/backtest | Mapping function owned here; orchestration/accounting owned by #21 |
+| Development temporal boundary referenced by `ModelArtifact`; relation of `prediction_run_ref` to replay/backtest runs | Cross-slice dependency | #21 | Fields reserved here |
 | Metrics, scoring rules, set-valued outcome scoring, dependence-aware statistics | Later-phase decision | Verification/statistical phase | Deferred |
 | Model family, features, loss, calibration, probability floor | Later-phase decision | Model experimentation | Deferred |
 | Serialization, file formats, digest algorithm, package layout | Later-phase decision | Implementation | Deferred |
@@ -407,11 +458,12 @@ The verification baseline must include at least:
 3. shortened-race and lapped-finisher scenarios proving coverage does not depend on `N_T` accuracy;
 4. every invariant `V1`–`V7` has a failing fixture producing `PredictionFailureRecord` rather than a snapshot;
 5. both adapters: hazard→PMF conversion sums to one and matches a hand-computed example; PMF rescale tolerance boundary;
-6. bounded `c(E)` producing `REALIZED_REGION_SET`; `c_lo < L` producing `MAPPING_CONFLICT`; truncated resolutions producing `NOT_REALIZED`;
+6. bounded `c(E)` producing `REALIZED_REGION_SET`; `c_lo < L ≤ c_hi` tightened rather than flagged; `c_hi < L` and exact `c(E) < L` producing `MAPPING_CONFLICT`; a missing `EntryLapContext` producing `MAPPING_UNAVAILABLE`; truncated resolutions producing `NOT_REALIZED`; a red-flag countback fixture proving `c(E)` uses the as-raced counter;
+6a. raw-output checks `R1`–`R4`, including a hazard output with `λ_j = 1` and `q_open = 1.5` rejected before conversion;
 7. pit-window determinism, tie-breaking, `P_event = 0`, `α = 1`, final-region windows, and mass-accounting identity;
 8. dependency-closure test: the prediction procedure and input-view derivation cannot import or receive target-resolution, event, terminal, or evaluation artifacts;
 9. successive-checkpoint fixture: two snapshots with distinct episode keys resolving to the same event, with no snapshot mutation;
-10. reproducibility: identical request + model artifact + seed reproduces the identical distribution and `snapshot_id`.
+10. reproducibility: an identical `request_digest` reproduces the identical distribution and `content_digest` under a new `prediction_key`.
 
 ## Acceptance mapping
 
@@ -424,7 +476,7 @@ The verification baseline must include at least:
 - **Exact faithful pit-window rule:** `pit-window/v1` with mandatory outside-window and `q` reporting.
 - **Experimentation routing:** table above.
 - **No recommendation, live, or production semantics:** scope guards.
-- **Independent review:** pending.
+- **Independent review:** full scoped review FAIL on PR #26; rework complete; bounded re-review pending.
 
 ## Product Owner decisions
 
@@ -432,4 +484,29 @@ None required. The representation implements the approved complete-distribution 
 
 ## Review record
 
-Pending independent full scoped review under `governance/REVIEW_POLICY.md`.
+### Full scoped review — FAIL, rework required
+
+- PR: #26
+- Reviewer: independent review agent; recorded on PR #26 as a `COMMENT` review through the connected account
+- Date: 2026-10-09
+- Outcome: **FAIL — rework required**
+- Major finding: the lap count at entry `c(E)` had no owner, derivation, or architectural path, and was not pinned to the same counter as `L` (AC3 incomplete).
+- Minor findings: mapping rule order and conflict condition; mapping referenced a snapshot grid unavailable in development; no raw-output validity codes; `snapshot_id` reproducibility contradiction; window `NONE` fall-through; input-boundary wording.
+- Product Owner decision: none required.
+
+### Rework
+
+1. Defines `c(E)` on the #18 as-raced official lap counter by occurrence, with an exact/bounded conversion. Assigns production to an additive #19 `EntryLapContext` artifact (a cross-slice dependency confirmed at #22), with `MAPPING_UNAVAILABLE` until it is adopted.
+2. Orders the mapping rules top to bottom, with conflict only when `c_hi < L` and loose bounds tightened by `max(c_lo, L)`.
+3. Defines the grid as a pure function of the observation, usable without a snapshot.
+4. Adds raw-output checks `R1`–`R4` before the adapters.
+5. Separates `content_digest`/`request_digest` reproducibility from run-scoped `snapshot_id`.
+6. Adds an early return for a `NONE` window, defines its masses, fixes the summation order, and explains α.
+7. Tightens the input boundary (no other observations; data-derived configuration only through the model artifact) and passes only `input_view` + `region_grid` to the estimator.
+8. Adds a note on discrete-hazard (competing-terminal) semantics.
+
+Observation not adopted: a fallback grid without `N_T`. Missing `N_T` still fails closed, so one canonical grid rule is kept; completeness never depends on `N_T`.
+
+### Bounded re-review
+
+Required under `governance/REVIEW_POLICY.md`.
