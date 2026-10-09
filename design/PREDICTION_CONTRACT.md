@@ -16,7 +16,7 @@ This artifact does not define observation reconstruction, target-event semantics
 - Parent: #16
 - Upstream architecture: #17 / `design/SYSTEM_ARCHITECTURE.md`
 - Upstream observation design: #18 / `design/OBSERVATION_RECONSTRUCTION.md`
-- Upstream target design: #19 / `design/TARGET_RECONSTRUCTION.md` (bounded re-review PASS on PR #25, `pullrequestreview-5178920202`; merge to `main` pending)
+- Upstream target design: #19 / `design/TARGET_RECONSTRUCTION.md` (approved; merged via PR #25)
 - Branch: `ccr-d8f3e250-t7uix3` (session task branch used in place of the suggested `design/prediction-contract`)
 
 ## Outcome
