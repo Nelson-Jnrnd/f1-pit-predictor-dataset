@@ -2,7 +2,7 @@
 
 ## Status
 
-Draft — reworked after the full scoped review on PR #26. Bounded re-review required before approval.
+Approved — bounded re-review PASS recorded on PR #26 for substantive head `364c2f41a5268ff55bc4775f9c6502ed2097164d`; follow-up commit applies the reviewer-requested one-line seed fix and the wording observations only.
 
 ## Abstraction level
 
@@ -155,7 +155,7 @@ bounded:                 c_lo = #{ k : C_k.upper ≤ E.lower }    # certainly co
 
 A lap completion occurring at the same instant as the entry counts as completed (`≤`). If `c_lo == c_hi`, `c(E)` is exact.
 
-**Owner and artifact (cross-slice dependency on #19).** `c(E)` is retrospective race truth derived from frozen source evidence. Under #17 dependency rules 4, 7 and 8, only the target subsystem's retrospective-resolution boundary may read retrospective source evidence. The development join and the backtest join may not. This contract therefore requires the following additive retrospective artifact from the #19 target subsystem:
+**Owner and artifact (cross-slice dependency on #19).** `c(E)` is retrospective race truth derived from frozen source evidence. Under #17 dependency rules 4, 7 and 8, only the target subsystem's retrospective-resolution boundary may read retrospective source evidence. The development join and the backtest join may not. This contract therefore requires an additive retrospective artifact from the #19 target subsystem, tracked in Issue #27. The contents below are what this contract requires; #19 owns the actual representation:
 
 ```text
 EntryLapContext
@@ -231,16 +231,16 @@ ModelInputView
   derivation_input_fact_refs            # causal facts consumed
   omissions                             # facts unavailable at T, kept explicit
 
-Estimator.predict(model_artifact, input_view, region_grid) -> RawModelOutput
+Estimator.predict(model_artifact, input_view, region_grid, inference_seed?) -> RawModelOutput
 ```
 
-The estimator receives only `input_view` and `region_grid`. Identity references stay inside the prediction procedure, so an estimator has no structural route to any other artifact.
+The estimator receives only `input_view`, `region_grid`, and, for a stochastic estimator, `inference_seed`. Identity references stay inside the prediction procedure, so an estimator has no structural route to any other artifact.
 
 Rules:
 
 1. `ModelInputView` is a deterministic function of exactly one `CanonicalObservation`, plus configuration that is either (a) hand-written and contains no statistics computed from race data, or (b) part of the frozen `ModelArtifact` and therefore bound by its `development_temporal_boundary_ref`. It may not read source evidence, processed provider tables, any other observation artifact, target resolution artifacts, qualifying events, terminal boundaries, or evaluation results. Earlier legitimate information reaches the view only through the selected observation's own `canonical_state`. This keeps the forecast-time dependency closure identical to the #17 architecture.
-2. `TargetEpisodeInitialization` is passed for identity linkage only; it carries no outcome truth by #19's contract.
-3. The estimator is a pure function of `(model_artifact, input_view, region_grid)`. If an estimator is stochastic at inference time, its seed is part of the request provenance and is recorded in the snapshot.
+2. The prediction procedure (not the estimator) receives `TargetEpisodeInitialization`, for identity linkage only; it carries no outcome truth by #19's contract.
+3. The estimator is a pure function of `(model_artifact, input_view, region_grid, inference_seed?)`. A stochastic estimator receives its seed explicitly; the seed is part of `request_digest` and is recorded in the snapshot.
 4. The estimator is invoked only for `ELIGIBLE` decisions. `INELIGIBLE` or `INDETERMINATE` decisions produce no request.
 5. Missing optional facts arrive as explicit omissions; the input view may not impute them from retrospective data.
 
@@ -440,7 +440,7 @@ PitWindowSummary
 | Question | Classification | Owner | Status |
 | --- | --- | --- | --- |
 | Scheduled race distance `N_T` must be represented as a legitimate fact in `CanonicalObservation` (e.g. `STATIC_PRIOR`, updated if a change is available by `T`) | Cross-slice dependency | #18 observation reconstruction; verification support matrix | Assumed expressible under #18's existing fact classes; missing fact fails closed as `REQUIRED_CONTEXT_MISSING` |
-| `EntryLapContext` (`c(E)` on the #18 lap counter) produced by retrospective target reconstruction | Cross-slice dependency | #19 target subsystem (additive artifact); adoption confirmed at the #22 gate; evidence support matrix owned by verification | **Not yet satisfied**: required guarantee defined here; until adopted, affected outcomes are `MAPPING_UNAVAILABLE` |
+| `EntryLapContext` (`c(E)` on the #18 lap counter) produced by retrospective target reconstruction | Cross-slice dependency | #19 target subsystem (additive artifact); tracked in Issue #27; adoption confirmed at the #22 gate; evidence support matrix owned by verification | **Not yet satisfied**: required guarantee defined here; until adopted, affected outcomes are `MAPPING_UNAVAILABLE` |
 | Which component physically runs the realized-target mapping and how `NOT_REALIZED` / `MAPPING_CONFLICT` / `MAPPING_UNAVAILABLE` are accounted | Cross-slice dependency | #21 replay/backtest | Mapping function owned here; orchestration/accounting owned by #21 |
 | Development temporal boundary referenced by `ModelArtifact`; relation of `prediction_run_ref` to replay/backtest runs | Cross-slice dependency | #21 | Fields reserved here |
 | Metrics, scoring rules, set-valued outcome scoring, dependence-aware statistics | Later-phase decision | Verification/statistical phase | Deferred |
@@ -476,7 +476,7 @@ The verification baseline must include at least:
 - **Exact faithful pit-window rule:** `pit-window/v1` with mandatory outside-window and `q` reporting.
 - **Experimentation routing:** table above.
 - **No recommendation, live, or production semantics:** scope guards.
-- **Independent review:** full scoped review FAIL on PR #26; rework complete; bounded re-review pending.
+- **Independent review:** full scoped review FAIL, then bounded re-review PASS, on PR #26.
 
 ## Product Owner decisions
 
@@ -507,6 +507,13 @@ None required. The representation implements the approved complete-distribution 
 
 Observation not adopted: a fallback grid without `N_T`. Missing `N_T` still fails closed, so one canonical grid rule is kept; completeness never depends on `N_T`.
 
-### Bounded re-review
+### Bounded re-review — PASS
 
-Required under `governance/REVIEW_POLICY.md`.
+- PR: #26
+- Reviewer: the same independent review agent; recorded on PR #26 as a `COMMENT` review through the connected account
+- Date: 2026-10-09
+- Reviewed substantive head: `364c2f41a5268ff55bc4775f9c6502ed2097164d`
+- Outcome: **PASS** — no Blocking or Major findings remain; all seven prior findings are resolved.
+- Cross-slice routing of `c(E)` to an additive #19 `EntryLapContext` is accepted under SPEC_PROCESS (tracked in Issue #27).
+- Minor regression: the estimator signature lacked the inference seed. The reviewer stated it was fixable without a new cycle, and it is fixed in the follow-up commit, together with the wording observations (the procedure, not the estimator, receives the episode initialization; `EntryLapContext` contents are framed as required contents, with #19 owning the representation).
+- Product Owner decision: none required.
