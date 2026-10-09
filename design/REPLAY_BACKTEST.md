@@ -2,7 +2,7 @@
 
 ## Status
 
-Draft — reworked after the full scoped review on PR #28. Bounded re-review required before approval.
+Approved — bounded re-review PASS recorded on PR #28 for substantive head `564f3c1e4af5dfbc5f5a78922964992bc91308b3`; follow-up commit applies the reviewer's two Minor fixes (R1, R2) and two observations only.
 
 ## Abstraction level
 
@@ -131,7 +131,7 @@ The development join (#17 rule 7) enforces:
 
 1. Every training race has concluded before `t(c)`.
 2. If any training race is in the protocol's `final_partition`, the run must be `FINAL_REFIT` and must reference a `lock_id` whose procedure and seeds it uses. Before a lock exists, final-partition races are refused.
-3. Every final-partition race it reads is recorded in the ledger as an opening (`FINAL_REFIT_TRAINING`) before the join executes.
+3. Every race it reads is recorded in the ledger before the join executes: `FINAL_REFIT_TRAINING` for final-partition races under the lock, and `DEVELOPMENT_JOIN` otherwise.
 
 It produces record-level development accounting (see *Development categories*) and a #20 `ModelArtifact` with `development_run_ref` and `development_temporal_boundary_ref = c`.
 
@@ -153,7 +153,7 @@ Rules:
 
 - **Direct-input allowlist:** the run's direct inputs may be only the observation run, the initialization run, the model artifacts in `model_schedule`, and the config. A model artifact's own provenance legitimately references development resolutions; that is not a direct input. Any direct reference to a resolution, event, mapping, backtest, or score aborts the run.
 - **Per-race cutoff check:** for every race `r` in scope, `t(cutoff(model_schedule[r])) ≤ t(r)`.
-- **Final evaluation:** `model_schedule` must equal the lock's `final_model_schedule` exactly.
+- **Final evaluation:** `model_schedule` must equal the lock's `final_model_schedule`, and `inference_seed_policy` must equal the lock's, exactly.
 
 #### Ordering
 
@@ -203,7 +203,9 @@ BacktestRunConfig
 The backtest join (#17 rule 8) enforces:
 
 1. **Coverage:** the union of replay scopes equals `partition ∩ supported_scope ∩ candidate scope` (for a fold, its validation races). A missing race is a run-validity defect.
-2. **Final gating:** for `FINAL_EVALUATION`, a lock is required, every replay must carry the lock's model schedule, and the ledger openings are written **before** any final-partition resolution is read. The ledger assigns the role; the caller does not.
+2. **Final gating:** for `FINAL_EVALUATION`, a lock is required, and every replay must carry the lock's `model_schedule` and `inference_seed_policy`. The ledger openings are written **before** any final-partition resolution is read. The ledger assigns the role; the caller does not.
+3. **Resolution run:** `resolution_run_ref` must equal the protocol's, except for a run declared as a resolution correction, which the ledger labels `RESOLUTION_REEVALUATION`. A `RESOLUTION_REEVALUATION` may carry `analysis_class = PRIMARY` only if the primary run was `DEFECTIVE` solely because of A5, A7, or A8. It is then reported as a correction of the primary, with both runs shown; otherwise it is `SECONDARY`.
+4. Development-validation backtests write `DEVELOPMENT_VALIDATION` openings for their races.
 
 Outputs: record-level accounting, evaluation units, and the manifest.
 
@@ -232,17 +234,21 @@ EvaluationLock
   procedure_id                      # chosen from development evidence only (or PRESPECIFIED)
   seeds: fit seeds + inference seed policy
   final_model_schedule              # RaceSessionKey -> ModelArtifact or deterministic refit rule
-  selection_evidence_refs[]         # development ScoreRuns that justified the choice
+  selection_evidence_refs[]         # development ScoreRuns that justified the choice; each must come
+                                    # from a VALID fold backtest (defective folds are rescoped via
+                                    # supported_scope, not used as selection evidence)
   locked_at
 ```
 
 With `final_refit_cadence ≠ NONE`, refits use the lock's procedure and seeds with cutoff = the predicted race (or the first race of its season). Every refit is a `FINAL_REFIT` `DevelopmentRun` that references the lock. Refits are reproducible from the lock and do not change the procedure.
 
 ```text
-FinalEvaluationLedger               # append-only, keyed by RaceSessionKey
+FinalEvaluationLedger               # append-only, keyed by RaceSessionKey; covers every race,
+                                    # whatever protocol or partition it is in
   entry
     race_session_key
-    opening_kind: FINAL_EVALUATION | FINAL_REFIT_TRAINING | AD_HOC_OPENING
+    opening_kind: FINAL_EVALUATION | FINAL_REFIT_TRAINING | DEVELOPMENT_JOIN
+                  | DEVELOPMENT_VALIDATION | AD_HOC_OPENING
     lock_id?, protocol_id?, run_ref?
     resolution_run_ref
     label (assigned by the ledger)
@@ -253,15 +259,17 @@ Labels for `FINAL_EVALUATION` openings of race `r`:
 
 | Condition | Label |
 | --- | --- |
-| first `FINAL_EVALUATION` of `r`, and no earlier `AD_HOC_OPENING` of `r` | `PRIMARY_FINAL` |
+| first `FINAL_EVALUATION` of `r`, and `r` has no earlier opening of any kind except `FINAL_REFIT_TRAINING` under this same lock | `PRIMARY_FINAL` |
 | same lock as the primary, same `resolution_run_ref`, and record contents equal to the primary under the reproduction rule | `REPRODUCTION` |
 | same lock as the primary, different `resolution_run_ref` declared as a resolution correction | `RESOLUTION_REEVALUATION`, reported alongside the primary and never replacing it |
 | anything else (different lock, procedure, seeds, schedule, or non-matching contents) | `POST_HOC` (development evidence) |
-| first evaluation of `r` after an `AD_HOC_OPENING` of `r` | `POST_HOC` |
+| first evaluation of `r` after any other earlier opening of `r` (development join or validation under any protocol, refit under another lock, ad hoc) | `POST_HOC` |
 
 Rules:
 
-- `FINAL_REFIT_TRAINING` openings of race `r` are legitimate only when the refit cutoff is later than `r`, under the same lock. They do not change `r`'s label.
+- **Every outcome join is an opening.** The development join, the backtest join, and registered ad hoc reads write a ledger entry for every race whose resolutions they read, whatever the protocol or partition. A race used for development under any protocol is therefore permanently ineligible for `PRIMARY_FINAL`.
+- `FINAL_REFIT_TRAINING` openings of race `r` are legitimate only when the refit cutoff is later than `r`, under the same lock. They do not change `r`'s label for that lock; for any other lock they count as earlier openings.
+- A protocol's `prior_exposure` list is checked against the ledger. Every ledger opening of a final-partition race that predates the protocol must be listed, and is filled in from the ledger when it is not.
 - Final-partition resolution artifacts are accessed only through the backtest and development joins. Any other read (notebooks, exploratory analysis) must be registered as an `AD_HOC_OPENING` before it happens. Unregistered access is a protocol violation, and the affected races must be treated as opened.
 - A race's label is determined by its own ledger history. Redefining partitions or protocols cannot reset it.
 
@@ -449,7 +457,7 @@ The verification baseline must include at least:
 2. direct-input allowlist fixtures: a direct resolution reference aborts the run; a model artifact provenance link does not;
 3. a fixture proving no snapshot changes when later replays, resolution versions, or backtests run;
 4. cutoff fixtures under `t(cutoff) ≤ t(r)`: `cutoff = r` accepted, cutoff after `r` refused, checked per race with `PER_RACE` schedules;
-5. lock and ledger fixtures: no lock refused; first evaluation `PRIMARY_FINAL`; a matching rerun `REPRODUCTION`; a non-matching rerun or reseeded rerun under the same lock `POST_HOC`; a new protocol over opened races `POST_HOC`; a partition with one fresh race rejected for a new primary claim; an ad hoc opening making a later evaluation `POST_HOC`; a resolution correction labelled `RESOLUTION_REEVALUATION`;
+5. lock and ledger fixtures: no lock refused; first evaluation `PRIMARY_FINAL`; a matching rerun `REPRODUCTION`; a non-matching rerun or reseeded rerun under the same lock `POST_HOC`; a new protocol over opened races `POST_HOC`; a partition with one fresh race rejected for a new primary claim; an ad hoc opening making a later evaluation `POST_HOC`; a refit under an abandoned lock, or a development join under another protocol, making a later evaluation of that race `POST_HOC`; a replay with a different inference seed policy refused; a backtest with a non-protocol resolution run refused unless declared as a correction (`RESOLUTION_REEVALUATION`);
 6. a development-join fixture: final-partition races are refused before a lock, and a `FINAL_REFIT` records its openings;
 7. accounting fixtures for A0–A11 and the development categories: exhaustiveness, mutual exclusivity, and order;
 8. a cohort fixture: inclusion is unchanged under perturbations of realized timing or prediction values; a nonzero A8 (or A5, A7, A0) count marks the run `DEFECTIVE` and blocks `PRIMARY` scores;
@@ -469,7 +477,7 @@ The verification baseline must include at least:
 - **Scorer plug-in:** two-dimensional role, plus the PRIMARY requirements.
 - **Statistical selection routed:** see *Unknown routing*.
 - **Live and production out of scope:** see *Scope guards*.
-- **Independent review:** full scoped review FAIL; rework complete; bounded re-review pending.
+- **Independent review:** full scoped review FAIL, then bounded re-review PASS, on PR #28.
 
 ## Product Owner decisions
 
@@ -508,6 +516,15 @@ None required. The protocol shape, lock and ledger, accounting categories, and r
 11. `ROLLING_RACE_BLOCK` and `PRESPECIFIED` fallbacks and the `LOW_POWER` qualifier.
 12. Direct-input allowlist wording, `partition_role` rename, and coverage check; `ScoreArtifact` as the `ScoreRun` manifest.
 
-### Bounded re-review
+### Bounded re-review — PASS
 
-Required under `governance/REVIEW_POLICY.md`.
+- PR: #28
+- Reviewer: the same independent review agent; recorded on PR #28 as a `COMMENT` review through the connected account
+- Date: 2026-10-09
+- Reviewed substantive head: `564f3c1e4af5dfbc5f5a78922964992bc91308b3`
+- Outcome: **PASS** — no Blocking or Major findings remain; all prior findings 1–12 and observation 13 are resolved; all Issue #21 acceptance criteria are met.
+- Minor findings fixed in the follow-up commit (the reviewer stated no new cycle is needed):
+  - R1: every outcome join of any race under any protocol is a ledger opening, and `PRIMARY_FINAL` requires no earlier opening except same-lock refit training.
+  - R2: a final backtest must use the protocol's resolution run unless it is a declared `RESOLUTION_REEVALUATION`, and the `PRIMARY` eligibility of such a re-evaluation is defined.
+- Observations adopted: the replay's inference seed policy must match the lock's; selection evidence must come from `VALID` fold backtests.
+- Product Owner decision: none required.
