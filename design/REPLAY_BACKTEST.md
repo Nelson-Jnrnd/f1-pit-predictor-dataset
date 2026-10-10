@@ -159,7 +159,7 @@ Rules:
 
 #### Ordering
 
-Manifest records mirror the #18 `CheckpointAttemptRecord`s (Amendment A1). They use the total order `(race_session_key, attempt_level rank [SESSION < DRIVER_ENTRY < CHECKPOINT], driver_entry_key or driver_alias, checkpoint_key.completed_laps)`, where a missing key sorts after present keys. This order does not depend on `T`, so it also covers attempts that have no canonical observation, including key-less identity failures.
+Manifest records mirror the #18 `CheckpointAttemptRecord`s (Amendment A1) and are keyed by the #18 `attempt_key`. They use the total order `(race_session_key, attempt_level rank [SESSION < DRIVER_ENTRY < CHECKPOINT], driver_entry_key or driver_alias, checkpoint_key.completed_laps)`, where a missing key sorts after present keys. This order does not depend on `T`, so it also covers attempts that have no canonical observation, including key-less identity failures.
 
 For a chronological replay stream (presentation and audit), records with a canonical observation are ordered within a session by the prediction boundary `T`:
 
@@ -171,7 +171,7 @@ For one driver entry, both orders give strictly increasing `completed_laps`. Eve
 
 #### Per-checkpoint step
 
-For each `CheckpointAttemptRecord` of the referenced #18 run (`SESSION` and `DRIVER_ENTRY` records with non-valid status are recorded directly as step 1 states):
+For each `CheckpointAttemptRecord` of the referenced #18 run. `SESSION` and `DRIVER_ENTRY` records are listed in the manifest. Those with status `ESTABLISHED` are completeness markers, not candidate records. Those with any other status are recorded directly as step 1 states. `CHECKPOINT` records follow the steps below.
 
 1. If there is no canonical observation, record the #18 state.
 2. Otherwise read the #19 decision. If there is no decision, or the decision is `ELIGIBLE` but has no `TargetEpisodeInitialization`, record an upstream-linkage defect.
@@ -185,7 +185,8 @@ Each replay run has exactly one `prediction_run_ref`, equal to its `replay_run_i
 ReplayRunManifest
   replay_run_id, config + digest
   records[] (manifest order):
-    semantic_observation_key, observation_artifact_ref?, observation_quality_status
+    attempt_key, attempt_level, semantic_observation_key? (CHECKPOINT only)
+    observation_artifact_ref?, attempt_status
     eligibility_decision_ref?, eligibility_status?, target_episode_key?
     model_artifact_ref?, snapshot_id? | prediction_failure_ref?
   status: COMPLETED | ABORTED (+ reason)      # aborted runs are never resumed in place
@@ -280,7 +281,7 @@ Rules:
 
 ### Backtest categories
 
-Every candidate record gets exactly one category. The categories are evaluated in order:
+**Candidate records** are every #18 `CHECKPOINT` attempt record in scope, plus every `SESSION` or `DRIVER_ENTRY` record whose status is not `ESTABLISHED`. Successful (`ESTABLISHED`) session and driver-entry rows receive no category. Every candidate record gets exactly one category. The categories are evaluated in order:
 
 | # | Category | Condition | Class |
 | --- | --- | --- | --- |
@@ -314,7 +315,7 @@ Every candidate record gets exactly one category. The categories are evaluated i
 One row per candidate record:
 
 ```text
-semantic_observation_key, grouping keys, category, observation_artifact_ref?,
+attempt_key, semantic_observation_key?, grouping keys, category, observation_artifact_ref?,
 target_episode_key?, snapshot_id?, prediction_failure_ref?,
 target_resolution_artifact_ref?, resolution_state?, realized_outcome_kind?
 ```
@@ -367,7 +368,7 @@ GroupingKeys
 
 ## Reproduction rule
 
-A re-executed run gets a new run id. It is a reproduction of an earlier run only if, after removing run-scoped identifiers (`run ids`, `snapshot_id`, `evaluation_unit_id`, `prediction_run_ref`) and keying records by semantic keys (`semantic_observation_key`, `target_episode_key`), the following all hold:
+A re-executed run gets a new run id. It is a reproduction of an earlier run only if, after removing run-scoped identifiers (`run ids`, `snapshot_id`, `evaluation_unit_id`, `prediction_run_ref`) and keying records by the #18 `attempt_key` (which covers key-less rows), together with `target_episode_key` where present, the following all hold:
 
 - the record sets are identical;
 - the categories are identical;
@@ -536,5 +537,5 @@ None required. The protocol shape, lock and ledger, accounting categories, and r
 
 - Scope: consumption of #18 attempt records (ordering, per-checkpoint step, A1 definition), the initialization-lineage check (backtest join rule 5, A0 definition), and verification item 7 additions.
 - Trigger: #22 integration gate findings F2 and F4 (the #21 parts).
-- Independent review bounded to the amendment: pending.
+- Independent review bounded to the amendment: see the #18 Amendment A1 review record (one joint review on PR #32).
 
