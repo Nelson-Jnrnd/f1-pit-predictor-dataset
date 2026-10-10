@@ -4,6 +4,8 @@
 
 Approved — bounded re-review PASS recorded on PR #28 for substantive head `564f3c1e4af5dfbc5f5a78922964992bc91308b3`; follow-up commit applies the reviewer's two Minor fixes (R1, R2) and two observations only.
 
+**Amendment A1 (Issue #29):** approved; bounded re-review PASS on PR #32. It consumes #18 `CheckpointAttemptRecord`s, including key-less identity failures (#22 finding F2, #21 part), and adds an initialization-lineage check at the backtest join (#22 finding F4, #21 part).
+
 ## Abstraction level
 
 Detailed replay/backtest design: replay ordering, prediction-snapshot generation runs, run identity/configuration/provenance, the temporal development versus final-evaluation mechanism, candidate and cohort selection, accounting of non-scored cases, grouping metadata for repeated forecasts, the scorer plug-in boundary, and minimum audit artifacts.
@@ -157,7 +159,7 @@ Rules:
 
 #### Ordering
 
-Manifest records use the total order `(race_session_key, driver_entry_key, checkpoint_key.completed_laps)`. This order does not depend on `T`, so it also covers attempts that have no canonical observation.
+Manifest records mirror the #18 `CheckpointAttemptRecord`s (Amendment A1) and are keyed by the #18 `attempt_key`. They use the total order `(race_session_key, attempt_level rank [SESSION < DRIVER_ENTRY < CHECKPOINT], driver_entry_key or driver_alias, checkpoint_key.completed_laps)`, where a missing key sorts after present keys. This order does not depend on `T`, so it also covers attempts that have no canonical observation, including key-less identity failures.
 
 For a chronological replay stream (presentation and audit), records with a canonical observation are ordered within a session by the prediction boundary `T`:
 
@@ -169,7 +171,7 @@ For one driver entry, both orders give strictly increasing `completed_laps`. Eve
 
 #### Per-checkpoint step
 
-For each attempted checkpoint record of the referenced #18 run:
+The step processes every `CheckpointAttemptRecord` of the referenced #18 run. `SESSION` and `DRIVER_ENTRY` records are listed in the manifest. Those with status `ESTABLISHED` are completeness markers, not candidate records. Those with any other status are recorded directly as step 1 states. `CHECKPOINT` records follow the steps below.
 
 1. If there is no canonical observation, record the #18 state.
 2. Otherwise read the #19 decision. If there is no decision, or the decision is `ELIGIBLE` but has no `TargetEpisodeInitialization`, record an upstream-linkage defect.
@@ -183,13 +185,14 @@ Each replay run has exactly one `prediction_run_ref`, equal to its `replay_run_i
 ReplayRunManifest
   replay_run_id, config + digest
   records[] (manifest order):
-    semantic_observation_key, observation_artifact_ref?, observation_quality_status
+    attempt_key, attempt_level, semantic_observation_key? (CHECKPOINT only)
+    observation_artifact_ref?, attempt_status
     eligibility_decision_ref?, eligibility_status?, target_episode_key?
     model_artifact_ref?, snapshot_id? | prediction_failure_ref?
   status: COMPLETED | ABORTED (+ reason)      # aborted runs are never resumed in place
 ```
 
-**Cross-slice dependency (#18):** this step requires the #18 run manifest to list every attempted checkpoint, with its semantic key and failure state, not only counts and emitted IDs. This is recorded for confirmation at #22.
+**Provided by #18 Amendment A1:** the #18 run manifest lists every attempt as a `CheckpointAttemptRecord`. Session and driver identity failures have no `driver_entry_key`; they carry `driver_alias` where one exists.
 
 ### BacktestRun
 
@@ -206,6 +209,7 @@ The backtest join (#17 rule 8) enforces:
 2. **Final gating:** for `FINAL_EVALUATION`, a lock is required, and every replay must carry the lock's `model_schedule` and `inference_seed_policy`. The ledger openings are written **before** any final-partition resolution is read. The ledger assigns the role; the caller does not.
 3. **Resolution run:** `resolution_run_ref` must equal the protocol's, except for a run declared as a resolution correction, which the ledger labels `RESOLUTION_REEVALUATION`. A `RESOLUTION_REEVALUATION` may carry `analysis_class = PRIMARY` only if the primary run was `DEFECTIVE` solely because of A5, A7, or A8. It is then reported as a correction of the primary, with both runs shown; otherwise it is `SECONDARY`.
 4. Development-validation backtests write `DEVELOPMENT_VALIDATION` openings for their races.
+5. **Initialization lineage (Amendment A1):** for every predicted record, the snapshot's `target_episode_initialization_ref` must equal the selected resolution's `target_episode_initialization_ref`. The resolution run's declared `target_initialization_run_ref` must also equal the replay's. Any mismatch is recorded as A0 `UPSTREAM_LINKAGE_DEFECT`.
 
 Outputs: record-level accounting, evaluation units, and the manifest.
 
@@ -277,12 +281,12 @@ Rules:
 
 ### Backtest categories
 
-Every candidate record gets exactly one category. The categories are evaluated in order:
+**Candidate records** are every #18 `CHECKPOINT` attempt record in scope, plus every `SESSION` or `DRIVER_ENTRY` record whose status is not `ESTABLISHED`. Successful (`ESTABLISHED`) session and driver-entry rows receive no category. Every candidate record gets exactly one category. The categories are evaluated in order:
 
 | # | Category | Condition | Class |
 | --- | --- | --- | --- |
-| A0 | `UPSTREAM_LINKAGE_DEFECT` | canonical observation without a decision, or `ELIGIBLE` without an initialization | run defect |
-| A1 | `NO_CANONICAL_OBSERVATION` | #18 produced no valid canonical observation | causal exclusion |
+| A0 | `UPSTREAM_LINKAGE_DEFECT` | canonical observation without a decision, `ELIGIBLE` without an initialization, or an initialization-lineage mismatch between snapshot and resolution (Amendment A1) | run defect |
+| A1 | `NO_CANONICAL_OBSERVATION` | #18 attempt record without a valid canonical observation, including key-less `SESSION`/`DRIVER_ENTRY` identity failures and `ENUMERATION_INCOMPLETE` rows (Amendment A1) | causal exclusion |
 | A2 | `TARGET_INELIGIBLE` | #19 `INELIGIBLE` | causal exclusion (not an evaluation unit) |
 | A3 | `ELIGIBILITY_INDETERMINATE` | #19 `INDETERMINATE` | causal exclusion |
 | A4 | `PREDICTION_FAILED` | #20 `PredictionFailureRecord` | causal exclusion (procedure defect, reported) |
@@ -311,7 +315,7 @@ Every candidate record gets exactly one category. The categories are evaluated i
 One row per candidate record:
 
 ```text
-semantic_observation_key, grouping keys, category, observation_artifact_ref?,
+attempt_key, semantic_observation_key?, grouping keys, category, observation_artifact_ref?,
 target_episode_key?, snapshot_id?, prediction_failure_ref?,
 target_resolution_artifact_ref?, resolution_state?, realized_outcome_kind?
 ```
@@ -364,7 +368,7 @@ GroupingKeys
 
 ## Reproduction rule
 
-A re-executed run gets a new run id. It is a reproduction of an earlier run only if, after removing run-scoped identifiers (`run ids`, `snapshot_id`, `evaluation_unit_id`, `prediction_run_ref`) and keying records by semantic keys (`semantic_observation_key`, `target_episode_key`), the following all hold:
+A re-executed run gets a new run id. It is a reproduction of an earlier run only if, after removing run-scoped identifiers (`run ids`, `snapshot_id`, `evaluation_unit_id`, `prediction_run_ref`) and keying records by the #18 `attempt_key` (which covers key-less rows), together with `target_episode_key` where present, the following all hold:
 
 - the record sets are identical;
 - the categories are identical;
@@ -440,7 +444,7 @@ Rules:
 | Question | Classification | Owner | Status |
 | --- | --- | --- | --- |
 | Supported seasons/sessions for checkpoints, target truth, and lap-at-entry | Cross-slice dependency | Verification support matrices (#18/#19 handoffs; Issue #27) | Unresolved; consumed via `supported_scope` |
-| Per-attempt checkpoint records in the #18 run manifest | Cross-slice dependency | #18; confirmed at #22 | Required guarantee stated here |
+| Per-attempt checkpoint records in the #18 run manifest | Cross-slice dependency | #18 Amendment A1 (Issue #29); confirmed at the #22 re-check | Provided by #18 Amendment A1 |
 | `EntryLapContext` adoption | Cross-slice dependency | #19 amendment, Issue #27; confirmed at #22 | Not yet satisfied; without it, in-scope runs are `DEFECTIVE` (A8) |
 | Metrics, set-valued outcome scoring, dependence-aware uncertainty, weighting | Later-phase decision | Verification/statistical phase | Deferred |
 | Statistical handling of A6 in fitting and sensitivity analysis | Later-phase decision | Verification/statistics + model experimentation | Deferred; record-level table provided |
@@ -459,7 +463,7 @@ The verification baseline must include at least:
 4. cutoff fixtures under `t(cutoff) ≤ t(r)`: `cutoff = r` accepted, cutoff after `r` refused, checked per race with `PER_RACE` schedules;
 5. lock and ledger fixtures: no lock refused; first evaluation `PRIMARY_FINAL`; a matching rerun `REPRODUCTION`; a non-matching rerun or reseeded rerun under the same lock `POST_HOC`; a new protocol over opened races `POST_HOC`; a partition with one fresh race rejected for a new primary claim; an ad hoc opening making a later evaluation `POST_HOC`; a refit under an abandoned lock, or a development join under another protocol, making a later evaluation of that race `POST_HOC`; a replay with a different inference seed policy refused; a backtest with a non-protocol resolution run refused unless declared as a correction (`RESOLUTION_REEVALUATION`);
 6. a development-join fixture: final-partition races are refused before a lock, and a `FINAL_REFIT` records its openings;
-7. accounting fixtures for A0–A11 and the development categories: exhaustiveness, mutual exclusivity, and order;
+7. accounting fixtures for A0–A11 and the development categories: exhaustiveness, mutual exclusivity, and order; key-less session and driver identity failures appearing as A1 rows in manifest order; an initialization-lineage mismatch producing A0; `ESTABLISHED` session and driver-entry rows receiving no category;
 8. a cohort fixture: inclusion is unchanged under perturbations of realized timing or prediction values; a nonzero A8 (or A5, A7, A0) count marks the run `DEFECTIVE` and blocks `PRIMARY` scores;
 9. a successive-forecast fixture: units sharing `eventual_event_key` with distinct `target_episode_key`s are both retained;
 10. reproduction fixtures: semantic-keyed comparison, tolerance boundary, and a new run id;
@@ -528,3 +532,10 @@ None required. The protocol shape, lock and ledger, accounting categories, and r
   - R2: a final backtest must use the protocol's resolution run unless it is a declared `RESOLUTION_REEVALUATION`, and the `PRIMARY` eligibility of such a re-evaluation is defined.
 - Observations adopted: the replay's inference seed policy must match the lock's; selection evidence must come from `VALID` fold backtests.
 - Product Owner decision: none required.
+
+### Amendment A1 (Issue #29) — review
+
+- Scope: consumption of #18 attempt records (ordering, per-checkpoint step, A1 definition), the initialization-lineage check (backtest join rule 5, A0 definition), and verification item 7 additions.
+- Trigger: #22 integration gate findings F2 and F4 (the #21 parts).
+- Independent review bounded to the amendment: see the #18 Amendment A1 review record (one joint review on PR #32).
+
