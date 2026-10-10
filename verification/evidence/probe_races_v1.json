@@ -1,0 +1,6216 @@
+{
+ "retrieved_at": "2026-10-10T11:06:32.860124+00:00",
+ "results": [
+  {
+   "session": "2018/2018-04-08_Bahrain_Grand_Prix/2018-04-08_Race/",
+   "round": "2",
+   "files": {
+    "Heartbeat": {
+     "status": 200,
+     "last_modified": "Fri, 14 Jun 2024 13:15:34 GMT",
+     "etag": "\"dacdc237e6f58d5b421db986f814a621\"",
+     "sha256": "aa6bb1cb9235728518352129a488407a6e7909c2ca8d00a27cf187086e915f47",
+     "bytes": 21543
+    },
+    "SessionStatus": {
+     "status": 200,
+     "last_modified": "Fri, 14 Jun 2024 13:15:34 GMT",
+     "etag": "\"0f9d3d55bfaa4bee9c6c00d586a2e188\"",
+     "sha256": "74585a31ecbba5761b5f1a24f022116a483ddcc8d7c5727d1d42034070afd430",
+     "bytes": 174
+    },
+    "TimingData": {
+     "status": 200,
+     "last_modified": "Fri, 14 Jun 2024 13:15:50 GMT",
+     "etag": "\"9079647223648369e4760cb3f25c7be8\"",
+     "sha256": "3da6892dddca5a2edf68615f0bf8746217eb03f486761000cc07107ed21f062d",
+     "bytes": 3065488
+    },
+    "TimingAppData": {
+     "status": 200,
+     "last_modified": "Fri, 14 Jun 2024 13:15:50 GMT",
+     "etag": "\"440c802fd46fe46f7a0deb379486dc18\"",
+     "sha256": "a92e5fa1f595d352de4dad4d75fdc47aaa94b261ea89c7508bac32eada460371",
+     "bytes": 56502
+    },
+    "LapCount": {
+     "status": 200,
+     "last_modified": "Fri, 14 Jun 2024 13:15:34 GMT",
+     "etag": "\"598cc5ff64a5bc5305c39261bd1860e9\"",
+     "sha256": "c82849b1d1ba12231b563dd1c826925ed2475f107fc62ebe70f0b98c4c201417",
+     "bytes": 1683
+    },
+    "RaceControlMessages": {
+     "status": 200,
+     "last_modified": "Fri, 14 Jun 2024 13:15:35 GMT",
+     "etag": "\"937ea1383676736ccd8bd2c5f1618589\"",
+     "sha256": "2c8d9095dd20b276b68098814b1bbf1b1c00334c0a998aaa9795e1b6c28a588d",
+     "bytes": 12587
+    },
+    "DriverList": {
+     "status": 200,
+     "last_modified": "Fri, 14 Jun 2024 13:15:31 GMT",
+     "etag": "\"82db15805b3cee1c23ce17a860e59db4\"",
+     "sha256": "51a21de05920a9e3c51085cd1e3e88880c35349fb66f4c363fcaa4b9ab45159c",
+     "bytes": 15142
+    },
+    "SessionInfo": {
+     "status": 200,
+     "last_modified": "Fri, 14 Jun 2024 13:15:34 GMT",
+     "etag": "\"9dbb654a5cfc53d428b37e862a011747\"",
+     "sha256": "c73b5edeb76e717c2ec5ab6f02592851f95a2f6bf5cad2d2a3a702c9bcc04158",
+     "bytes": 410
+    }
+   },
+   "heartbeat": {
+    "n": 415,
+    "base_epoch": 1534968994.552383,
+    "frac_within_5s": 0.0024,
+    "late_records": 205,
+    "late_burst_prefixes": 205,
+    "max_lag_s": 2854.7
+   },
+   "rcm": {
+    "n": 69,
+    "median_dev_s": -11769034.74,
+    "max_abs_dev_s": 11769036.04,
+    "frac_within_5s": 0.0
+   },
+   "session_status": [
+    [
+     7.985,
+     "Inactive"
+    ],
+    [
+     456.924,
+     "Started"
+    ],
+    [
+     5979.084,
+     "Finished"
+    ],
+    [
+     6223.216,
+     "Finalised"
+    ],
+    [
+     6297.116,
+     "Ends"
+    ]
+   ],
+   "lapcount_total_laps": [
+    [
+     6.439,
+     57
+    ]
+   ],
+   "lap_progression": {
+    "drivers": 20,
+    "drivers_with_jumps": 5,
+    "drivers_with_regressions": 0,
+    "per_driver": {
+     "5": {
+      "final": 57,
+      "updates": 56,
+      "jumps": 1,
+      "regressions": 0
+     },
+     "77": {
+      "final": 57,
+      "updates": 56,
+      "jumps": 1,
+      "regressions": 0
+     },
+     "7": {
+      "final": 35,
+      "updates": 34,
+      "jumps": 1,
+      "regressions": 0
+     },
+     "3": {
+      "final": 1,
+      "updates": 1,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "10": {
+      "final": 57,
+      "updates": 57,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "20": {
+      "final": 57,
+      "updates": 57,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "31": {
+      "final": 56,
+      "updates": 56,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "27": {
+      "final": 57,
+      "updates": 57,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "14": {
+      "final": 56,
+      "updates": 56,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "44": {
+      "final": 57,
+      "updates": 56,
+      "jumps": 1,
+      "regressions": 0
+     },
+     "33": {
+      "final": 3,
+      "updates": 3,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "28": {
+      "final": 56,
+      "updates": 56,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "55": {
+      "final": 56,
+      "updates": 56,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "9": {
+      "final": 56,
+      "updates": 56,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "18": {
+      "final": 56,
+      "updates": 55,
+      "jumps": 1,
+      "regressions": 0
+     },
+     "8": {
+      "final": 56,
+      "updates": 56,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "16": {
+      "final": 56,
+      "updates": 56,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "2": {
+      "final": 56,
+      "updates": 56,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "35": {
+      "final": 56,
+      "updates": 56,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "11": {
+      "final": 56,
+      "updates": 56,
+      "jumps": 0,
+      "regressions": 0
+     }
+    }
+   },
+   "inpit_entries_after_start": {
+    "5": 1,
+    "7": 2,
+    "77": 1,
+    "3": 0,
+    "10": 2,
+    "20": 2,
+    "27": 2,
+    "31": 2,
+    "44": 1,
+    "55": 2,
+    "28": 2,
+    "11": 2,
+    "14": 2,
+    "2": 2,
+    "33": 1,
+    "8": 3,
+    "9": 1,
+    "35": 2,
+    "16": 2,
+    "18": 2
+   },
+   "jolpica_pitstops_total": 33,
+   "inpit_entries_total": 34
+  },
+  {
+   "session": "2018/2018-07-29_Hungarian_Grand_Prix/2018-07-29_Race/",
+   "round": "12",
+   "files": {
+    "Heartbeat": {
+     "status": 200,
+     "last_modified": "Fri, 14 Jun 2024 17:10:22 GMT",
+     "etag": "\"7fd6c230b634bae3b55965e34712aa7f\"",
+     "sha256": "d0eec08faf72bd46e09d7583b8d0c915e8921823b7b42f3826d8f2f65d539511",
+     "bytes": 22367
+    },
+    "SessionStatus": {
+     "status": 200,
+     "last_modified": "Fri, 14 Jun 2024 17:10:25 GMT",
+     "etag": "\"2e10602c43c23701159d4988fd7f1510\"",
+     "sha256": "dd06c9d5115babf3c361b4fe3a3be30d721d86080d7822ebd522759c98017752",
+     "bytes": 174
+    },
+    "TimingData": {
+     "status": 200,
+     "last_modified": "Fri, 14 Jun 2024 17:10:44 GMT",
+     "etag": "\"2b91bfb31c10b52292e60740383af067\"",
+     "sha256": "21696e824c75e4bc6137a73b6b7ee0275193c25a696cd28acf89a74cbd6971f8",
+     "bytes": 2874933
+    },
+    "TimingAppData": {
+     "status": 200,
+     "last_modified": "Fri, 14 Jun 2024 17:10:43 GMT",
+     "etag": "\"92edd4cf54848cee9a643b8d6f77977a\"",
+     "sha256": "97b498f24acb0ad756130936df71b321fe424960baf3ee62ef6abe6aa494fe6f",
+     "bytes": 79813
+    },
+    "LapCount": {
+     "status": 200,
+     "last_modified": "Fri, 14 Jun 2024 17:10:21 GMT",
+     "etag": "\"b7ab1d2c41a04506087dc6ea4c08e03e\"",
+     "sha256": "2606d3a615001acb0080c821218a7c2451b5434845c02f3b1c45ba83b3dcde57",
+     "bytes": 2179
+    },
+    "RaceControlMessages": {
+     "status": 200,
+     "last_modified": "Fri, 14 Jun 2024 17:10:25 GMT",
+     "etag": "\"30683b54ef9f15ba8bdc810f6e6d573a\"",
+     "sha256": "f42095c672b62b5f87502c0cad7f48b822e10400fe0ee3cb00d34d2d168ee123",
+     "bytes": 18438
+    },
+    "DriverList": {
+     "status": 200,
+     "last_modified": "Fri, 14 Jun 2024 17:10:21 GMT",
+     "etag": "\"b3c2df4463fe072f63fc6a3fe064e085\"",
+     "sha256": "fb20f01bec8467bbd54ae0d639a34e4c89ba7a14a73e37340a3f9cd07c7845e7",
+     "bytes": 8985
+    },
+    "SessionInfo": {
+     "status": 200,
+     "last_modified": "Fri, 14 Jun 2024 17:10:25 GMT",
+     "etag": "\"7549a2304b7e3debf9f270affd429d9f\"",
+     "sha256": "7a7f3010e7e5f80f91b8c4c95ffaca2927a3c27571b16b0e8e605e32ae999703",
+     "bytes": 420
+    }
+   },
+   "heartbeat": {
+    "n": 431,
+    "base_epoch": 1534997898.463842,
+    "frac_within_5s": 0.0023,
+    "late_records": 213,
+    "late_burst_prefixes": 213,
+    "max_lag_s": 2922.0
+   },
+   "rcm": {
+    "n": 95,
+    "median_dev_s": -2128338.47,
+    "max_abs_dev_s": 2128338.9,
+    "frac_within_5s": 0.0
+   },
+   "session_status": [
+    [
+     5.266,
+     "Inactive"
+    ],
+    [
+     417.186,
+     "Started"
+    ],
+    [
+     6253.805,
+     "Finished"
+    ],
+    [
+     6435.167,
+     "Finalised"
+    ],
+    [
+     6499.399,
+     "Ends"
+    ]
+   ],
+   "lapcount_total_laps": [
+    [
+     4.363,
+     70
+    ]
+   ],
+   "lap_progression": {
+    "drivers": 19,
+    "drivers_with_jumps": 0,
+    "drivers_with_regressions": 0,
+    "per_driver": {
+     "44": {
+      "final": 70,
+      "updates": 70,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "77": {
+      "final": 70,
+      "updates": 70,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "5": {
+      "final": 70,
+      "updates": 70,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "7": {
+      "final": 70,
+      "updates": 70,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "33": {
+      "final": 5,
+      "updates": 5,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "10": {
+      "final": 70,
+      "updates": 70,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "20": {
+      "final": 69,
+      "updates": 69,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "55": {
+      "final": 69,
+      "updates": 69,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "28": {
+      "final": 69,
+      "updates": 69,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "27": {
+      "final": 69,
+      "updates": 69,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "14": {
+      "final": 69,
+      "updates": 69,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "8": {
+      "final": 69,
+      "updates": 69,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "2": {
+      "final": 49,
+      "updates": 49,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "31": {
+      "final": 69,
+      "updates": 69,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "11": {
+      "final": 69,
+      "updates": 69,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "3": {
+      "final": 70,
+      "updates": 70,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "35": {
+      "final": 68,
+      "updates": 68,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "9": {
+      "final": 68,
+      "updates": 68,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "18": {
+      "final": 68,
+      "updates": 68,
+      "jumps": 0,
+      "regressions": 0
+     }
+    }
+   },
+   "inpit_entries_after_start": {
+    "44": 1,
+    "77": 1,
+    "7": 2,
+    "5": 1,
+    "55": 1,
+    "10": 1,
+    "33": 0,
+    "28": 1,
+    "20": 1,
+    "8": 1,
+    "14": 1,
+    "3": 1,
+    "27": 2,
+    "9": 1,
+    "2": 1,
+    "16": 0,
+    "31": 1,
+    "11": 1,
+    "35": 1,
+    "18": 1
+   },
+   "jolpica_pitstops_total": 20,
+   "inpit_entries_total": 20
+  },
+  {
+   "session": "2018/2018-11-25_Abu_Dhabi_Grand_Prix/2018-11-25_Race/",
+   "round": "21",
+   "files": {
+    "Heartbeat": {
+     "status": 200,
+     "last_modified": "Fri, 14 Jun 2024 21:40:01 GMT",
+     "etag": "\"740d0d92ae8a4f724bee2846f880faed\"",
+     "sha256": "9301ad01152eb97b943b411e6a4c7cf3c6abaf1802c2f33b5b86eaee3a5cb3d2",
+     "bytes": 34617
+    },
+    "SessionStatus": {
+     "status": 200,
+     "last_modified": "Fri, 14 Jun 2024 21:40:04 GMT",
+     "etag": "\"a1ccc316d77d006c03f4acede88f599e\"",
+     "sha256": "75517b73cc3ab9c8856f56517ca61a69b411107c8d4fad4241d14513eb58dca0",
+     "bytes": 174
+    },
+    "TimingData": {
+     "status": 200,
+     "last_modified": "Fri, 14 Jun 2024 21:40:25 GMT",
+     "etag": "\"2cf541d14e5493b7b6916ed6007c623f\"",
+     "sha256": "f8a45a913a4dd7bcec663915e642c7150a2d8c4801efd2699fc1e8402e51619f",
+     "bytes": 2688522
+    },
+    "TimingAppData": {
+     "status": 200,
+     "last_modified": "Fri, 14 Jun 2024 21:40:24 GMT",
+     "etag": "\"72d637066e50f211c94168c9a1dd638b\"",
+     "sha256": "25047a9025aa27bb22d5f017db3e47bd19b44b5c38b702472fd934c48f9eaa2e",
+     "bytes": 83830
+    },
+    "LapCount": {
+     "status": 200,
+     "last_modified": "Fri, 14 Jun 2024 21:40:00 GMT",
+     "etag": "\"e5b15354465dfbbfdcc72a6f48adec68\"",
+     "sha256": "0b2674ee117cad4830be1b49c424b5bf91c99e4c6b4f1a6fb08200aedac8a5ac",
+     "bytes": 1714
+    },
+    "RaceControlMessages": {
+     "status": 200,
+     "last_modified": "Fri, 14 Jun 2024 21:40:05 GMT",
+     "etag": "\"abe07c7d082846d4450f76c45457d5f1\"",
+     "sha256": "1f6e5a1d5e9fe691fb7b26d5dd314b048685213c2e42bbd3b2dd21d207060b74",
+     "bytes": 12737
+    },
+    "DriverList": {
+     "status": 200,
+     "last_modified": "Fri, 14 Jun 2024 21:39:59 GMT",
+     "etag": "\"9196192bd3813e77a2ff64755639d2de\"",
+     "sha256": "67492f9d86ef406538a94e2c7ccf2064920e45f4fe868aac24278e7c82557ff4",
+     "bytes": 11636
+    },
+    "SessionInfo": {
+     "status": 200,
+     "last_modified": "Fri, 14 Jun 2024 21:40:04 GMT",
+     "etag": "\"033d5e96a8793b77ed150d58a6c0058e\"",
+     "sha256": "f2a2977505f531f2d200e902043a528f1f5f8504f6f2627cef31516dc2c3a774",
+     "bytes": 443
+    }
+   },
+   "heartbeat": {
+    "n": 667,
+    "base_epoch": 1543149600.1828718,
+    "frac_within_5s": 0.7121,
+    "late_records": 57,
+    "late_burst_prefixes": 1,
+    "max_lag_s": 874.6
+   },
+   "rcm": {
+    "n": 70,
+    "median_dev_s": -0.23,
+    "max_abs_dev_s": 0.92,
+    "frac_within_5s": 1.0
+   },
+   "session_status": [
+    [
+     3.45,
+     "Inactive"
+    ],
+    [
+     2014.462,
+     "Started"
+    ],
+    [
+     7995.043,
+     "Finished"
+    ],
+    [
+     8218.827,
+     "Finalised"
+    ],
+    [
+     9174.182,
+     "Ends"
+    ]
+   ],
+   "lapcount_total_laps": [
+    [
+     1.437,
+     55
+    ]
+   ],
+   "lap_progression": {
+    "drivers": 19,
+    "drivers_with_jumps": 0,
+    "drivers_with_regressions": 0,
+    "per_driver": {
+     "44": {
+      "final": 55,
+      "updates": 55,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "77": {
+      "final": 55,
+      "updates": 55,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "5": {
+      "final": 55,
+      "updates": 55,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "7": {
+      "final": 6,
+      "updates": 6,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "16": {
+      "final": 55,
+      "updates": 55,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "3": {
+      "final": 55,
+      "updates": 55,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "8": {
+      "final": 54,
+      "updates": 54,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "31": {
+      "final": 44,
+      "updates": 44,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "33": {
+      "final": 55,
+      "updates": 55,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "11": {
+      "final": 55,
+      "updates": 55,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "55": {
+      "final": 55,
+      "updates": 55,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "9": {
+      "final": 24,
+      "updates": 24,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "10": {
+      "final": 46,
+      "updates": 46,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "14": {
+      "final": 54,
+      "updates": 54,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "18": {
+      "final": 54,
+      "updates": 54,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "20": {
+      "final": 54,
+      "updates": 54,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "2": {
+      "final": 54,
+      "updates": 54,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "35": {
+      "final": 54,
+      "updates": 54,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "28": {
+      "final": 54,
+      "updates": 54,
+      "jumps": 0,
+      "regressions": 0
+     }
+    }
+   },
+   "inpit_entries_after_start": {
+    "44": 1,
+    "77": 2,
+    "5": 1,
+    "7": 1,
+    "3": 1,
+    "33": 1,
+    "8": 1,
+    "16": 1,
+    "31": 2,
+    "27": 0,
+    "55": 1,
+    "9": 0,
+    "20": 1,
+    "11": 1,
+    "14": 1,
+    "28": 1,
+    "10": 1,
+    "2": 1,
+    "35": 1,
+    "18": 1
+   },
+   "jolpica_pitstops_total": 18,
+   "inpit_entries_total": 20
+  },
+  {
+   "session": "2019/2019-03-17_Australian_Grand_Prix/2019-03-17_Race/",
+   "round": "1",
+   "files": {
+    "Heartbeat": {
+     "status": 200,
+     "last_modified": "Sun, 16 Jun 2024 10:12:17 GMT",
+     "etag": "\"9d758c9f6467fd6f73e6db5913c13eb9\"",
+     "sha256": "0dca7448e351d35c6c81daf257d654dfb21becfd53c6c8d9920837be53cc9363",
+     "bytes": 31451
+    },
+    "SessionStatus": {
+     "status": 200,
+     "last_modified": "Sun, 16 Jun 2024 10:12:19 GMT",
+     "etag": "\"d6ce3c740635c632ac46621b69659d0e\"",
+     "sha256": "4a382086d0d0697940688bbe0253b6d0db34a3e032c7f62f4b44b92b19723719",
+     "bytes": 174
+    },
+    "TimingData": {
+     "status": 200,
+     "last_modified": "Sun, 16 Jun 2024 10:12:37 GMT",
+     "etag": "\"c2ad9abc24fd0001133d03c317245d7c\"",
+     "sha256": "4bf33b4801cf5d6b8531c1a9c3d6f46e96e9e27e579d50f99386c91e6b249de4",
+     "bytes": 2949679
+    },
+    "TimingAppData": {
+     "status": 200,
+     "last_modified": "Sun, 16 Jun 2024 10:12:34 GMT",
+     "etag": "\"bca3b6440c833f51afe44e07c8dc57ea\"",
+     "sha256": "a219a6a58f2df769cd32dd173d22f778e4b17ef2c2ca6cbd36d198fc0fdaf4f1",
+     "bytes": 100884
+    },
+    "LapCount": {
+     "status": 200,
+     "last_modified": "Sun, 16 Jun 2024 10:12:17 GMT",
+     "etag": "\"7c394fb32505deeaf88afad0e3476663\"",
+     "sha256": "de37d70c6eb465ac6157823035f694067b44afa6d491f328b8a2b23cc4081666",
+     "bytes": 1807
+    },
+    "RaceControlMessages": {
+     "status": 200,
+     "last_modified": "Sun, 16 Jun 2024 10:12:22 GMT",
+     "etag": "\"2cf67dee2b78682d5c54d57c834d3402\"",
+     "sha256": "835013327d08db3c8caafba7e1840db8ac87433c2377d920af537d667f1fe100",
+     "bytes": 11945
+    },
+    "DriverList": {
+     "status": 200,
+     "last_modified": "Sun, 16 Jun 2024 10:12:15 GMT",
+     "etag": "\"e6b1a6bee0076cd993bfb49961e7bcc9\"",
+     "sha256": "d8f1e4d4a0dbbd781ad5da0628148d3dd56c2cbeab6a84459161797850b9fe00",
+     "bytes": 9809
+    },
+    "SessionInfo": {
+     "status": 200,
+     "last_modified": "Sun, 16 Jun 2024 10:12:18 GMT",
+     "etag": "\"0ef2dd33be7681e53465f6ad3e43374e\"",
+     "sha256": "c086cbd37d6898c922394112e64244b5e08b15a8db7f7042a904d3452eba3d2e",
+     "bytes": 424
+    }
+   },
+   "heartbeat": {
+    "n": 606,
+    "base_epoch": 1552797602.436052,
+    "frac_within_5s": 0.802,
+    "late_records": 0,
+    "late_burst_prefixes": 0,
+    "max_lag_s": 2.1
+   },
+   "rcm": {
+    "n": 62,
+    "median_dev_s": -2.52,
+    "max_abs_dev_s": 3.14,
+    "frac_within_5s": 1.0
+   },
+   "session_status": [
+    [
+     6.232,
+     "Inactive"
+    ],
+    [
+     2012.727,
+     "Started"
+    ],
+    [
+     7140.666,
+     "Finished"
+    ],
+    [
+     7298.854,
+     "Finalised"
+    ],
+    [
+     7299.292,
+     "Ends"
+    ]
+   ],
+   "lapcount_total_laps": [
+    [
+     5.705,
+     58
+    ]
+   ],
+   "lap_progression": {
+    "drivers": 20,
+    "drivers_with_jumps": 0,
+    "drivers_with_regressions": 0,
+    "per_driver": {
+     "77": {
+      "final": 58,
+      "updates": 58,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "44": {
+      "final": 58,
+      "updates": 58,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "5": {
+      "final": 58,
+      "updates": 58,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "33": {
+      "final": 58,
+      "updates": 58,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "16": {
+      "final": 58,
+      "updates": 58,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "20": {
+      "final": 58,
+      "updates": 58,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "8": {
+      "final": 29,
+      "updates": 29,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "27": {
+      "final": 57,
+      "updates": 57,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "7": {
+      "final": 57,
+      "updates": 57,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "4": {
+      "final": 57,
+      "updates": 57,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "23": {
+      "final": 57,
+      "updates": 57,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "11": {
+      "final": 57,
+      "updates": 57,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "18": {
+      "final": 57,
+      "updates": 57,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "55": {
+      "final": 9,
+      "updates": 9,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "26": {
+      "final": 57,
+      "updates": 57,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "99": {
+      "final": 57,
+      "updates": 57,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "10": {
+      "final": 57,
+      "updates": 57,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "63": {
+      "final": 56,
+      "updates": 56,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "88": {
+      "final": 55,
+      "updates": 55,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "3": {
+      "final": 28,
+      "updates": 28,
+      "jumps": 0,
+      "regressions": 0
+     }
+    }
+   },
+   "inpit_entries_after_start": {
+    "44": 1,
+    "77": 1,
+    "5": 1,
+    "33": 1,
+    "16": 1,
+    "8": 1,
+    "20": 1,
+    "4": 1,
+    "7": 1,
+    "11": 1,
+    "27": 1,
+    "3": 2,
+    "23": 1,
+    "99": 1,
+    "26": 1,
+    "18": 1,
+    "10": 1,
+    "55": 0,
+    "63": 2,
+    "88": 3
+   },
+   "jolpica_pitstops_total": 22,
+   "inpit_entries_total": 23
+  },
+  {
+   "session": "2019/2019-07-28_German_Grand_Prix/2019-07-28_Race/",
+   "round": "11",
+   "files": {
+    "Heartbeat": {
+     "status": 200,
+     "last_modified": "Sun, 16 Jun 2024 15:36:05 GMT",
+     "etag": "\"621b3e877fe1829246efa27e50c1cc9d\"",
+     "sha256": "4197170a7092d8c4bee7e6de201c60a36ac266156b4290d1ac03b836be9b938f",
+     "bytes": 36632
+    },
+    "SessionStatus": {
+     "status": 200,
+     "last_modified": "Sun, 16 Jun 2024 15:36:07 GMT",
+     "etag": "\"2742c5591c8af0f665d6cd5a53ceeb78\"",
+     "sha256": "7e9c955cd27d8f0ba07e20f049c27e031abf8f1a3b4d0ed05c9f66735e6a2377",
+     "bytes": 174
+    },
+    "TimingData": {
+     "status": 200,
+     "last_modified": "Sun, 16 Jun 2024 15:36:45 GMT",
+     "etag": "\"e78cb36308d919e9e42735c13aefc846\"",
+     "sha256": "80ebb7cb730c4c28a7f88be9bf565ab3f380076947c52f7b49b0e3543b015d32",
+     "bytes": 2872608
+    },
+    "TimingAppData": {
+     "status": 200,
+     "last_modified": "Sun, 16 Jun 2024 15:36:43 GMT",
+     "etag": "\"1c8ba533ff5e8472e776a80a867a3155\"",
+     "sha256": "ae93bf50491970c0cb4fea2c97851d8741e75bfd9c13087d66b8a965996de23c",
+     "bytes": 125343
+    },
+    "LapCount": {
+     "status": 200,
+     "last_modified": "Sun, 16 Jun 2024 15:36:05 GMT",
+     "etag": "\"c983090cdbd1989a2ae922d25df46f4c\"",
+     "sha256": "84ebbe3ebd3658c306f97d41a334e42f91d18d104f62f9b85c1184cb0716a83d",
+     "bytes": 2023
+    },
+    "RaceControlMessages": {
+     "status": 200,
+     "last_modified": "Sun, 16 Jun 2024 15:36:08 GMT",
+     "etag": "\"40f2c2255061132dd5f278c44420df35\"",
+     "sha256": "00d5245cda77f0f477f2e4c75ba6cc225eb1ae69f0bbc0282f0e514f369b6865",
+     "bytes": 15421
+    },
+    "DriverList": {
+     "status": 200,
+     "last_modified": "Sun, 16 Jun 2024 15:36:04 GMT",
+     "etag": "\"da6f5cb06c08636bba87b1647c0beec3\"",
+     "sha256": "176ebe00a1f0e53edd010f87cc83e049053bbe017806c1f3af021a105da631db",
+     "bytes": 20323
+    },
+    "SessionInfo": {
+     "status": 200,
+     "last_modified": "Sun, 16 Jun 2024 15:36:06 GMT",
+     "etag": "\"d6615733dc3b3256c748c066eec0767a\"",
+     "sha256": "2cdd127b2a0a62595dff5b010683ff37bb0888a090f37fb449b7d8a3627fc3e7",
+     "bytes": 416
+    }
+   },
+   "heartbeat": {
+    "n": 706,
+    "base_epoch": 1564317602.207962,
+    "frac_within_5s": 0.7663,
+    "late_records": 45,
+    "late_burst_prefixes": 1,
+    "max_lag_s": 692.5
+   },
+   "rcm": {
+    "n": 90,
+    "median_dev_s": -2.12,
+    "max_abs_dev_s": 2.61,
+    "frac_within_5s": 1.0
+   },
+   "session_status": [
+    [
+     6.778,
+     "Inactive"
+    ],
+    [
+     2398.698,
+     "Started"
+    ],
+    [
+     8670.234,
+     "Finished"
+    ],
+    [
+     8807.039,
+     "Finalised"
+    ],
+    [
+     8918.802,
+     "Ends"
+    ]
+   ],
+   "lapcount_total_laps": [
+    [
+     4.375,
+     67
+    ],
+    [
+     2297.722,
+     64
+    ]
+   ],
+   "lap_progression": {
+    "drivers": 20,
+    "drivers_with_jumps": 0,
+    "drivers_with_regressions": 0,
+    "per_driver": {
+     "44": {
+      "final": 64,
+      "updates": 64,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "77": {
+      "final": 56,
+      "updates": 56,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "7": {
+      "final": 64,
+      "updates": 64,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "33": {
+      "final": 64,
+      "updates": 64,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "27": {
+      "final": 39,
+      "updates": 39,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "16": {
+      "final": 27,
+      "updates": 27,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "8": {
+      "final": 64,
+      "updates": 64,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "10": {
+      "final": 61,
+      "updates": 61,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "55": {
+      "final": 64,
+      "updates": 64,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "20": {
+      "final": 64,
+      "updates": 64,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "11": {
+      "final": 1,
+      "updates": 1,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "99": {
+      "final": 64,
+      "updates": 64,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "3": {
+      "final": 13,
+      "updates": 13,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "5": {
+      "final": 64,
+      "updates": 64,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "18": {
+      "final": 64,
+      "updates": 64,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "23": {
+      "final": 64,
+      "updates": 64,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "26": {
+      "final": 64,
+      "updates": 64,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "63": {
+      "final": 64,
+      "updates": 64,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "4": {
+      "final": 25,
+      "updates": 25,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "88": {
+      "final": 64,
+      "updates": 64,
+      "jumps": 0,
+      "regressions": 0
+     }
+    }
+   },
+   "inpit_entries_after_start": {
+    "44": 6,
+    "33": 5,
+    "77": 4,
+    "10": 4,
+    "7": 4,
+    "8": 5,
+    "55": 3,
+    "11": 0,
+    "27": 3,
+    "16": 3,
+    "99": 4,
+    "20": 6,
+    "3": 1,
+    "26": 4,
+    "18": 5,
+    "23": 4,
+    "63": 5,
+    "88": 5,
+    "4": 2,
+    "5": 5
+   },
+   "jolpica_pitstops_total": 78,
+   "inpit_entries_total": 78
+  },
+  {
+   "session": "2019/2019-12-01_Abu_Dhabi_Grand_Prix/2019-12-01_Race/",
+   "round": "21",
+   "files": {
+    "Heartbeat": {
+     "status": 200,
+     "last_modified": "Sun, 16 Jun 2024 20:52:46 GMT",
+     "etag": "\"78403bc9ddbe00dc3f26d0d536e3c95f\"",
+     "sha256": "bdf04e33cc634961343eaf780d441f030e664c81d55fbbcb44c2a2c34e67b6cb",
+     "bytes": 33769
+    },
+    "SessionStatus": {
+     "status": 200,
+     "last_modified": "Sun, 16 Jun 2024 20:52:50 GMT",
+     "etag": "\"5a863983991c19297ad6fcf151a4a805\"",
+     "sha256": "0f8675f330ffecbf085553fb44caf84479b42fe37e1aeb42da6672716c20470a",
+     "bytes": 174
+    },
+    "TimingData": {
+     "status": 200,
+     "last_modified": "Sun, 16 Jun 2024 20:53:20 GMT",
+     "etag": "\"208104eff6661ff157f357d90cc42d0d\"",
+     "sha256": "11ced2c3104440b2739c681df9f60a32179937bc18ab6d781339c75db5e9d26a",
+     "bytes": 5716198
+    },
+    "TimingAppData": {
+     "status": 200,
+     "last_modified": "Sun, 16 Jun 2024 20:53:19 GMT",
+     "etag": "\"02d8d9eaf4a066a034052e9378938c52\"",
+     "sha256": "890819069d12dc519be9e59063499b15b3a370f356a9982509d6e4194d3f78d2",
+     "bytes": 102435
+    },
+    "LapCount": {
+     "status": 200,
+     "last_modified": "Sun, 16 Jun 2024 20:52:47 GMT",
+     "etag": "\"3a28c74b19c633739ed527d019639bc7\"",
+     "sha256": "1e9b8270057e3f69a01437035ddb917b005ffc87ab2e9693162db5c76c9d2538",
+     "bytes": 1714
+    },
+    "RaceControlMessages": {
+     "status": 200,
+     "last_modified": "Sun, 16 Jun 2024 20:52:48 GMT",
+     "etag": "\"d07c0cc1c92e3a5534e56f5338467f23\"",
+     "sha256": "91560d72e9f31ecdd3ad2a199bf16673d667cf4eb92b442fe6605cff9aebf980",
+     "bytes": 15814
+    },
+    "DriverList": {
+     "status": 200,
+     "last_modified": "Sun, 16 Jun 2024 20:52:45 GMT",
+     "etag": "\"1db2bfb63f2546e25a450ce586a7d039\"",
+     "sha256": "3ebf2cf9e37eb5b3e38050b47f4e8ddff4446e0f20af3d1bf999107edf72cfc6",
+     "bytes": 14098
+    },
+    "SessionInfo": {
+     "status": 200,
+     "last_modified": "Sun, 16 Jun 2024 20:52:49 GMT",
+     "etag": "\"d3c13870c6529f82aabaf97ecebca85d\"",
+     "sha256": "57145e81b561b6d5374d7c7515837039d85b953b56aed3c934c3ec223cb191fa",
+     "bytes": 444
+    }
+   },
+   "heartbeat": {
+    "n": 651,
+    "base_epoch": 1575204002.311734,
+    "frac_within_5s": 0.8172,
+    "late_records": 0,
+    "late_burst_prefixes": 0,
+    "max_lag_s": 2.1
+   },
+   "rcm": {
+    "n": 82,
+    "median_dev_s": -2.38,
+    "max_abs_dev_s": 2.77,
+    "frac_within_5s": 1.0
+   },
+   "session_status": [
+    [
+     8.783,
+     "Inactive"
+    ],
+    [
+     2011.194,
+     "Started"
+    ],
+    [
+     7657.081,
+     "Finished"
+    ],
+    [
+     7986.727,
+     "Finalised"
+    ],
+    [
+     7987.099,
+     "Ends"
+    ]
+   ],
+   "lapcount_total_laps": [
+    [
+     7.637,
+     55
+    ]
+   ],
+   "lap_progression": {
+    "drivers": 20,
+    "drivers_with_jumps": 0,
+    "drivers_with_regressions": 1,
+    "per_driver": {
+     "44": {
+      "final": 55,
+      "updates": 55,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "16": {
+      "final": 55,
+      "updates": 55,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "33": {
+      "final": 55,
+      "updates": 55,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "5": {
+      "final": 55,
+      "updates": 55,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "23": {
+      "final": 55,
+      "updates": 55,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "4": {
+      "final": 54,
+      "updates": 54,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "55": {
+      "final": 54,
+      "updates": 54,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "3": {
+      "final": 54,
+      "updates": 54,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "20": {
+      "final": 54,
+      "updates": 54,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "27": {
+      "final": 54,
+      "updates": 54,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "11": {
+      "final": 54,
+      "updates": 54,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "18": {
+      "final": 45,
+      "updates": 45,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "99": {
+      "final": 54,
+      "updates": 54,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "7": {
+      "final": 54,
+      "updates": 54,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "77": {
+      "final": 55,
+      "updates": 55,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "26": {
+      "final": 54,
+      "updates": 54,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "8": {
+      "final": 54,
+      "updates": 54,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "88": {
+      "final": 53,
+      "updates": 53,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "63": {
+      "final": 54,
+      "updates": 56,
+      "jumps": 0,
+      "regressions": 1
+     },
+     "10": {
+      "final": 53,
+      "updates": 53,
+      "jumps": 0,
+      "regressions": 0
+     }
+    }
+   },
+   "inpit_entries_after_start": {
+    "44": 1,
+    "33": 1,
+    "16": 2,
+    "5": 2,
+    "23": 1,
+    "4": 1,
+    "3": 2,
+    "55": 2,
+    "27": 1,
+    "11": 1,
+    "10": 1,
+    "18": 3,
+    "26": 1,
+    "20": 1,
+    "8": 1,
+    "99": 2,
+    "7": 1,
+    "63": 1,
+    "88": 1,
+    "77": 1
+   },
+   "jolpica_pitstops_total": 25,
+   "inpit_entries_total": 27
+  },
+  {
+   "session": "2020/2020-07-05_Austrian_Grand_Prix/2020-07-05_Race/",
+   "round": "1",
+   "files": {
+    "Heartbeat": {
+     "status": 200,
+     "last_modified": "Mon, 17 Jun 2024 08:25:49 GMT",
+     "etag": "\"286cf9cadc42e5dcd2a0584524bf6124\"",
+     "sha256": "97e6bef4c0ff5158935a183a42c40df524316749b04c331808fec730c2d4612c",
+     "bytes": 32642
+    },
+    "SessionStatus": {
+     "status": 200,
+     "last_modified": "Mon, 17 Jun 2024 08:25:51 GMT",
+     "etag": "\"8171850f9ed31b670ca930ce8c14a09f\"",
+     "sha256": "0d01bdeb895f2d5645e831e248319f38f1c8e30b45e76d61a71abb6237c37075",
+     "bytes": 174
+    },
+    "TimingData": {
+     "status": 200,
+     "last_modified": "Mon, 17 Jun 2024 08:26:21 GMT",
+     "etag": "\"c7109f15cbfe3baac59ca52b592ebc0c\"",
+     "sha256": "035882f769e989c233f3d269e744f9325b55466cdc5351f7c67897d7091cdcf8",
+     "bytes": 5011690
+    },
+    "TimingAppData": {
+     "status": 200,
+     "last_modified": "Mon, 17 Jun 2024 08:26:20 GMT",
+     "etag": "\"991c456bc494e171fa56e6aaec218b11\"",
+     "sha256": "fd42c59dcfc1a892f94affa0dda049071b97338991a13f8cc8655975fcd44630",
+     "bytes": 110380
+    },
+    "LapCount": {
+     "status": 200,
+     "last_modified": "Mon, 17 Jun 2024 08:25:48 GMT",
+     "etag": "\"bb0e59bd0f79f709eda292c590a6917e\"",
+     "sha256": "38973f7ec2cb7b14a18b4f095094fc5246c57bc05f00c16b5740d7ae0bf00ca2",
+     "bytes": 2086
+    },
+    "RaceControlMessages": {
+     "status": 200,
+     "last_modified": "Mon, 17 Jun 2024 08:25:49 GMT",
+     "etag": "\"10ead0355166c6ea689a476a210caace\"",
+     "sha256": "41bd4f99f700f4fc18afee62a31a48cba79917064e1c11c4f48586f1c7199702",
+     "bytes": 14383
+    },
+    "DriverList": {
+     "status": 200,
+     "last_modified": "Mon, 17 Jun 2024 08:25:45 GMT",
+     "etag": "\"27e2c8f827a9c97859b3c9ce199b2fbb\"",
+     "sha256": "629345af67c01eb64a4afb10b26681f154912c47a4e934c8ac5ad276f14ea8cf",
+     "bytes": 13389
+    },
+    "SessionInfo": {
+     "status": 200,
+     "last_modified": "Mon, 17 Jun 2024 08:25:49 GMT",
+     "etag": "\"911a1b048d87db3d3579183355006cae\"",
+     "sha256": "a654031839f8c580f1024a50629b9b9d9c7c4abb30e99aa5fcc129ba4d5ef53e",
+     "bytes": 419
+    }
+   },
+   "heartbeat": {
+    "n": 629,
+    "base_epoch": 1593952802.2698479,
+    "frac_within_5s": 0.7599,
+    "late_records": 29,
+    "late_burst_prefixes": 1,
+    "max_lag_s": 460.6
+   },
+   "rcm": {
+    "n": 87,
+    "median_dev_s": -2.18,
+    "max_abs_dev_s": 2.61,
+    "frac_within_5s": 1.0
+   },
+   "session_status": [
+    [
+     8.013,
+     "Inactive"
+    ],
+    [
+     1967.006,
+     "Started"
+    ],
+    [
+     7422.992,
+     "Finished"
+    ],
+    [
+     7644.018,
+     "Finalised"
+    ],
+    [
+     7644.411,
+     "Ends"
+    ]
+   ],
+   "lapcount_total_laps": [
+    [
+     4.428,
+     71
+    ]
+   ],
+   "lap_progression": {
+    "drivers": 20,
+    "drivers_with_jumps": 20,
+    "drivers_with_regressions": 0,
+    "per_driver": {
+     "77": {
+      "final": 71,
+      "updates": 67,
+      "jumps": 1,
+      "regressions": 0
+     },
+     "33": {
+      "final": 11,
+      "updates": 10,
+      "jumps": 1,
+      "regressions": 0
+     },
+     "4": {
+      "final": 71,
+      "updates": 66,
+      "jumps": 1,
+      "regressions": 0
+     },
+     "23": {
+      "final": 67,
+      "updates": 62,
+      "jumps": 1,
+      "regressions": 0
+     },
+     "44": {
+      "final": 71,
+      "updates": 66,
+      "jumps": 1,
+      "regressions": 0
+     },
+     "11": {
+      "final": 71,
+      "updates": 66,
+      "jumps": 1,
+      "regressions": 0
+     },
+     "16": {
+      "final": 71,
+      "updates": 66,
+      "jumps": 1,
+      "regressions": 0
+     },
+     "55": {
+      "final": 71,
+      "updates": 66,
+      "jumps": 1,
+      "regressions": 0
+     },
+     "18": {
+      "final": 20,
+      "updates": 15,
+      "jumps": 1,
+      "regressions": 0
+     },
+     "5": {
+      "final": 71,
+      "updates": 66,
+      "jumps": 1,
+      "regressions": 0
+     },
+     "3": {
+      "final": 17,
+      "updates": 12,
+      "jumps": 1,
+      "regressions": 0
+     },
+     "10": {
+      "final": 71,
+      "updates": 66,
+      "jumps": 1,
+      "regressions": 0
+     },
+     "20": {
+      "final": 24,
+      "updates": 19,
+      "jumps": 1,
+      "regressions": 0
+     },
+     "99": {
+      "final": 71,
+      "updates": 66,
+      "jumps": 1,
+      "regressions": 0
+     },
+     "26": {
+      "final": 69,
+      "updates": 64,
+      "jumps": 1,
+      "regressions": 0
+     },
+     "31": {
+      "final": 71,
+      "updates": 66,
+      "jumps": 1,
+      "regressions": 0
+     },
+     "7": {
+      "final": 53,
+      "updates": 48,
+      "jumps": 1,
+      "regressions": 0
+     },
+     "8": {
+      "final": 49,
+      "updates": 44,
+      "jumps": 1,
+      "regressions": 0
+     },
+     "63": {
+      "final": 49,
+      "updates": 44,
+      "jumps": 1,
+      "regressions": 0
+     },
+     "6": {
+      "final": 71,
+      "updates": 66,
+      "jumps": 1,
+      "regressions": 0
+     }
+    }
+   },
+   "inpit_entries_after_start": {
+    "77": 2,
+    "33": 1,
+    "4": 3,
+    "23": 3,
+    "44": 2,
+    "11": 2,
+    "16": 3,
+    "55": 3,
+    "18": 1,
+    "3": 1,
+    "5": 3,
+    "10": 2,
+    "26": 3,
+    "31": 2,
+    "8": 2,
+    "20": 0,
+    "63": 1,
+    "99": 3,
+    "7": 2,
+    "6": 3
+   },
+   "jolpica_pitstops_total": 38,
+   "inpit_entries_total": 42
+  },
+  {
+   "session": "2020/2020-09-13_Tuscan_Grand_Prix/2020-09-13_Race/",
+   "round": "9",
+   "files": {
+    "Heartbeat": {
+     "status": 200,
+     "last_modified": "Mon, 17 Jun 2024 12:58:57 GMT",
+     "etag": "\"3d0f6a66ca6cb401f54e6da45612d2d6\"",
+     "sha256": "362d00a479de952660ce4cc363e979070246a0e4b1880e97f0e1a4a77a584ac5",
+     "bytes": 42785
+    },
+    "SessionStatus": {
+     "status": 200,
+     "last_modified": "Mon, 17 Jun 2024 12:59:01 GMT",
+     "etag": "\"c56c9f00ed91ca7ec4fb931bb2f6d2df\"",
+     "sha256": "a90f80ca995ab0a2b7e0c1d6d17a948c44c59b7726b3afce055705536452fe0b",
+     "bytes": 310
+    },
+    "TimingData": {
+     "status": 200,
+     "last_modified": "Mon, 17 Jun 2024 12:59:13 GMT",
+     "etag": "\"111bc1f167e6237de4f112e82ec10115\"",
+     "sha256": "b364a3ec55f4b67bf21b8d2036eadec5d736ee815a3309bdfe18dcdadb66ece3",
+     "bytes": 4037119
+    },
+    "TimingAppData": {
+     "status": 200,
+     "last_modified": "Mon, 17 Jun 2024 12:59:15 GMT",
+     "etag": "\"f5d16720be5acb1742c65a8f20e514ee\"",
+     "sha256": "e7c5b6b433ccf281a9c689181421c9f2a4bd2ab47a81c46b26d6dafd3682d337",
+     "bytes": 68882
+    },
+    "LapCount": {
+     "status": 200,
+     "last_modified": "Mon, 17 Jun 2024 12:58:56 GMT",
+     "etag": "\"29974f6757559e44884b0bb18e391c15\"",
+     "sha256": "ebe945f3ef496d2dfc6c70ce7ce236930243b149ef6b9e36588a8d4dcb07f5db",
+     "bytes": 1838
+    },
+    "RaceControlMessages": {
+     "status": 200,
+     "last_modified": "Mon, 17 Jun 2024 12:58:59 GMT",
+     "etag": "\"abc93c897f913e4c058f4508ce16728a\"",
+     "sha256": "4d177a0062483387e3a2ad9112917787ebcd647f42dd02282ae5eb3a3120a7f0",
+     "bytes": 7313
+    },
+    "DriverList": {
+     "status": 200,
+     "last_modified": "Mon, 17 Jun 2024 12:58:57 GMT",
+     "etag": "\"3b1901083e50f5ea9bafa8b25f2f71ea\"",
+     "sha256": "8cc819b5d0db78f81e3e53b66a228a14bcef0f55c0b299811bbce6226db3bf65",
+     "bytes": 12947
+    },
+    "SessionInfo": {
+     "status": 200,
+     "last_modified": "Mon, 17 Jun 2024 12:58:59 GMT",
+     "etag": "\"47cec3f2fe4c88403bee575e91525ad4\"",
+     "sha256": "aeacb0c80a0629857c7e88563ba3882705124b0af805581754e8e1bb9723cde8",
+     "bytes": 410
+    }
+   },
+   "heartbeat": {
+    "n": 824,
+    "base_epoch": 1600000802.2125854,
+    "frac_within_5s": 0.8483,
+    "late_records": 3,
+    "late_burst_prefixes": 1,
+    "max_lag_s": 65.2
+   },
+   "rcm": {
+    "n": 44,
+    "median_dev_s": -2.33,
+    "max_abs_dev_s": 2.67,
+    "frac_within_5s": 1.0
+   },
+   "session_status": [
+    [
+     6.95,
+     "Inactive"
+    ],
+    [
+     2005.335,
+     "Started"
+    ],
+    [
+     2974.257,
+     "Aborted"
+    ],
+    [
+     4500.042,
+     "Started"
+    ],
+    [
+     7784.274,
+     "Aborted"
+    ],
+    [
+     9120.029,
+     "Started"
+    ],
+    [
+     10380.577,
+     "Finished"
+    ],
+    [
+     10573.852,
+     "Finalised"
+    ],
+    [
+     10573.852,
+     "Ends"
+    ]
+   ],
+   "lapcount_total_laps": [
+    [
+     1.674,
+     59
+    ]
+   ],
+   "lap_progression": {
+    "drivers": 18,
+    "drivers_with_jumps": 0,
+    "drivers_with_regressions": 0,
+    "per_driver": {
+     "77": {
+      "final": 59,
+      "updates": 59,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "44": {
+      "final": 59,
+      "updates": 59,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "16": {
+      "final": 59,
+      "updates": 59,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "23": {
+      "final": 59,
+      "updates": 59,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "18": {
+      "final": 42,
+      "updates": 42,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "3": {
+      "final": 59,
+      "updates": 59,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "11": {
+      "final": 59,
+      "updates": 59,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "4": {
+      "final": 59,
+      "updates": 59,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "26": {
+      "final": 59,
+      "updates": 59,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "31": {
+      "final": 7,
+      "updates": 7,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "63": {
+      "final": 59,
+      "updates": 59,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "20": {
+      "final": 5,
+      "updates": 5,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "6": {
+      "final": 6,
+      "updates": 6,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "99": {
+      "final": 5,
+      "updates": 5,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "55": {
+      "final": 5,
+      "updates": 5,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "7": {
+      "final": 59,
+      "updates": 59,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "8": {
+      "final": 59,
+      "updates": 59,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "5": {
+      "final": 59,
+      "updates": 59,
+      "jumps": 0,
+      "regressions": 0
+     }
+    }
+   },
+   "inpit_entries_after_start": {
+    "44": 5,
+    "77": 5,
+    "33": 0,
+    "23": 5,
+    "16": 5,
+    "18": 3,
+    "11": 5,
+    "3": 5,
+    "55": 0,
+    "31": 2,
+    "4": 5,
+    "26": 5,
+    "7": 6,
+    "5": 6,
+    "8": 5,
+    "10": 0,
+    "99": 0,
+    "63": 5,
+    "6": 1,
+    "20": 0
+   },
+   "jolpica_pitstops_total": 66,
+   "inpit_entries_total": 68
+  },
+  {
+   "session": "2020/2020-12-13_Abu_Dhabi_Grand_Prix/2020-12-13_Race/",
+   "round": "17",
+   "files": {
+    "Heartbeat": {
+     "status": 200,
+     "last_modified": "Mon, 17 Jun 2024 17:46:19 GMT",
+     "etag": "\"b8e74887e68d749cc38402b44d499791\"",
+     "sha256": "8b6d2bb8db0b260b6a6ffbbda1c94bef89ba63e5937d9b6c3a37620b6a5cb7a5",
+     "bytes": 34256
+    },
+    "SessionStatus": {
+     "status": 200,
+     "last_modified": "Mon, 17 Jun 2024 17:46:25 GMT",
+     "etag": "\"c4a7409ac08ac19c6a53093d52d7e155\"",
+     "sha256": "ab21981d2304637cf979333f805c607ee254661c103b134970482f2edb6522ce",
+     "bytes": 174
+    },
+    "TimingData": {
+     "status": 200,
+     "last_modified": "Mon, 17 Jun 2024 17:47:09 GMT",
+     "etag": "\"3b7884aace8a120c101292437a3a0a62\"",
+     "sha256": "de29012bcb657cdeb458d44238e59cfc95af7543aac50569d74b5f3e88156c0f",
+     "bytes": 5681270
+    },
+    "TimingAppData": {
+     "status": 200,
+     "last_modified": "Mon, 17 Jun 2024 17:47:07 GMT",
+     "etag": "\"2fa634f8286c184996619c3260888279\"",
+     "sha256": "7e8952494ba3c548fce6dbac4af1e9e2c85ffce5ece2a14ba1a80faed6a16c1a",
+     "bytes": 101192
+    },
+    "LapCount": {
+     "status": 200,
+     "last_modified": "Mon, 17 Jun 2024 17:46:21 GMT",
+     "etag": "\"2770610cac6475a0f2fc13376456a40f\"",
+     "sha256": "74a4a70e48bb7f983012a367b3a43a85b4a928f6afdaa7dce7ff64f73899d698",
+     "bytes": 1714
+    },
+    "RaceControlMessages": {
+     "status": 200,
+     "last_modified": "Mon, 17 Jun 2024 17:46:22 GMT",
+     "etag": "\"67fae16f9148e241964ce784b3748b77\"",
+     "sha256": "0c0b673cbde44056743db5817ebfe229087ee954373b98624ad4f77b82a36613",
+     "bytes": 10446
+    },
+    "DriverList": {
+     "status": 200,
+     "last_modified": "Mon, 17 Jun 2024 17:46:17 GMT",
+     "etag": "\"e911887da0907266cd77f3fa22194871\"",
+     "sha256": "8a4961f6b81d259c52d0e11705445e4f20de73419656f4dc5af41b474f5016a6",
+     "bytes": 10917
+    },
+    "SessionInfo": {
+     "status": 200,
+     "last_modified": "Mon, 17 Jun 2024 17:46:25 GMT",
+     "etag": "\"d9e2a2665ec33e26f6aa81a09af73cd8\"",
+     "sha256": "902c004ae7662337578be4f9e462a6dbb733b91d0426e1b9d70213a2ff451b43",
+     "bytes": 444
+    }
+   },
+   "heartbeat": {
+    "n": 660,
+    "base_epoch": 1607863202.244433,
+    "frac_within_5s": 0.7667,
+    "late_records": 32,
+    "late_burst_prefixes": 1,
+    "max_lag_s": 504.9
+   },
+   "rcm": {
+    "n": 58,
+    "median_dev_s": -2.3,
+    "max_abs_dev_s": 2.77,
+    "frac_within_5s": 1.0
+   },
+   "session_status": [
+    [
+     5.371,
+     "Inactive"
+    ],
+    [
+     2008.601,
+     "Started"
+    ],
+    [
+     7797.488,
+     "Finished"
+    ],
+    [
+     8106.248,
+     "Finalised"
+    ],
+    [
+     8106.248,
+     "Ends"
+    ]
+   ],
+   "lapcount_total_laps": [
+    [
+     3.164,
+     55
+    ]
+   ],
+   "lap_progression": {
+    "drivers": 20,
+    "drivers_with_jumps": 0,
+    "drivers_with_regressions": 0,
+    "per_driver": {
+     "33": {
+      "final": 55,
+      "updates": 55,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "77": {
+      "final": 55,
+      "updates": 55,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "44": {
+      "final": 55,
+      "updates": 55,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "4": {
+      "final": 55,
+      "updates": 55,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "23": {
+      "final": 55,
+      "updates": 55,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "55": {
+      "final": 55,
+      "updates": 55,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "26": {
+      "final": 54,
+      "updates": 54,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "18": {
+      "final": 55,
+      "updates": 55,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "31": {
+      "final": 55,
+      "updates": 55,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "10": {
+      "final": 55,
+      "updates": 55,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "3": {
+      "final": 55,
+      "updates": 55,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "5": {
+      "final": 54,
+      "updates": 54,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "16": {
+      "final": 54,
+      "updates": 54,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "7": {
+      "final": 54,
+      "updates": 54,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "99": {
+      "final": 54,
+      "updates": 54,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "63": {
+      "final": 54,
+      "updates": 54,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "20": {
+      "final": 54,
+      "updates": 54,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "51": {
+      "final": 53,
+      "updates": 53,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "6": {
+      "final": 54,
+      "updates": 54,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "11": {
+      "final": 8,
+      "updates": 8,
+      "jumps": 0,
+      "regressions": 0
+     }
+    }
+   },
+   "inpit_entries_after_start": {
+    "33": 1,
+    "77": 1,
+    "44": 1,
+    "4": 1,
+    "23": 1,
+    "55": 1,
+    "26": 1,
+    "18": 1,
+    "10": 1,
+    "31": 1,
+    "3": 1,
+    "16": 1,
+    "5": 1,
+    "99": 1,
+    "7": 1,
+    "63": 1,
+    "51": 3,
+    "6": 2,
+    "11": 0,
+    "20": 2
+   },
+   "jolpica_pitstops_total": 23,
+   "inpit_entries_total": 23
+  },
+  {
+   "session": "2021/2021-03-28_Bahrain_Grand_Prix/2021-03-28_Race/",
+   "round": "1",
+   "files": {
+    "Heartbeat": {
+     "status": 200,
+     "last_modified": "Mon, 17 Jun 2024 18:20:10 GMT",
+     "etag": "\"05d865ae4e4b7fec0588de05da304469\"",
+     "sha256": "77709d7f3177a0a2cad8692a997a7cc6cfe7df7795081543feccb76ffc24e0ce",
+     "bytes": 33796
+    },
+    "SessionStatus": {
+     "status": 200,
+     "last_modified": "Mon, 17 Jun 2024 18:20:17 GMT",
+     "etag": "\"45a2cbb4b1c08a21736c7632cb0c967c\"",
+     "sha256": "f2c96166ced51b3c2cafc758deee1b4acc8b3967abc4643f9f84596e941bc7ab",
+     "bytes": 174
+    },
+    "TimingData": {
+     "status": 200,
+     "last_modified": "Mon, 17 Jun 2024 18:21:06 GMT",
+     "etag": "\"81e3900ae0a6b9649d4734c0c62eaa74\"",
+     "sha256": "378f98483a20801b8cc4f4c99fb9cdb01effbb0063414dcf1740d665ad966941",
+     "bytes": 6550602
+    },
+    "TimingAppData": {
+     "status": 200,
+     "last_modified": "Mon, 17 Jun 2024 18:21:11 GMT",
+     "etag": "\"adf14a4f150edb06970618c135186d32\"",
+     "sha256": "1c2f648cc67412f3cc6adcbe1d6ff63f8c0f5c295aa42216e275320276ee73f0",
+     "bytes": 98987
+    },
+    "LapCount": {
+     "status": 200,
+     "last_modified": "Mon, 17 Jun 2024 18:20:12 GMT",
+     "etag": "\"c7f5db3f8f2866d630b4b0511e8e3f2f\"",
+     "sha256": "a605bc9806d4817a073c04ef33ad5b8d98750d8f8173d7cace2f1ed44b729d5d",
+     "bytes": 1775
+    },
+    "RaceControlMessages": {
+     "status": 200,
+     "last_modified": "Mon, 17 Jun 2024 18:20:14 GMT",
+     "etag": "\"0bb6335a7abdee7423959956d99547bb\"",
+     "sha256": "9783c7026f9ecf87d05711c76cbde173e34cd73adf33370e80042b8b1cd47975",
+     "bytes": 10411
+    },
+    "DriverList": {
+     "status": 200,
+     "last_modified": "Mon, 17 Jun 2024 18:20:08 GMT",
+     "etag": "\"79a6e25ccabf33f846ce10a1029469dd\"",
+     "sha256": "2b41bf8f961afcf602951e572d889cd89594865565273bfd2844f4f696a29775",
+     "bytes": 18180
+    },
+    "SessionInfo": {
+     "status": 200,
+     "last_modified": "Mon, 17 Jun 2024 18:20:17 GMT",
+     "etag": "\"5feea7296a724a47c461523d8dd5953c\"",
+     "sha256": "b9f9c4d58a73c21c23ae3063aac9ceb41224ac2cef7b423c33f171785b6c5ae9",
+     "bytes": 411
+    }
+   },
+   "heartbeat": {
+    "n": 651,
+    "base_epoch": 1616941802.102379,
+    "frac_within_5s": 0.8157,
+    "late_records": 0,
+    "late_burst_prefixes": 0,
+    "max_lag_s": 2.1
+   },
+   "rcm": {
+    "n": 58,
+    "median_dev_s": -2.23,
+    "max_abs_dev_s": 2.83,
+    "frac_within_5s": 1.0
+   },
+   "session_status": [
+    [
+     7.233,
+     "Inactive"
+    ],
+    [
+     2229.97,
+     "Started"
+    ],
+    [
+     7754.114,
+     "Finished"
+    ],
+    [
+     7985.458,
+     "Finalised"
+    ],
+    [
+     7985.458,
+     "Ends"
+    ]
+   ],
+   "lapcount_total_laps": [
+    [
+     5.395,
+     57
+    ],
+    [
+     2029.787,
+     56
+    ]
+   ],
+   "lap_progression": {
+    "drivers": 19,
+    "drivers_with_jumps": 0,
+    "drivers_with_regressions": 0,
+    "per_driver": {
+     "33": {
+      "final": 56,
+      "updates": 56,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "44": {
+      "final": 56,
+      "updates": 56,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "16": {
+      "final": 56,
+      "updates": 56,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "77": {
+      "final": 56,
+      "updates": 56,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "10": {
+      "final": 52,
+      "updates": 52,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "4": {
+      "final": 56,
+      "updates": 56,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "3": {
+      "final": 56,
+      "updates": 56,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "14": {
+      "final": 32,
+      "updates": 32,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "18": {
+      "final": 56,
+      "updates": 56,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "55": {
+      "final": 56,
+      "updates": 56,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "7": {
+      "final": 56,
+      "updates": 56,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "99": {
+      "final": 55,
+      "updates": 55,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "31": {
+      "final": 55,
+      "updates": 55,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "5": {
+      "final": 55,
+      "updates": 55,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "22": {
+      "final": 56,
+      "updates": 56,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "63": {
+      "final": 55,
+      "updates": 55,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "6": {
+      "final": 51,
+      "updates": 51,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "47": {
+      "final": 55,
+      "updates": 55,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "11": {
+      "final": 56,
+      "updates": 56,
+      "jumps": 0,
+      "regressions": 0
+     }
+    }
+   },
+   "inpit_entries_after_start": {
+    "33": 2,
+    "44": 2,
+    "77": 3,
+    "16": 2,
+    "10": 4,
+    "3": 2,
+    "4": 2,
+    "55": 2,
+    "14": 3,
+    "18": 2,
+    "11": 3,
+    "99": 2,
+    "22": 2,
+    "7": 2,
+    "63": 2,
+    "31": 2,
+    "6": 3,
+    "47": 2,
+    "9": 0,
+    "5": 1
+   },
+   "jolpica_pitstops_total": 40,
+   "inpit_entries_total": 43
+  },
+  {
+   "session": "2021/2021-08-29_Belgian_Grand_Prix/2021-08-29_Race/",
+   "round": "12",
+   "files": {
+    "Heartbeat": {
+     "status": 200,
+     "last_modified": "Tue, 18 Jun 2024 01:14:58 GMT",
+     "etag": "\"b52e898621ef03affa52cc9cb19bff44\"",
+     "sha256": "70bdd7e59d2f212db68578069ea1042b478456195afef76b9789b116c0fb6e04",
+     "bytes": 66257
+    },
+    "SessionStatus": {
+     "status": 200,
+     "last_modified": "Tue, 18 Jun 2024 01:14:54 GMT",
+     "etag": "\"79a27bc41cf42d2ea86198df3891637a\"",
+     "sha256": "ecaf98b170da6e7850a6afb64cdba23af6ed863b4c01230e42d632bc21f73bcc",
+     "bytes": 173
+    },
+    "TimingData": {
+     "status": 200,
+     "last_modified": "Tue, 18 Jun 2024 01:16:31 GMT",
+     "etag": "\"7bbc0e0f9a48349805f552a3b48a13a6\"",
+     "sha256": "74c50f9435ddb70ab514141c6473bf7c6f6b03cdce5a695003f4d2473eac7874",
+     "bytes": 650904
+    },
+    "TimingAppData": {
+     "status": 200,
+     "last_modified": "Tue, 18 Jun 2024 01:16:50 GMT",
+     "etag": "\"79b3e1122536a66db481654a971e5b18\"",
+     "sha256": "4dc94b08675cb444048d9ee0c16cb14c8d1ec97db70ad54b127c051cd7221705",
+     "bytes": 18161
+    },
+    "LapCount": {
+     "status": 200,
+     "last_modified": "Tue, 18 Jun 2024 01:15:27 GMT",
+     "etag": "\"e01ae21159e259b8befa859c4445fc10\"",
+     "sha256": "db46fb9e9d5ef32d4e4d3b47278f926acabef3471beb4e886d23fc19ea903aac",
+     "bytes": 198
+    },
+    "RaceControlMessages": {
+     "status": 200,
+     "last_modified": "Tue, 18 Jun 2024 01:14:54 GMT",
+     "etag": "\"e050891849f39ac72740cb9ace832477\"",
+     "sha256": "cc379f93723d1014d467b8305c1f878bb24db92782e3ccc681ddd0492faf0566",
+     "bytes": 4581
+    },
+    "DriverList": {
+     "status": 200,
+     "last_modified": "Tue, 18 Jun 2024 01:15:05 GMT",
+     "etag": "\"c655890690c1d0b213cb6acefce8a82a\"",
+     "sha256": "a726ce28389935cae5bd37f5b54ebebb3ed128418ae52b0f6f1746d16c00a8ec",
+     "bytes": 7697
+    },
+    "SessionInfo": {
+     "status": 200,
+     "last_modified": "Tue, 18 Jun 2024 01:14:54 GMT",
+     "etag": "\"5b1f3c521f14c039878f96e152b6dc23\"",
+     "sha256": "ec288881fe29b0c86136add50d58ebd31a0005941c7853c610b8a43d2df8ce07",
+     "bytes": 432
+    }
+   },
+   "heartbeat": {
+    "n": 1277,
+    "base_epoch": 1630238463.173382,
+    "frac_within_5s": 0.906,
+    "late_records": 0,
+    "late_burst_prefixes": 0,
+    "max_lag_s": 1.6
+   },
+   "rcm": {
+    "n": 33,
+    "median_dev_s": -2.12,
+    "max_abs_dev_s": 2.66,
+    "frac_within_5s": 1.0
+   },
+   "session_status": [
+    [
+     4.677,
+     "Inactive"
+    ],
+    [
+     15359.115,
+     "Started"
+    ],
+    [
+     15878.553,
+     "Aborted"
+    ],
+    [
+     17376.887,
+     "Finalised"
+    ],
+    [
+     17633.567,
+     "Ends"
+    ]
+   ],
+   "lapcount_total_laps": [
+    [
+     6.162,
+     44
+    ],
+    [
+     5530.123,
+     43
+    ],
+    [
+     10528.488,
+     39
+    ]
+   ],
+   "lap_progression": {
+    "drivers": 20,
+    "drivers_with_jumps": 0,
+    "drivers_with_regressions": 20,
+    "per_driver": {
+     "33": {
+      "final": 1,
+      "updates": 4,
+      "jumps": 0,
+      "regressions": 1
+     },
+     "63": {
+      "final": 1,
+      "updates": 4,
+      "jumps": 0,
+      "regressions": 1
+     },
+     "44": {
+      "final": 1,
+      "updates": 4,
+      "jumps": 0,
+      "regressions": 1
+     },
+     "3": {
+      "final": 1,
+      "updates": 4,
+      "jumps": 0,
+      "regressions": 1
+     },
+     "5": {
+      "final": 1,
+      "updates": 4,
+      "jumps": 0,
+      "regressions": 1
+     },
+     "10": {
+      "final": 1,
+      "updates": 4,
+      "jumps": 0,
+      "regressions": 1
+     },
+     "31": {
+      "final": 1,
+      "updates": 4,
+      "jumps": 0,
+      "regressions": 1
+     },
+     "16": {
+      "final": 1,
+      "updates": 4,
+      "jumps": 0,
+      "regressions": 1
+     },
+     "6": {
+      "final": 1,
+      "updates": 4,
+      "jumps": 0,
+      "regressions": 1
+     },
+     "55": {
+      "final": 1,
+      "updates": 4,
+      "jumps": 0,
+      "regressions": 1
+     },
+     "14": {
+      "final": 1,
+      "updates": 4,
+      "jumps": 0,
+      "regressions": 1
+     },
+     "77": {
+      "final": 1,
+      "updates": 4,
+      "jumps": 0,
+      "regressions": 1
+     },
+     "99": {
+      "final": 1,
+      "updates": 4,
+      "jumps": 0,
+      "regressions": 1
+     },
+     "4": {
+      "final": 1,
+      "updates": 4,
+      "jumps": 0,
+      "regressions": 1
+     },
+     "22": {
+      "final": 1,
+      "updates": 4,
+      "jumps": 0,
+      "regressions": 1
+     },
+     "47": {
+      "final": 1,
+      "updates": 4,
+      "jumps": 0,
+      "regressions": 1
+     },
+     "9": {
+      "final": 1,
+      "updates": 4,
+      "jumps": 0,
+      "regressions": 1
+     },
+     "18": {
+      "final": 1,
+      "updates": 4,
+      "jumps": 0,
+      "regressions": 1
+     },
+     "7": {
+      "final": 1,
+      "updates": 4,
+      "jumps": 0,
+      "regressions": 1
+     },
+     "11": {
+      "final": 1,
+      "updates": 4,
+      "jumps": 0,
+      "regressions": 1
+     }
+    }
+   },
+   "inpit_entries_after_start": {
+    "33": 1,
+    "63": 1,
+    "44": 1,
+    "3": 1,
+    "5": 1,
+    "10": 1,
+    "11": 1,
+    "31": 1,
+    "16": 1,
+    "6": 1,
+    "55": 1,
+    "14": 1,
+    "77": 1,
+    "99": 1,
+    "4": 1,
+    "22": 1,
+    "47": 1,
+    "9": 1,
+    "18": 1,
+    "7": 1
+   },
+   "jolpica_pitstops_total": 0,
+   "inpit_entries_total": 20
+  },
+  {
+   "session": "2021/2021-12-12_Abu_Dhabi_Grand_Prix/2021-12-12_Race/",
+   "round": "22",
+   "files": {
+    "Heartbeat": {
+     "status": 200,
+     "last_modified": "Tue, 18 Jun 2024 07:15:58 GMT",
+     "etag": "\"b63bde4980ff996c9339b6550bf44d76\"",
+     "sha256": "79bd42ebdf39e7a09316e2394ac19bf844e47843037c9661f4c5bae5cf0154b5",
+     "bytes": 38586
+    },
+    "SessionStatus": {
+     "status": 200,
+     "last_modified": "Tue, 18 Jun 2024 07:16:05 GMT",
+     "etag": "\"f33aaa92ae2ec1f8af2fba3efc8377c5\"",
+     "sha256": "ecd3e557b273395c4e89029c6f2ea9fc8e220757c5efcb9b71887c414bfcc804",
+     "bytes": 174
+    },
+    "TimingData": {
+     "status": 200,
+     "last_modified": "Tue, 18 Jun 2024 07:17:00 GMT",
+     "etag": "\"4dc479e2609a86bac3f5b0d1faf1c0bc\"",
+     "sha256": "1ef0ce9500ec8b237e63af2912d244c04388152d66ca1001b1d8f34561a6633d",
+     "bytes": 5487572
+    },
+    "TimingAppData": {
+     "status": 200,
+     "last_modified": "Tue, 18 Jun 2024 07:16:59 GMT",
+     "etag": "\"8ec4089da0b9ee07ca3ced9550cc3920\"",
+     "sha256": "66df2f426a0eb0472c69a47d46c6a7f822c2f1aaa9dfd1a1c8be61793895ec3f",
+     "bytes": 104511
+    },
+    "LapCount": {
+     "status": 200,
+     "last_modified": "Tue, 18 Jun 2024 07:16:00 GMT",
+     "etag": "\"7b135455824d5904ec0e25a26d62c810\"",
+     "sha256": "f5fa43cad4845110b0d83aed65033be72c97cb01cbfacb5c8d4694ce56c87908",
+     "bytes": 1807
+    },
+    "RaceControlMessages": {
+     "status": 200,
+     "last_modified": "Tue, 18 Jun 2024 07:16:03 GMT",
+     "etag": "\"f0769fe5eb346e120ee30336e46597bf\"",
+     "sha256": "cf82a7e3ca2df9ffd8afecff27cc419d92f5a7ba8f7551cb7513da0068b891aa",
+     "bytes": 12981
+    },
+    "DriverList": {
+     "status": 200,
+     "last_modified": "Tue, 18 Jun 2024 07:15:55 GMT",
+     "etag": "\"117bcf8ac96f725785ee5d9ba10d921c\"",
+     "sha256": "f2287e5579819d2c787d25d50be079fcdd8be46024cd1864a81e838393fa62b1",
+     "bytes": 13534
+    },
+    "SessionInfo": {
+     "status": 200,
+     "last_modified": "Tue, 18 Jun 2024 07:16:05 GMT",
+     "etag": "\"61f3c0e32e25253065cf4ad5a87bdd7b\"",
+     "sha256": "be90a782405a35cc3e6ba1c27f748690409075d348647f2d60d64f73ff72ea1a",
+     "bytes": 444
+    }
+   },
+   "heartbeat": {
+    "n": 744,
+    "base_epoch": 1639310462.0793352,
+    "frac_within_5s": 0.8387,
+    "late_records": 0,
+    "late_burst_prefixes": 0,
+    "max_lag_s": 0.3
+   },
+   "rcm": {
+    "n": 74,
+    "median_dev_s": -2.29,
+    "max_abs_dev_s": 2.75,
+    "frac_within_5s": 1.0
+   },
+   "session_status": [
+    [
+     6.45,
+     "Inactive"
+    ],
+    [
+     3741.871,
+     "Started"
+    ],
+    [
+     9159.422,
+     "Finished"
+    ],
+    [
+     9374.788,
+     "Finalised"
+    ],
+    [
+     9374.788,
+     "Ends"
+    ]
+   ],
+   "lapcount_total_laps": [
+    [
+     8.017,
+     58
+    ]
+   ],
+   "lap_progression": {
+    "drivers": 19,
+    "drivers_with_jumps": 0,
+    "drivers_with_regressions": 0,
+    "per_driver": {
+     "44": {
+      "final": 58,
+      "updates": 58,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "33": {
+      "final": 58,
+      "updates": 58,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "11": {
+      "final": 55,
+      "updates": 55,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "55": {
+      "final": 58,
+      "updates": 58,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "4": {
+      "final": 58,
+      "updates": 58,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "16": {
+      "final": 58,
+      "updates": 58,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "22": {
+      "final": 58,
+      "updates": 58,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "77": {
+      "final": 58,
+      "updates": 58,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "31": {
+      "final": 58,
+      "updates": 58,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "3": {
+      "final": 57,
+      "updates": 57,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "14": {
+      "final": 58,
+      "updates": 58,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "10": {
+      "final": 58,
+      "updates": 58,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "99": {
+      "final": 33,
+      "updates": 33,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "18": {
+      "final": 57,
+      "updates": 57,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "5": {
+      "final": 58,
+      "updates": 58,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "6": {
+      "final": 50,
+      "updates": 50,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "7": {
+      "final": 25,
+      "updates": 25,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "47": {
+      "final": 57,
+      "updates": 57,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "63": {
+      "final": 26,
+      "updates": 26,
+      "jumps": 0,
+      "regressions": 0
+     }
+    }
+   },
+   "inpit_entries_after_start": {
+    "33": 3,
+    "44": 1,
+    "4": 2,
+    "11": 4,
+    "55": 1,
+    "77": 1,
+    "16": 2,
+    "22": 2,
+    "31": 1,
+    "3": 2,
+    "14": 1,
+    "10": 2,
+    "18": 2,
+    "99": 1,
+    "5": 1,
+    "6": 1,
+    "63": 1,
+    "7": 2,
+    "47": 2
+   },
+   "jolpica_pitstops_total": 29,
+   "inpit_entries_total": 32
+  },
+  {
+   "session": "2023/2023-03-05_Bahrain_Grand_Prix/2023-03-05_Race/",
+   "round": "1",
+   "files": {
+    "Heartbeat": {
+     "status": 200,
+     "last_modified": "Wed, 19 Jun 2024 11:24:41 GMT",
+     "etag": "\"834fc2ca0b990db64b12a0e6a34e8588\"",
+     "sha256": "77a0902218ffc65b7bc3f42b06711c85f7ba89b1c9b7d2855f0716806bd5cb96",
+     "bytes": 39589
+    },
+    "SessionStatus": {
+     "status": 200,
+     "last_modified": "Wed, 19 Jun 2024 11:32:59 GMT",
+     "etag": "\"26a1a933a2872fe79c4aa8397f2124fb\"",
+     "sha256": "6f43df599ba5a2509687511a6079b4b041758a7d489836727c5e3624970368f6",
+     "bytes": 174
+    },
+    "TimingData": {
+     "status": 200,
+     "last_modified": "Wed, 19 Jun 2024 11:33:22 GMT",
+     "etag": "\"fe08bd19cb5986fe5811797082f37863\"",
+     "sha256": "9f50e19cc13f4b45d60ef5c194c1e45f3d193883faf77d506078f2a6c429408a",
+     "bytes": 6748486
+    },
+    "TimingAppData": {
+     "status": 200,
+     "last_modified": "Wed, 19 Jun 2024 11:33:21 GMT",
+     "etag": "\"4c13422d253cf57804e675f0cafc0a3f\"",
+     "sha256": "15f2c82ff0df740b85febb6210835f09c51d0d06fad07854c1dfd563d5570113",
+     "bytes": 89998
+    },
+    "LapCount": {
+     "status": 200,
+     "last_modified": "Wed, 19 Jun 2024 11:24:40 GMT",
+     "etag": "\"6f144ccecfcabb7876a6334d2dc8a27f\"",
+     "sha256": "26d2a7d687cf5108938e8db60c03fa8efa86a8ff094bf914946e7cef58b8942e",
+     "bytes": 1776
+    },
+    "RaceControlMessages": {
+     "status": 200,
+     "last_modified": "Wed, 19 Jun 2024 11:33:00 GMT",
+     "etag": "\"fe4850c99231ddd13b93511b25d72805\"",
+     "sha256": "2407d5f9dd17648e56d5959d3c9bf5c8bc8451829a232f3424386c72ed26be89",
+     "bytes": 13025
+    },
+    "DriverList": {
+     "status": 200,
+     "last_modified": "Wed, 19 Jun 2024 11:24:40 GMT",
+     "etag": "\"6eb01bf7f88565be0077948ec79318b2\"",
+     "sha256": "4f75a8c954ec3dd094cd5ee951bb936b534662892a7eccded8af5ac779dc2fdd",
+     "bytes": 17230
+    },
+    "SessionInfo": {
+     "status": 200,
+     "last_modified": "Wed, 19 Jun 2024 11:32:59 GMT",
+     "etag": "\"da892eda995eb0d48f49f4e2e43a2838\"",
+     "sha256": "a4ede9f3a5733d62276afb7084f7e52f53d37d7dc5e7354f46709ce665c9ed2d",
+     "bytes": 471
+    }
+   },
+   "heartbeat": {
+    "n": 763,
+    "base_epoch": 1678024863.920951,
+    "frac_within_5s": 0.8178,
+    "late_records": 19,
+    "late_burst_prefixes": 1,
+    "max_lag_s": 315.1
+   },
+   "rcm": {
+    "n": 73,
+    "median_dev_s": -2.67,
+    "max_abs_dev_s": 3.23,
+    "frac_within_5s": 1.0
+   },
+   "session_status": [
+    [
+     5.361,
+     "Inactive"
+    ],
+    [
+     3756.652,
+     "Started"
+    ],
+    [
+     9393.581,
+     "Finished"
+    ],
+    [
+     9662.17,
+     "Finalised"
+    ],
+    [
+     9710.826,
+     "Ends"
+    ]
+   ],
+   "lapcount_total_laps": [
+    [
+     1.095,
+     57
+    ]
+   ],
+   "lap_progression": {
+    "drivers": 20,
+    "drivers_with_jumps": 0,
+    "drivers_with_regressions": 0,
+    "per_driver": {
+     "1": {
+      "final": 57,
+      "updates": 57,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "16": {
+      "final": 39,
+      "updates": 39,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "11": {
+      "final": 57,
+      "updates": 57,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "55": {
+      "final": 57,
+      "updates": 57,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "44": {
+      "final": 57,
+      "updates": 57,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "63": {
+      "final": 57,
+      "updates": 57,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "14": {
+      "final": 57,
+      "updates": 57,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "77": {
+      "final": 57,
+      "updates": 57,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "18": {
+      "final": 57,
+      "updates": 57,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "4": {
+      "final": 55,
+      "updates": 55,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "31": {
+      "final": 41,
+      "updates": 41,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "23": {
+      "final": 57,
+      "updates": 57,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "2": {
+      "final": 56,
+      "updates": 56,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "27": {
+      "final": 56,
+      "updates": 56,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "22": {
+      "final": 57,
+      "updates": 57,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "81": {
+      "final": 13,
+      "updates": 13,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "24": {
+      "final": 56,
+      "updates": 56,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "20": {
+      "final": 56,
+      "updates": 56,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "10": {
+      "final": 57,
+      "updates": 57,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "21": {
+      "final": 56,
+      "updates": 56,
+      "jumps": 0,
+      "regressions": 0
+     }
+    }
+   },
+   "inpit_entries_after_start": {
+    "1": 2,
+    "11": 2,
+    "16": 2,
+    "55": 2,
+    "14": 2,
+    "63": 2,
+    "44": 2,
+    "18": 2,
+    "31": 4,
+    "27": 3,
+    "4": 6,
+    "77": 2,
+    "24": 3,
+    "22": 3,
+    "23": 3,
+    "2": 3,
+    "20": 3,
+    "81": 1,
+    "21": 2,
+    "10": 3
+   },
+   "jolpica_pitstops_total": 50,
+   "inpit_entries_total": 52
+  },
+  {
+   "session": "2023/2023-07-30_Belgian_Grand_Prix/2023-07-30_Race/",
+   "round": "12",
+   "files": {
+    "Heartbeat": {
+     "status": 200,
+     "last_modified": "Wed, 19 Jun 2024 17:51:46 GMT",
+     "etag": "\"22d34049a67921f0c6f89432660f0795\"",
+     "sha256": "ab20a920ba771e638f58dd6a7f4ff7485c54b6b485be89d3b1c57cb41aeaf2a5",
+     "bytes": 37361
+    },
+    "SessionStatus": {
+     "status": 200,
+     "last_modified": "Wed, 19 Jun 2024 18:03:35 GMT",
+     "etag": "\"f1d3b93ad39ded1c2ef8d73793e86047\"",
+     "sha256": "14c91b2592a8b5360492c77289a85b534f92917066f97304c1fc7dfc59217f92",
+     "bytes": 174
+    },
+    "TimingData": {
+     "status": 200,
+     "last_modified": "Wed, 19 Jun 2024 18:04:24 GMT",
+     "etag": "\"dd61c44a812e07c9b7ec6a5efb402acb\"",
+     "sha256": "875f132ce30905e2fe18eb8d43bd7fb47e2230fd0c859cbcd6db9731e9c24a6d",
+     "bytes": 5150399
+    },
+    "TimingAppData": {
+     "status": 200,
+     "last_modified": "Wed, 19 Jun 2024 18:04:16 GMT",
+     "etag": "\"014ff24b7d3711e0332721c093ec7d51\"",
+     "sha256": "707871feddcd8393449f299322ef39b3aa60e4402d2b31b5ef61a6cdbd5f8e9f",
+     "bytes": 71955
+    },
+    "LapCount": {
+     "status": 200,
+     "last_modified": "Wed, 19 Jun 2024 17:51:46 GMT",
+     "etag": "\"96e87d396f70293d20a2cc088a0a075d\"",
+     "sha256": "758c2ba9eaff6cc5a91ed2f82efcbacb13aa6c11ba74fa645cea2128a942bc25",
+     "bytes": 1373
+    },
+    "RaceControlMessages": {
+     "status": 200,
+     "last_modified": "Wed, 19 Jun 2024 18:03:34 GMT",
+     "etag": "\"141a40a83cf9d74d4268e5b8081ff448\"",
+     "sha256": "5e11fedaa5ed66d5f46388da4a0334783c1631f20c71d5e751f7398d0ac8e168",
+     "bytes": 8961
+    },
+    "DriverList": {
+     "status": 200,
+     "last_modified": "Wed, 19 Jun 2024 17:51:46 GMT",
+     "etag": "\"82e61d1fdc820d847507ef68e0860553\"",
+     "sha256": "5535098f6e9a107cb20e3720d9b30f910e9126c14bca73ca9f5ba5caff1cccf1",
+     "bytes": 17876
+    },
+    "SessionInfo": {
+     "status": 200,
+     "last_modified": "Wed, 19 Jun 2024 18:03:35 GMT",
+     "etag": "\"faad56dfa4b830ce97b009dcf39ff3a9\"",
+     "sha256": "30db82855fea1a98917fa0ad2cd77bbab75b40d525751cf76ba5c99185331dd0",
+     "bytes": 495
+    }
+   },
+   "heartbeat": {
+    "n": 720,
+    "base_epoch": 1690718463.2710094,
+    "frac_within_5s": 0.8333,
+    "late_records": 0,
+    "late_burst_prefixes": 0,
+    "max_lag_s": 2.0
+   },
+   "rcm": {
+    "n": 54,
+    "median_dev_s": -2.1,
+    "max_abs_dev_s": 2.63,
+    "frac_within_5s": 1.0
+   },
+   "session_status": [
+    [
+     3.828,
+     "Inactive"
+    ],
+    [
+     3764.614,
+     "Started"
+    ],
+    [
+     8715.263,
+     "Finished"
+    ],
+    [
+     9013.525,
+     "Finalised"
+    ],
+    [
+     9089.618,
+     "Ends"
+    ]
+   ],
+   "lapcount_total_laps": [
+    [
+     1.281,
+     44
+    ]
+   ],
+   "lap_progression": {
+    "drivers": 19,
+    "drivers_with_jumps": 0,
+    "drivers_with_regressions": 0,
+    "per_driver": {
+     "11": {
+      "final": 44,
+      "updates": 44,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "16": {
+      "final": 44,
+      "updates": 44,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "44": {
+      "final": 44,
+      "updates": 44,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "1": {
+      "final": 44,
+      "updates": 44,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "55": {
+      "final": 23,
+      "updates": 23,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "14": {
+      "final": 44,
+      "updates": 44,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "4": {
+      "final": 44,
+      "updates": 44,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "22": {
+      "final": 44,
+      "updates": 44,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "18": {
+      "final": 44,
+      "updates": 44,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "23": {
+      "final": 44,
+      "updates": 44,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "63": {
+      "final": 44,
+      "updates": 44,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "77": {
+      "final": 44,
+      "updates": 44,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "31": {
+      "final": 44,
+      "updates": 44,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "24": {
+      "final": 44,
+      "updates": 44,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "2": {
+      "final": 44,
+      "updates": 44,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "10": {
+      "final": 44,
+      "updates": 44,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "27": {
+      "final": 44,
+      "updates": 44,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "20": {
+      "final": 44,
+      "updates": 44,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "3": {
+      "final": 44,
+      "updates": 44,
+      "jumps": 0,
+      "regressions": 0
+     }
+    }
+   },
+   "inpit_entries_after_start": {
+    "16": 2,
+    "11": 2,
+    "44": 3,
+    "55": 2,
+    "81": 0,
+    "1": 2,
+    "4": 2,
+    "63": 1,
+    "14": 2,
+    "18": 1,
+    "22": 2,
+    "10": 1,
+    "77": 2,
+    "31": 2,
+    "23": 3,
+    "20": 2,
+    "24": 2,
+    "2": 3,
+    "3": 2,
+    "27": 2
+   },
+   "jolpica_pitstops_total": 37,
+   "inpit_entries_total": 38
+  },
+  {
+   "session": "2023/2023-11-26_Abu_Dhabi_Grand_Prix/2023-11-26_Race/",
+   "round": "22",
+   "files": {
+    "Heartbeat": {
+     "status": 200,
+     "last_modified": "Wed, 19 Jun 2024 23:54:15 GMT",
+     "etag": "\"9c9c2d5e31f0daea4d5791dba8817da8\"",
+     "sha256": "5289a3624b6639ad1575d209d969f4f09b81b0f9f7f4e526f549992a1e922f0d",
+     "bytes": 38449
+    },
+    "SessionStatus": {
+     "status": 200,
+     "last_modified": "Thu, 20 Jun 2024 00:06:21 GMT",
+     "etag": "\"b0ca2568f03a19acba42f442a5734b8e\"",
+     "sha256": "2ec5a14e75f2ef52775c22d2647bcbf9ed131db6d4392f3a2d8b6c76fa46cabe",
+     "bytes": 174
+    },
+    "TimingData": {
+     "status": 200,
+     "last_modified": "Thu, 20 Jun 2024 00:06:44 GMT",
+     "etag": "\"74abbf68c25debe3ec9ba53e1bfdef44\"",
+     "sha256": "4f11b17ed2ee018dc15b6a491fc34560be65e8de0d282fb77400d137d83868f7",
+     "bytes": 6439746
+    },
+    "TimingAppData": {
+     "status": 200,
+     "last_modified": "Thu, 20 Jun 2024 00:06:40 GMT",
+     "etag": "\"3b50c4583ace3805b6fd2f75ca8a0b0a\"",
+     "sha256": "4be5683df5513abc622575a1f6fcbfdbb2ae62732dbb8967f51d3d2850aa55d6",
+     "bytes": 101851
+    },
+    "LapCount": {
+     "status": 200,
+     "last_modified": "Wed, 19 Jun 2024 23:54:15 GMT",
+     "etag": "\"75289cac1e3632518e5a5db587c55b87\"",
+     "sha256": "dcf6eb74127fa2764bded4853c19eec6ee8e461cd1123b251927d135af1260cc",
+     "bytes": 1807
+    },
+    "RaceControlMessages": {
+     "status": 200,
+     "last_modified": "Thu, 20 Jun 2024 00:06:24 GMT",
+     "etag": "\"56afc0832026cf26cbe450de7837818e\"",
+     "sha256": "1ad393cce2812e260820c4ff85aae2ad1d263fd1f2027a56ba5046f51a6a7952",
+     "bytes": 11877
+    },
+    "DriverList": {
+     "status": 200,
+     "last_modified": "Wed, 19 Jun 2024 23:54:14 GMT",
+     "etag": "\"50a1f0d10de6e9ecf6fc8d6457ff1ac1\"",
+     "sha256": "f20eed7c70a7ee2e26b02831a12c37fc83b17b2ee66e285c714a99bc79ce8770",
+     "bytes": 21223
+    },
+    "SessionInfo": {
+     "status": 200,
+     "last_modified": "Thu, 20 Jun 2024 00:06:22 GMT",
+     "etag": "\"522abc24ab68c7930f68d6402236bfef\"",
+     "sha256": "56cd15a76b26e491b718a0f7d9c8c2327377966cb0694eb733c3f5e7c2fd3171",
+     "bytes": 513
+    }
+   },
+   "heartbeat": {
+    "n": 741,
+    "base_epoch": 1701000063.160686,
+    "frac_within_5s": 0.7706,
+    "late_records": 51,
+    "late_burst_prefixes": 1,
+    "max_lag_s": 783.5
+   },
+   "rcm": {
+    "n": 65,
+    "median_dev_s": -2.24,
+    "max_abs_dev_s": 2.68,
+    "frac_within_5s": 1.0
+   },
+   "session_status": [
+    [
+     5.14,
+     "Inactive"
+    ],
+    [
+     3744.519,
+     "Started"
+    ],
+    [
+     8967.382,
+     "Finished"
+    ],
+    [
+     9335.487,
+     "Finalised"
+    ],
+    [
+     9581.203,
+     "Ends"
+    ]
+   ],
+   "lapcount_total_laps": [
+    [
+     4.359,
+     58
+    ]
+   ],
+   "lap_progression": {
+    "drivers": 20,
+    "drivers_with_jumps": 0,
+    "drivers_with_regressions": 0,
+    "per_driver": {
+     "1": {
+      "final": 58,
+      "updates": 58,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "16": {
+      "final": 58,
+      "updates": 58,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "81": {
+      "final": 58,
+      "updates": 58,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "4": {
+      "final": 58,
+      "updates": 58,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "63": {
+      "final": 58,
+      "updates": 58,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "22": {
+      "final": 58,
+      "updates": 58,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "14": {
+      "final": 58,
+      "updates": 58,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "10": {
+      "final": 58,
+      "updates": 58,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "44": {
+      "final": 58,
+      "updates": 58,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "11": {
+      "final": 58,
+      "updates": 58,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "31": {
+      "final": 58,
+      "updates": 58,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "18": {
+      "final": 58,
+      "updates": 58,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "27": {
+      "final": 58,
+      "updates": 58,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "55": {
+      "final": 57,
+      "updates": 57,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "3": {
+      "final": 58,
+      "updates": 58,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "77": {
+      "final": 57,
+      "updates": 57,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "23": {
+      "final": 58,
+      "updates": 58,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "24": {
+      "final": 58,
+      "updates": 58,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "20": {
+      "final": 57,
+      "updates": 57,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "2": {
+      "final": 58,
+      "updates": 58,
+      "jumps": 0,
+      "regressions": 0
+     }
+    }
+   },
+   "inpit_entries_after_start": {
+    "1": 2,
+    "16": 2,
+    "81": 2,
+    "63": 2,
+    "4": 2,
+    "22": 1,
+    "14": 2,
+    "27": 2,
+    "11": 2,
+    "10": 2,
+    "44": 2,
+    "31": 1,
+    "18": 2,
+    "23": 2,
+    "3": 2,
+    "55": 3,
+    "20": 2,
+    "77": 1,
+    "24": 2,
+    "2": 2
+   },
+   "jolpica_pitstops_total": 37,
+   "inpit_entries_total": 38
+  },
+  {
+   "session": "2024/2024-06-23_Spanish_Grand_Prix/2024-06-23_Race/",
+   "round": "10",
+   "files": {
+    "Heartbeat": {
+     "status": 200,
+     "last_modified": "Sun, 23 Jun 2024 15:00:07 GMT",
+     "etag": "\"7d3e4836a29c190537dfba92b0ac72d0\"",
+     "sha256": "3ee5dabcf8257571191dfb425c6d1a04df44444ba7f2d918431c14deba5b848e",
+     "bytes": 36021
+    },
+    "SessionStatus": {
+     "status": 200,
+     "last_modified": "Sun, 23 Jun 2024 15:00:08 GMT",
+     "etag": "\"8eecac2ba98f2831a82de3a640e6b563\"",
+     "sha256": "9acfadcf2b0fe077c10d2c5062c70a4e70e0cf0e0883c7504d8fc64ccba4f75f",
+     "bytes": 174
+    },
+    "TimingData": {
+     "status": 200,
+     "last_modified": "Sun, 23 Jun 2024 15:00:08 GMT",
+     "etag": "\"cf31449045ade7090ea8279068cddc53\"",
+     "sha256": "140492ab8f9264ee2004e1f7bf440884d7b86cbd6785b36d86ad07d7261e65ac",
+     "bytes": 6457541
+    },
+    "TimingAppData": {
+     "status": 200,
+     "last_modified": "Sun, 23 Jun 2024 15:00:08 GMT",
+     "etag": "\"31fd111b92a6fcd6fe487aa50339639c\"",
+     "sha256": "8fa395bf3dfe0709dced6cb9d6c55b29b44c1c54407732dabf0b4258cc89cb94",
+     "bytes": 106535
+    },
+    "LapCount": {
+     "status": 200,
+     "last_modified": "Sun, 23 Jun 2024 15:00:07 GMT",
+     "etag": "\"3510be205952538afb97f60f6b181385\"",
+     "sha256": "251877924165431ff85a8123a5d6e5f2238079f728ecb32eb320f164e5062776",
+     "bytes": 2055
+    },
+    "RaceControlMessages": {
+     "status": 200,
+     "last_modified": "Sun, 23 Jun 2024 15:00:07 GMT",
+     "etag": "\"0e68e000d6abd0a4c38aa04bcdbeb6e7\"",
+     "sha256": "7f41db0e50e85d42d67b4a66b47874b37361df0194132abbb7423c2ca1d13b35",
+     "bytes": 20190
+    },
+    "DriverList": {
+     "status": 200,
+     "last_modified": "Sun, 23 Jun 2024 15:00:06 GMT",
+     "etag": "\"805db5e25d24c690e5ced74fda253484\"",
+     "sha256": "f0dad56ecea45f22c168fe5344f314e1755e1e3f192bee4ade34f9d29ba019b0",
+     "bytes": 19398
+    },
+    "SessionInfo": {
+     "status": 200,
+     "last_modified": "Sun, 23 Jun 2024 15:00:08 GMT",
+     "etag": "\"2f2757ed298e903d9c716bc7f4cb6a1a\"",
+     "sha256": "7ea5e67156dda9f535f31b5c32698fe49749dd44a2c788b6998b48de227b0664",
+     "bytes": 476
+    }
+   },
+   "heartbeat": {
+    "n": 694,
+    "base_epoch": 1719144379.355062,
+    "frac_within_5s": 0.8847,
+    "late_records": 0,
+    "late_burst_prefixes": 0,
+    "max_lag_s": 2.0
+   },
+   "rcm": {
+    "n": 105,
+    "median_dev_s": -2.21,
+    "max_abs_dev_s": 2.74,
+    "frac_within_5s": 1.0
+   },
+   "session_status": [
+    [
+     4.966,
+     "Inactive"
+    ],
+    [
+     3417.095,
+     "Started"
+    ],
+    [
+     8717.563,
+     "Finished"
+    ],
+    [
+     9220.49,
+     "Finalised"
+    ],
+    [
+     9221.969,
+     "Ends"
+    ]
+   ],
+   "lapcount_total_laps": [
+    [
+     68.21,
+     66
+    ]
+   ],
+   "lap_progression": {
+    "drivers": 20,
+    "drivers_with_jumps": 0,
+    "drivers_with_regressions": 0,
+    "per_driver": {
+     "63": {
+      "final": 66,
+      "updates": 66,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "1": {
+      "final": 66,
+      "updates": 66,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "4": {
+      "final": 66,
+      "updates": 66,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "44": {
+      "final": 66,
+      "updates": 66,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "16": {
+      "final": 66,
+      "updates": 66,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "55": {
+      "final": 66,
+      "updates": 66,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "10": {
+      "final": 66,
+      "updates": 66,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "81": {
+      "final": 66,
+      "updates": 66,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "31": {
+      "final": 66,
+      "updates": 66,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "27": {
+      "final": 66,
+      "updates": 66,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "11": {
+      "final": 66,
+      "updates": 66,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "14": {
+      "final": 65,
+      "updates": 65,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "18": {
+      "final": 65,
+      "updates": 65,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "77": {
+      "final": 65,
+      "updates": 65,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "22": {
+      "final": 65,
+      "updates": 65,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "20": {
+      "final": 65,
+      "updates": 65,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "24": {
+      "final": 65,
+      "updates": 65,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "2": {
+      "final": 64,
+      "updates": 64,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "3": {
+      "final": 65,
+      "updates": 65,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "23": {
+      "final": 65,
+      "updates": 65,
+      "jumps": 0,
+      "regressions": 0
+     }
+    }
+   },
+   "inpit_entries_after_start": {
+    "4": 2,
+    "1": 2,
+    "44": 2,
+    "63": 2,
+    "16": 2,
+    "55": 2,
+    "10": 2,
+    "31": 2,
+    "81": 2,
+    "14": 2,
+    "11": 3,
+    "77": 2,
+    "27": 2,
+    "18": 2,
+    "24": 2,
+    "20": 2,
+    "22": 3,
+    "3": 2,
+    "2": 2,
+    "23": 2
+   },
+   "jolpica_pitstops_total": 42,
+   "inpit_entries_total": 42
+  },
+  {
+   "session": "2024/2024-09-15_Azerbaijan_Grand_Prix/2024-09-15_Race/",
+   "round": "17",
+   "files": {
+    "Heartbeat": {
+     "status": 200,
+     "last_modified": "Sun, 15 Sep 2024 13:00:22 GMT",
+     "etag": "\"16216d7006e1ea671cd68ed949829f01\"",
+     "sha256": "e69002dda19b9273881ff831744849953c01253d8590fa3af0cc68c1d3964155",
+     "bytes": 35699
+    },
+    "SessionStatus": {
+     "status": 200,
+     "last_modified": "Sun, 15 Sep 2024 13:00:24 GMT",
+     "etag": "\"8f2c0440c75a65e36b09a79f9f409515\"",
+     "sha256": "6017f705c38119175006ba3fee729aefe011e6676e6a9d6745fc481eb068cee4",
+     "bytes": 174
+    },
+    "TimingData": {
+     "status": 200,
+     "last_modified": "Sun, 15 Sep 2024 13:00:24 GMT",
+     "etag": "\"8016a93107066b288c922ae80dfefad4\"",
+     "sha256": "2e68c4420a878148815f4a216b16496b3c3dc54ce28842bb986dd96fbea3db68",
+     "bytes": 5881894
+    },
+    "TimingAppData": {
+     "status": 200,
+     "last_modified": "Sun, 15 Sep 2024 13:00:24 GMT",
+     "etag": "\"8dfb0a8045149a2fe2a501e5fea0250b\"",
+     "sha256": "73b69b68427399c012f72d05f780ff7fe40979fc229f6952b6e9112fb4eb2a42",
+     "bytes": 89371
+    },
+    "LapCount": {
+     "status": 200,
+     "last_modified": "Sun, 15 Sep 2024 13:00:23 GMT",
+     "etag": "\"22f5425b57366aeda0f16425a27ad98a\"",
+     "sha256": "84a8bed10765b4445bad33b9e3277b54d337a3c5a7dd781b9979251c483bf94d",
+     "bytes": 1590
+    },
+    "RaceControlMessages": {
+     "status": 200,
+     "last_modified": "Sun, 15 Sep 2024 13:00:23 GMT",
+     "etag": "\"6b2e72c31b69f851e9db089d1c125dbf\"",
+     "sha256": "b2787610bec175cb5f12252d90bf682af06d3555861a9e0da56b12631744604f",
+     "bytes": 19181
+    },
+    "DriverList": {
+     "status": 200,
+     "last_modified": "Sun, 15 Sep 2024 13:00:22 GMT",
+     "etag": "\"d239fae991e830f6c22a94df4b5b6c51\"",
+     "sha256": "0e074453363d850e0330e33d01b65328991a35798b0e2149391c8b4c8db298a9",
+     "bytes": 14702
+    },
+    "SessionInfo": {
+     "status": 200,
+     "last_modified": "Sun, 15 Sep 2024 13:00:24 GMT",
+     "etag": "\"742eac2118d9244f9d943cfbeed8b820\"",
+     "sha256": "b71f1efc3f5d1645bb4c4d9cc030ddea77dfb7106073594b15af991156ac7b7b",
+     "bytes": 485
+    }
+   },
+   "heartbeat": {
+    "n": 688,
+    "base_epoch": 1726394877.8190746,
+    "frac_within_5s": 0.8183,
+    "late_records": 52,
+    "late_burst_prefixes": 1,
+    "max_lag_s": 804.6
+   },
+   "rcm": {
+    "n": 115,
+    "median_dev_s": -2.3,
+    "max_abs_dev_s": 2.78,
+    "frac_within_5s": 1.0
+   },
+   "session_status": [
+    [
+     9.625,
+     "Inactive"
+    ],
+    [
+     3375.07,
+     "Started"
+    ],
+    [
+     8953.298,
+     "Finished"
+    ],
+    [
+     9141.118,
+     "Finalised"
+    ],
+    [
+     10327.86,
+     "Ends"
+    ]
+   ],
+   "lapcount_total_laps": [
+    [
+     4.787,
+     51
+    ]
+   ],
+   "lap_progression": {
+    "drivers": 20,
+    "drivers_with_jumps": 0,
+    "drivers_with_regressions": 0,
+    "per_driver": {
+     "16": {
+      "final": 51,
+      "updates": 51,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "81": {
+      "final": 51,
+      "updates": 51,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "11": {
+      "final": 49,
+      "updates": 49,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "55": {
+      "final": 49,
+      "updates": 49,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "1": {
+      "final": 51,
+      "updates": 51,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "63": {
+      "final": 51,
+      "updates": 51,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "14": {
+      "final": 51,
+      "updates": 51,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "43": {
+      "final": 51,
+      "updates": 51,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "23": {
+      "final": 51,
+      "updates": 51,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "50": {
+      "final": 51,
+      "updates": 51,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "22": {
+      "final": 14,
+      "updates": 14,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "4": {
+      "final": 51,
+      "updates": 51,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "27": {
+      "final": 51,
+      "updates": 51,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "3": {
+      "final": 51,
+      "updates": 51,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "10": {
+      "final": 51,
+      "updates": 51,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "77": {
+      "final": 50,
+      "updates": 50,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "44": {
+      "final": 51,
+      "updates": 51,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "24": {
+      "final": 51,
+      "updates": 51,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "31": {
+      "final": 50,
+      "updates": 50,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "18": {
+      "final": 45,
+      "updates": 45,
+      "jumps": 0,
+      "regressions": 0
+     }
+    }
+   },
+   "inpit_entries_after_start": {
+    "16": 1,
+    "81": 1,
+    "55": 1,
+    "11": 1,
+    "63": 1,
+    "1": 2,
+    "14": 1,
+    "43": 1,
+    "23": 1,
+    "50": 1,
+    "22": 2,
+    "27": 1,
+    "18": 3,
+    "3": 1,
+    "4": 1,
+    "77": 1,
+    "24": 1,
+    "10": 1,
+    "44": 1,
+    "31": 1
+   },
+   "jolpica_pitstops_total": 22,
+   "inpit_entries_total": 24
+  },
+  {
+   "session": "2024/2024-12-08_Abu_Dhabi_Grand_Prix/2024-12-08_Race/",
+   "round": "24",
+   "files": {
+    "Heartbeat": {
+     "status": 200,
+     "last_modified": "Sun, 08 Dec 2024 14:55:36 GMT",
+     "etag": "\"fc9fef763b0d539c438692a4da4ca962\"",
+     "sha256": "003030ac138cd7ea7781e35373201aece97ba3522a1433c35eed99f7ea1b54d0",
+     "bytes": 34988
+    },
+    "SessionStatus": {
+     "status": 200,
+     "last_modified": "Sun, 08 Dec 2024 14:55:38 GMT",
+     "etag": "\"24f9fcfb311a985f247ba304367430be\"",
+     "sha256": "924bc88d41e87f95beacb13914c194fdb90872843867e665906954a91fe3419a",
+     "bytes": 174
+    },
+    "TimingData": {
+     "status": 200,
+     "last_modified": "Sun, 08 Dec 2024 14:55:38 GMT",
+     "etag": "\"ab87622688f570ed9007ebf8b3bb109d\"",
+     "sha256": "f5856bde747d14b1a9a6b99018556fbc7661ab1456c23c6ef7c90de3c52d4c4b",
+     "bytes": 5725954
+    },
+    "TimingAppData": {
+     "status": 200,
+     "last_modified": "Sun, 08 Dec 2024 14:55:38 GMT",
+     "etag": "\"272624ee9e8dbb097097c5c17d49b47e\"",
+     "sha256": "8ca11b02730755984559656756e21f4638a6a7fc67af48395f7b83f14fce027e",
+     "bytes": 89276
+    },
+    "LapCount": {
+     "status": 200,
+     "last_modified": "Sun, 08 Dec 2024 14:55:37 GMT",
+     "etag": "\"b6fc7a3bc3ecabc2a634050a81cc4134\"",
+     "sha256": "c0949154c7e3273eb3e138322a9d6704b8f5e21db57653e34892d98731c6a78a",
+     "bytes": 1807
+    },
+    "RaceControlMessages": {
+     "status": 200,
+     "last_modified": "Sun, 08 Dec 2024 14:55:38 GMT",
+     "etag": "\"5903c04a3902705cab10bb61c84cd6b7\"",
+     "sha256": "8ef1582e3f0907bc4e60abd5cd7994eadba4eeaf9031cebd4b04ea87bc1a1320",
+     "bytes": 23673
+    },
+    "DriverList": {
+     "status": 200,
+     "last_modified": "Sun, 08 Dec 2024 14:55:36 GMT",
+     "etag": "\"c27e64e9595c85b0012c12e6d9c5b04d\"",
+     "sha256": "4b9f645e520d4231d0643548e1cf7628c539a4e65e7e557adfdff69a7bfc5172",
+     "bytes": 16216
+    },
+    "SessionInfo": {
+     "status": 200,
+     "last_modified": "Sun, 08 Dec 2024 14:55:38 GMT",
+     "etag": "\"f215f37c38bfc240d5eab1cf39581e3b\"",
+     "sha256": "7b521060530de6e16d70ed7b17688eb2cc9119c687b10141c33757cff78f9352",
+     "bytes": 524
+    }
+   },
+   "heartbeat": {
+    "n": 674,
+    "base_epoch": 1733659609.3108807,
+    "frac_within_5s": 0.8828,
+    "late_records": 0,
+    "late_burst_prefixes": 0,
+    "max_lag_s": 2.0
+   },
+   "rcm": {
+    "n": 130,
+    "median_dev_s": -2.2,
+    "max_abs_dev_s": 2.85,
+    "frac_within_5s": 1.0
+   },
+   "session_status": [
+    [
+     5.333,
+     "Inactive"
+    ],
+    [
+     3407.817,
+     "Started"
+    ],
+    [
+     8601.333,
+     "Finished"
+    ],
+    [
+     8923.245,
+     "Finalised"
+    ],
+    [
+     9907.435,
+     "Ends"
+    ]
+   ],
+   "lapcount_total_laps": [
+    [
+     2.353,
+     58
+    ]
+   ],
+   "lap_progression": {
+    "drivers": 19,
+    "drivers_with_jumps": 0,
+    "drivers_with_regressions": 0,
+    "per_driver": {
+     "4": {
+      "final": 58,
+      "updates": 58,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "55": {
+      "final": 58,
+      "updates": 58,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "10": {
+      "final": 58,
+      "updates": 58,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "63": {
+      "final": 58,
+      "updates": 58,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "27": {
+      "final": 58,
+      "updates": 58,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "14": {
+      "final": 58,
+      "updates": 58,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "20": {
+      "final": 57,
+      "updates": 57,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "16": {
+      "final": 58,
+      "updates": 58,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "18": {
+      "final": 57,
+      "updates": 57,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "30": {
+      "final": 55,
+      "updates": 55,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "1": {
+      "final": 58,
+      "updates": 58,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "44": {
+      "final": 58,
+      "updates": 58,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "77": {
+      "final": 30,
+      "updates": 30,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "24": {
+      "final": 57,
+      "updates": 57,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "23": {
+      "final": 57,
+      "updates": 57,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "61": {
+      "final": 57,
+      "updates": 57,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "22": {
+      "final": 57,
+      "updates": 57,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "43": {
+      "final": 26,
+      "updates": 26,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "81": {
+      "final": 58,
+      "updates": 58,
+      "jumps": 0,
+      "regressions": 0
+     }
+    }
+   },
+   "inpit_entries_after_start": {
+    "4": 1,
+    "81": 2,
+    "55": 1,
+    "1": 1,
+    "10": 1,
+    "63": 1,
+    "27": 1,
+    "14": 2,
+    "77": 2,
+    "11": 0,
+    "22": 1,
+    "30": 3,
+    "18": 2,
+    "20": 4,
+    "24": 2,
+    "44": 1,
+    "61": 1,
+    "23": 1,
+    "16": 1,
+    "43": 2
+   },
+   "jolpica_pitstops_total": 28,
+   "inpit_entries_total": 30
+  },
+  {
+   "session": "2025/2025-03-16_Australian_Grand_Prix/2025-03-16_Race/",
+   "round": "1",
+   "files": {
+    "Heartbeat": {
+     "status": 200,
+     "last_modified": "Sun, 16 Mar 2025 06:24:43 GMT",
+     "etag": "\"18cded6d116d908d55b126a3fe40fe1b\"",
+     "sha256": "a2c5511da21c45a3107eca96def446ae2aec87d140716af50dfae3b3fbd673a4",
+     "bytes": 40831
+    },
+    "SessionStatus": {
+     "status": 200,
+     "last_modified": "Sun, 16 Mar 2025 06:24:44 GMT",
+     "etag": "\"64c938f04edf57bc920314fdd2393473\"",
+     "sha256": "2ce565eac64cd13120be57e930f81e81d483a212bb3cef032d85c516d9201aca",
+     "bytes": 174
+    },
+    "TimingData": {
+     "status": 200,
+     "last_modified": "Sun, 16 Mar 2025 06:24:45 GMT",
+     "etag": "\"d0890d51326ba79d925f8389d480bcc4\"",
+     "sha256": "7f5e483a0e7149055330afbb3b4d46f27739246194e155afbaf81f406c74cb23",
+     "bytes": 4988790
+    },
+    "TimingAppData": {
+     "status": 200,
+     "last_modified": "Sun, 16 Mar 2025 06:24:44 GMT",
+     "etag": "\"898975ab98fb7838ddd1dcf9b6d34b4f\"",
+     "sha256": "d79e80fa25d225b403da323120f1cd7e9e10606a81a25c44008c43552343a2bb",
+     "bytes": 111438
+    },
+    "LapCount": {
+     "status": 200,
+     "last_modified": "Sun, 16 Mar 2025 06:24:44 GMT",
+     "etag": "\"0b84c2b7d81c0ddcc02c94a27a2cb95f\"",
+     "sha256": "565582b2d6596a111e5e36bdc89fbb2770dc03e7e97693e303ec5dac2117c5bb",
+     "bytes": 1806
+    },
+    "RaceControlMessages": {
+     "status": 200,
+     "last_modified": "Sun, 16 Mar 2025 06:24:44 GMT",
+     "etag": "\"9998144a20614bafb374fe90627a41f1\"",
+     "sha256": "8244d75e5662eb1707926c5ecd1f947440b5cc4cb84300af0899e64915c661e5",
+     "bytes": 19273
+    },
+    "DriverList": {
+     "status": 200,
+     "last_modified": "Sun, 16 Mar 2025 06:24:43 GMT",
+     "etag": "\"ec6dd8f179e960d9a196bdd008bcdf81\"",
+     "sha256": "be9e5bd999ee2f495cbe2c62c14cfe00c2bf42a4c82b6628f5281da05e698c7f",
+     "bytes": 12435
+    },
+    "SessionInfo": {
+     "status": 200,
+     "last_modified": "Sun, 16 Mar 2025 06:24:44 GMT",
+     "etag": "\"9e42dabab89db56cf12bd2b62bdcafe7\"",
+     "sha256": "fe71d0e7f7e97fd390ca2d055a0ee83b7fd35efa9895e1a4c9260ce3afbe621a",
+     "bytes": 503
+    }
+   },
+   "heartbeat": {
+    "n": 787,
+    "base_epoch": 1742094444.77173,
+    "frac_within_5s": 0.69,
+    "late_records": 0,
+    "late_burst_prefixes": 0,
+    "max_lag_s": 9.3
+   },
+   "rcm": {
+    "n": 113,
+    "median_dev_s": -2.48,
+    "max_abs_dev_s": 3.03,
+    "frac_within_5s": 1.0
+   },
+   "session_status": [
+    [
+     6.89,
+     "Inactive"
+    ],
+    [
+     4260.355,
+     "Started"
+    ],
+    [
+     10386.869,
+     "Finished"
+    ],
+    [
+     10632.748,
+     "Finalised"
+    ],
+    [
+     10632.748,
+     "Ends"
+    ]
+   ],
+   "lapcount_total_laps": [
+    [
+     6.021,
+     58
+    ],
+    [
+     3525.306,
+     57
+    ]
+   ],
+   "lap_progression": {
+    "drivers": 17,
+    "drivers_with_jumps": 0,
+    "drivers_with_regressions": 0,
+    "per_driver": {
+     "4": {
+      "final": 57,
+      "updates": 57,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "1": {
+      "final": 57,
+      "updates": 57,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "81": {
+      "final": 57,
+      "updates": 57,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "63": {
+      "final": 57,
+      "updates": 57,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "16": {
+      "final": 57,
+      "updates": 57,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "22": {
+      "final": 57,
+      "updates": 57,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "23": {
+      "final": 57,
+      "updates": 57,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "44": {
+      "final": 57,
+      "updates": 57,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "10": {
+      "final": 57,
+      "updates": 57,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "14": {
+      "final": 32,
+      "updates": 32,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "18": {
+      "final": 57,
+      "updates": 57,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "27": {
+      "final": 57,
+      "updates": 57,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "12": {
+      "final": 57,
+      "updates": 57,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "5": {
+      "final": 45,
+      "updates": 45,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "31": {
+      "final": 57,
+      "updates": 57,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "30": {
+      "final": 46,
+      "updates": 46,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "87": {
+      "final": 57,
+      "updates": 57,
+      "jumps": 0,
+      "regressions": 0
+     }
+    }
+   },
+   "inpit_entries_after_start": {
+    "4": 5,
+    "81": 5,
+    "1": 5,
+    "63": 5,
+    "22": 5,
+    "23": 5,
+    "16": 5,
+    "44": 5,
+    "10": 5,
+    "55": 0,
+    "6": 0,
+    "14": 3,
+    "18": 5,
+    "7": 0,
+    "5": 5,
+    "12": 5,
+    "27": 5,
+    "30": 4,
+    "31": 5,
+    "87": 5
+   },
+   "jolpica_pitstops_total": 82,
+   "inpit_entries_total": 82
+  },
+  {
+   "session": "2025/2025-07-27_Belgian_Grand_Prix/2025-07-27_Race/",
+   "round": "13",
+   "files": {
+    "Heartbeat": {
+     "status": 200,
+     "last_modified": "Sun, 27 Jul 2025 16:09:00 GMT",
+     "etag": "\"894db0083adaf0a4d5cf83efa6021ea1\"",
+     "sha256": "fcab3ae063dee43e3774235845aa0f222c350c77be784201a3bb9d16b2abe800",
+     "bytes": 50494
+    },
+    "SessionStatus": {
+     "status": 200,
+     "last_modified": "Sun, 27 Jul 2025 16:09:01 GMT",
+     "etag": "\"459cf101061bb1fd0aae931ab719b4ef\"",
+     "sha256": "9159937ad449e38fd2ddbf7d4144154ed9880818667a62d57e5359e1d5a23d94",
+     "bytes": 278
+    },
+    "TimingData": {
+     "status": 200,
+     "last_modified": "Sun, 27 Jul 2025 16:09:01 GMT",
+     "etag": "\"2c0ce5ed52975e4309af94e63ae4591c\"",
+     "sha256": "e0809aff3ef6adb9ae5c7e93afcee670dd7045b64b4f48ab82befff37569bfa7",
+     "bytes": 5785809
+    },
+    "TimingAppData": {
+     "status": 200,
+     "last_modified": "Sun, 27 Jul 2025 16:09:01 GMT",
+     "etag": "\"e771f511e2a1bb6b2d7e4dea51b8b2b2\"",
+     "sha256": "ba8d6e25c30cde0978f2f09c566a776fde695c4308b62e89a236c57f14494bcc",
+     "bytes": 89582
+    },
+    "LapCount": {
+     "status": 200,
+     "last_modified": "Sun, 27 Jul 2025 16:09:00 GMT",
+     "etag": "\"96d195c70073612f919db8bf053ef8ac\"",
+     "sha256": "c11ca91bb993ba1236edeacc95051d7a397d01c3ba2cd73501a98b37afef4d78",
+     "bytes": 1373
+    },
+    "RaceControlMessages": {
+     "status": 200,
+     "last_modified": "Sun, 27 Jul 2025 16:09:01 GMT",
+     "etag": "\"b193fb835148b737e3e1d71cceec963d\"",
+     "sha256": "da0e890f98986ab2edb7bf97e7532ee06736295418c45977d260a96146945900",
+     "bytes": 19375
+    },
+    "DriverList": {
+     "status": 200,
+     "last_modified": "Sun, 27 Jul 2025 16:09:00 GMT",
+     "etag": "\"ad805f51cfd089c8c14164014a523fba\"",
+     "sha256": "1c5a55239d658816954dfd462b966eb31558aac881519175ee29e4bcffabf999",
+     "bytes": 13274
+    },
+    "SessionInfo": {
+     "status": 200,
+     "last_modified": "Sun, 27 Jul 2025 16:09:01 GMT",
+     "etag": "\"76f4972ad61abe22fe27d8ae647d5d7e\"",
+     "sha256": "81160cd208c13bb6cabe3b9c71e59bb451dba988369d88d1354ae4440da6c5cc",
+     "bytes": 1608
+    }
+   },
+   "heartbeat": {
+    "n": 973,
+    "base_epoch": 1753617930.011709,
+    "frac_within_5s": 0.9198,
+    "late_records": 0,
+    "late_burst_prefixes": 0,
+    "max_lag_s": 2.0
+   },
+   "rcm": {
+    "n": 116,
+    "median_dev_s": -2.2,
+    "max_abs_dev_s": 3.07,
+    "frac_within_5s": 1.0
+   },
+   "session_status": [
+    [
+     2.547,
+     "Inactive"
+    ],
+    [
+     8072.096,
+     "Started"
+    ],
+    [
+     13194.858,
+     "Finished"
+    ],
+    [
+     13406.302,
+     "Finalised"
+    ],
+    [
+     13458.265,
+     "Ends"
+    ]
+   ],
+   "lapcount_total_laps": [
+    [
+     2.843,
+     44
+    ]
+   ],
+   "lap_progression": {
+    "drivers": 20,
+    "drivers_with_jumps": 0,
+    "drivers_with_regressions": 0,
+    "per_driver": {
+     "4": {
+      "final": 44,
+      "updates": 44,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "81": {
+      "final": 44,
+      "updates": 44,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "16": {
+      "final": 44,
+      "updates": 44,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "1": {
+      "final": 44,
+      "updates": 44,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "23": {
+      "final": 44,
+      "updates": 44,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "63": {
+      "final": 44,
+      "updates": 44,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "22": {
+      "final": 44,
+      "updates": 44,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "6": {
+      "final": 43,
+      "updates": 43,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "30": {
+      "final": 44,
+      "updates": 44,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "5": {
+      "final": 44,
+      "updates": 44,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "31": {
+      "final": 44,
+      "updates": 44,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "87": {
+      "final": 44,
+      "updates": 44,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "10": {
+      "final": 44,
+      "updates": 44,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "27": {
+      "final": 44,
+      "updates": 44,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "43": {
+      "final": 44,
+      "updates": 44,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "18": {
+      "final": 44,
+      "updates": 44,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "55": {
+      "final": 44,
+      "updates": 44,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "44": {
+      "final": 44,
+      "updates": 44,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "12": {
+      "final": 44,
+      "updates": 44,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "14": {
+      "final": 44,
+      "updates": 44,
+      "jumps": 0,
+      "regressions": 0
+     }
+    }
+   },
+   "inpit_entries_after_start": {
+    "4": 1,
+    "81": 1,
+    "16": 1,
+    "1": 1,
+    "23": 1,
+    "63": 1,
+    "22": 1,
+    "6": 2,
+    "30": 1,
+    "5": 1,
+    "31": 1,
+    "87": 1,
+    "10": 1,
+    "27": 2,
+    "43": 2,
+    "18": 1,
+    "55": 2,
+    "44": 1,
+    "12": 2,
+    "14": 2
+   },
+   "jolpica_pitstops_total": 26,
+   "inpit_entries_total": 26
+  },
+  {
+   "session": "2025/2025-12-07_Abu_Dhabi_Grand_Prix/2025-12-07_Race/",
+   "round": "24",
+   "files": {
+    "Heartbeat": {
+     "status": 200,
+     "last_modified": "Sun, 07 Dec 2025 14:59:53 GMT",
+     "etag": "\"9b0dbecd796d35319cc15b822c3cb64a\"",
+     "sha256": "a7070ad23a0f787b52e2dac75961acdd932ad4e82fdb69ffd9d3ec3361f21d92",
+     "bytes": 36235
+    },
+    "SessionStatus": {
+     "status": 200,
+     "last_modified": "Sun, 07 Dec 2025 14:59:54 GMT",
+     "etag": "\"6fb7e5d7e0fd2cfb061654ce1c3149b4\"",
+     "sha256": "4f81d11ca75d27a25ef0fb822dce3b6bc8f5441861ffd3390b786f0992e3d483",
+     "bytes": 278
+    },
+    "TimingData": {
+     "status": 200,
+     "last_modified": "Sun, 07 Dec 2025 14:59:54 GMT",
+     "etag": "\"4fcde3e5cd72c106f9c975f607ffc253\"",
+     "sha256": "9d7fe0b5333eb4ec7034eacc83e70c4ccf3ce3f8db79aab48dbb829e72ffc386",
+     "bytes": 6573715
+    },
+    "TimingAppData": {
+     "status": 200,
+     "last_modified": "Sun, 07 Dec 2025 14:59:54 GMT",
+     "etag": "\"bac9a5c0ec29545105fdb77091cea32b\"",
+     "sha256": "7e1a6d10052c5cd6f8db1b5cf99c11232c2e11f746294500b6a7538ba5ae6f91",
+     "bytes": 94963
+    },
+    "LapCount": {
+     "status": 200,
+     "last_modified": "Sun, 07 Dec 2025 14:59:53 GMT",
+     "etag": "\"5fd65c4382bc8e8a6679b3dfbdd51250\"",
+     "sha256": "bb609c1e626d50caf31b2888218b04fcbfa669084f298cba0e88ab8844b67652",
+     "bytes": 1807
+    },
+    "RaceControlMessages": {
+     "status": 200,
+     "last_modified": "Sun, 07 Dec 2025 14:59:54 GMT",
+     "etag": "\"4a44f1d1489ef6ed032098aefbfbf2d2\"",
+     "sha256": "8b253c858384ddbe53c0a30a66ae1de8bdf890b1b9e7b86e1c7ccaf7e3970727",
+     "bytes": 19965
+    },
+    "DriverList": {
+     "status": 200,
+     "last_modified": "Sun, 07 Dec 2025 14:59:53 GMT",
+     "etag": "\"6bcf22918d0aa942d3a609e54358e0db\"",
+     "sha256": "0454fa447cd64259d3af40e69d7c67dd173a88b4b263e00b0c651bd505ec4830",
+     "bytes": 19781
+    },
+    "SessionInfo": {
+     "status": 200,
+     "last_modified": "Sun, 07 Dec 2025 14:59:54 GMT",
+     "etag": "\"952e986bd4ba63fddc9dff7beb7e1e27\"",
+     "sha256": "64f1853e8d214a9e2a72c31e27414f4b8033ede6b296e659e23fcdf433f2646f",
+     "bytes": 1650
+    }
+   },
+   "heartbeat": {
+    "n": 698,
+    "base_epoch": 1765109109.1841245,
+    "frac_within_5s": 0.8854,
+    "late_records": 0,
+    "late_burst_prefixes": 0,
+    "max_lag_s": 2.1
+   },
+   "rcm": {
+    "n": 107,
+    "median_dev_s": -2.33,
+    "max_abs_dev_s": 2.8,
+    "frac_within_5s": 1.0
+   },
+   "session_status": [
+    [
+     11.502,
+     "Inactive"
+    ],
+    [
+     3500.522,
+     "Started"
+    ],
+    [
+     8668.174,
+     "Finished"
+    ],
+    [
+     9280.2,
+     "Finalised"
+    ],
+    [
+     9280.2,
+     "Ends"
+    ]
+   ],
+   "lapcount_total_laps": [
+    [
+     4.017,
+     58
+    ]
+   ],
+   "lap_progression": {
+    "drivers": 20,
+    "drivers_with_jumps": 0,
+    "drivers_with_regressions": 0,
+    "per_driver": {
+     "1": {
+      "final": 58,
+      "updates": 58,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "81": {
+      "final": 58,
+      "updates": 58,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "4": {
+      "final": 58,
+      "updates": 58,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "16": {
+      "final": 58,
+      "updates": 58,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "14": {
+      "final": 58,
+      "updates": 58,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "63": {
+      "final": 58,
+      "updates": 58,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "5": {
+      "final": 58,
+      "updates": 58,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "6": {
+      "final": 57,
+      "updates": 57,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "31": {
+      "final": 58,
+      "updates": 58,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "22": {
+      "final": 58,
+      "updates": 58,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "30": {
+      "final": 57,
+      "updates": 57,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "87": {
+      "final": 58,
+      "updates": 58,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "55": {
+      "final": 58,
+      "updates": 58,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "44": {
+      "final": 58,
+      "updates": 58,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "23": {
+      "final": 58,
+      "updates": 58,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "18": {
+      "final": 58,
+      "updates": 58,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "12": {
+      "final": 58,
+      "updates": 58,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "27": {
+      "final": 58,
+      "updates": 58,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "10": {
+      "final": 57,
+      "updates": 57,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "43": {
+      "final": 57,
+      "updates": 57,
+      "jumps": 0,
+      "regressions": 0
+     }
+    }
+   },
+   "inpit_entries_after_start": {
+    "1": 1,
+    "4": 2,
+    "81": 1,
+    "63": 1,
+    "16": 2,
+    "14": 1,
+    "5": 1,
+    "31": 1,
+    "6": 1,
+    "22": 1,
+    "87": 1,
+    "55": 1,
+    "30": 1,
+    "12": 1,
+    "18": 1,
+    "44": 2,
+    "23": 2,
+    "27": 2,
+    "10": 2,
+    "43": 2
+   },
+   "jolpica_pitstops_total": 27,
+   "inpit_entries_total": 27
+  },
+  {
+   "session": "2026/2026-03-08_Australian_Grand_Prix/2026-03-08_Race/",
+   "round": "1",
+   "files": {
+    "Heartbeat": {
+     "status": 200,
+     "last_modified": "Sun, 08 Mar 2026 05:48:42 GMT",
+     "etag": "\"7f5b7931442af19a1e2159e4ac9c82ae\"",
+     "sha256": "562aa1805794135a83da1c0be5564a65b44bad7e435ae09422c3cdecac7a0b5a",
+     "bytes": 34709
+    },
+    "SessionStatus": {
+     "status": 200,
+     "last_modified": "Sun, 08 Mar 2026 05:48:42 GMT",
+     "etag": "\"ad7434878a36093747bcf38fe964cb81\"",
+     "sha256": "bc0b8b33957034d36280c2f98807611589396ad5ebe5761e85408bacd87c2402",
+     "bytes": 278
+    },
+    "TimingData": {
+     "status": 200,
+     "last_modified": "Sun, 08 Mar 2026 05:48:43 GMT",
+     "etag": "\"eb58141ca05a95f360c53007e2217241\"",
+     "sha256": "a2521be4b468f9ec4c61211558521c993269eb34c24c600e1fa3c90ebb251c8d",
+     "bytes": 5607988
+    },
+    "TimingAppData": {
+     "status": 200,
+     "last_modified": "Sun, 08 Mar 2026 05:48:42 GMT",
+     "etag": "\"9757c34dd600c2994744162069951acd\"",
+     "sha256": "07815b4cafb6683e49ab9c4e672ba7247355eb1870fefec3c67fbfb1b64f7631",
+     "bytes": 89186
+    },
+    "LapCount": {
+     "status": 200,
+     "last_modified": "Sun, 08 Mar 2026 05:48:42 GMT",
+     "etag": "\"778ec35089e521c678f1ce645eae5d86\"",
+     "sha256": "a625fb20455179449397c2c384f14bac2d831faa4434bcaf2ec126b3ccf0e65b",
+     "bytes": 1896
+    },
+    "RaceControlMessages": {
+     "status": 200,
+     "last_modified": "Sun, 08 Mar 2026 05:48:42 GMT",
+     "etag": "\"74e3e268be60debbcbebc140b0c00af9\"",
+     "sha256": "0847b77ce9eadfb1285cca6605798f2374f698bffd2014f56279b3fb527c03b1",
+     "bytes": 31459
+    },
+    "DriverList": {
+     "status": 200,
+     "last_modified": "Sun, 08 Mar 2026 05:48:41 GMT",
+     "etag": "\"12f59b851ad8fed62ce1972d96c8bb4a\"",
+     "sha256": "ee6c5096ab3c3f477eaf4856ed97cb9457bc0d109e26a90d4dd182df6ab57747",
+     "bytes": 16531
+    },
+    "SessionInfo": {
+     "status": 200,
+     "last_modified": "Sun, 08 Mar 2026 05:48:42 GMT",
+     "etag": "\"a0e333213a1519d45bebc944cb78e23a\"",
+     "sha256": "18aeb932f2247fc9f634e9cd88477f5d431175daf1da57d9148547af2db7501c",
+     "bytes": 1587
+    }
+   },
+   "heartbeat": {
+    "n": 669,
+    "base_epoch": 1772938868.662617,
+    "frac_within_5s": 0.8849,
+    "late_records": 0,
+    "late_burst_prefixes": 0,
+    "max_lag_s": 2.0
+   },
+   "rcm": {
+    "n": 167,
+    "median_dev_s": -2.38,
+    "max_abs_dev_s": 2.89,
+    "frac_within_5s": 1.0
+   },
+   "session_status": [
+    [
+     6.977,
+     "Inactive"
+    ],
+    [
+     3739.743,
+     "Started"
+    ],
+    [
+     8726.778,
+     "Finished"
+    ],
+    [
+     8850.684,
+     "Finalised"
+    ],
+    [
+     9150.589,
+     "Ends"
+    ]
+   ],
+   "lapcount_total_laps": [
+    [
+     4.058,
+     58
+    ],
+    [
+     47.42,
+     0
+    ],
+    [
+     453.211,
+     58
+    ]
+   ],
+   "lap_progression": {
+    "drivers": 20,
+    "drivers_with_jumps": 0,
+    "drivers_with_regressions": 0,
+    "per_driver": {
+     "16": {
+      "final": 58,
+      "updates": 58,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "63": {
+      "final": 58,
+      "updates": 58,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "44": {
+      "final": 58,
+      "updates": 58,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "6": {
+      "final": 10,
+      "updates": 10,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "41": {
+      "final": 57,
+      "updates": 57,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "1": {
+      "final": 58,
+      "updates": 58,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "12": {
+      "final": 58,
+      "updates": 58,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "31": {
+      "final": 57,
+      "updates": 57,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "10": {
+      "final": 57,
+      "updates": 57,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "14": {
+      "final": 21,
+      "updates": 21,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "5": {
+      "final": 57,
+      "updates": 57,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "23": {
+      "final": 57,
+      "updates": 57,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "87": {
+      "final": 57,
+      "updates": 57,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "55": {
+      "final": 56,
+      "updates": 56,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "77": {
+      "final": 15,
+      "updates": 15,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "3": {
+      "final": 58,
+      "updates": 58,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "43": {
+      "final": 56,
+      "updates": 56,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "30": {
+      "final": 57,
+      "updates": 57,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "11": {
+      "final": 55,
+      "updates": 55,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "18": {
+      "final": 43,
+      "updates": 43,
+      "jumps": 0,
+      "regressions": 0
+     }
+    }
+   },
+   "inpit_entries_after_start": {
+    "63": 1,
+    "12": 1,
+    "6": 0,
+    "16": 1,
+    "81": 1,
+    "1": 2,
+    "44": 1,
+    "30": 2,
+    "41": 1,
+    "5": 2,
+    "27": 0,
+    "87": 1,
+    "31": 1,
+    "10": 1,
+    "23": 2,
+    "43": 2,
+    "14": 3,
+    "11": 2,
+    "77": 1,
+    "3": 2,
+    "55": 3,
+    "18": 4
+   },
+   "jolpica_pitstops_total": 32,
+   "inpit_entries_total": 34
+  },
+  {
+   "session": "2026/2026-07-05_British_Grand_Prix/2026-07-05_Race/",
+   "round": "9",
+   "files": {
+    "Heartbeat": {
+     "status": 200,
+     "last_modified": "Sun, 05 Jul 2026 16:04:06 GMT",
+     "etag": "\"7ac6377b16aa0e0008acccebb1335ceb\"",
+     "sha256": "a79b5ed201d01df14117b625b41677a7d8b3bd8d2dca1c1663fa3ca1b790e336",
+     "bytes": 36433
+    },
+    "SessionStatus": {
+     "status": 200,
+     "last_modified": "Sun, 05 Jul 2026 16:04:07 GMT",
+     "etag": "\"c7653415bb141b8aec01a6a554a3d98f\"",
+     "sha256": "dd28548bed0cfdf4bab07da435da044bfe2ea71cb9a25521ada6efdae649c39c",
+     "bytes": 278
+    },
+    "TimingData": {
+     "status": 200,
+     "last_modified": "Sun, 05 Jul 2026 16:04:07 GMT",
+     "etag": "\"d7a6b8f904e14c0ab33c5ef1ec26982f\"",
+     "sha256": "7f8fbfe566a8314ff013502a8782ba9c4c1025372b3370d4ebcdbd7063d0885c",
+     "bytes": 6900743
+    },
+    "TimingAppData": {
+     "status": 200,
+     "last_modified": "Sun, 05 Jul 2026 16:04:07 GMT",
+     "etag": "\"c14e07bf23cfa4b6b8fc1455b5a03bfc\"",
+     "sha256": "a99bfcf34a70abb1b9e533471ee973dbb11bc20337a9b58014d5d626fa818a1a",
+     "bytes": 98230
+    },
+    "LapCount": {
+     "status": 200,
+     "last_modified": "Sun, 05 Jul 2026 16:04:07 GMT",
+     "etag": "\"4857b0f66f923922eb9dcc32390c1cd1\"",
+     "sha256": "3425a59994a370b1cdbdb2729127cbb7006a31e840dacff28683f5ab7a084843",
+     "bytes": 1621
+    },
+    "RaceControlMessages": {
+     "status": 200,
+     "last_modified": "Sun, 05 Jul 2026 16:04:07 GMT",
+     "etag": "\"7415c7b5f19a05adcead5ae1f6314329\"",
+     "sha256": "55b4ce33b0edb01da1f16951af96bf8ac311f056d1c37353765fdddb3ff01518",
+     "bytes": 46450
+    },
+    "DriverList": {
+     "status": 200,
+     "last_modified": "Sun, 05 Jul 2026 16:04:06 GMT",
+     "etag": "\"e6ff61b3f688b6590fca43766a73e1ab\"",
+     "sha256": "4c269ab18d6a1f82ff69d6be6e349e955b4cda4db919125f60c9884655ce9f7d",
+     "bytes": 18068
+    },
+    "SessionInfo": {
+     "status": 200,
+     "last_modified": "Sun, 05 Jul 2026 16:04:07 GMT",
+     "etag": "\"e155faef9d43eb327730a80b4fcf4be9\"",
+     "sha256": "591cb26c6ddb0e7668a6ac6924fe5fa4bd81da623c306a68bfdaa94ecfb5b433",
+     "bytes": 1566
+    }
+   },
+   "heartbeat": {
+    "n": 702,
+    "base_epoch": 1783256896.5381098,
+    "frac_within_5s": 0.8875,
+    "late_records": 0,
+    "late_burst_prefixes": 0,
+    "max_lag_s": 2.0
+   },
+   "rcm": {
+    "n": 248,
+    "median_dev_s": -2.11,
+    "max_abs_dev_s": 3.0,
+    "frac_within_5s": 1.0
+   },
+   "session_status": [
+    [
+     6.582,
+     "Inactive"
+    ],
+    [
+     3339.562,
+     "Started"
+    ],
+    [
+     8571.125,
+     "Finished"
+    ],
+    [
+     9347.017,
+     "Finalised"
+    ],
+    [
+     9347.017,
+     "Ends"
+    ]
+   ],
+   "lapcount_total_laps": [
+    [
+     6.244,
+     52
+    ]
+   ],
+   "lap_progression": {
+    "drivers": 22,
+    "drivers_with_jumps": 0,
+    "drivers_with_regressions": 0,
+    "per_driver": {
+     "16": {
+      "final": 52,
+      "updates": 52,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "44": {
+      "final": 52,
+      "updates": 52,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "12": {
+      "final": 52,
+      "updates": 52,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "63": {
+      "final": 52,
+      "updates": 52,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "6": {
+      "final": 52,
+      "updates": 52,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "3": {
+      "final": 46,
+      "updates": 46,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "1": {
+      "final": 52,
+      "updates": 52,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "30": {
+      "final": 52,
+      "updates": 52,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "41": {
+      "final": 52,
+      "updates": 52,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "55": {
+      "final": 52,
+      "updates": 52,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "31": {
+      "final": 52,
+      "updates": 52,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "10": {
+      "final": 52,
+      "updates": 52,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "5": {
+      "final": 52,
+      "updates": 52,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "81": {
+      "final": 52,
+      "updates": 52,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "27": {
+      "final": 36,
+      "updates": 36,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "43": {
+      "final": 52,
+      "updates": 52,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "11": {
+      "final": 52,
+      "updates": 52,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "77": {
+      "final": 52,
+      "updates": 52,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "18": {
+      "final": 51,
+      "updates": 51,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "87": {
+      "final": 52,
+      "updates": 52,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "14": {
+      "final": 51,
+      "updates": 51,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "23": {
+      "final": 43,
+      "updates": 43,
+      "jumps": 0,
+      "regressions": 0
+     }
+    }
+   },
+   "inpit_entries_after_start": {
+    "12": 3,
+    "16": 2,
+    "44": 2,
+    "63": 2,
+    "6": 3,
+    "1": 3,
+    "3": 2,
+    "81": 3,
+    "41": 2,
+    "30": 2,
+    "5": 2,
+    "27": 2,
+    "87": 2,
+    "55": 2,
+    "10": 2,
+    "23": 6,
+    "31": 2,
+    "77": 2,
+    "43": 2,
+    "11": 2,
+    "14": 2,
+    "18": 2
+   },
+   "jolpica_pitstops_total": 51,
+   "inpit_entries_total": 52
+  },
+  {
+   "session": "2026/2026-10-04_Bahrain_Grand_Prix/2026-10-04_Race/",
+   "round": "16",
+   "files": {
+    "Heartbeat": {
+     "status": 200,
+     "last_modified": "Sun, 04 Oct 2026 10:41:51 GMT",
+     "etag": "\"04b430ce9da099a42fdd7627f32dd50c\"",
+     "sha256": "b947d88765b72aaa9a993f66dfdf4be133ca468322108a75e1c7b1f82ee92579",
+     "bytes": 56996
+    },
+    "SessionStatus": {
+     "status": 200,
+     "last_modified": "Sun, 04 Oct 2026 10:41:52 GMT",
+     "etag": "\"43c23688c45a52d24c7fbc9646787a0f\"",
+     "sha256": "87272aa13ba64638910f5743d4c2b93833cb4d585e27414ace8fbbd73cd8aa70",
+     "bytes": 278
+    },
+    "TimingData": {
+     "status": 200,
+     "last_modified": "Sun, 04 Oct 2026 10:41:52 GMT",
+     "etag": "\"90cff1d10fd254924d6bd712b64eaac5\"",
+     "sha256": "9f973a31629df8cf60b717491b2da7df6258f0d9d1f85c922aaa3d1c528538b9",
+     "bytes": 5681818
+    },
+    "TimingAppData": {
+     "status": 200,
+     "last_modified": "Sun, 04 Oct 2026 10:41:52 GMT",
+     "etag": "\"44731330f75637bea8fcaf49b46c3fa8\"",
+     "sha256": "3872ee70314ec286bc0bbc3e8cbfbdb0831f8d99691d00736ab149960651c7ae",
+     "bytes": 110987
+    },
+    "LapCount": {
+     "status": 200,
+     "last_modified": "Sun, 04 Oct 2026 10:41:51 GMT",
+     "etag": "\"acc774096e9f713924669bd0d4e6223f\"",
+     "sha256": "b2ffedd74b4369ddf888e7cc9403fa282ec2541779f5390921f896049dbd5db9",
+     "bytes": 1744
+    },
+    "RaceControlMessages": {
+     "status": 200,
+     "last_modified": "Sun, 04 Oct 2026 10:41:51 GMT",
+     "etag": "\"520c7567568bc014e66c112aaeeadc29\"",
+     "sha256": "3d3270bff73e3c7f8331a34fd4a8df5ba046eeaa3c7c2d5858a9bab8f0e5f20a",
+     "bytes": 55689
+    },
+    "DriverList": {
+     "status": 200,
+     "last_modified": "Sun, 04 Oct 2026 10:41:50 GMT",
+     "etag": "\"b7472421843a55ee4dc270b49e3dab4e\"",
+     "sha256": "f3d13f141a796cecdc6ee49fef7dd421a609f7d168f12db239f993451eef1992",
+     "bytes": 23221
+    },
+    "SessionInfo": {
+     "status": 200,
+     "last_modified": "Sun, 04 Oct 2026 10:41:52 GMT",
+     "etag": "\"6af6e131b20df6665724e3862e125a4c\"",
+     "sha256": "2ee577d7a6e7b12fdce9551596b545071c488a9ac07738dc5969d23ceb174235",
+     "bytes": 1599
+    }
+   },
+   "heartbeat": {
+    "n": 1098,
+    "base_epoch": 1791094021.4628785,
+    "frac_within_5s": 0.929,
+    "late_records": 0,
+    "late_burst_prefixes": 0,
+    "max_lag_s": 2.0
+   },
+   "rcm": {
+    "n": 327,
+    "median_dev_s": -2.29,
+    "max_abs_dev_s": 3.31,
+    "frac_within_5s": 1.0
+   },
+   "session_status": [
+    [
+     4.792,
+     "Inactive"
+    ],
+    [
+     8760.7,
+     "Started"
+    ],
+    [
+     15195.756,
+     "Finished"
+    ],
+    [
+     15286.354,
+     "Finalised"
+    ],
+    [
+     15538.186,
+     "Ends"
+    ]
+   ],
+   "lapcount_total_laps": [
+    [
+     5.604,
+     56
+    ],
+    [
+     8185.164,
+     55
+    ]
+   ],
+   "lap_progression": {
+    "drivers": 22,
+    "drivers_with_jumps": 0,
+    "drivers_with_regressions": 0,
+    "per_driver": {
+     "3": {
+      "final": 55,
+      "updates": 55,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "44": {
+      "final": 55,
+      "updates": 55,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "12": {
+      "final": 55,
+      "updates": 55,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "16": {
+      "final": 55,
+      "updates": 55,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "1": {
+      "final": 55,
+      "updates": 55,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "81": {
+      "final": 55,
+      "updates": 55,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "63": {
+      "final": 49,
+      "updates": 49,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "6": {
+      "final": 55,
+      "updates": 55,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "5": {
+      "final": 55,
+      "updates": 55,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "30": {
+      "final": 55,
+      "updates": 55,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "14": {
+      "final": 55,
+      "updates": 55,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "55": {
+      "final": 55,
+      "updates": 55,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "10": {
+      "final": 55,
+      "updates": 55,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "18": {
+      "final": 55,
+      "updates": 55,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "27": {
+      "final": 55,
+      "updates": 55,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "87": {
+      "final": 55,
+      "updates": 55,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "31": {
+      "final": 55,
+      "updates": 55,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "23": {
+      "final": 41,
+      "updates": 41,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "77": {
+      "final": 7,
+      "updates": 7,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "43": {
+      "final": 55,
+      "updates": 55,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "41": {
+      "final": 55,
+      "updates": 55,
+      "jumps": 0,
+      "regressions": 0
+     },
+     "11": {
+      "final": 55,
+      "updates": 55,
+      "jumps": 0,
+      "regressions": 0
+     }
+    }
+   },
+   "inpit_entries_after_start": {
+    "3": 3,
+    "44": 2,
+    "12": 3,
+    "16": 4,
+    "1": 3,
+    "81": 4,
+    "63": 3,
+    "6": 3,
+    "10": 4,
+    "5": 5,
+    "30": 3,
+    "14": 3,
+    "55": 3,
+    "18": 4,
+    "27": 4,
+    "87": 3,
+    "31": 3,
+    "23": 3,
+    "77": 0,
+    "11": 7,
+    "43": 3,
+    "41": 3
+   },
+   "jolpica_pitstops_total": 73,
+   "inpit_entries_total": 73
+  },
+  {
+   "session": "2022/2022-03-20_Bahrain_Grand_Prix/2022-03-20_Race/",
+   "round": "1",
+   "files": {
+    "Heartbeat": {
+     "error": "HTTP Error 403: Forbidden"
+    },
+    "SessionStatus": {
+     "error": "HTTP Error 403: Forbidden"
+    },
+    "TimingData": {
+     "error": "HTTP Error 403: Forbidden"
+    },
+    "TimingAppData": {
+     "error": "HTTP Error 403: Forbidden"
+    },
+    "LapCount": {
+     "error": "HTTP Error 403: Forbidden"
+    },
+    "RaceControlMessages": {
+     "error": "HTTP Error 403: Forbidden"
+    },
+    "DriverList": {
+     "error": "HTTP Error 403: Forbidden"
+    },
+    "SessionInfo": {
+     "error": "HTTP Error 403: Forbidden"
+    }
+   },
+   "session_status": [],
+   "lap_progression": {
+    "drivers": 0,
+    "drivers_with_jumps": 0,
+    "drivers_with_regressions": 0,
+    "per_driver": {}
+   },
+   "inpit_entries_after_start": {},
+   "jolpica_pitstops_total": 58,
+   "inpit_entries_total": 0
+  },
+  {
+   "session": "2022/2022-07-10_Austrian_Grand_Prix/2022-07-10_Race/",
+   "round": "11",
+   "files": {
+    "Heartbeat": {
+     "error": "HTTP Error 403: Forbidden"
+    },
+    "SessionStatus": {
+     "error": "HTTP Error 403: Forbidden"
+    },
+    "TimingData": {
+     "error": "HTTP Error 403: Forbidden"
+    },
+    "TimingAppData": {
+     "error": "HTTP Error 403: Forbidden"
+    },
+    "LapCount": {
+     "error": "HTTP Error 403: Forbidden"
+    },
+    "RaceControlMessages": {
+     "error": "HTTP Error 403: Forbidden"
+    },
+    "DriverList": {
+     "error": "HTTP Error 403: Forbidden"
+    },
+    "SessionInfo": {
+     "error": "HTTP Error 403: Forbidden"
+    }
+   },
+   "session_status": [],
+   "lap_progression": {
+    "drivers": 0,
+    "drivers_with_jumps": 0,
+    "drivers_with_regressions": 0,
+    "per_driver": {}
+   },
+   "inpit_entries_after_start": {},
+   "jolpica_pitstops_total": 42,
+   "inpit_entries_total": 0
+  }
+ ]
+}

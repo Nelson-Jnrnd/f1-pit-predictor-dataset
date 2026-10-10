@@ -1,0 +1,1567 @@
+{
+ "argv": [
+  "lt_capabilities.py",
+  "--cache",
+  "/tmp/claude-0/-home-user-f1-pit-predictor-dataset/0b0d4bd5-d2c1-5628-a8f0-1c6deea030c4/scratchpad/ltcache",
+  "--probe",
+  "../evidence/probe_races_v2.json",
+  "--out",
+  "../evidence/capabilities_races_v2.json"
+ ],
+ "results": [
+  {
+   "session": "2018/2018-04-08_Bahrain_Grand_Prix/2018-04-08_Race/",
+   "round": "2",
+   "jolpica_results_sha256": "5e945f5c66157397cbe370da9fc6bd9d4363444357611671b0efb87ba9a8e3ee",
+   "jolpica_pitstops_sha256": "99605c2473cad973d7f225d7a210d6154e1c7d67d244ac39e9bb8e4597ad56fb",
+   "jolpica_stops": 33,
+   "entries_in_race": 34,
+   "entries_post_finish": 0,
+   "jolpica_unmatched": 0,
+   "entries_matching_jolpica_lap": 33,
+   "entries_without_jolpica_stop": 1,
+   "extra_entries": [
+    [
+     "7",
+     3889.3,
+     35,
+     false
+    ]
+   ],
+   "entries_with_exit": 33,
+   "tyre_classes": {
+    "POS": 33,
+    "NONE": 1
+   },
+   "pos_with_consistent_fields": 31,
+   "penalty_test_set": [],
+   "lap_jumps": 5,
+   "lap_regressions": 0,
+   "retired_flag": [
+    "7"
+   ],
+   "stopped_flag_only": [
+    "3",
+    "33"
+   ],
+   "jolpica_terminal": [
+    "3",
+    "33",
+    "7"
+   ],
+   "jolpica_dsq": [],
+   "terminal_agree": 1,
+   "terminal_flag_only": [],
+   "terminal_jolpica_only": [
+    "3",
+    "33"
+   ],
+   "combined_terminal": [
+    "3",
+    "33",
+    "7"
+   ],
+   "combined_agree": 3,
+   "combined_flag_only": [],
+   "combined_jolpica_only": []
+  },
+  {
+   "session": "2018/2018-07-29_Hungarian_Grand_Prix/2018-07-29_Race/",
+   "round": "12",
+   "jolpica_results_sha256": "fd30c16971b0198ab56d39c6295d1cfbd4a9d69043214189577cc14b66f05f78",
+   "jolpica_pitstops_sha256": "2ca9a95e017672b7b7b1888c53b34ebe3a52dfe73385313a67a219c7570e1d3c",
+   "jolpica_stops": 20,
+   "entries_in_race": 20,
+   "entries_post_finish": 0,
+   "jolpica_unmatched": 0,
+   "entries_matching_jolpica_lap": 20,
+   "entries_without_jolpica_stop": 0,
+   "extra_entries": [],
+   "entries_with_exit": 20,
+   "tyre_classes": {
+    "POS": 20
+   },
+   "pos_with_consistent_fields": 20,
+   "penalty_test_set": [],
+   "lap_jumps": 0,
+   "lap_regressions": 0,
+   "retired_flag": [],
+   "stopped_flag_only": [
+    "16",
+    "2",
+    "33"
+   ],
+   "jolpica_terminal": [
+    "16",
+    "2",
+    "33"
+   ],
+   "jolpica_dsq": [],
+   "terminal_agree": 0,
+   "terminal_flag_only": [],
+   "terminal_jolpica_only": [
+    "16",
+    "2",
+    "33"
+   ],
+   "combined_terminal": [
+    "16",
+    "2",
+    "33"
+   ],
+   "combined_agree": 3,
+   "combined_flag_only": [],
+   "combined_jolpica_only": []
+  },
+  {
+   "session": "2018/2018-11-25_Abu_Dhabi_Grand_Prix/2018-11-25_Race/",
+   "round": "21",
+   "jolpica_results_sha256": "c1743e74ff5c26b41b6e45cf63cda61bc4dcaa37ddffae0079ab0944b50b3771",
+   "jolpica_pitstops_sha256": "45052575e71f9903413b4306b551d945805153a05fc708ffd2bebc6bfd0beeb1",
+   "jolpica_stops": 18,
+   "entries_in_race": 20,
+   "entries_post_finish": 0,
+   "jolpica_unmatched": 0,
+   "entries_matching_jolpica_lap": 18,
+   "entries_without_jolpica_stop": 2,
+   "extra_entries": [
+    [
+     "7",
+     3152.6,
+     7,
+     true
+    ],
+    [
+     "31",
+     7216.4,
+     45,
+     true
+    ]
+   ],
+   "entries_with_exit": 18,
+   "tyre_classes": {
+    "POS": 18,
+    "NONE": 2
+   },
+   "pos_with_consistent_fields": 18,
+   "penalty_test_set": [],
+   "lap_jumps": 0,
+   "lap_regressions": 0,
+   "retired_flag": [
+    "31",
+    "7"
+   ],
+   "stopped_flag_only": [
+    "10",
+    "27",
+    "9"
+   ],
+   "jolpica_terminal": [
+    "10",
+    "27",
+    "31",
+    "7",
+    "9"
+   ],
+   "jolpica_dsq": [],
+   "terminal_agree": 2,
+   "terminal_flag_only": [],
+   "terminal_jolpica_only": [
+    "10",
+    "27",
+    "9"
+   ],
+   "combined_terminal": [
+    "10",
+    "27",
+    "31",
+    "7",
+    "9"
+   ],
+   "combined_agree": 5,
+   "combined_flag_only": [],
+   "combined_jolpica_only": []
+  },
+  {
+   "session": "2019/2019-03-17_Australian_Grand_Prix/2019-03-17_Race/",
+   "round": "1",
+   "jolpica_results_sha256": "7af57a9816380d216bbed4aea65861d3bd8164075f5a91394c80d6588353b2b5",
+   "jolpica_pitstops_sha256": "c15fe346cdd9fd05aefece47d3ebd7ea89ec71a69e03aaf2c75936948b2975f9",
+   "jolpica_stops": 22,
+   "entries_in_race": 23,
+   "entries_post_finish": 0,
+   "jolpica_unmatched": 0,
+   "entries_matching_jolpica_lap": 22,
+   "entries_without_jolpica_stop": 1,
+   "extra_entries": [
+    [
+     "3",
+     4705.7,
+     29,
+     true
+    ]
+   ],
+   "entries_with_exit": 22,
+   "tyre_classes": {
+    "POS": 22,
+    "NONE": 1
+   },
+   "pos_with_consistent_fields": 21,
+   "penalty_test_set": [],
+   "lap_jumps": 0,
+   "lap_regressions": 0,
+   "retired_flag": [
+    "3"
+   ],
+   "stopped_flag_only": [
+    "55",
+    "8"
+   ],
+   "jolpica_terminal": [
+    "3",
+    "55",
+    "8"
+   ],
+   "jolpica_dsq": [],
+   "terminal_agree": 1,
+   "terminal_flag_only": [],
+   "terminal_jolpica_only": [
+    "55",
+    "8"
+   ],
+   "combined_terminal": [
+    "3",
+    "55",
+    "8"
+   ],
+   "combined_agree": 3,
+   "combined_flag_only": [],
+   "combined_jolpica_only": []
+  },
+  {
+   "session": "2019/2019-07-28_German_Grand_Prix/2019-07-28_Race/",
+   "round": "11",
+   "jolpica_results_sha256": "b976df11b0d213620db355831e14fe10efb0d181e2e30247f540df22e29f55fc",
+   "jolpica_pitstops_sha256": "674042a88ebc51393e55d0b1f437f8daea99b90193b2994e29e78e1e0cfe2a31",
+   "jolpica_stops": 78,
+   "entries_in_race": 78,
+   "entries_post_finish": 0,
+   "jolpica_unmatched": 0,
+   "entries_matching_jolpica_lap": 78,
+   "entries_without_jolpica_stop": 0,
+   "extra_entries": [],
+   "entries_with_exit": 78,
+   "tyre_classes": {
+    "POS": 78
+   },
+   "pos_with_consistent_fields": 73,
+   "penalty_test_set": [],
+   "lap_jumps": 0,
+   "lap_regressions": 0,
+   "retired_flag": [],
+   "stopped_flag_only": [
+    "10",
+    "11",
+    "16",
+    "27",
+    "3",
+    "4",
+    "77"
+   ],
+   "jolpica_terminal": [
+    "10",
+    "11",
+    "16",
+    "27",
+    "3",
+    "4",
+    "77"
+   ],
+   "jolpica_dsq": [],
+   "terminal_agree": 0,
+   "terminal_flag_only": [],
+   "terminal_jolpica_only": [
+    "10",
+    "11",
+    "16",
+    "27",
+    "3",
+    "4",
+    "77"
+   ],
+   "combined_terminal": [
+    "10",
+    "11",
+    "16",
+    "27",
+    "3",
+    "4",
+    "77"
+   ],
+   "combined_agree": 7,
+   "combined_flag_only": [],
+   "combined_jolpica_only": []
+  },
+  {
+   "session": "2019/2019-12-01_Abu_Dhabi_Grand_Prix/2019-12-01_Race/",
+   "round": "21",
+   "jolpica_results_sha256": "806563894c7df9b4b1c18d0eef28e5854e1cb69a691dc26c811ed75e6d7196e6",
+   "jolpica_pitstops_sha256": "43565b5bbef98c5f820ea014190b4b6d44f34af407f444be45d53ccc860394c8",
+   "jolpica_stops": 25,
+   "entries_in_race": 27,
+   "entries_post_finish": 0,
+   "jolpica_unmatched": 0,
+   "entries_matching_jolpica_lap": 25,
+   "entries_without_jolpica_stop": 2,
+   "extra_entries": [
+    [
+     "10",
+     2134.7,
+     1,
+     false
+    ],
+    [
+     "18",
+     6823.3,
+     45,
+     false
+    ]
+   ],
+   "entries_with_exit": 26,
+   "tyre_classes": {
+    "POS": 26,
+    "NONE": 1
+   },
+   "pos_with_consistent_fields": 26,
+   "penalty_test_set": [],
+   "lap_jumps": 0,
+   "lap_regressions": 1,
+   "retired_flag": [
+    "18"
+   ],
+   "stopped_flag_only": [],
+   "jolpica_terminal": [
+    "18"
+   ],
+   "jolpica_dsq": [],
+   "terminal_agree": 1,
+   "terminal_flag_only": [],
+   "terminal_jolpica_only": [],
+   "combined_terminal": [
+    "18"
+   ],
+   "combined_agree": 1,
+   "combined_flag_only": [],
+   "combined_jolpica_only": []
+  },
+  {
+   "session": "2020/2020-07-05_Austrian_Grand_Prix/2020-07-05_Race/",
+   "round": "1",
+   "jolpica_results_sha256": "52878abb2bd9c2a1ea4874dc7bdc2c43ae4e7102d38439e63020d0c38e3cb598",
+   "jolpica_pitstops_sha256": "837225fee3ff6b302561abbd4d2247c6992a5e73d8a98c94620a9aaca8baee0d",
+   "jolpica_stops": 38,
+   "entries_in_race": 42,
+   "entries_post_finish": 0,
+   "jolpica_unmatched": 0,
+   "entries_matching_jolpica_lap": 38,
+   "entries_without_jolpica_stop": 4,
+   "extra_entries": [
+    [
+     "33",
+     2998.8,
+     12,
+     true
+    ],
+    [
+     "3",
+     3205.2,
+     17,
+     false
+    ],
+    [
+     "18",
+     3405.1,
+     20,
+     false
+    ],
+    [
+     "8",
+     5658.9,
+     49,
+     false
+    ]
+   ],
+   "entries_with_exit": 38,
+   "tyre_classes": {
+    "NONE": 4,
+    "POS": 25,
+    "NEG": 13
+   },
+   "pos_with_consistent_fields": 25,
+   "penalty_test_set": [],
+   "lap_jumps": 20,
+   "lap_regressions": 0,
+   "retired_flag": [
+    "18",
+    "3",
+    "33",
+    "8"
+   ],
+   "stopped_flag_only": [
+    "20",
+    "23",
+    "26",
+    "63",
+    "7"
+   ],
+   "jolpica_terminal": [
+    "18",
+    "20",
+    "23",
+    "26",
+    "3",
+    "33",
+    "63",
+    "7",
+    "8"
+   ],
+   "jolpica_dsq": [],
+   "terminal_agree": 4,
+   "terminal_flag_only": [],
+   "terminal_jolpica_only": [
+    "20",
+    "23",
+    "26",
+    "63",
+    "7"
+   ],
+   "combined_terminal": [
+    "18",
+    "20",
+    "23",
+    "26",
+    "3",
+    "33",
+    "63",
+    "7",
+    "8"
+   ],
+   "combined_agree": 9,
+   "combined_flag_only": [],
+   "combined_jolpica_only": []
+  },
+  {
+   "session": "2020/2020-09-13_Tuscan_Grand_Prix/2020-09-13_Race/",
+   "round": "9",
+   "jolpica_results_sha256": "528bd3ada5aa4933167b32790e96cf0633e306ff1a43dc56d697df56dc55b1f2",
+   "jolpica_pitstops_sha256": "388ed051fdf8a679a947d10390a66a52cc49e967ddec45e25d9ef1a0e6895005",
+   "jolpica_stops": 66,
+   "entries_in_race": 68,
+   "entries_post_finish": 0,
+   "jolpica_unmatched": 0,
+   "entries_matching_jolpica_lap": 66,
+   "entries_without_jolpica_stop": 2,
+   "extra_entries": [
+    [
+     "31",
+     3085.9,
+     8,
+     true
+    ],
+    [
+     "6",
+     3792.6,
+     7,
+     true
+    ]
+   ],
+   "entries_with_exit": 66,
+   "tyre_classes": {
+    "POS": 48,
+    "NEG": 18,
+    "NONE": 2
+   },
+   "pos_with_consistent_fields": 37,
+   "penalty_test_set": [],
+   "lap_jumps": 0,
+   "lap_regressions": 0,
+   "retired_flag": [
+    "11",
+    "16",
+    "23",
+    "26",
+    "3",
+    "31",
+    "4",
+    "44",
+    "5",
+    "6",
+    "63",
+    "77"
+   ],
+   "stopped_flag_only": [
+    "10",
+    "18",
+    "20",
+    "33",
+    "55",
+    "99"
+   ],
+   "jolpica_terminal": [
+    "10",
+    "18",
+    "20",
+    "31",
+    "33",
+    "55",
+    "6",
+    "99"
+   ],
+   "jolpica_dsq": [],
+   "terminal_agree": 2,
+   "terminal_flag_only": [
+    "11",
+    "16",
+    "23",
+    "26",
+    "3",
+    "4",
+    "44",
+    "5",
+    "63",
+    "77"
+   ],
+   "terminal_jolpica_only": [
+    "10",
+    "18",
+    "20",
+    "33",
+    "55",
+    "99"
+   ],
+   "combined_terminal": [
+    "10",
+    "11",
+    "16",
+    "18",
+    "20",
+    "23",
+    "26",
+    "3",
+    "31",
+    "33",
+    "4",
+    "44",
+    "5",
+    "55",
+    "6",
+    "63",
+    "77",
+    "99"
+   ],
+   "combined_agree": 8,
+   "combined_flag_only": [
+    "11",
+    "16",
+    "23",
+    "26",
+    "3",
+    "4",
+    "44",
+    "5",
+    "63",
+    "77"
+   ],
+   "combined_jolpica_only": []
+  },
+  {
+   "session": "2020/2020-12-13_Abu_Dhabi_Grand_Prix/2020-12-13_Race/",
+   "round": "17",
+   "jolpica_results_sha256": "b6036f800950f945584055a10f295c532f5b6b844cfa417627a98c8cc3374cbf",
+   "jolpica_pitstops_sha256": "0a3a8be4f2335723cde450b0c914de7342b4b96dc029644f80344e91246a2c30",
+   "jolpica_stops": 23,
+   "entries_in_race": 23,
+   "entries_post_finish": 0,
+   "jolpica_unmatched": 0,
+   "entries_matching_jolpica_lap": 23,
+   "entries_without_jolpica_stop": 0,
+   "extra_entries": [],
+   "entries_with_exit": 23,
+   "tyre_classes": {
+    "POS": 23
+   },
+   "pos_with_consistent_fields": 23,
+   "penalty_test_set": [],
+   "lap_jumps": 0,
+   "lap_regressions": 0,
+   "retired_flag": [],
+   "stopped_flag_only": [
+    "11"
+   ],
+   "jolpica_terminal": [
+    "11"
+   ],
+   "jolpica_dsq": [],
+   "terminal_agree": 0,
+   "terminal_flag_only": [],
+   "terminal_jolpica_only": [
+    "11"
+   ],
+   "combined_terminal": [
+    "11"
+   ],
+   "combined_agree": 1,
+   "combined_flag_only": [],
+   "combined_jolpica_only": []
+  },
+  {
+   "session": "2021/2021-03-28_Bahrain_Grand_Prix/2021-03-28_Race/",
+   "round": "1",
+   "jolpica_results_sha256": "e7762f94979c9284fb324e37a5f5bac4083865b9fe0b633962b582a94db352fb",
+   "jolpica_pitstops_sha256": "a2d94d618e6b7827e447152c2d8bf3eeb1c3a081038b7f4b1f3ffe13e8f3b5eb",
+   "jolpica_stops": 40,
+   "entries_in_race": 43,
+   "entries_post_finish": 0,
+   "jolpica_unmatched": 0,
+   "entries_matching_jolpica_lap": 40,
+   "entries_without_jolpica_stop": 3,
+   "extra_entries": [
+    [
+     "10",
+     7490.3,
+     52,
+     false
+    ],
+    [
+     "14",
+     5550.2,
+     32,
+     false
+    ],
+    [
+     "6",
+     7459.0,
+     51,
+     false
+    ]
+   ],
+   "entries_with_exit": 40,
+   "tyre_classes": {
+    "POS": 39,
+    "NONE": 4
+   },
+   "pos_with_consistent_fields": 38,
+   "penalty_test_set": [],
+   "lap_jumps": 0,
+   "lap_regressions": 0,
+   "retired_flag": [
+    "10",
+    "14",
+    "6"
+   ],
+   "stopped_flag_only": [
+    "9"
+   ],
+   "jolpica_terminal": [
+    "10",
+    "14",
+    "6",
+    "9"
+   ],
+   "jolpica_dsq": [],
+   "terminal_agree": 3,
+   "terminal_flag_only": [],
+   "terminal_jolpica_only": [
+    "9"
+   ],
+   "combined_terminal": [
+    "10",
+    "14",
+    "6",
+    "9"
+   ],
+   "combined_agree": 4,
+   "combined_flag_only": [],
+   "combined_jolpica_only": []
+  },
+  {
+   "session": "2021/2021-08-29_Belgian_Grand_Prix/2021-08-29_Race/",
+   "round": "12",
+   "jolpica_results_sha256": "0ef41153725002ca2ed33ec94c68d817cc346cabb79354a5ee147295298a36bb",
+   "jolpica_pitstops_sha256": "160487a995ed048cee3ae8109ad757cd61d24c43ba587593c42412f737f54a64",
+   "jolpica_stops": 0,
+   "entries_in_race": 20,
+   "entries_post_finish": 0,
+   "jolpica_unmatched": 0,
+   "entries_matching_jolpica_lap": 0,
+   "entries_without_jolpica_stop": 20,
+   "extra_entries": [
+    [
+     "33",
+     15964.7,
+     3,
+     true
+    ],
+    [
+     "63",
+     15966.5,
+     3,
+     true
+    ],
+    [
+     "44",
+     15968.2,
+     3,
+     true
+    ],
+    [
+     "3",
+     15971.6,
+     3,
+     true
+    ],
+    [
+     "5",
+     15974.2,
+     3,
+     true
+    ],
+    [
+     "10",
+     15977.4,
+     3,
+     true
+    ],
+    [
+     "31",
+     15978.9,
+     3,
+     true
+    ],
+    [
+     "16",
+     15980.3,
+     3,
+     true
+    ],
+    [
+     "6",
+     15982.1,
+     3,
+     true
+    ],
+    [
+     "55",
+     15984.3,
+     3,
+     true
+    ],
+    [
+     "14",
+     15986.8,
+     3,
+     true
+    ],
+    [
+     "77",
+     15988.9,
+     3,
+     true
+    ],
+    [
+     "99",
+     15991.1,
+     3,
+     true
+    ],
+    [
+     "4",
+     15993.1,
+     3,
+     true
+    ],
+    [
+     "22",
+     15995.0,
+     3,
+     true
+    ],
+    [
+     "47",
+     15997.0,
+     3,
+     true
+    ],
+    [
+     "9",
+     15999.6,
+     3,
+     true
+    ],
+    [
+     "18",
+     16001.7,
+     3,
+     true
+    ],
+    [
+     "7",
+     16005.6,
+     3,
+     true
+    ],
+    [
+     "11",
+     16008.5,
+     3,
+     true
+    ]
+   ],
+   "entries_with_exit": 20,
+   "tyre_classes": {
+    "NEG": 18,
+    "POS": 2
+   },
+   "pos_with_consistent_fields": 2,
+   "penalty_test_set": [],
+   "lap_jumps": 0,
+   "lap_regressions": 20,
+   "retired_flag": [],
+   "stopped_flag_only": [],
+   "jolpica_terminal": [],
+   "jolpica_dsq": [],
+   "terminal_agree": 0,
+   "terminal_flag_only": [],
+   "terminal_jolpica_only": [],
+   "combined_terminal": [],
+   "combined_agree": 0,
+   "combined_flag_only": [],
+   "combined_jolpica_only": []
+  },
+  {
+   "session": "2021/2021-12-12_Abu_Dhabi_Grand_Prix/2021-12-12_Race/",
+   "round": "22",
+   "jolpica_results_sha256": "b6e0bdac7222feff12bbbe75b187ea03e38e775c9fad49742272cd3912153bfa",
+   "jolpica_pitstops_sha256": "b9165ad57aa59f1297738c5a61c91fae47757e8e9829c8bd226163a2a706d524",
+   "jolpica_stops": 29,
+   "entries_in_race": 32,
+   "entries_post_finish": 0,
+   "jolpica_unmatched": 0,
+   "entries_matching_jolpica_lap": 29,
+   "entries_without_jolpica_stop": 3,
+   "extra_entries": [
+    [
+     "11",
+     8793.5,
+     55,
+     false
+    ],
+    [
+     "7",
+     6104.7,
+     25,
+     false
+    ],
+    [
+     "63",
+     6211.9,
+     26,
+     false
+    ]
+   ],
+   "entries_with_exit": 29,
+   "tyre_classes": {
+    "POS": 29,
+    "NONE": 3
+   },
+   "pos_with_consistent_fields": 29,
+   "penalty_test_set": [],
+   "lap_jumps": 0,
+   "lap_regressions": 0,
+   "retired_flag": [
+    "11",
+    "63",
+    "7"
+   ],
+   "stopped_flag_only": [
+    "6",
+    "99"
+   ],
+   "jolpica_terminal": [
+    "11",
+    "6",
+    "63",
+    "7",
+    "9",
+    "99"
+   ],
+   "jolpica_dsq": [],
+   "terminal_agree": 3,
+   "terminal_flag_only": [],
+   "terminal_jolpica_only": [
+    "6",
+    "9",
+    "99"
+   ],
+   "combined_terminal": [
+    "11",
+    "6",
+    "63",
+    "7",
+    "99"
+   ],
+   "combined_agree": 5,
+   "combined_flag_only": [],
+   "combined_jolpica_only": [
+    "9"
+   ]
+  },
+  {
+   "session": "2023/2023-03-05_Bahrain_Grand_Prix/2023-03-05_Race/",
+   "round": "1",
+   "jolpica_results_sha256": "9385ffde5bb620e6ed0cd6cf48a5bc3371ca38bde2c3227a83581a8fddb873de",
+   "jolpica_pitstops_sha256": "582a01656722cb2ee439236bc968bed5fe480ad4f58d25cb95ddadae0286af88",
+   "jolpica_stops": 50,
+   "entries_in_race": 52,
+   "entries_post_finish": 0,
+   "jolpica_unmatched": 0,
+   "entries_matching_jolpica_lap": 50,
+   "entries_without_jolpica_stop": 2,
+   "extra_entries": [
+    [
+     "31",
+     7974.8,
+     41,
+     false
+    ],
+    [
+     "81",
+     5097.0,
+     13,
+     false
+    ]
+   ],
+   "entries_with_exit": 50,
+   "tyre_classes": {
+    "POS": 47,
+    "NEG": 3,
+    "NONE": 2
+   },
+   "pos_with_consistent_fields": 43,
+   "penalty_test_set": [],
+   "lap_jumps": 0,
+   "lap_regressions": 0,
+   "retired_flag": [
+    "31",
+    "81"
+   ],
+   "stopped_flag_only": [
+    "16"
+   ],
+   "jolpica_terminal": [
+    "16",
+    "31",
+    "81"
+   ],
+   "jolpica_dsq": [],
+   "terminal_agree": 2,
+   "terminal_flag_only": [],
+   "terminal_jolpica_only": [
+    "16"
+   ],
+   "combined_terminal": [
+    "16",
+    "31",
+    "81"
+   ],
+   "combined_agree": 3,
+   "combined_flag_only": [],
+   "combined_jolpica_only": []
+  },
+  {
+   "session": "2023/2023-07-30_Belgian_Grand_Prix/2023-07-30_Race/",
+   "round": "12",
+   "jolpica_results_sha256": "8fc13a71fc436ee544916c8dc641b8d814b5e1ae0cb861296823dd5af0c198fb",
+   "jolpica_pitstops_sha256": "244ba4aa1abffd3fd815708a416264c51a74471cfb99ba4bb2fab0785cdb7ffa",
+   "jolpica_stops": 37,
+   "entries_in_race": 38,
+   "entries_post_finish": 0,
+   "jolpica_unmatched": 0,
+   "entries_matching_jolpica_lap": 37,
+   "entries_without_jolpica_stop": 1,
+   "extra_entries": [
+    [
+     "55",
+     6454.9,
+     23,
+     false
+    ]
+   ],
+   "entries_with_exit": 37,
+   "tyre_classes": {
+    "POS": 37,
+    "NONE": 1
+   },
+   "pos_with_consistent_fields": 37,
+   "penalty_test_set": [],
+   "lap_jumps": 0,
+   "lap_regressions": 0,
+   "retired_flag": [
+    "55"
+   ],
+   "stopped_flag_only": [
+    "81"
+   ],
+   "jolpica_terminal": [
+    "55",
+    "81"
+   ],
+   "jolpica_dsq": [],
+   "terminal_agree": 1,
+   "terminal_flag_only": [],
+   "terminal_jolpica_only": [
+    "81"
+   ],
+   "combined_terminal": [
+    "55",
+    "81"
+   ],
+   "combined_agree": 2,
+   "combined_flag_only": [],
+   "combined_jolpica_only": []
+  },
+  {
+   "session": "2023/2023-11-26_Abu_Dhabi_Grand_Prix/2023-11-26_Race/",
+   "round": "22",
+   "jolpica_results_sha256": "9e5e64e58b7d9e5fa4a4ce7b40e22a914b71adef88f2a311a2d1875730bf2b68",
+   "jolpica_pitstops_sha256": "9a54a64bc40fbab38f75edd50d6be7d66e3c56e29e5042e0ac1c511a1e6933af",
+   "jolpica_stops": 37,
+   "entries_in_race": 38,
+   "entries_post_finish": 0,
+   "jolpica_unmatched": 0,
+   "entries_matching_jolpica_lap": 37,
+   "entries_without_jolpica_stop": 1,
+   "extra_entries": [
+    [
+     "55",
+     8954.6,
+     57,
+     false
+    ]
+   ],
+   "entries_with_exit": 37,
+   "tyre_classes": {
+    "POS": 37,
+    "NONE": 1
+   },
+   "pos_with_consistent_fields": 35,
+   "penalty_test_set": [],
+   "lap_jumps": 0,
+   "lap_regressions": 0,
+   "retired_flag": [
+    "55"
+   ],
+   "stopped_flag_only": [],
+   "jolpica_terminal": [
+    "55"
+   ],
+   "jolpica_dsq": [],
+   "terminal_agree": 1,
+   "terminal_flag_only": [],
+   "terminal_jolpica_only": [],
+   "combined_terminal": [
+    "55"
+   ],
+   "combined_agree": 1,
+   "combined_flag_only": [],
+   "combined_jolpica_only": []
+  },
+  {
+   "session": "2024/2024-06-23_Spanish_Grand_Prix/2024-06-23_Race/",
+   "round": "10",
+   "jolpica_results_sha256": "378484140d532171eefcc157b5d2070523785cef4de07ac7dba84d095119d265",
+   "jolpica_pitstops_sha256": "4ad0b2e2cd23ffb0e50d2cf9b89c187c777dd6e3f73ba2e344033181611d2f09",
+   "jolpica_stops": 42,
+   "entries_in_race": 42,
+   "entries_post_finish": 0,
+   "jolpica_unmatched": 0,
+   "entries_matching_jolpica_lap": 42,
+   "entries_without_jolpica_stop": 0,
+   "extra_entries": [],
+   "entries_with_exit": 42,
+   "tyre_classes": {
+    "POS": 42
+   },
+   "pos_with_consistent_fields": 40,
+   "penalty_test_set": [],
+   "lap_jumps": 0,
+   "lap_regressions": 0,
+   "retired_flag": [],
+   "stopped_flag_only": [],
+   "jolpica_terminal": [],
+   "jolpica_dsq": [],
+   "terminal_agree": 0,
+   "terminal_flag_only": [],
+   "terminal_jolpica_only": [],
+   "combined_terminal": [],
+   "combined_agree": 0,
+   "combined_flag_only": [],
+   "combined_jolpica_only": []
+  },
+  {
+   "session": "2024/2024-09-15_Azerbaijan_Grand_Prix/2024-09-15_Race/",
+   "round": "17",
+   "jolpica_results_sha256": "519c85d93804df8d45238b7f0ec6f01d0257a7dd6eb771eb81d67366cf49b0a8",
+   "jolpica_pitstops_sha256": "9f3c7e80b0a8f0f87d6878219b6e0b98fffdef7b6fdacae65356ef34b9357440",
+   "jolpica_stops": 22,
+   "entries_in_race": 24,
+   "entries_post_finish": 0,
+   "jolpica_unmatched": 0,
+   "entries_matching_jolpica_lap": 22,
+   "entries_without_jolpica_stop": 2,
+   "extra_entries": [
+    [
+     "18",
+     8374.0,
+     45,
+     false
+    ],
+    [
+     "22",
+     4996.8,
+     14,
+     false
+    ]
+   ],
+   "entries_with_exit": 22,
+   "tyre_classes": {
+    "POS": 22,
+    "NONE": 2
+   },
+   "pos_with_consistent_fields": 21,
+   "penalty_test_set": [],
+   "lap_jumps": 0,
+   "lap_regressions": 0,
+   "retired_flag": [
+    "18",
+    "22"
+   ],
+   "stopped_flag_only": [
+    "11",
+    "55"
+   ],
+   "jolpica_terminal": [
+    "11",
+    "18",
+    "22",
+    "55"
+   ],
+   "jolpica_dsq": [],
+   "terminal_agree": 2,
+   "terminal_flag_only": [],
+   "terminal_jolpica_only": [
+    "11",
+    "55"
+   ],
+   "combined_terminal": [
+    "11",
+    "18",
+    "22",
+    "55"
+   ],
+   "combined_agree": 4,
+   "combined_flag_only": [],
+   "combined_jolpica_only": []
+  },
+  {
+   "session": "2024/2024-12-08_Abu_Dhabi_Grand_Prix/2024-12-08_Race/",
+   "round": "24",
+   "jolpica_results_sha256": "aee78250d933fe8b59582d054a871b7ed69bea325b33ccd85e0a8c9f2cc3b78f",
+   "jolpica_pitstops_sha256": "875859c7ae8f082c6726a83b83232fa327a3fb4bb4020091dd5ffcceca0597b8",
+   "jolpica_stops": 28,
+   "entries_in_race": 30,
+   "entries_post_finish": 0,
+   "jolpica_unmatched": 0,
+   "entries_matching_jolpica_lap": 28,
+   "entries_without_jolpica_stop": 2,
+   "extra_entries": [
+    [
+     "43",
+     5877.3,
+     26,
+     false
+    ],
+    [
+     "77",
+     6254.4,
+     30,
+     false
+    ]
+   ],
+   "entries_with_exit": 28,
+   "tyre_classes": {
+    "POS": 26,
+    "NONE": 2,
+    "NEG": 2
+   },
+   "pos_with_consistent_fields": 24,
+   "penalty_test_set": [],
+   "lap_jumps": 0,
+   "lap_regressions": 0,
+   "retired_flag": [
+    "43",
+    "77"
+   ],
+   "stopped_flag_only": [
+    "11",
+    "30"
+   ],
+   "jolpica_terminal": [
+    "11",
+    "30",
+    "43",
+    "77"
+   ],
+   "jolpica_dsq": [],
+   "terminal_agree": 2,
+   "terminal_flag_only": [],
+   "terminal_jolpica_only": [
+    "11",
+    "30"
+   ],
+   "combined_terminal": [
+    "11",
+    "30",
+    "43",
+    "77"
+   ],
+   "combined_agree": 4,
+   "combined_flag_only": [],
+   "combined_jolpica_only": []
+  },
+  {
+   "session": "2025/2025-03-16_Australian_Grand_Prix/2025-03-16_Race/",
+   "round": "1",
+   "jolpica_results_sha256": "dae538d8c84602d5b50170136cfb67e7a795a1fa0b92bc21657f2df48e4b9d2f",
+   "jolpica_pitstops_sha256": "b5fc3ba097d83d82a7bdf5139bfd53635f1543780be5ac9960031a4516e6685e",
+   "jolpica_stops": 82,
+   "entries_in_race": 82,
+   "entries_post_finish": 0,
+   "jolpica_unmatched": 0,
+   "entries_matching_jolpica_lap": 82,
+   "entries_without_jolpica_stop": 0,
+   "extra_entries": [],
+   "entries_with_exit": 82,
+   "tyre_classes": {
+    "NEG": 50,
+    "POS": 32
+   },
+   "pos_with_consistent_fields": 31,
+   "penalty_test_set": [],
+   "lap_jumps": 0,
+   "lap_regressions": 0,
+   "retired_flag": [],
+   "stopped_flag_only": [
+    "14",
+    "30",
+    "5",
+    "55",
+    "6",
+    "7",
+    "81"
+   ],
+   "jolpica_terminal": [
+    "14",
+    "30",
+    "5",
+    "55",
+    "6",
+    "7"
+   ],
+   "jolpica_dsq": [],
+   "terminal_agree": 0,
+   "terminal_flag_only": [],
+   "terminal_jolpica_only": [
+    "14",
+    "30",
+    "5",
+    "55",
+    "6",
+    "7"
+   ],
+   "combined_terminal": [
+    "14",
+    "30",
+    "5",
+    "55",
+    "6",
+    "7"
+   ],
+   "combined_agree": 6,
+   "combined_flag_only": [],
+   "combined_jolpica_only": []
+  },
+  {
+   "session": "2025/2025-07-27_Belgian_Grand_Prix/2025-07-27_Race/",
+   "round": "13",
+   "jolpica_results_sha256": "65f25c3862695b9ab9b4d218b60c2988798f1a48853ccb674b912b970f8b530b",
+   "jolpica_pitstops_sha256": "617f7b99de655d5b6daeebdf0950a8f07cb6cbbadea018d9113eaf9a0350f922",
+   "jolpica_stops": 26,
+   "entries_in_race": 26,
+   "entries_post_finish": 0,
+   "jolpica_unmatched": 0,
+   "entries_matching_jolpica_lap": 26,
+   "entries_without_jolpica_stop": 0,
+   "extra_entries": [],
+   "entries_with_exit": 26,
+   "tyre_classes": {
+    "POS": 20,
+    "NONE": 6
+   },
+   "pos_with_consistent_fields": 20,
+   "penalty_test_set": [],
+   "lap_jumps": 0,
+   "lap_regressions": 0,
+   "retired_flag": [],
+   "stopped_flag_only": [],
+   "jolpica_terminal": [],
+   "jolpica_dsq": [],
+   "terminal_agree": 0,
+   "terminal_flag_only": [],
+   "terminal_jolpica_only": [],
+   "combined_terminal": [],
+   "combined_agree": 0,
+   "combined_flag_only": [],
+   "combined_jolpica_only": []
+  },
+  {
+   "session": "2025/2025-12-07_Abu_Dhabi_Grand_Prix/2025-12-07_Race/",
+   "round": "24",
+   "jolpica_results_sha256": "a050e293d6cfd5ac13e199489903c661a600a1aa455881f60b3f8ce343fe79a2",
+   "jolpica_pitstops_sha256": "7aa0346c3274cb378f6e23759a092cd025f83467101de00ceaebd1e41358330c",
+   "jolpica_stops": 27,
+   "entries_in_race": 27,
+   "entries_post_finish": 0,
+   "jolpica_unmatched": 0,
+   "entries_matching_jolpica_lap": 27,
+   "entries_without_jolpica_stop": 0,
+   "extra_entries": [],
+   "entries_with_exit": 27,
+   "tyre_classes": {
+    "POS": 27
+   },
+   "pos_with_consistent_fields": 26,
+   "penalty_test_set": [],
+   "lap_jumps": 0,
+   "lap_regressions": 0,
+   "retired_flag": [],
+   "stopped_flag_only": [],
+   "jolpica_terminal": [],
+   "jolpica_dsq": [],
+   "terminal_agree": 0,
+   "terminal_flag_only": [],
+   "terminal_jolpica_only": [],
+   "combined_terminal": [],
+   "combined_agree": 0,
+   "combined_flag_only": [],
+   "combined_jolpica_only": []
+  },
+  {
+   "session": "2026/2026-03-08_Australian_Grand_Prix/2026-03-08_Race/",
+   "round": "1",
+   "jolpica_results_sha256": "ba45a23314661acd2afb9f0628ef82c6c77055e8ab10cf09df717ae415780ea1",
+   "jolpica_pitstops_sha256": "81ddfb820a42d21fb8743bddd60a2a66563d2011af2b8830268cb9e9b6c39a25",
+   "jolpica_stops": 32,
+   "entries_in_race": 34,
+   "entries_post_finish": 0,
+   "jolpica_unmatched": 0,
+   "entries_matching_jolpica_lap": 32,
+   "entries_without_jolpica_stop": 2,
+   "extra_entries": [
+    [
+     "81",
+     4156.0,
+     1,
+     true
+    ],
+    [
+     "14",
+     6747.2,
+     22,
+     true
+    ]
+   ],
+   "entries_with_exit": 32,
+   "tyre_classes": {
+    "NONE": 2,
+    "NEG": 3,
+    "POS": 29
+   },
+   "pos_with_consistent_fields": 27,
+   "penalty_test_set": [
+    {
+     "drv": "43",
+     "t": 4534.8,
+     "lap": 9,
+     "class": "NEG"
+    }
+   ],
+   "lap_jumps": 0,
+   "lap_regressions": 0,
+   "retired_flag": [
+    "14",
+    "18",
+    "27",
+    "81"
+   ],
+   "stopped_flag_only": [
+    "6",
+    "77"
+   ],
+   "jolpica_terminal": [
+    "14",
+    "27",
+    "6",
+    "77",
+    "81"
+   ],
+   "jolpica_dsq": [],
+   "terminal_agree": 3,
+   "terminal_flag_only": [
+    "18"
+   ],
+   "terminal_jolpica_only": [
+    "6",
+    "77"
+   ],
+   "combined_terminal": [
+    "14",
+    "18",
+    "27",
+    "6",
+    "77",
+    "81"
+   ],
+   "combined_agree": 5,
+   "combined_flag_only": [
+    "18"
+   ],
+   "combined_jolpica_only": []
+  },
+  {
+   "session": "2026/2026-07-05_British_Grand_Prix/2026-07-05_Race/",
+   "round": "9",
+   "jolpica_results_sha256": "1fbabffa6cb7602dd7208feae20af2713913b9d37a99b2e28496dee94a297187",
+   "jolpica_pitstops_sha256": "5a5483b034645f00130b30e0834ab3dc2161106210c06280a0a055ac4d42bafb",
+   "jolpica_stops": 51,
+   "entries_in_race": 52,
+   "entries_post_finish": 0,
+   "jolpica_unmatched": 0,
+   "entries_matching_jolpica_lap": 51,
+   "entries_without_jolpica_stop": 1,
+   "extra_entries": [
+    [
+     "23",
+     7721.2,
+     43,
+     false
+    ]
+   ],
+   "entries_with_exit": 51,
+   "tyre_classes": {
+    "POS": 50,
+    "NONE": 1,
+    "NEG": 1
+   },
+   "pos_with_consistent_fields": 47,
+   "penalty_test_set": [],
+   "lap_jumps": 0,
+   "lap_regressions": 0,
+   "retired_flag": [
+    "23"
+   ],
+   "stopped_flag_only": [
+    "27",
+    "3"
+   ],
+   "jolpica_terminal": [
+    "23",
+    "27",
+    "3"
+   ],
+   "jolpica_dsq": [],
+   "terminal_agree": 1,
+   "terminal_flag_only": [],
+   "terminal_jolpica_only": [
+    "27",
+    "3"
+   ],
+   "combined_terminal": [
+    "23",
+    "27",
+    "3"
+   ],
+   "combined_agree": 3,
+   "combined_flag_only": [],
+   "combined_jolpica_only": []
+  },
+  {
+   "session": "2026/2026-10-04_Bahrain_Grand_Prix/2026-10-04_Race/",
+   "round": "16",
+   "jolpica_results_sha256": "094d36d81e6f2876f1966df586f3ea0e483ef9b3f6661c1cb85c02748ada8d9e",
+   "jolpica_pitstops_sha256": "bda910f8d8fe7b5f05bfde27fa0776b6bb3e52ae60db7cfa73b57f62ed12bc6d",
+   "jolpica_stops": 73,
+   "entries_in_race": 73,
+   "entries_post_finish": 0,
+   "jolpica_unmatched": 0,
+   "entries_matching_jolpica_lap": 73,
+   "entries_without_jolpica_stop": 0,
+   "extra_entries": [],
+   "entries_with_exit": 73,
+   "tyre_classes": {
+    "POS": 58,
+    "NEG": 3,
+    "NONE": 12
+   },
+   "pos_with_consistent_fields": 50,
+   "penalty_test_set": [],
+   "lap_jumps": 0,
+   "lap_regressions": 0,
+   "retired_flag": [],
+   "stopped_flag_only": [
+    "23",
+    "63",
+    "77"
+   ],
+   "jolpica_terminal": [
+    "23",
+    "63",
+    "77"
+   ],
+   "jolpica_dsq": [],
+   "terminal_agree": 0,
+   "terminal_flag_only": [],
+   "terminal_jolpica_only": [
+    "23",
+    "63",
+    "77"
+   ],
+   "combined_terminal": [
+    "23",
+    "63",
+    "77"
+   ],
+   "combined_agree": 3,
+   "combined_flag_only": [],
+   "combined_jolpica_only": []
+  },
+  {
+   "session": "2022/2022-03-20_Bahrain_Grand_Prix/2022-03-20_Race/",
+   "skipped": "no TimingData or no Jolpica round"
+  },
+  {
+   "session": "2022/2022-07-10_Austrian_Grand_Prix/2022-07-10_Race/",
+   "skipped": "no TimingData or no Jolpica round"
+  }
+ ]
+}
