@@ -21,6 +21,8 @@ if a penalty was issued before it and its duration is below the minimum POS dura
 Usage: python -I lt_tyre_service.py --cache DIR --probe probe.json --out tyre.json
 """
 import argparse, collections, json, os, re, statistics, urllib.request
+import os as _os, sys as _sys
+_sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__)))  # works under python -I
 from lt_probe import records
 
 UA = {"User-Agent": "f1-v2-verification"}

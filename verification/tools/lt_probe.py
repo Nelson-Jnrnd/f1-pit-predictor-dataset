@@ -11,7 +11,10 @@ HTTP metadata, and computes evidence metrics for:
       progression, stint changes (TimingAppData), compared with Jolpica pit stops;
   (C) scheduled race distance (LapCount TotalLaps).
 
-Usage: python -I lt_probe.py --cache DIR --out evidence.json YEAR/SESSIONPATH ...
+Usage:
+  python -I lt_probe.py --cache DIR --out evidence.json YEAR:ROUND|auto:PATH ...
+  python -I lt_probe.py --cache DIR --out new.json --verify old.json   # re-fetch the sessions
+      listed in old.json and report any SHA-256 / Last-Modified difference
 """
 import argparse, collections, datetime as dt, hashlib, json, re, statistics, urllib.parse, urllib.request, os
 
@@ -60,19 +63,35 @@ def merge(dst, src):
             dst[k] = v
 
 
-def resolve_round(year, session_path):
-    """Map a session path to its official round via the Jolpica season calendar (by race date)."""
-    date = session_path.strip("/").split("/")[-1][:10]
-    req = urllib.request.Request(f"https://api.jolpi.ca/ergast/f1/{year}.json?limit=100", headers={"User-Agent": "f1-v2-verification"})
-    for race in json.load(urllib.request.urlopen(req, timeout=60))["MRData"]["RaceTable"]["Races"]:
-        if race["date"] == date:
-            return race["round"]
+def jolpica_cached(path, cache):
+    """Fetch a Jolpica API path once, store the raw response under CACHE/jolpica/ and return
+    (parsed_json, sha256). Re-runs read the stored copy, so evidence is frozen and hashable."""
+    d = os.path.join(cache, "jolpica"); os.makedirs(d, exist_ok=True)
+    fn = os.path.join(d, re.sub(r"[^A-Za-z0-9]+", "_", path) + ".json")
+    if not os.path.exists(fn):
+        req = urllib.request.Request("https://api.jolpi.ca/ergast/f1/" + path, headers={"User-Agent": "f1-v2-verification"})
+        data = urllib.request.urlopen(req, timeout=60).read()
+        with open(fn, "wb") as f:
+            f.write(data)
+    raw = open(fn, "rb").read()
+    return json.loads(raw), hashlib.sha256(raw).hexdigest()
+
+
+def resolve_round(year, session_path, cache):
+    """Map a session path to its official round via the Jolpica calendar: race date, or the
+    session date +/- 1 day (local-date vs UTC-date differences, e.g. Saturday-night races)."""
+    date = dt.date.fromisoformat(session_path.strip("/").split("/")[-1][:10])
+    races = jolpica_cached(f"{year}.json?limit=100", cache)[0]["MRData"]["RaceTable"]["Races"]
+    for delta in (0, -1, 1):
+        for race in races:
+            if race["date"] == (date + dt.timedelta(days=delta)).isoformat():
+                return race["round"]
     return None
 
 
 def probe(session_path, cache, year, rnd):
     if rnd == "auto":
-        rnd = resolve_round(year, session_path)
+        rnd = resolve_round(year, session_path, cache)
     d = os.path.join(cache, session_path.strip("/").replace("/", "__"))
     os.makedirs(d, exist_ok=True)
     out = {"session": session_path, "round": rnd, "files": {}}
@@ -156,8 +175,8 @@ def probe(session_path, cache, year, rnd):
     # Jolpica pit stops (independent public record)
     if rnd:
         try:
-            req = urllib.request.Request(JOLPICA.format(y=year, r=rnd), headers={"User-Agent": "f1-v2-verification"})
-            js = json.load(urllib.request.urlopen(req, timeout=60))
+            js, sha = jolpica_cached(f"{year}/{rnd}/pitstops.json?limit=200", cache)
+            out["jolpica_pitstops_sha256"] = sha
             races = js["MRData"]["RaceTable"]["Races"]
             stops = collections.Counter()
             for s in (races[0]["PitStops"] if races else []):
@@ -173,11 +192,29 @@ if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--cache", required=True)
     ap.add_argument("--out", required=True)
-    ap.add_argument("sessions", nargs="+", help="YEAR:ROUND:path/ (path relative to static/)")
+    ap.add_argument("--verify", help="previous evidence JSON: re-fetch its sessions and diff hashes")
+    ap.add_argument("sessions", nargs="*", help="YEAR:ROUND|auto:path/ (path relative to static/)")
     a = ap.parse_args()
-    res = {"retrieved_at": dt.datetime.now(dt.timezone.utc).isoformat(), "results": []}
-    for spec in a.sessions:
+    import sys
+    res = {"retrieved_at": dt.datetime.now(dt.timezone.utc).isoformat(), "argv": sys.argv, "results": []}
+    specs = a.sessions
+    old = None
+    if a.verify:
+        old = {r["session"]: r for r in json.load(open(a.verify))["results"]}
+        specs = [f"{k[:4]}:{v.get('round') or 'auto'}:{k}" for k, v in old.items()]
+    for spec in specs:
         y, r, p = spec.split(":", 2)
         res["results"].append(probe(p, a.cache, y, r))
+    if old:
+        diffs = []
+        for r in res["results"]:
+            for feed, meta in r["files"].items():
+                o = old.get(r["session"], {}).get("files", {}).get(feed, {})
+                for key in ("sha256", "last_modified"):
+                    if o.get(key) != meta.get(key):
+                        diffs.append([r["session"], feed, key, o.get(key), meta.get(key)])
+        res["verify_against"] = a.verify
+        res["verify_differences"] = diffs
+        print(f"verify: {len(diffs)} differences")
     with open(a.out, "w") as f:
         json.dump(res, f, indent=1, default=str)

@@ -5,6 +5,8 @@ segments (e.g. Aborted/Suspended) reported. Verification tooling only.
 Usage: python -I lt_inrace_clock.py CACHE_DIR [CACHE_DIR ...] > out.json
 """
 import json, os, re, statistics, sys
+import os as _os, sys as _sys
+_sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__)))  # works under python -I
 from lt_probe import records, utc
 
 
