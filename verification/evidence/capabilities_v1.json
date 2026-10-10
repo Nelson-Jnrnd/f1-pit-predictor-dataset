@@ -1,0 +1,386 @@
+[
+ {
+  "session": "2018/2018-04-08_Bahrain_Grand_Prix/2018-04-08_Race/",
+  "lt_entries": 34,
+  "jolpica_stops": 33,
+  "entries_matching_jolpica_lap": 33,
+  "jolpica_stops_matched": 33,
+  "lt_entries_without_jolpica_stop": 1,
+  "stint_opened_after_matched_entry": 33,
+  "stint_opened_after_unmatched_entry": 0,
+  "lapcount_lag_s": {
+   "n": 53,
+   "median": -0.14,
+   "min": -1.29,
+   "max": 14.96
+  }
+ },
+ {
+  "session": "2018/2018-07-29_Hungarian_Grand_Prix/2018-07-29_Race/",
+  "lt_entries": 20,
+  "jolpica_stops": 20,
+  "entries_matching_jolpica_lap": 20,
+  "jolpica_stops_matched": 20,
+  "lt_entries_without_jolpica_stop": 0,
+  "stint_opened_after_matched_entry": 20,
+  "stint_opened_after_unmatched_entry": 0,
+  "lapcount_lag_s": {
+   "n": 69,
+   "median": 1.75,
+   "min": -2.06,
+   "max": 3.72
+  }
+ },
+ {
+  "session": "2018/2018-11-25_Abu_Dhabi_Grand_Prix/2018-11-25_Race/",
+  "lt_entries": 20,
+  "jolpica_stops": 18,
+  "entries_matching_jolpica_lap": 18,
+  "jolpica_stops_matched": 18,
+  "lt_entries_without_jolpica_stop": 2,
+  "stint_opened_after_matched_entry": 18,
+  "stint_opened_after_unmatched_entry": 0,
+  "lapcount_lag_s": {
+   "n": 54,
+   "median": -0.07,
+   "min": -2.23,
+   "max": 0.12
+  }
+ },
+ {
+  "session": "2019/2019-03-17_Australian_Grand_Prix/2019-03-17_Race/",
+  "lt_entries": 23,
+  "jolpica_stops": 22,
+  "entries_matching_jolpica_lap": 22,
+  "jolpica_stops_matched": 22,
+  "lt_entries_without_jolpica_stop": 1,
+  "stint_opened_after_matched_entry": 22,
+  "stint_opened_after_unmatched_entry": 0,
+  "lapcount_lag_s": {
+   "n": 57,
+   "median": -0.07,
+   "min": -3.09,
+   "max": 0.17
+  }
+ },
+ {
+  "session": "2019/2019-07-28_German_Grand_Prix/2019-07-28_Race/",
+  "lt_entries": 78,
+  "jolpica_stops": 78,
+  "entries_matching_jolpica_lap": 78,
+  "jolpica_stops_matched": 78,
+  "lt_entries_without_jolpica_stop": 0,
+  "stint_opened_after_matched_entry": 78,
+  "stint_opened_after_unmatched_entry": 0,
+  "lapcount_lag_s": {
+   "n": 63,
+   "median": -0.08,
+   "min": -2.88,
+   "max": -0.04
+  }
+ },
+ {
+  "session": "2019/2019-12-01_Abu_Dhabi_Grand_Prix/2019-12-01_Race/",
+  "lt_entries": 27,
+  "jolpica_stops": 25,
+  "entries_matching_jolpica_lap": 25,
+  "jolpica_stops_matched": 25,
+  "lt_entries_without_jolpica_stop": 2,
+  "stint_opened_after_matched_entry": 25,
+  "stint_opened_after_unmatched_entry": 1,
+  "lapcount_lag_s": {
+   "n": 54,
+   "median": -0.08,
+   "min": -0.13,
+   "max": 0.02
+  }
+ },
+ {
+  "session": "2020/2020-07-05_Austrian_Grand_Prix/2020-07-05_Race/",
+  "lt_entries": 42,
+  "jolpica_stops": 38,
+  "entries_matching_jolpica_lap": 38,
+  "jolpica_stops_matched": 38,
+  "lt_entries_without_jolpica_stop": 4,
+  "stint_opened_after_matched_entry": 38,
+  "stint_opened_after_unmatched_entry": 0,
+  "lapcount_lag_s": {
+   "n": 66,
+   "median": -0.1,
+   "min": -3.62,
+   "max": -0.03
+  }
+ },
+ {
+  "session": "2020/2020-09-13_Tuscan_Grand_Prix/2020-09-13_Race/",
+  "lt_entries": 68,
+  "jolpica_stops": 66,
+  "entries_matching_jolpica_lap": 66,
+  "jolpica_stops_matched": 66,
+  "lt_entries_without_jolpica_stop": 2,
+  "stint_opened_after_matched_entry": 66,
+  "stint_opened_after_unmatched_entry": 0,
+  "lapcount_lag_s": {
+   "n": 58,
+   "median": -0.09,
+   "min": -1.58,
+   "max": 0.0
+  }
+ },
+ {
+  "session": "2020/2020-12-13_Abu_Dhabi_Grand_Prix/2020-12-13_Race/",
+  "lt_entries": 23,
+  "jolpica_stops": 23,
+  "entries_matching_jolpica_lap": 23,
+  "jolpica_stops_matched": 23,
+  "lt_entries_without_jolpica_stop": 0,
+  "stint_opened_after_matched_entry": 23,
+  "stint_opened_after_unmatched_entry": 0,
+  "lapcount_lag_s": {
+   "n": 54,
+   "median": -0.08,
+   "min": -1.71,
+   "max": -0.03
+  }
+ },
+ {
+  "session": "2021/2021-03-28_Bahrain_Grand_Prix/2021-03-28_Race/",
+  "lt_entries": 43,
+  "jolpica_stops": 40,
+  "entries_matching_jolpica_lap": 40,
+  "jolpica_stops_matched": 40,
+  "lt_entries_without_jolpica_stop": 3,
+  "stint_opened_after_matched_entry": 39,
+  "stint_opened_after_unmatched_entry": 0,
+  "lapcount_lag_s": {
+   "n": 55,
+   "median": -0.09,
+   "min": -3.96,
+   "max": -0.07
+  }
+ },
+ {
+  "session": "2021/2021-08-29_Belgian_Grand_Prix/2021-08-29_Race/",
+  "lt_entries": 20,
+  "jolpica_stops": 0,
+  "entries_matching_jolpica_lap": 0,
+  "jolpica_stops_matched": 0,
+  "lt_entries_without_jolpica_stop": 20,
+  "stint_opened_after_matched_entry": 0,
+  "stint_opened_after_unmatched_entry": 20,
+  "lapcount_lag_s": {
+   "n": 3,
+   "median": -0.12,
+   "min": -0.14,
+   "max": -0.1
+  }
+ },
+ {
+  "session": "2021/2021-12-12_Abu_Dhabi_Grand_Prix/2021-12-12_Race/",
+  "lt_entries": 32,
+  "jolpica_stops": 29,
+  "entries_matching_jolpica_lap": 29,
+  "jolpica_stops_matched": 29,
+  "lt_entries_without_jolpica_stop": 3,
+  "stint_opened_after_matched_entry": 29,
+  "stint_opened_after_unmatched_entry": 0,
+  "lapcount_lag_s": {
+   "n": 57,
+   "median": -0.09,
+   "min": -1.54,
+   "max": -0.05
+  }
+ },
+ {
+  "session": "2023/2023-03-05_Bahrain_Grand_Prix/2023-03-05_Race/",
+  "lt_entries": 52,
+  "jolpica_stops": 50,
+  "entries_matching_jolpica_lap": 50,
+  "jolpica_stops_matched": 50,
+  "lt_entries_without_jolpica_stop": 2,
+  "stint_opened_after_matched_entry": 50,
+  "stint_opened_after_unmatched_entry": 0,
+  "lapcount_lag_s": {
+   "n": 56,
+   "median": -0.12,
+   "min": -0.5,
+   "max": -0.03
+  }
+ },
+ {
+  "session": "2023/2023-07-30_Belgian_Grand_Prix/2023-07-30_Race/",
+  "lt_entries": 38,
+  "jolpica_stops": 37,
+  "entries_matching_jolpica_lap": 37,
+  "jolpica_stops_matched": 37,
+  "lt_entries_without_jolpica_stop": 1,
+  "stint_opened_after_matched_entry": 37,
+  "stint_opened_after_unmatched_entry": 0,
+  "lapcount_lag_s": {
+   "n": 43,
+   "median": -0.12,
+   "min": -0.16,
+   "max": 0.09
+  }
+ },
+ {
+  "session": "2023/2023-11-26_Abu_Dhabi_Grand_Prix/2023-11-26_Race/",
+  "lt_entries": 38,
+  "jolpica_stops": 37,
+  "entries_matching_jolpica_lap": 37,
+  "jolpica_stops_matched": 37,
+  "lt_entries_without_jolpica_stop": 1,
+  "stint_opened_after_matched_entry": 37,
+  "stint_opened_after_unmatched_entry": 0,
+  "lapcount_lag_s": {
+   "n": 57,
+   "median": -0.2,
+   "min": -0.28,
+   "max": -0.08
+  }
+ },
+ {
+  "session": "2024/2024-06-23_Spanish_Grand_Prix/2024-06-23_Race/",
+  "lt_entries": 42,
+  "jolpica_stops": 42,
+  "entries_matching_jolpica_lap": 42,
+  "jolpica_stops_matched": 42,
+  "lt_entries_without_jolpica_stop": 0,
+  "stint_opened_after_matched_entry": 42,
+  "stint_opened_after_unmatched_entry": 0,
+  "lapcount_lag_s": {
+   "n": 65,
+   "median": -0.2,
+   "min": -0.27,
+   "max": -0.07
+  }
+ },
+ {
+  "session": "2024/2024-09-15_Azerbaijan_Grand_Prix/2024-09-15_Race/",
+  "lt_entries": 24,
+  "jolpica_stops": 22,
+  "entries_matching_jolpica_lap": 22,
+  "jolpica_stops_matched": 22,
+  "lt_entries_without_jolpica_stop": 2,
+  "stint_opened_after_matched_entry": 22,
+  "stint_opened_after_unmatched_entry": 0,
+  "lapcount_lag_s": {
+   "n": 50,
+   "median": -0.19,
+   "min": -0.28,
+   "max": -0.06
+  }
+ },
+ {
+  "session": "2024/2024-12-08_Abu_Dhabi_Grand_Prix/2024-12-08_Race/",
+  "lt_entries": 30,
+  "jolpica_stops": 28,
+  "entries_matching_jolpica_lap": 28,
+  "jolpica_stops_matched": 28,
+  "lt_entries_without_jolpica_stop": 2,
+  "stint_opened_after_matched_entry": 28,
+  "stint_opened_after_unmatched_entry": 0,
+  "lapcount_lag_s": {
+   "n": 57,
+   "median": -0.2,
+   "min": -0.3,
+   "max": -0.02
+  }
+ },
+ {
+  "session": "2025/2025-03-16_Australian_Grand_Prix/2025-03-16_Race/",
+  "lt_entries": 82,
+  "jolpica_stops": 82,
+  "entries_matching_jolpica_lap": 82,
+  "jolpica_stops_matched": 82,
+  "lt_entries_without_jolpica_stop": 0,
+  "stint_opened_after_matched_entry": 80,
+  "stint_opened_after_unmatched_entry": 0,
+  "lapcount_lag_s": {
+   "n": 56,
+   "median": -0.19,
+   "min": -0.35,
+   "max": -0.0
+  }
+ },
+ {
+  "session": "2025/2025-07-27_Belgian_Grand_Prix/2025-07-27_Race/",
+  "lt_entries": 26,
+  "jolpica_stops": 26,
+  "entries_matching_jolpica_lap": 26,
+  "jolpica_stops_matched": 26,
+  "lt_entries_without_jolpica_stop": 0,
+  "stint_opened_after_matched_entry": 20,
+  "stint_opened_after_unmatched_entry": 0,
+  "lapcount_lag_s": {
+   "n": 43,
+   "median": -0.2,
+   "min": -0.28,
+   "max": 0.0
+  }
+ },
+ {
+  "session": "2025/2025-12-07_Abu_Dhabi_Grand_Prix/2025-12-07_Race/",
+  "lt_entries": 27,
+  "jolpica_stops": 27,
+  "entries_matching_jolpica_lap": 27,
+  "jolpica_stops_matched": 27,
+  "lt_entries_without_jolpica_stop": 0,
+  "stint_opened_after_matched_entry": 27,
+  "stint_opened_after_unmatched_entry": 0,
+  "lapcount_lag_s": {
+   "n": 57,
+   "median": -0.16,
+   "min": -0.26,
+   "max": -0.03
+  }
+ },
+ {
+  "session": "2026/2026-03-08_Australian_Grand_Prix/2026-03-08_Race/",
+  "lt_entries": 34,
+  "jolpica_stops": 32,
+  "entries_matching_jolpica_lap": 32,
+  "jolpica_stops_matched": 32,
+  "lt_entries_without_jolpica_stop": 2,
+  "stint_opened_after_matched_entry": 32,
+  "stint_opened_after_unmatched_entry": 0,
+  "lapcount_lag_s": {
+   "n": 57,
+   "median": -0.18,
+   "min": -0.28,
+   "max": -0.01
+  }
+ },
+ {
+  "session": "2026/2026-07-05_British_Grand_Prix/2026-07-05_Race/",
+  "lt_entries": 52,
+  "jolpica_stops": 51,
+  "entries_matching_jolpica_lap": 51,
+  "jolpica_stops_matched": 51,
+  "lt_entries_without_jolpica_stop": 1,
+  "stint_opened_after_matched_entry": 51,
+  "stint_opened_after_unmatched_entry": 0,
+  "lapcount_lag_s": {
+   "n": 51,
+   "median": -0.19,
+   "min": -0.28,
+   "max": -0.01
+  }
+ },
+ {
+  "session": "2026/2026-10-04_Bahrain_Grand_Prix/2026-10-04_Race/",
+  "lt_entries": 73,
+  "jolpica_stops": 73,
+  "entries_matching_jolpica_lap": 73,
+  "jolpica_stops_matched": 73,
+  "lt_entries_without_jolpica_stop": 0,
+  "stint_opened_after_matched_entry": 48,
+  "stint_opened_after_unmatched_entry": 0,
+  "lapcount_lag_s": {
+   "n": 54,
+   "median": -0.21,
+   "min": -0.28,
+   "max": -0.03
+  }
+ }
+]
