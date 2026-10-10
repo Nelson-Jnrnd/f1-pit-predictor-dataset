@@ -80,7 +80,69 @@ def session(d):
         if hb:
             hd = [u - t - base for t, u in hb]
             out.update({"hb_dev_vs_rcm_base_min": round(min(hd), 2), "hb_dev_vs_rcm_base_max": round(max(hd), 2)})
+    out["common_mode_windows"] = common_mode_windows(d)
+    # supporting cross-stream evidence for endpoints without their own UTC (shared-clock assumption)
+    entries, inpit = {}, {}
+    for t, j in records(os.path.join(d, "TimingData.jsonStream")):
+        try:
+            L = json.loads(j).get("Lines", {})
+        except ValueError:
+            continue
+        for k, v in (L.items() if isinstance(L, dict) else []):
+            if isinstance(v, dict) and "InPit" in v:
+                if v["InPit"] and not inpit.get(k) and lo <= t <= hi:
+                    entries.setdefault(k, []).append(t)
+                inpit[k] = bool(v["InPit"])
+    stint = {}
+    for t, j in records(os.path.join(d, "TimingAppData.jsonStream")):
+        try:
+            L = json.loads(j).get("Lines", {})
+        except ValueError:
+            continue
+        for k, v in (L.items() if isinstance(L, dict) else []):
+            if isinstance(v, dict) and isinstance(v.get("Stints"), (dict, list)) and lo <= t <= hi:
+                stint.setdefault(k, []).append(t)
+    lags = []
+    for k, ev in entries.items():
+        for e in ev:
+            nxt = [s for s in stint.get(k, []) if s >= e]
+            if nxt and nxt[0] - e < 120:
+                lags.append(nxt[0] - e)
+    out["entry_to_first_stint_update_s"] = {"n": len(lags), "q01": q(lags, .01), "q50": q(lags, .5), "q99": q(lags, .99),
+                                            "min": round(min(lags), 3) if lags else None}
     return out
+
+
+def common_mode_windows(d, threshold=1.0):
+    """Clock-anomaly windows: lap-fixture residuals with |r| > threshold for >= 2 drivers whose
+    flagged laps overlap in time (common mode). Single-driver paired residuals are per-driver
+    publication delays, not clock anomalies. Returns [(start, end, n_drivers, max_abs_r)]."""
+    adv, lastlt, flagged = {}, {}, []
+    for t, j in records(os.path.join(d, "TimingData.jsonStream")):
+        try:
+            L = json.loads(j).get("Lines", {})
+        except ValueError:
+            continue
+        for k, v in (L.items() if isinstance(L, dict) else []):
+            if not isinstance(v, dict):
+                continue
+            ll = v.get("LastLapTime")
+            if isinstance(ll, dict) and ll.get("Value"):
+                lastlt[k] = (t, laptime(ll["Value"]))
+            if isinstance(v.get("NumberOfLaps"), int):
+                n = v["NumberOfLaps"]
+                if k in adv and n == adv[k][1] + 1 and k in lastlt and lastlt[k][1] and abs(lastlt[k][0] - t) < 1.0:
+                    r = (t - adv[k][0]) - lastlt[k][1]
+                    if abs(r) > threshold:
+                        flagged.append((adv[k][0], t, k, abs(r)))
+                adv[k] = (t, n)
+    wins = []
+    for a, b, k, r in sorted(flagged):
+        if wins and a <= wins[-1][1]:
+            w = wins[-1]; w[1] = max(w[1], b); w[2].add(k); w[3] = max(w[3], r)
+        else:
+            wins.append([a, b, {k}, r])
+    return [(round(a, 1), round(b, 1), len(ks), round(r, 2)) for a, b, ks, r in wins if len(ks) >= 2]
 
 
 if __name__ == "__main__":
@@ -94,3 +156,4 @@ if __name__ == "__main__":
         except Exception as e:
             out.append({"session": os.path.basename(d), "error": repr(e)})
     json.dump({"argv": sys.argv, "results": out}, open(a.out, "w"), indent=1)
+

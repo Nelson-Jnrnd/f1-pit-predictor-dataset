@@ -12,9 +12,10 @@ its SHA-256). Per race session, within the race window
      stream order; matched to Jolpica pit stops when c(E) + 1 == Jolpica lap.
   3. exits: InPit True->False following an entry (visit segmentation).
   4. lap progression: per-driver jumps (> +1) and regressions in NumberOfLaps.
-  5. terminal: drivers with TimingData Retired:true (Retired only) versus
-     Jolpica results whose status is not Finished / Lapped / "+N Lap(s)" and is
-     not a disqualification; Stopped:true is reported separately.
+  5. terminal: (a) TimingData Retired:true only, and (b) the combined rule
+     Retired:true OR (Stopped:true observed after the driver's last lap advance),
+     each versus Jolpica results whose status is not Finished / Lapped / "+N Lap(s)"
+     and is not a disqualification.
   6. tyre service (TimingAppData): for each in-race visit, the LAST stint update
      carrying TyresNotChanged in [entry, next entry) gives POS ("0"), NEG ("1"),
      or NONE (no update). POS internal consistency: that update also shows
@@ -60,11 +61,14 @@ def analyse(cache, sess, year, rnd, status):
     laps, inpit = {}, {}
     entries, post_finish, exits = collections.defaultdict(list), collections.defaultdict(list), collections.defaultdict(list)
     seq = collections.defaultdict(list); retired, stopped = set(), set()
+    last_adv, stop_times = {}, collections.defaultdict(list)
     for t, j in records(os.path.join(d, "TimingData.jsonStream")):
         for drv, v in lines_of(j).items():
             if not isinstance(v, dict):
                 continue
             if isinstance(v.get("NumberOfLaps"), int):
+                if v["NumberOfLaps"] > laps.get(drv, 0):
+                    last_adv[drv] = t
                 laps[drv] = v["NumberOfLaps"]; seq[drv].append(v["NumberOfLaps"])
             if "InPit" in v:
                 if v["InPit"] and not inpit.get(drv) and started is not None and t > started:
@@ -75,7 +79,7 @@ def analyse(cache, sess, year, rnd, status):
             if v.get("Retired") is True:
                 retired.add(drv)
             if v.get("Stopped") is True:
-                stopped.add(drv)
+                stopped.add(drv); stop_times[drv].append(t)
 
     stint_upd = collections.defaultdict(list); last_compound = {}
     for t, j in records(os.path.join(d, "TimingAppData.jsonStream")):
@@ -143,6 +147,10 @@ def analyse(cache, sess, year, rnd, status):
                 "jolpica_terminal": sorted(jol_term), "jolpica_dsq": sorted(jol_dsq),
                 "terminal_agree": len(retired & jol_term), "terminal_flag_only": sorted(retired - jol_term),
                 "terminal_jolpica_only": sorted(jol_term - retired)})
+    combined = retired | {k for k, ts in stop_times.items() if any(x > last_adv.get(k, -1) for x in ts)
+                          and not (finished is not None and min(x for x in ts if x > last_adv.get(k, -1)) >= finished)}
+    out.update({"combined_terminal": sorted(combined), "combined_agree": len(combined & jol_term),
+                "combined_flag_only": sorted(combined - jol_term), "combined_jolpica_only": sorted(jol_term - combined)})
     return out
 
 
