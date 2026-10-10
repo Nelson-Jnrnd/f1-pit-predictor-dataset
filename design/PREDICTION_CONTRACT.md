@@ -169,7 +169,7 @@ EntryLapContext
   provenance
 ```
 
-The guarantee required here is the definition above. The artifact is additive: it changes no #19 event, episode, or resolution semantics. Until #19's owner adopts it, `OBSERVED_EVENT` resolutions without an `EntryLapContext` map to `MAPPING_UNAVAILABLE` (below) rather than being guessed. The #22 integration gate must confirm adoption. The empirical support matrix for lap-completion evidence belongs to verification.
+The guarantee required here is the definition above. The artifact is additive: it changes no #19 event, episode, or resolution semantics. #19 adopted it as Amendment A1 (PR #31), and the bounded #22 re-check confirmed adoption. The selected resolution artifact references the context via `entry_lap_context_ref`. `OBSERVED_EVENT` resolutions without an `EntryLapContext` (recorded with `entry_lap_context_absent_reason`) map to `MAPPING_UNAVAILABLE` (below) rather than being guessed. The empirical support matrix for lap-completion evidence belongs to verification.
 
 ### Rule
 
@@ -439,8 +439,8 @@ PitWindowSummary
 
 | Question | Classification | Owner | Status |
 | --- | --- | --- | --- |
-| Scheduled race distance `N_T` must be represented as a legitimate fact in `CanonicalObservation` (e.g. `STATIC_PRIOR`, updated if a change is available by `T`) | Cross-slice dependency | #18 observation reconstruction; verification support matrix | Assumed expressible under #18's existing fact classes; missing fact fails closed as `REQUIRED_CONTEXT_MISSING` |
-| `EntryLapContext` (`c(E)` on the #18 lap counter) produced by retrospective target reconstruction | Cross-slice dependency | #19 target subsystem (additive artifact); tracked in Issue #27; adoption confirmed at the #22 gate; evidence support matrix owned by verification | **Not yet satisfied**: required guarantee defined here; until adopted, affected outcomes are `MAPPING_UNAVAILABLE` |
+| Scheduled race distance `N_T` must be represented as a legitimate fact in `CanonicalObservation` (e.g. `STATIC_PRIOR`, updated if a change is available by `T`) | Cross-slice dependency | #18 observation reconstruction; verification support matrix | **Satisfied** by #18 Amendment A1 (PR #32): `SCHEDULED_RACE_DISTANCE_LAPS`; missing fact fails closed as `REQUIRED_CONTEXT_MISSING` |
+| `EntryLapContext` (`c(E)` on the #18 lap counter) produced by retrospective target reconstruction | Cross-slice dependency | #19 target subsystem (additive artifact); tracked in Issue #27; adoption confirmed at the #22 gate; evidence support matrix owned by verification | **Satisfied** by #19 Amendment A1 (PR #31), confirmed at the #22 re-check; outcomes without a context are `MAPPING_UNAVAILABLE` |
 | Which component physically runs the realized-target mapping and how `NOT_REALIZED` / `MAPPING_CONFLICT` / `MAPPING_UNAVAILABLE` are accounted | Cross-slice dependency | #21 replay/backtest | Mapping function owned here; orchestration/accounting owned by #21 |
 | Development temporal boundary referenced by `ModelArtifact`; relation of `prediction_run_ref` to replay/backtest runs | Cross-slice dependency | #21 | Fields reserved here |
 | Metrics, scoring rules, set-valued outcome scoring, dependence-aware statistics | Later-phase decision | Verification/statistical phase | Deferred |
