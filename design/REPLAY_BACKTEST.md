@@ -445,7 +445,7 @@ Rules:
 | --- | --- | --- | --- |
 | Supported seasons/sessions for checkpoints, target truth, and lap-at-entry | Cross-slice dependency | Verification support matrices (#18/#19 handoffs; Issue #27) | Unresolved; consumed via `supported_scope` |
 | Per-attempt checkpoint records in the #18 run manifest | Cross-slice dependency | #18 Amendment A1 (Issue #29); confirmed at the #22 re-check | Provided by #18 Amendment A1 |
-| `EntryLapContext` adoption | Cross-slice dependency | #19 amendment, Issue #27; confirmed at #22 | Not yet satisfied; without it, in-scope runs are `DEFECTIVE` (A8) |
+| `EntryLapContext` adoption | Cross-slice dependency | #19 amendment, Issue #27; confirmed at #22 | **Satisfied** by #19 Amendment A1 (PR #31), confirmed at the #22 re-check; resolutions without a context still yield A8 and make the run `DEFECTIVE` |
 | Metrics, set-valued outcome scoring, dependence-aware uncertainty, weighting | Later-phase decision | Verification/statistical phase | Deferred |
 | Statistical handling of A6 in fitting and sensitivity analysis | Later-phase decision | Verification/statistics + model experimentation | Deferred; record-level table provided |
 | Exact season allocation, block size, minimums, refit cadence | Later-phase decision | Verification/experimentation (protocol config) | Shape fixed here; values configurable |
