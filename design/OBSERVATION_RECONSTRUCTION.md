@@ -4,6 +4,8 @@
 
 Approved — bounded re-review PASS recorded on PR #24 for substantive head `e8fd27c46415e6637ff91f0287e087abcbf4277c`.
 
+**Amendment A1 (Issue #29):** draft, under independent review bounded to the amendment. It adds per-attempt checkpoint records to the run manifest and makes scheduled race distance a named fact, as required by the #22 integration gate (findings F2 and F3). The amendment is additive and changes no observation or availability semantics.
+
 ## Abstraction level
 
 Detailed data design — historical source evidence, information-time reconstruction, canonical technical identities, normalized-fact boundaries, observation artifacts, correction handling, quality states, and provenance.
@@ -568,7 +570,40 @@ Each run persists:
 - endpoint completeness/gap summary;
 - counts by emitted/omitted/indeterminate status and reason;
 - observation artifact IDs emitted;
-- configuration inputs affecting reconstruction.
+- configuration inputs affecting reconstruction;
+- **one `CheckpointAttemptRecord` per attempt (Amendment A1, below).**
+
+### Checkpoint attempt records (Amendment A1)
+
+Failure and indeterminate attempts must be individually addressable, so downstream accounting cannot lose them silently.
+
+```text
+CheckpointAttemptRecord
+  attempt_level: SESSION | DRIVER_ENTRY | CHECKPOINT
+  race_session_key                 # requested key when identity validation fails
+  driver_entry_key?                # absent for SESSION level and for driver identity failures
+  driver_alias?                    # provider racing number/ID candidate when the entry key is absent
+  checkpoint_key?                  # CHECKPOINT level only
+  status                           # VALID | VALID_WITH_OMISSIONS | INDETERMINATE_* | ENUMERATION_INCOMPLETE
+  reason_codes[]
+  observation_artifact_ref?        # iff VALID or VALID_WITH_OMISSIONS
+```
+
+**Attempt enumeration.** For every requested race session:
+
+1. **Session.** Exactly one `SESSION` record. If session identity fails (`SESSION_ID_MISMATCH`, missing session), it carries `INDETERMINATE_IDENTITY` and no further records are produced for the session.
+2. **Driver entries.** One `DRIVER_ENTRY` record for every entry candidate evidenced by roster or timing sources. A candidate whose racing-number evidence is missing or non-unique gets `INDETERMINATE_IDENTITY` with `driver_alias` and no `driver_entry_key`. Its checkpoints are not enumerated.
+3. **Checkpoints.** For each established `DriverEntryKey`, exactly one `CHECKPOINT` record for `RACE_START` (`L = 0`), and one for each `LAP_COMPLETION` `L = 1 … L_max`.
+   - `L_max` is the largest official completed-lap count for that driver present anywhere in the frozen session evidence, **regardless of availability authority**.
+   - This retrospective maximum is used only to enumerate attempts for accounting. It is never an observation input and never creates a boundary.
+   - Lap counts skipped by verified history (`LAP_COUNT_JUMP`), unverified scopes, and missing triggers each get their own record with an `INDETERMINATE_*` status.
+4. **Incomplete enumeration.** If no lap-count evidence exists at all for an established entry, the driver gets its `RACE_START` record plus a `DRIVER_ENTRY` record with status `ENUMERATION_INCOMPLETE` (reason `LAP_COUNT_EVIDENCE_MISSING`), so the gap is explicit.
+
+Invariants:
+
+- Every emitted `CanonicalObservation` corresponds to exactly one `CHECKPOINT` record.
+- No two records share the same `(race_session_key, driver_entry_key | driver_alias, checkpoint_key)`.
+- Records are immutable with the run.
 
 A notebook state, cache directory, branch name, or file modification time is insufficient provenance.
 
@@ -606,7 +641,9 @@ At minimum:
 - `EFFECTIVE_ONLY_VALUE_OMITTED`;
 - `CORRECTION_HISTORY_UNPROVEN`;
 - `NORMALIZATION_CONFLICT`;
-- `OPTIONAL_DOMAIN_UNAVAILABLE`.
+- `OPTIONAL_DOMAIN_UNAVAILABLE`;
+- `LAP_COUNT_EVIDENCE_MISSING` (Amendment A1);
+- `SCHEDULED_DISTANCE_UNAVAILABLE` (Amendment A1).
 
 Implementations may refine codes without weakening these distinctions.
 
@@ -659,9 +696,16 @@ Pinning package versions and implementing adapter code belong to implementation/
 
 #20 may define a model-facing representation derived from canonical observation state. It may not use processed/unverified source values that bypass the observation artifact or change the information boundary.
 
+**Scheduled race distance (Amendment A1).** `canonical_state` session/race facts include `SCHEDULED_RACE_DISTANCE_LAPS`, the race's scheduled distance in laps as known at `T`. It supplies #20's `N_T`.
+
+- **Pre-race value:** admitted as `STATIC_PRIOR` from the first checkpoint onward, when it is taken from schedule or session metadata independently proven available before race start (for example the official event schedule or session information published before the start).
+- **In-race revisions** (for example a distance reduction after an aborted start or a race shortened by a time limit): admitted only from their own verified availability under the ordinary mutable-fact rules. A candidate source is the live-timing `LapCount` stream (`TotalLaps`), subject to availability-authority validation. Until a revision is admissible, the earlier value remains.
+- **Never used:** final-only values such as `TotalLaps = max(observed lap)` or the classified race distance.
+- **Absence:** if no admissible value exists, the fact is omitted with `SCHEDULED_DISTANCE_UNAVAILABLE`, and #20 fails closed with `REQUIRED_CONTEXT_MISSING`.
+
 ### #21 — replay/backtest execution
 
-#21 can order observations by canonical verified checkpoint boundaries and retain exact artifact/provenance references. It must preserve unsupported/indeterminate coverage accounting and never rewrite observations after later corrections or target resolution.
+#21 can order observations by canonical verified checkpoint boundaries and retain exact artifact/provenance references. It must preserve unsupported/indeterminate coverage accounting and never rewrite observations after later corrections or target resolution. #21 consumes `CheckpointAttemptRecord`s (Amendment A1) as its candidate population, including key-less identity-failure records.
 
 ## Verification handoff
 
@@ -679,7 +723,9 @@ The verification baseline must establish a **source-authority support matrix** b
 10. delayed/corrected facts proving earlier observations remain unchanged;
 11. partial-lap/race-wide alignment with drivers on different progression states;
 12. identical frozen inputs + identical validation/configuration yielding identical observation artifacts;
-13. season/endpoint coverage reporting showing which historical sessions are supported, valid-with-omissions, or indeterminate because authority cannot be proven.
+13. season/endpoint coverage reporting showing which historical sessions are supported, valid-with-omissions, or indeterminate because authority cannot be proven;
+14. **attempt-record completeness (Amendment A1): one record per session, entry candidate, and enumerated checkpoint; identity failures recorded without an entry key; `L_max` enumeration never feeding observation content;**
+15. **scheduled race distance (Amendment A1): the pre-race `STATIC_PRIOR` source proven available before the start; authority validation of in-race revision sources such as `LapCount`; an aborted-start or shortened-race fixture; final-only distance values rejected.**
 
 A verification result may validate only a subset of seasons/endpoints. The support matrix, not the existence of an archive file, defines the reconstructable historical scope.
 
@@ -749,3 +795,10 @@ The design now:
 - Product Owner decision: none required.
 
 This final metadata-only commit records the passing bounded re-review and does not change the reviewed substantive design.
+
+### Amendment A1 (Issue #29) — review
+
+- Scope: `CheckpointAttemptRecord` and attempt enumeration, the `SCHEDULED_RACE_DISTANCE_LAPS` fact, new reason codes, and verification items 14–15.
+- Trigger: #22 integration gate findings F2 (Major) and F3 (Minor).
+- Independent review bounded to the amendment: pending.
+
