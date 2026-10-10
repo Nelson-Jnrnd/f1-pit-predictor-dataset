@@ -4,7 +4,7 @@
 
 Approved — bounded re-review PASS recorded on PR #24 for substantive head `e8fd27c46415e6637ff91f0287e087abcbf4277c`.
 
-**Amendment A1 (Issue #29):** draft, under independent review bounded to the amendment. It adds per-attempt checkpoint records to the run manifest and makes scheduled race distance a named fact, as required by the #22 integration gate (findings F2 and F3). The amendment is additive and changes no observation or availability semantics.
+**Amendment A1 (Issue #29):** approved; bounded re-review PASS on PR #32. It adds per-attempt checkpoint records to the run manifest and makes scheduled race distance a named fact, as required by the #22 integration gate (findings F2 and F3). The amendment is additive and changes no observation or availability semantics.
 
 ## Abstraction level
 
@@ -606,6 +606,7 @@ CheckpointAttemptRecord
 
 1. **Session.** Exactly one `SESSION` record.
    - If session identity fails (`SESSION_ID_MISMATCH`, missing session), it carries `INDETERMINATE_IDENTITY`, and no further records are produced for the session.
+   - If the identity is established but source gaps, corruption or unsupported authority prevent enumerating entries at all, it carries `INDETERMINATE_SOURCE`, and no child records are produced.
    - If the identity is established but no entry candidate is evidenced at all, it carries `ENUMERATION_INCOMPLETE` (reason `NO_ENTRY_CANDIDATES`).
    - Otherwise it carries `ESTABLISHED`.
 2. **Driver entries.** Exactly one `DRIVER_ENTRY` record for every entry candidate evidenced by roster or timing sources.
@@ -719,7 +720,7 @@ Pinning package versions and implementing adapter code belong to implementation/
 **Scheduled race distance (Amendment A1).** `canonical_state` session/race facts include `SCHEDULED_RACE_DISTANCE_LAPS`, the race's scheduled distance in laps as known at `T`. It supplies #20's `N_T`.
 
 - **Pre-race value:** admitted as `STATIC_PRIOR` from the first checkpoint onward, when it is taken from schedule or session metadata independently proven available before race start (for example the official event schedule or session information published before the start).
-- **In-race revisions** (for example a distance reduction after an aborted start or a race shortened by a time limit): admitted only from their own verified availability under the ordinary mutable-fact rules. A candidate source is the live-timing `LapCount` stream (`TotalLaps`), subject to availability-authority validation. Until a revision is admissible, the earlier value remains. When the revision source is outside verified scope for the session's endpoint/era, every observation carrying the fact gets reason code `DISTANCE_REVISION_CHANNEL_UNVERIFIED`, so consumers know `N_T` may be stale. The code depends only on scope, never on whether a revision appears in the archive, so it cannot leak future information.
+- **In-race revisions** (for example a distance reduction after an aborted start or a race shortened by a time limit): admitted only from their own verified availability under the ordinary mutable-fact rules. A candidate source is the live-timing `LapCount` stream (`TotalLaps`), subject to availability-authority validation. Until a revision is admissible, the earlier value remains. When the revision source is outside verified scope for the session's endpoint/era, every observation carrying the fact gets reason code `DISTANCE_REVISION_CHANNEL_UNVERIFIED`, so consumers know `N_T` may be stale. The code is informational and does not by itself change the observation quality status. The code depends only on scope, never on whether a revision appears in the archive, so it cannot leak future information.
 - **Never used:** final-only values such as `TotalLaps = max(observed lap)` or the classified race distance.
 - **Absence:** if no admissible value exists, the fact is omitted with `SCHEDULED_DISTANCE_UNAVAILABLE`, and #20 fails closed with `REQUIRED_CONTEXT_MISSING`.
 
@@ -827,5 +828,6 @@ This final metadata-only commit records the passing bounded re-review and does n
     - R3 (Minor): `driver_alias` was not unique.
     - F3 and F4 (#21 part) satisfied.
   - Rework: an attempt-status table with `ESTABLISHED`; a single `ENUMERATION_INCOMPLETE` record per entry; the zero-candidate session case; `attempt_key` used for #21 manifest, accounting, and reproduction; established rows excluded from #21 candidates; a candidate-distinguishing alias. Observations adopted: the `DISTANCE_REVISION_CHANNEL_UNVERIFIED` scope code, a truncated-tail fixture, and the candidate-population statement moved to #21 ownership.
-  - Bounded re-review: pending.
+  - Bounded re-review: **PASS** on PR #32 for head `aca8e4c1c9bf02181fd91861482fb2ee3d8d1e57`. R1–R3 resolved, no regressions, and F2, F3 and F4 (#21 part) satisfied. The optional observations O-a through O-d were applied in a follow-up commit.
+  - Product Owner decision: none required.
 

@@ -4,7 +4,7 @@
 
 Approved — bounded re-review PASS recorded on PR #28 for substantive head `564f3c1e4af5dfbc5f5a78922964992bc91308b3`; follow-up commit applies the reviewer's two Minor fixes (R1, R2) and two observations only.
 
-**Amendment A1 (Issue #29):** draft, under independent review bounded to the amendment. It consumes #18 `CheckpointAttemptRecord`s, including key-less identity failures (#22 finding F2, #21 part), and adds an initialization-lineage check at the backtest join (#22 finding F4, #21 part).
+**Amendment A1 (Issue #29):** approved; bounded re-review PASS on PR #32. It consumes #18 `CheckpointAttemptRecord`s, including key-less identity failures (#22 finding F2, #21 part), and adds an initialization-lineage check at the backtest join (#22 finding F4, #21 part).
 
 ## Abstraction level
 
@@ -171,7 +171,7 @@ For one driver entry, both orders give strictly increasing `completed_laps`. Eve
 
 #### Per-checkpoint step
 
-For each `CheckpointAttemptRecord` of the referenced #18 run. `SESSION` and `DRIVER_ENTRY` records are listed in the manifest. Those with status `ESTABLISHED` are completeness markers, not candidate records. Those with any other status are recorded directly as step 1 states. `CHECKPOINT` records follow the steps below.
+The step processes every `CheckpointAttemptRecord` of the referenced #18 run. `SESSION` and `DRIVER_ENTRY` records are listed in the manifest. Those with status `ESTABLISHED` are completeness markers, not candidate records. Those with any other status are recorded directly as step 1 states. `CHECKPOINT` records follow the steps below.
 
 1. If there is no canonical observation, record the #18 state.
 2. Otherwise read the #19 decision. If there is no decision, or the decision is `ELIGIBLE` but has no `TargetEpisodeInitialization`, record an upstream-linkage defect.
@@ -463,7 +463,7 @@ The verification baseline must include at least:
 4. cutoff fixtures under `t(cutoff) ≤ t(r)`: `cutoff = r` accepted, cutoff after `r` refused, checked per race with `PER_RACE` schedules;
 5. lock and ledger fixtures: no lock refused; first evaluation `PRIMARY_FINAL`; a matching rerun `REPRODUCTION`; a non-matching rerun or reseeded rerun under the same lock `POST_HOC`; a new protocol over opened races `POST_HOC`; a partition with one fresh race rejected for a new primary claim; an ad hoc opening making a later evaluation `POST_HOC`; a refit under an abandoned lock, or a development join under another protocol, making a later evaluation of that race `POST_HOC`; a replay with a different inference seed policy refused; a backtest with a non-protocol resolution run refused unless declared as a correction (`RESOLUTION_REEVALUATION`);
 6. a development-join fixture: final-partition races are refused before a lock, and a `FINAL_REFIT` records its openings;
-7. accounting fixtures for A0–A11 and the development categories: exhaustiveness, mutual exclusivity, and order; key-less session and driver identity failures appearing as A1 rows in manifest order; an initialization-lineage mismatch producing A0;
+7. accounting fixtures for A0–A11 and the development categories: exhaustiveness, mutual exclusivity, and order; key-less session and driver identity failures appearing as A1 rows in manifest order; an initialization-lineage mismatch producing A0; `ESTABLISHED` session and driver-entry rows receiving no category;
 8. a cohort fixture: inclusion is unchanged under perturbations of realized timing or prediction values; a nonzero A8 (or A5, A7, A0) count marks the run `DEFECTIVE` and blocks `PRIMARY` scores;
 9. a successive-forecast fixture: units sharing `eventual_event_key` with distinct `target_episode_key`s are both retained;
 10. reproduction fixtures: semantic-keyed comparison, tolerance boundary, and a new run id;
