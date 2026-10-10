@@ -2,7 +2,7 @@
 
 ## Status
 
-Draft — reworked after the full scoped review on PR #39. A bounded re-review is required before approval.
+Approved. The bounded re-review passed on PR #39 for substantive head `eca220a5d96ae71c0a276169bc6485e8fd8e218c`. A follow-up commit applies only the reviewer's three Minor clarifications.
 
 ## Abstraction level
 
@@ -98,7 +98,12 @@ All baselines share these rules:
 | **B1** (tyre-age hazard) | `logit λ_h = β0 + β1·a + β2·a² + β_c[compound] + β4·f_h`, where `a = stint_age_at_T + h` and `f_h = (N_T − (L + h)) / N_T`. Compound levels are `SOFT`, `MEDIUM`, `HARD`, `INTERMEDIATE`, `WET` and `OTHER`. `q_open = logit⁻¹(γ0 + γ1·f_T + γ_c[compound])`, with `f_T = (N_T − L) / N_T` | Current stint age and compound (#18 `TimingAppData` facts admissible at T, under RA-2 and the #35 10 s cross-stream margin), plus `L` and `N_T` |
 | **B-thesis** (secondary) | The `p_0` of B1, scored by Brier on the event "entry in `R_0`", for continuity with the thesis-era binary framing | as B1 |
 
-- **B1 omission rule.** If stint age or compound is omitted at T (not admissible, or a provisional stint opened by a visit with no confirmed service), B1 emits B0's distribution for that observation. This is deterministic and involves no imputation.
+- **B1 omission rule.** B1 emits B0's distribution for an observation when the canonical state at T shows **any** of the following:
+  - stint age or compound is omitted, i.e. not admissible;
+  - the latest admissible stint update carries `TyresNotChanged:"1"`;
+  - there has been no admissible stint update since the driver's last pit entry.
+
+  The trigger uses only facts in the canonical state at T, never #19's retrospective service classification. It is deterministic and involves no imputation.
 - **Fitting.**
   - Maximum likelihood on person-period data built from development episodes.
   - A9 episodes contribute through their event region. A11 episodes contribute through all regions.
@@ -164,7 +169,7 @@ Two `BacktestProtocol`s are declared. Each conforms to #21 as written: one final
 | --- | --- |
 | `supported_scope` | P-F1's 55 races, plus the F2 races admitted by the inclusion rule below |
 | `development_partition` | As P-F1 |
-| `final_partition` | **Rule:** every 2026 Formula 1 championship race held after 2026 R16 and before 2027-01-01 that passes the F2 inclusion rule |
+| `final_partition` | **Rule:** every 2026 Formula 1 championship race held after 2026 R16 and before 2027-01-01 that passes the F2 inclusion rule. The rule is resolved to a **fixed list of races**, recorded in P-F2 before its lock and before any F2 opening; #21 coverage checks against that list |
 | Lock | A separate `EvaluationLock` with the **same** `procedure_id`, seeds and `ModelArtifact` as P-F1, and no refit |
 | Commitment | P-F2 (rule and digest) is committed **before any P-F1 final opening** |
 | `prior_exposure` | None, provided the inclusion rule is followed |
@@ -178,7 +183,7 @@ Two `BacktestProtocol`s are declared. Each conforms to #21 as written: one final
 
 No record content may be parsed or analysed before the P-F2 lock. A failing race is excluded through scope, never record by record. Any capability, pit or tyre analysis of an F2 race before its lock is an exposure. It must be registered as an `AD_HOC_OPENING` (#21), which makes that race `POST_HOC`, or declared in P-F2's `prior_exposure`.
 
-**Claims.** The primary final claim is `ΔS` on P-F1, labelled `PRIMARY_FINAL` by the ledger. P-F2 then gives an independent confirmatory claim with the same locked artifact. Both claims cite the evidence exception and RA-1–RA-4 (#35).
+**Claims.** The primary final claim is `ΔS` on P-F1, labelled `PRIMARY_FINAL` by the ledger. P-F2 then gives an independent confirmatory claim with the same locked artifact. The P-F2 claim is **reported whatever the P-F1 result**, so confirmation is never selective. Both claims cite the evidence exception and RA-1–RA-4 (#35).
 
 ## 8. Truncation (A6) handling and sensitivity
 
@@ -193,10 +198,11 @@ No record content may be parsed or analysed before the P-F2 lock. A failing race
 4. **Restriction sensitivity (`RETROSPECTIVE_DIAGNOSTIC`).** Repeat the analyses on races with a truncation share below the median.
 5. **Mechanism-targeted sensitivity (`RETROSPECTIVE_DIAGNOSTIC`).**
    - Scope: each A6 unit whose truncation reason is an indeterminate tyre-service visit `V`, where `V` lies at region index `v` on that unit's grid. `v` is computed with the #20 mapping from `V`'s pit-entry lap count.
+   - **Cross-slice dependency (#19).** `V`'s lap count requires a retrospective lap context for visits that cause truncation. #19 currently produces `EntryLapContext` only for selected qualifying events, and the backtest join may not read source evidence. Until #19 provides an additive artifact for these visits, this diagnostic is reported as **not computable**.
    - Score the unit under both resolutions of `V`:
      - **(a) `V` qualifies:** the realized outcome is region `v`, so `S_a = −ln p_v`.
      - **(b) `V` does not qualify:** only the coarsened event "no qualifying entry before region `v`" is known, so `S_b = −ln (1 − (p_0 + … + p_{v−1}))`.
-   - Report `ΔS` over cohort ∪ A6 under (a) and under (b) as two bounding scenarios.
+   - Report `ΔS` over cohort ∪ A6 under scenario (a) and under scenario (b). These are two scenarios, **not bounds**: (b) scores only a coarsened event.
    - These scores are diagnostic. They never alter accounting and never convert `NOT_REALIZED` (#20, #21).
 
 ## 9. Reporting requirements
@@ -219,7 +225,7 @@ It includes the section 1–3 results for the locked procedure, B1 and B0, and t
 | Candidate procedures (within the section 6 budget and pre-registration) | Implementation / experimentation |
 | Scorer, CR2 / wild-bootstrap code, metadata-only F2 inclusion check | Implementation; fixtures in #36 |
 | `resolution_run_ref` value | Implementation, declared before each lock |
-| Visit lap count for section 8.5 | Implementation, from #19 visit artifacts under the #20 mapping |
+| Visit lap count for section 8.5 | Cross-slice dependency on #19 (additive lap context for visits that cause truncation); until then the diagnostic is not computable |
 
 ## Acceptance mapping (Issue #37)
 
@@ -228,7 +234,7 @@ It includes the section 1–3 results for the locked procedure, B1 and B0, and t
 - **Pre-specified baselines and a deterministic selection objective:** sections 4 and 6.
 - **Declared protocol values consistent with #21 and #35, including an accurate prior-exposure declaration:** section 7.
 - **Truncation sensitivity:** section 8.
-- **Independent review:** full review FAIL; rework complete; bounded re-review pending.
+- **Independent review:** full review FAIL, then bounded re-review PASS, on PR #39.
 
 ## Product Owner decisions
 
@@ -270,6 +276,13 @@ None required. These are delegated verification choices within the approved eval
 
 Observations adopted: the alternative censoring and lap-level construction, and intervals that are conditional on the fitted models.
 
-### Bounded re-review
+### Bounded re-review — PASS
 
-Required under `governance/REVIEW_POLICY.md`.
+- PR: #39. Reviewer: the same independent review agent; recorded on PR #39 as a `COMMENT` review through the connected account. Date: 2026-10-10.
+- Reviewed substantive head: `eca220a5d96ae71c0a276169bc6485e8fd8e218c`.
+- Outcome: **PASS**. All prior findings 1–11 are resolved, and no Blocking or Major findings remain.
+- Minor findings fixed in the follow-up commit:
+  - R1: the section 8.5 lap context is routed to #19 as a cross-slice dependency, the diagnostic is not computable until then, and (a) and (b) are called scenarios, not bounds.
+  - R2: the B1 fallback trigger uses only facts at T.
+  - R3: the P-F2 rule is resolved to a fixed list before its lock, and P-F2 is reported whatever P-F1 shows.
+- Product Owner decision: none required.
