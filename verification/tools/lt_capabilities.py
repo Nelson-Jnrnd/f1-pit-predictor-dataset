@@ -13,9 +13,12 @@ lt_probe.py and, per race, compares with the Jolpica public record:
   3. cross-stream lap consistency: lag from the leader's TimingData lap advance
      to the LapCount CurrentLap increment.
   4. visit segmentation: in-race entries with a following InPit False exit.
-  5. negative tyre-service candidates: entries without a Jolpica stop that are
-     explained by a RaceControlMessages "PENALTY SERVED - DRIVE THROUGH" or
-     "STOP-AND-GO" message for the same car within 180 s after entry.
+  5. negative tyre-service candidates: entries without a Jolpica stop, classified as
+     (a) penalty: a DRIVE THROUGH / STOP-AND-GO penalty for the same car was issued
+         before the entry and a matching "PENALTY SERVED" message exists (stewards
+         publish SERVED late, so its timing is not constrained; retrospective use);
+     (b) retirement: no further lap advance for the driver after the entry;
+     (c) unexplained.
   6. stint detail: share of opened stints carrying Compound and New fields.
   7. participation: drivers flagged Retired/Stopped in TimingData versus
      Jolpica non-classified/retired status.
@@ -42,7 +45,7 @@ def analyse(cache, sess, year, rnd, started):
         jl[num_of.get(s["driverId"])].append(int(s["lap"]))
     # TimingData stream-order events
     laps = {}; inpit = {}; entries = collections.defaultdict(list); lead_adv = []
-    exits = collections.defaultdict(list); retired = set()
+    exits = collections.defaultdict(list); retired = set(); advances = collections.defaultdict(list)
     for t, j in records(os.path.join(d, "TimingData.jsonStream")):
         try:
             lines = json.loads(j).get("Lines", {})
@@ -55,6 +58,8 @@ def analyse(cache, sess, year, rnd, started):
                 continue
             if "NumberOfLaps" in v and isinstance(v["NumberOfLaps"], int):
                 prev = laps.get(drv, 0)
+                if v["NumberOfLaps"] > prev:
+                    advances[drv].append(t)
                 if v["NumberOfLaps"] > max([0] + list(laps.values())):
                     lead_adv.append((t, v["NumberOfLaps"]))
                 laps[drv] = v["NumberOfLaps"]
@@ -86,12 +91,16 @@ def analyse(cache, sess, year, rnd, started):
                         opened += 1
                         detailed += isinstance(body, dict) and "Compound" in body and "New" in body
     # RaceControlMessages served drive-through / stop-and-go per car
-    served = collections.defaultdict(list)
+    issued = collections.defaultdict(list); served = set(); lap_adv = collections.defaultdict(list)
+    pat = r'"Message":"([^"]*?(PENALTY SERVED - )?(?:DRIVE THROUGH|STOP-AND-GO|STOP AND GO|STOP/GO) PENALTY FOR CAR (\d+)[^"]*)"'
     for t, j in records(os.path.join(d, "RaceControlMessages.jsonStream")):
-        for m in __import__("re").finditer(r'"Message":"([^"]*PENALTY SERVED - (?:DRIVE THROUGH|STOP-AND-GO|STOP AND GO|STOP/GO)[^"]*CAR (\d+)[^"]*)"', j):
-            served[m.group(2)].append(t)
+        for m in __import__("re").finditer(pat, j):
+            if m.group(2):
+                served.add(m.group(3))
+            else:
+                issued[m.group(3)].append(t)
     # 1 + 2
-    explained = 0; with_exit = 0
+    explained = 0; with_exit = 0; retire_entries = 0; unexplained = []
     matched = unmatched_lt = 0; stint_m = stint_u = 0; jol_total = sum(len(v) for v in jl.values()); jol_hit = 0
     for drv, ev in entries.items():
         jlaps = list(jl.get(drv, []))
@@ -103,7 +112,12 @@ def analyse(cache, sess, year, rnd, started):
                 jlaps.remove(c + 1); matched += 1; stint_m += has_stint
             else:
                 unmatched_lt += 1; stint_u += has_stint
-                explained += any(t <= s <= t + 180 for s in served.get(drv, []))
+                if drv in served and any(i < t for i in issued.get(drv, [])):
+                    explained += 1
+                elif not any(a > t for a in advances.get(drv, [])):
+                    retire_entries += 1
+                else:
+                    unexplained.append([drv, round(t, 1), c])
         jol_hit += len(jl.get(drv, [])) - len(jlaps)
     # 3 LapCount lag
     lc = [(t, json.loads(j)["CurrentLap"]) for t, j in records(os.path.join(d, "LapCount.jsonStream")) if '"CurrentLap"' in j]
@@ -116,6 +130,8 @@ def analyse(cache, sess, year, rnd, started):
             "lt_entries_without_jolpica_stop": unmatched_lt,
             "stint_opened_after_matched_entry": stint_m, "stint_opened_after_unmatched_entry": stint_u,
             "unmatched_entries_explained_by_served_penalty": explained,
+            "unmatched_entries_followed_by_no_further_lap": retire_entries,
+            "unmatched_entries_unexplained": unexplained,
             "entries_with_exit": with_exit, "stints_opened": opened, "stints_with_compound_and_new": detailed,
             "drivers_flagged_retired_or_stopped": sorted(retired),
             "jolpica_not_finished": sorted(r["number"] for r in (res[0]["Results"] if res else [])

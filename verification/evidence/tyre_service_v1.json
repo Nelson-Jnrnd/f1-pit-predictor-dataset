@@ -1,0 +1,1817 @@
+[
+ {
+  "counts": {
+   "POS": 33,
+   "NONE": 1
+  },
+  "neg": 0,
+  "neg_corroborated": 0,
+  "pos_contradicted": 0,
+  "min_pos_duration": 24.302,
+  "neg_visits": [],
+  "none_visits": [
+   {
+    "drv": "7",
+    "t": 3889.3,
+    "lap": 35,
+    "cls": "NONE",
+    "first_cls": null,
+    "dur": null,
+    "penalty_before": false
+   }
+  ],
+  "penalty_visits": [],
+  "session": "2018/2018-04-08_Bahrain_Grand_Prix/2018-04-08_Race/"
+ },
+ {
+  "counts": {
+   "POS": 20
+  },
+  "neg": 0,
+  "neg_corroborated": 0,
+  "pos_contradicted": 0,
+  "min_pos_duration": 21.291,
+  "neg_visits": [],
+  "none_visits": [],
+  "penalty_visits": [],
+  "session": "2018/2018-07-29_Hungarian_Grand_Prix/2018-07-29_Race/"
+ },
+ {
+  "counts": {
+   "POS": 18,
+   "NONE": 2
+  },
+  "neg": 0,
+  "neg_corroborated": 0,
+  "pos_contradicted": 0,
+  "min_pos_duration": 21.057,
+  "neg_visits": [],
+  "none_visits": [
+   {
+    "drv": "7",
+    "t": 3152.6,
+    "lap": 7,
+    "cls": "NONE",
+    "first_cls": null,
+    "dur": null,
+    "penalty_before": false
+   },
+   {
+    "drv": "31",
+    "t": 7216.4,
+    "lap": 45,
+    "cls": "NONE",
+    "first_cls": null,
+    "dur": null,
+    "penalty_before": false
+   }
+  ],
+  "penalty_visits": [],
+  "session": "2018/2018-11-25_Abu_Dhabi_Grand_Prix/2018-11-25_Race/"
+ },
+ {
+  "counts": {
+   "POS": 22,
+   "NONE": 1
+  },
+  "neg": 0,
+  "neg_corroborated": 0,
+  "pos_contradicted": 0,
+  "min_pos_duration": 21.157,
+  "neg_visits": [],
+  "none_visits": [
+   {
+    "drv": "3",
+    "t": 4705.7,
+    "lap": 29,
+    "cls": "NONE",
+    "first_cls": null,
+    "dur": null,
+    "penalty_before": false
+   }
+  ],
+  "penalty_visits": [],
+  "session": "2019/2019-03-17_Australian_Grand_Prix/2019-03-17_Race/"
+ },
+ {
+  "counts": {
+   "POS": 78
+  },
+  "neg": 0,
+  "neg_corroborated": 0,
+  "pos_contradicted": 0,
+  "min_pos_duration": 19.062,
+  "neg_visits": [],
+  "none_visits": [],
+  "penalty_visits": [],
+  "session": "2019/2019-07-28_German_Grand_Prix/2019-07-28_Race/"
+ },
+ {
+  "counts": {
+   "POS": 26,
+   "NONE": 1
+  },
+  "neg": 0,
+  "neg_corroborated": 0,
+  "pos_contradicted": 0,
+  "min_pos_duration": 21.023,
+  "neg_visits": [],
+  "none_visits": [
+   {
+    "drv": "18",
+    "t": 6823.3,
+    "lap": 45,
+    "cls": "NONE",
+    "first_cls": null,
+    "dur": null,
+    "penalty_before": false
+   }
+  ],
+  "penalty_visits": [],
+  "session": "2019/2019-12-01_Abu_Dhabi_Grand_Prix/2019-12-01_Race/"
+ },
+ {
+  "counts": {
+   "NONE": 4,
+   "POS": 25,
+   "NEG": 13
+  },
+  "neg": 13,
+  "neg_corroborated": 13,
+  "pos_contradicted": 0,
+  "min_pos_duration": 21.279,
+  "neg_visits": [
+   {
+    "drv": "99",
+    "t": 6256.6,
+    "lap": 56,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 19.678,
+    "penalty_before": false
+   },
+   {
+    "drv": "77",
+    "t": 6239.0,
+    "lap": 56,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 16.407,
+    "penalty_before": false
+   },
+   {
+    "drv": "44",
+    "t": 6240.7,
+    "lap": 56,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 16.365,
+    "penalty_before": false
+   },
+   {
+    "drv": "23",
+    "t": 6243.2,
+    "lap": 56,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 17.035,
+    "penalty_before": false
+   },
+   {
+    "drv": "4",
+    "t": 6244.1,
+    "lap": 56,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 18.163,
+    "penalty_before": false
+   },
+   {
+    "drv": "11",
+    "t": 6241.8,
+    "lap": 56,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 16.546,
+    "penalty_before": false
+   },
+   {
+    "drv": "16",
+    "t": 6245.5,
+    "lap": 56,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 18.748,
+    "penalty_before": false
+   },
+   {
+    "drv": "55",
+    "t": 6248.5,
+    "lap": 56,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 20.064,
+    "penalty_before": false
+   },
+   {
+    "drv": "5",
+    "t": 6253.8,
+    "lap": 56,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 19.33,
+    "penalty_before": false
+   },
+   {
+    "drv": "10",
+    "t": 6247.4,
+    "lap": 56,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 19.911,
+    "penalty_before": false
+   },
+   {
+    "drv": "26",
+    "t": 6251.7,
+    "lap": 56,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 19.656,
+    "penalty_before": false
+   },
+   {
+    "drv": "31",
+    "t": 6249.9,
+    "lap": 56,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 19.626,
+    "penalty_before": false
+   },
+   {
+    "drv": "6",
+    "t": 6255.2,
+    "lap": 56,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 19.488,
+    "penalty_before": false
+   }
+  ],
+  "none_visits": [
+   {
+    "drv": "33",
+    "t": 2998.8,
+    "lap": 12,
+    "cls": "NONE",
+    "first_cls": null,
+    "dur": null,
+    "penalty_before": false
+   },
+   {
+    "drv": "3",
+    "t": 3205.2,
+    "lap": 17,
+    "cls": "NONE",
+    "first_cls": null,
+    "dur": null,
+    "penalty_before": false
+   },
+   {
+    "drv": "18",
+    "t": 3405.1,
+    "lap": 20,
+    "cls": "NONE",
+    "first_cls": null,
+    "dur": null,
+    "penalty_before": false
+   },
+   {
+    "drv": "8",
+    "t": 5658.9,
+    "lap": 49,
+    "cls": "NONE",
+    "first_cls": null,
+    "dur": null,
+    "penalty_before": false
+   }
+  ],
+  "penalty_visits": [],
+  "session": "2020/2020-07-05_Austrian_Grand_Prix/2020-07-05_Race/"
+ },
+ {
+  "counts": {
+   "POS": 48,
+   "NEG": 18,
+   "NONE": 2
+  },
+  "neg": 18,
+  "neg_corroborated": 13,
+  "pos_contradicted": 0,
+  "min_pos_duration": 22.387,
+  "neg_visits": [
+   {
+    "drv": "7",
+    "t": 2931.7,
+    "lap": 7,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 17.594,
+    "penalty_before": false
+   },
+   {
+    "drv": "7",
+    "t": 3090.4,
+    "lap": 8,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 1450.186,
+    "penalty_before": false
+   },
+   {
+    "drv": "7",
+    "t": 7829.9,
+    "lap": 44,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 1180.725,
+    "penalty_before": false
+   },
+   {
+    "drv": "5",
+    "t": 2932.7,
+    "lap": 7,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 17.516,
+    "penalty_before": false
+   },
+   {
+    "drv": "77",
+    "t": 2914.9,
+    "lap": 7,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 17.56,
+    "penalty_before": false
+   },
+   {
+    "drv": "44",
+    "t": 2917.3,
+    "lap": 7,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 17.536,
+    "penalty_before": false
+   },
+   {
+    "drv": "16",
+    "t": 2918.6,
+    "lap": 7,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 17.516,
+    "penalty_before": false
+   },
+   {
+    "drv": "23",
+    "t": 2920.3,
+    "lap": 7,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 17.591,
+    "penalty_before": false
+   },
+   {
+    "drv": "23",
+    "t": 7836.1,
+    "lap": 45,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 1302.435,
+    "penalty_before": false
+   },
+   {
+    "drv": "18",
+    "t": 2921.4,
+    "lap": 7,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 17.625,
+    "penalty_before": false
+   },
+   {
+    "drv": "3",
+    "t": 2923.2,
+    "lap": 7,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 17.464,
+    "penalty_before": false
+   },
+   {
+    "drv": "11",
+    "t": 2924.6,
+    "lap": 7,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 17.531,
+    "penalty_before": false
+   },
+   {
+    "drv": "4",
+    "t": 2925.6,
+    "lap": 7,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 17.845,
+    "penalty_before": false
+   },
+   {
+    "drv": "26",
+    "t": 2927.8,
+    "lap": 7,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 17.522,
+    "penalty_before": false
+   },
+   {
+    "drv": "26",
+    "t": 7858.5,
+    "lap": 45,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 1290.227,
+    "penalty_before": false
+   },
+   {
+    "drv": "31",
+    "t": 2929.8,
+    "lap": 7,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 17.455,
+    "penalty_before": false
+   },
+   {
+    "drv": "63",
+    "t": 2930.3,
+    "lap": 7,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 18.399,
+    "penalty_before": false
+   },
+   {
+    "drv": "63",
+    "t": 7889.1,
+    "lap": 45,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 1269.095,
+    "penalty_before": false
+   }
+  ],
+  "none_visits": [
+   {
+    "drv": "31",
+    "t": 3085.9,
+    "lap": 8,
+    "cls": "NONE",
+    "first_cls": null,
+    "dur": null,
+    "penalty_before": false
+   },
+   {
+    "drv": "6",
+    "t": 3792.6,
+    "lap": 7,
+    "cls": "NONE",
+    "first_cls": null,
+    "dur": null,
+    "penalty_before": false
+   }
+  ],
+  "penalty_visits": [],
+  "session": "2020/2020-09-13_Tuscan_Grand_Prix/2020-09-13_Race/"
+ },
+ {
+  "counts": {
+   "POS": 23
+  },
+  "neg": 0,
+  "neg_corroborated": 0,
+  "pos_contradicted": 0,
+  "min_pos_duration": 21.289,
+  "neg_visits": [],
+  "none_visits": [],
+  "penalty_visits": [],
+  "session": "2020/2020-12-13_Abu_Dhabi_Grand_Prix/2020-12-13_Race/"
+ },
+ {
+  "counts": {
+   "POS": 39,
+   "NONE": 4
+  },
+  "neg": 0,
+  "neg_corroborated": 0,
+  "pos_contradicted": 0,
+  "min_pos_duration": 23.848,
+  "neg_visits": [],
+  "none_visits": [
+   {
+    "drv": "11",
+    "t": 4235.7,
+    "lap": 19,
+    "cls": "NONE",
+    "first_cls": null,
+    "dur": 24.105,
+    "penalty_before": false
+   },
+   {
+    "drv": "10",
+    "t": 7490.3,
+    "lap": 52,
+    "cls": "NONE",
+    "first_cls": null,
+    "dur": null,
+    "penalty_before": false
+   },
+   {
+    "drv": "14",
+    "t": 5550.2,
+    "lap": 32,
+    "cls": "NONE",
+    "first_cls": null,
+    "dur": null,
+    "penalty_before": false
+   },
+   {
+    "drv": "6",
+    "t": 7459.0,
+    "lap": 51,
+    "cls": "NONE",
+    "first_cls": null,
+    "dur": null,
+    "penalty_before": false
+   }
+  ],
+  "penalty_visits": [],
+  "session": "2021/2021-03-28_Bahrain_Grand_Prix/2021-03-28_Race/"
+ },
+ {
+  "counts": {
+   "NEG": 18,
+   "POS": 2
+  },
+  "neg": 18,
+  "neg_corroborated": 0,
+  "pos_contradicted": 0,
+  "min_pos_duration": null,
+  "neg_visits": [
+   {
+    "drv": "33",
+    "t": 15964.7,
+    "lap": 3,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": null,
+    "penalty_before": false
+   },
+   {
+    "drv": "44",
+    "t": 15968.2,
+    "lap": 3,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": null,
+    "penalty_before": false
+   },
+   {
+    "drv": "3",
+    "t": 15971.6,
+    "lap": 3,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": null,
+    "penalty_before": false
+   },
+   {
+    "drv": "5",
+    "t": 15974.2,
+    "lap": 3,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": null,
+    "penalty_before": false
+   },
+   {
+    "drv": "10",
+    "t": 15977.4,
+    "lap": 3,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": null,
+    "penalty_before": false
+   },
+   {
+    "drv": "31",
+    "t": 15978.9,
+    "lap": 3,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": null,
+    "penalty_before": false
+   },
+   {
+    "drv": "16",
+    "t": 15980.3,
+    "lap": 3,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": null,
+    "penalty_before": false
+   },
+   {
+    "drv": "55",
+    "t": 15984.3,
+    "lap": 3,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": null,
+    "penalty_before": false
+   },
+   {
+    "drv": "14",
+    "t": 15986.8,
+    "lap": 3,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": null,
+    "penalty_before": false
+   },
+   {
+    "drv": "77",
+    "t": 15988.9,
+    "lap": 3,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": null,
+    "penalty_before": false
+   },
+   {
+    "drv": "99",
+    "t": 15991.1,
+    "lap": 3,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": null,
+    "penalty_before": false
+   },
+   {
+    "drv": "4",
+    "t": 15993.1,
+    "lap": 3,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": null,
+    "penalty_before": false
+   },
+   {
+    "drv": "22",
+    "t": 15995.0,
+    "lap": 3,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": null,
+    "penalty_before": false
+   },
+   {
+    "drv": "47",
+    "t": 15997.0,
+    "lap": 3,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": null,
+    "penalty_before": false
+   },
+   {
+    "drv": "9",
+    "t": 15999.6,
+    "lap": 3,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": null,
+    "penalty_before": false
+   },
+   {
+    "drv": "18",
+    "t": 16001.7,
+    "lap": 3,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": null,
+    "penalty_before": false
+   },
+   {
+    "drv": "7",
+    "t": 16005.6,
+    "lap": 3,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": null,
+    "penalty_before": false
+   },
+   {
+    "drv": "11",
+    "t": 16008.5,
+    "lap": 3,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": null,
+    "penalty_before": false
+   }
+  ],
+  "none_visits": [],
+  "penalty_visits": [],
+  "session": "2021/2021-08-29_Belgian_Grand_Prix/2021-08-29_Race/"
+ },
+ {
+  "counts": {
+   "POS": 29,
+   "NONE": 3
+  },
+  "neg": 0,
+  "neg_corroborated": 0,
+  "pos_contradicted": 0,
+  "min_pos_duration": 21.152,
+  "neg_visits": [],
+  "none_visits": [
+   {
+    "drv": "11",
+    "t": 8793.5,
+    "lap": 55,
+    "cls": "NONE",
+    "first_cls": null,
+    "dur": null,
+    "penalty_before": false
+   },
+   {
+    "drv": "7",
+    "t": 6104.7,
+    "lap": 25,
+    "cls": "NONE",
+    "first_cls": null,
+    "dur": null,
+    "penalty_before": false
+   },
+   {
+    "drv": "63",
+    "t": 6211.9,
+    "lap": 26,
+    "cls": "NONE",
+    "first_cls": null,
+    "dur": null,
+    "penalty_before": false
+   }
+  ],
+  "penalty_visits": [],
+  "session": "2021/2021-12-12_Abu_Dhabi_Grand_Prix/2021-12-12_Race/"
+ },
+ {
+  "counts": {
+   "POS": 47,
+   "NEG": 3,
+   "NONE": 2
+  },
+  "neg": 3,
+  "neg_corroborated": 0,
+  "pos_contradicted": 0,
+  "min_pos_duration": 24.227,
+  "neg_visits": [
+   {
+    "drv": "23",
+    "t": 7790.5,
+    "lap": 40,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 24.458,
+    "penalty_before": false
+   },
+   {
+    "drv": "31",
+    "t": 5290.1,
+    "lap": 15,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 41.462,
+    "penalty_before": false
+   },
+   {
+    "drv": "1",
+    "t": 7305.6,
+    "lap": 36,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 24.91,
+    "penalty_before": false
+   }
+  ],
+  "none_visits": [
+   {
+    "drv": "31",
+    "t": 7974.8,
+    "lap": 41,
+    "cls": "NONE",
+    "first_cls": null,
+    "dur": null,
+    "penalty_before": false
+   },
+   {
+    "drv": "81",
+    "t": 5097.0,
+    "lap": 13,
+    "cls": "NONE",
+    "first_cls": null,
+    "dur": null,
+    "penalty_before": false
+   }
+  ],
+  "penalty_visits": [],
+  "session": "2023/2023-03-05_Bahrain_Grand_Prix/2023-03-05_Race/"
+ },
+ {
+  "counts": {
+   "POS": 37,
+   "NONE": 1
+  },
+  "neg": 0,
+  "neg_corroborated": 0,
+  "pos_contradicted": 0,
+  "min_pos_duration": 22.61,
+  "neg_visits": [],
+  "none_visits": [
+   {
+    "drv": "55",
+    "t": 6454.9,
+    "lap": 23,
+    "cls": "NONE",
+    "first_cls": null,
+    "dur": null,
+    "penalty_before": false
+   }
+  ],
+  "penalty_visits": [],
+  "session": "2023/2023-07-30_Belgian_Grand_Prix/2023-07-30_Race/"
+ },
+ {
+  "counts": {
+   "POS": 37,
+   "NONE": 1
+  },
+  "neg": 0,
+  "neg_corroborated": 0,
+  "pos_contradicted": 0,
+  "min_pos_duration": 21.156,
+  "neg_visits": [],
+  "none_visits": [
+   {
+    "drv": "55",
+    "t": 8954.6,
+    "lap": 57,
+    "cls": "NONE",
+    "first_cls": null,
+    "dur": null,
+    "penalty_before": false
+   }
+  ],
+  "penalty_visits": [],
+  "session": "2023/2023-11-26_Abu_Dhabi_Grand_Prix/2023-11-26_Race/"
+ },
+ {
+  "counts": {
+   "POS": 42
+  },
+  "neg": 0,
+  "neg_corroborated": 0,
+  "pos_contradicted": 0,
+  "min_pos_duration": 21.464,
+  "neg_visits": [],
+  "none_visits": [],
+  "penalty_visits": [],
+  "session": "2024/2024-06-23_Spanish_Grand_Prix/2024-06-23_Race/"
+ },
+ {
+  "counts": {
+   "POS": 22,
+   "NONE": 2
+  },
+  "neg": 0,
+  "neg_corroborated": 0,
+  "pos_contradicted": 0,
+  "min_pos_duration": 19.712,
+  "neg_visits": [],
+  "none_visits": [
+   {
+    "drv": "18",
+    "t": 8374.0,
+    "lap": 45,
+    "cls": "NONE",
+    "first_cls": null,
+    "dur": null,
+    "penalty_before": false
+   },
+   {
+    "drv": "22",
+    "t": 4996.8,
+    "lap": 14,
+    "cls": "NONE",
+    "first_cls": null,
+    "dur": null,
+    "penalty_before": false
+   }
+  ],
+  "penalty_visits": [],
+  "session": "2024/2024-09-15_Azerbaijan_Grand_Prix/2024-09-15_Race/"
+ },
+ {
+  "counts": {
+   "POS": 26,
+   "NONE": 2,
+   "NEG": 2
+  },
+  "neg": 2,
+  "neg_corroborated": 1,
+  "pos_contradicted": 0,
+  "min_pos_duration": 21.276,
+  "neg_visits": [
+   {
+    "drv": "30",
+    "t": 5654.2,
+    "lap": 24,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 22.565,
+    "penalty_before": false
+   },
+   {
+    "drv": "30",
+    "t": 6126.0,
+    "lap": 29,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 32.317,
+    "penalty_before": true
+   }
+  ],
+  "none_visits": [
+   {
+    "drv": "43",
+    "t": 5877.3,
+    "lap": 26,
+    "cls": "NONE",
+    "first_cls": null,
+    "dur": null,
+    "penalty_before": false
+   },
+   {
+    "drv": "77",
+    "t": 6254.4,
+    "lap": 30,
+    "cls": "NONE",
+    "first_cls": null,
+    "dur": null,
+    "penalty_before": false
+   }
+  ],
+  "penalty_visits": [
+   {
+    "drv": "30",
+    "t": 6126.0,
+    "lap": 29,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 32.317,
+    "penalty_before": true
+   }
+  ],
+  "session": "2024/2024-12-08_Abu_Dhabi_Grand_Prix/2024-12-08_Race/"
+ },
+ {
+  "counts": {
+   "NEG": 50,
+   "POS": 32
+  },
+  "neg": 50,
+  "neg_corroborated": 30,
+  "pos_contradicted": 0,
+  "min_pos_duration": 15.02,
+  "neg_visits": [
+   {
+    "drv": "4",
+    "t": 4536.6,
+    "lap": 2,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 13.341,
+    "penalty_before": false
+   },
+   {
+    "drv": "4",
+    "t": 4698.7,
+    "lap": 3,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 12.91,
+    "penalty_before": false
+   },
+   {
+    "drv": "4",
+    "t": 4854.7,
+    "lap": 4,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 12.804,
+    "penalty_before": false
+   },
+   {
+    "drv": "1",
+    "t": 4538.2,
+    "lap": 2,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 13.416,
+    "penalty_before": false
+   },
+   {
+    "drv": "1",
+    "t": 4700.2,
+    "lap": 3,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 13.74,
+    "penalty_before": false
+   },
+   {
+    "drv": "1",
+    "t": 4856.5,
+    "lap": 4,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 12.938,
+    "penalty_before": false
+   },
+   {
+    "drv": "81",
+    "t": 4540.1,
+    "lap": 2,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 13.078,
+    "penalty_before": false
+   },
+   {
+    "drv": "81",
+    "t": 4701.7,
+    "lap": 3,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 13.838,
+    "penalty_before": false
+   },
+   {
+    "drv": "81",
+    "t": 4858.3,
+    "lap": 4,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 12.816,
+    "penalty_before": false
+   },
+   {
+    "drv": "63",
+    "t": 4541.8,
+    "lap": 2,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 13.672,
+    "penalty_before": false
+   },
+   {
+    "drv": "63",
+    "t": 4703.7,
+    "lap": 3,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 14.104,
+    "penalty_before": false
+   },
+   {
+    "drv": "63",
+    "t": 4860.7,
+    "lap": 4,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 13.696,
+    "penalty_before": false
+   },
+   {
+    "drv": "16",
+    "t": 4544.4,
+    "lap": 2,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 14.182,
+    "penalty_before": false
+   },
+   {
+    "drv": "16",
+    "t": 4706.0,
+    "lap": 3,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 14.621,
+    "penalty_before": false
+   },
+   {
+    "drv": "16",
+    "t": 4862.2,
+    "lap": 4,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 14.129,
+    "penalty_before": false
+   },
+   {
+    "drv": "22",
+    "t": 4546.6,
+    "lap": 2,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 14.957,
+    "penalty_before": false
+   },
+   {
+    "drv": "22",
+    "t": 4709.3,
+    "lap": 3,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 15.223,
+    "penalty_before": false
+   },
+   {
+    "drv": "22",
+    "t": 4866.1,
+    "lap": 4,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 13.605,
+    "penalty_before": false
+   },
+   {
+    "drv": "22",
+    "t": 7693.3,
+    "lap": 33,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 18.997,
+    "penalty_before": false
+   },
+   {
+    "drv": "22",
+    "t": 9313.7,
+    "lap": 47,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 19.312,
+    "penalty_before": false
+   },
+   {
+    "drv": "23",
+    "t": 4711.2,
+    "lap": 3,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 16.993,
+    "penalty_before": false
+   },
+   {
+    "drv": "23",
+    "t": 4867.8,
+    "lap": 4,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 14.285,
+    "penalty_before": false
+   },
+   {
+    "drv": "44",
+    "t": 4551.2,
+    "lap": 2,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 15.002,
+    "penalty_before": false
+   },
+   {
+    "drv": "44",
+    "t": 4713.9,
+    "lap": 3,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 16.191,
+    "penalty_before": false
+   },
+   {
+    "drv": "44",
+    "t": 4869.6,
+    "lap": 4,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 14.789,
+    "penalty_before": false
+   },
+   {
+    "drv": "10",
+    "t": 4553.6,
+    "lap": 2,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 15.104,
+    "penalty_before": false
+   },
+   {
+    "drv": "10",
+    "t": 4716.1,
+    "lap": 3,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 15.744,
+    "penalty_before": false
+   },
+   {
+    "drv": "10",
+    "t": 4872.4,
+    "lap": 4,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 14.71,
+    "penalty_before": false
+   },
+   {
+    "drv": "14",
+    "t": 4554.8,
+    "lap": 2,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 15.535,
+    "penalty_before": false
+   },
+   {
+    "drv": "14",
+    "t": 4717.2,
+    "lap": 3,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 16.241,
+    "penalty_before": false
+   },
+   {
+    "drv": "14",
+    "t": 4874.0,
+    "lap": 4,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 15.034,
+    "penalty_before": false
+   },
+   {
+    "drv": "18",
+    "t": 4557.3,
+    "lap": 2,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 15.505,
+    "penalty_before": false
+   },
+   {
+    "drv": "18",
+    "t": 4720.0,
+    "lap": 3,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 16.014,
+    "penalty_before": false
+   },
+   {
+    "drv": "18",
+    "t": 4877.1,
+    "lap": 4,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 14.451,
+    "penalty_before": false
+   },
+   {
+    "drv": "18",
+    "t": 7724.9,
+    "lap": 33,
+    "cls": "NEG",
+    "first_cls": "POS",
+    "dur": 18.802,
+    "penalty_before": false
+   },
+   {
+    "drv": "27",
+    "t": 4559.4,
+    "lap": 2,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 15.13,
+    "penalty_before": false
+   },
+   {
+    "drv": "27",
+    "t": 4721.8,
+    "lap": 3,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 15.971,
+    "penalty_before": false
+   },
+   {
+    "drv": "27",
+    "t": 4879.3,
+    "lap": 4,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 14.198,
+    "penalty_before": false
+   },
+   {
+    "drv": "12",
+    "t": 4561.4,
+    "lap": 2,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 14.658,
+    "penalty_before": false
+   },
+   {
+    "drv": "12",
+    "t": 4723.5,
+    "lap": 3,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 16.374,
+    "penalty_before": false
+   },
+   {
+    "drv": "12",
+    "t": 4881.1,
+    "lap": 4,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 13.975,
+    "penalty_before": false
+   },
+   {
+    "drv": "5",
+    "t": 4563.1,
+    "lap": 2,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 14.432,
+    "penalty_before": false
+   },
+   {
+    "drv": "5",
+    "t": 4725.5,
+    "lap": 3,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 16.363,
+    "penalty_before": false
+   },
+   {
+    "drv": "5",
+    "t": 4883.3,
+    "lap": 4,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 14.206,
+    "penalty_before": false
+   },
+   {
+    "drv": "31",
+    "t": 4565.1,
+    "lap": 2,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 14.395,
+    "penalty_before": false
+   },
+   {
+    "drv": "31",
+    "t": 4727.5,
+    "lap": 3,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 16.477,
+    "penalty_before": false
+   },
+   {
+    "drv": "30",
+    "t": 4567.4,
+    "lap": 2,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 14.79,
+    "penalty_before": false
+   },
+   {
+    "drv": "30",
+    "t": 4730.2,
+    "lap": 3,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 16.309,
+    "penalty_before": false
+   },
+   {
+    "drv": "30",
+    "t": 4887.9,
+    "lap": 4,
+    "cls": "NEG",
+    "first_cls": "POS",
+    "dur": 18.88,
+    "penalty_before": false
+   },
+   {
+    "drv": "87",
+    "t": 4568.5,
+    "lap": 2,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 14.605,
+    "penalty_before": false
+   }
+  ],
+  "none_visits": [],
+  "penalty_visits": [],
+  "session": "2025/2025-03-16_Australian_Grand_Prix/2025-03-16_Race/"
+ },
+ {
+  "counts": {
+   "POS": 20,
+   "NONE": 6
+  },
+  "neg": 0,
+  "neg_corroborated": 0,
+  "pos_contradicted": 0,
+  "min_pos_duration": 23.269,
+  "neg_visits": [],
+  "none_visits": [
+   {
+    "drv": "27",
+    "t": 11974.1,
+    "lap": 32,
+    "cls": "NONE",
+    "first_cls": null,
+    "dur": 23.89,
+    "penalty_before": false
+   },
+   {
+    "drv": "14",
+    "t": 11659.4,
+    "lap": 29,
+    "cls": "NONE",
+    "first_cls": null,
+    "dur": 23.692,
+    "penalty_before": false
+   },
+   {
+    "drv": "43",
+    "t": 11560.3,
+    "lap": 28,
+    "cls": "NONE",
+    "first_cls": null,
+    "dur": 23.449,
+    "penalty_before": false
+   },
+   {
+    "drv": "55",
+    "t": 11344.3,
+    "lap": 26,
+    "cls": "NONE",
+    "first_cls": null,
+    "dur": 23.77,
+    "penalty_before": false
+   },
+   {
+    "drv": "12",
+    "t": 11765.4,
+    "lap": 30,
+    "cls": "NONE",
+    "first_cls": null,
+    "dur": 23.059,
+    "penalty_before": false
+   },
+   {
+    "drv": "6",
+    "t": 10693.4,
+    "lap": 20,
+    "cls": "NONE",
+    "first_cls": null,
+    "dur": 23.376,
+    "penalty_before": false
+   }
+  ],
+  "penalty_visits": [],
+  "session": "2025/2025-07-27_Belgian_Grand_Prix/2025-07-27_Race/"
+ },
+ {
+  "counts": {
+   "POS": 27
+  },
+  "neg": 0,
+  "neg_corroborated": 0,
+  "pos_contradicted": 0,
+  "min_pos_duration": 20.902,
+  "neg_visits": [],
+  "none_visits": [],
+  "penalty_visits": [],
+  "session": "2025/2025-12-07_Abu_Dhabi_Grand_Prix/2025-12-07_Race/"
+ },
+ {
+  "counts": {
+   "NONE": 2,
+   "NEG": 3,
+   "POS": 29
+  },
+  "neg": 3,
+  "neg_corroborated": 1,
+  "pos_contradicted": 0,
+  "min_pos_duration": 17.649,
+  "neg_visits": [
+   {
+    "drv": "43",
+    "t": 4534.8,
+    "lap": 9,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 27.733,
+    "penalty_before": true
+   },
+   {
+    "drv": "14",
+    "t": 4969.7,
+    "lap": 13,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 972.356,
+    "penalty_before": false
+   },
+   {
+    "drv": "77",
+    "t": 4896.9,
+    "lap": 12,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 30.387,
+    "penalty_before": false
+   }
+  ],
+  "none_visits": [
+   {
+    "drv": "81",
+    "t": 4156.0,
+    "lap": 1,
+    "cls": "NONE",
+    "first_cls": null,
+    "dur": null,
+    "penalty_before": false
+   },
+   {
+    "drv": "14",
+    "t": 6747.2,
+    "lap": 22,
+    "cls": "NONE",
+    "first_cls": null,
+    "dur": null,
+    "penalty_before": false
+   }
+  ],
+  "penalty_visits": [
+   {
+    "drv": "43",
+    "t": 4534.8,
+    "lap": 9,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 27.733,
+    "penalty_before": true
+   },
+   {
+    "drv": "43",
+    "t": 7869.2,
+    "lap": 46,
+    "cls": "POS",
+    "first_cls": "POS",
+    "dur": 18.561,
+    "penalty_before": true
+   }
+  ],
+  "session": "2026/2026-03-08_Australian_Grand_Prix/2026-03-08_Race/"
+ },
+ {
+  "counts": {
+   "POS": 50,
+   "NONE": 1,
+   "NEG": 1
+  },
+  "neg": 1,
+  "neg_corroborated": 0,
+  "pos_contradicted": 0,
+  "min_pos_duration": 28.337,
+  "neg_visits": [
+   {
+    "drv": "12",
+    "t": 7483.4,
+    "lap": 43,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 33.65,
+    "penalty_before": false
+   }
+  ],
+  "none_visits": [
+   {
+    "drv": "23",
+    "t": 7721.2,
+    "lap": 43,
+    "cls": "NONE",
+    "first_cls": null,
+    "dur": null,
+    "penalty_before": false
+   }
+  ],
+  "penalty_visits": [],
+  "session": "2026/2026-07-05_British_Grand_Prix/2026-07-05_Race/"
+ },
+ {
+  "counts": {
+   "POS": 58,
+   "NEG": 3,
+   "NONE": 12
+  },
+  "neg": 3,
+  "neg_corroborated": 0,
+  "pos_contradicted": 0,
+  "min_pos_duration": 27.295,
+  "neg_visits": [
+   {
+    "drv": "11",
+    "t": 9128.2,
+    "lap": 2,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 41.721,
+    "penalty_before": false
+   },
+   {
+    "drv": "81",
+    "t": 9973.5,
+    "lap": 9,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 29.204,
+    "penalty_before": false
+   },
+   {
+    "drv": "81",
+    "t": 12608.3,
+    "lap": 33,
+    "cls": "NEG",
+    "first_cls": "NEG",
+    "dur": 28.337,
+    "penalty_before": false
+   }
+  ],
+  "none_visits": [
+   {
+    "drv": "16",
+    "t": 12092.7,
+    "lap": 28,
+    "cls": "NONE",
+    "first_cls": null,
+    "dur": 27.957,
+    "penalty_before": false
+   },
+   {
+    "drv": "63",
+    "t": 12474.6,
+    "lap": 32,
+    "cls": "NONE",
+    "first_cls": null,
+    "dur": 27.677,
+    "penalty_before": false
+   },
+   {
+    "drv": "63",
+    "t": 13763.0,
+    "lap": 44,
+    "cls": "NONE",
+    "first_cls": null,
+    "dur": 27.702,
+    "penalty_before": false
+   },
+   {
+    "drv": "6",
+    "t": 12382.3,
+    "lap": 31,
+    "cls": "NONE",
+    "first_cls": null,
+    "dur": 28.522,
+    "penalty_before": false
+   },
+   {
+    "drv": "31",
+    "t": 12199.6,
+    "lap": 29,
+    "cls": "NONE",
+    "first_cls": null,
+    "dur": 29.057,
+    "penalty_before": false
+   },
+   {
+    "drv": "23",
+    "t": 12238.3,
+    "lap": 29,
+    "cls": "NONE",
+    "first_cls": null,
+    "dur": 27.859,
+    "penalty_before": false
+   },
+   {
+    "drv": "14",
+    "t": 12413.5,
+    "lap": 31,
+    "cls": "NONE",
+    "first_cls": null,
+    "dur": 27.615,
+    "penalty_before": false
+   },
+   {
+    "drv": "14",
+    "t": 13967.0,
+    "lap": 45,
+    "cls": "NONE",
+    "first_cls": null,
+    "dur": 27.809,
+    "penalty_before": false
+   },
+   {
+    "drv": "10",
+    "t": 13062.8,
+    "lap": 37,
+    "cls": "NONE",
+    "first_cls": null,
+    "dur": 27.854,
+    "penalty_before": false
+   },
+   {
+    "drv": "10",
+    "t": 14011.9,
+    "lap": 45,
+    "cls": "NONE",
+    "first_cls": null,
+    "dur": 28.335,
+    "penalty_before": false
+   },
+   {
+    "drv": "43",
+    "t": 13583.4,
+    "lap": 42,
+    "cls": "NONE",
+    "first_cls": null,
+    "dur": 28.211,
+    "penalty_before": false
+   },
+   {
+    "drv": "87",
+    "t": 13163.8,
+    "lap": 38,
+    "cls": "NONE",
+    "first_cls": null,
+    "dur": 28.017,
+    "penalty_before": false
+   }
+  ],
+  "penalty_visits": [],
+  "session": "2026/2026-10-04_Bahrain_Grand_Prix/2026-10-04_Race/"
+ }
+]

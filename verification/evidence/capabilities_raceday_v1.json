@@ -1,0 +1,2041 @@
+[
+ {
+  "session": "2024/2024-06-23_Spanish_Grand_Prix/2024-06-23_Race/",
+  "lt_entries": 42,
+  "jolpica_stops": 42,
+  "entries_matching_jolpica_lap": 42,
+  "jolpica_stops_matched": 42,
+  "lt_entries_without_jolpica_stop": 0,
+  "stint_opened_after_matched_entry": 42,
+  "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 0,
+  "unmatched_entries_unexplained": [],
+  "entries_with_exit": 42,
+  "stints_opened": 42,
+  "stints_with_compound_and_new": 42,
+  "drivers_flagged_retired_or_stopped": [],
+  "jolpica_not_finished": [],
+  "lapcount_lag_s": {
+   "n": 65,
+   "median": -0.2,
+   "min": -0.27,
+   "max": -0.07
+  }
+ },
+ {
+  "session": "2024/2024-06-30_Austrian_Grand_Prix/2024-06-30_Race/",
+  "lt_entries": 46,
+  "jolpica_stops": 45,
+  "entries_matching_jolpica_lap": 45,
+  "jolpica_stops_matched": 45,
+  "lt_entries_without_jolpica_stop": 1,
+  "stint_opened_after_matched_entry": 45,
+  "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 0,
+  "unmatched_entries_unexplained": [
+   [
+    "4",
+    7918.7,
+    63
+   ]
+  ],
+  "entries_with_exit": 45,
+  "stints_opened": 45,
+  "stints_with_compound_and_new": 45,
+  "drivers_flagged_retired_or_stopped": [
+   "4"
+  ],
+  "jolpica_not_finished": [],
+  "lapcount_lag_s": {
+   "n": 70,
+   "median": -0.21,
+   "min": -0.39,
+   "max": -0.08
+  }
+ },
+ {
+  "session": "2024/2024-07-07_British_Grand_Prix/2024-07-07_Race/",
+  "lt_entries": 46,
+  "jolpica_stops": 45,
+  "entries_matching_jolpica_lap": 45,
+  "jolpica_stops_matched": 45,
+  "lt_entries_without_jolpica_stop": 1,
+  "stint_opened_after_matched_entry": 45,
+  "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 0,
+  "unmatched_entries_unexplained": [
+   [
+    "63",
+    6660.0,
+    32
+   ]
+  ],
+  "entries_with_exit": 45,
+  "stints_opened": 45,
+  "stints_with_compound_and_new": 45,
+  "drivers_flagged_retired_or_stopped": [
+   "10",
+   "63"
+  ],
+  "jolpica_not_finished": [
+   "10",
+   "63"
+  ],
+  "lapcount_lag_s": {
+   "n": 51,
+   "median": -0.19,
+   "min": -0.29,
+   "max": 0.9
+  }
+ },
+ {
+  "session": "2024/2024-07-21_Hungarian_Grand_Prix/2024-07-21_Race/",
+  "lt_entries": 41,
+  "jolpica_stops": 40,
+  "entries_matching_jolpica_lap": 40,
+  "jolpica_stops_matched": 40,
+  "lt_entries_without_jolpica_stop": 1,
+  "stint_opened_after_matched_entry": 40,
+  "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 0,
+  "unmatched_entries_unexplained": [
+   [
+    "10",
+    6162.8,
+    32
+   ]
+  ],
+  "entries_with_exit": 40,
+  "stints_opened": 40,
+  "stints_with_compound_and_new": 40,
+  "drivers_flagged_retired_or_stopped": [
+   "10"
+  ],
+  "jolpica_not_finished": [
+   "10"
+  ],
+  "lapcount_lag_s": {
+   "n": 69,
+   "median": -0.19,
+   "min": -0.29,
+   "max": -0.03
+  }
+ },
+ {
+  "session": "2024/2024-07-28_Belgian_Grand_Prix/2024-07-28_Race/",
+  "lt_entries": 35,
+  "jolpica_stops": 34,
+  "entries_matching_jolpica_lap": 34,
+  "jolpica_stops_matched": 34,
+  "lt_entries_without_jolpica_stop": 1,
+  "stint_opened_after_matched_entry": 34,
+  "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 0,
+  "unmatched_entries_unexplained": [
+   [
+    "24",
+    3970.0,
+    4
+   ]
+  ],
+  "entries_with_exit": 34,
+  "stints_opened": 38,
+  "stints_with_compound_and_new": 38,
+  "drivers_flagged_retired_or_stopped": [
+   "24"
+  ],
+  "jolpica_not_finished": [
+   "24",
+   "63"
+  ],
+  "lapcount_lag_s": {
+   "n": 43,
+   "median": -0.18,
+   "min": -0.27,
+   "max": -0.06
+  }
+ },
+ {
+  "session": "2024/2024-08-25_Dutch_Grand_Prix/2024-08-25_Race/",
+  "lt_entries": 26,
+  "jolpica_stops": 26,
+  "entries_matching_jolpica_lap": 26,
+  "jolpica_stops_matched": 26,
+  "lt_entries_without_jolpica_stop": 0,
+  "stint_opened_after_matched_entry": 26,
+  "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 0,
+  "unmatched_entries_unexplained": [],
+  "entries_with_exit": 26,
+  "stints_opened": 26,
+  "stints_with_compound_and_new": 26,
+  "drivers_flagged_retired_or_stopped": [],
+  "jolpica_not_finished": [],
+  "lapcount_lag_s": {
+   "n": 71,
+   "median": -0.2,
+   "min": -0.36,
+   "max": -0.12
+  }
+ },
+ {
+  "session": "2024/2024-09-01_Italian_Grand_Prix/2024-09-01_Race/",
+  "lt_entries": 31,
+  "jolpica_stops": 30,
+  "entries_matching_jolpica_lap": 30,
+  "jolpica_stops_matched": 30,
+  "lt_entries_without_jolpica_stop": 1,
+  "stint_opened_after_matched_entry": 30,
+  "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 0,
+  "unmatched_entries_unexplained": [
+   [
+    "22",
+    3983.7,
+    6
+   ]
+  ],
+  "entries_with_exit": 30,
+  "stints_opened": 30,
+  "stints_with_compound_and_new": 30,
+  "drivers_flagged_retired_or_stopped": [
+   "22"
+  ],
+  "jolpica_not_finished": [
+   "22"
+  ],
+  "lapcount_lag_s": {
+   "n": 52,
+   "median": -0.2,
+   "min": -0.32,
+   "max": -0.07
+  }
+ },
+ {
+  "session": "2024/2024-09-15_Azerbaijan_Grand_Prix/2024-09-15_Race/",
+  "lt_entries": 24,
+  "jolpica_stops": 22,
+  "entries_matching_jolpica_lap": 22,
+  "jolpica_stops_matched": 22,
+  "lt_entries_without_jolpica_stop": 2,
+  "stint_opened_after_matched_entry": 22,
+  "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 0,
+  "unmatched_entries_unexplained": [
+   [
+    "18",
+    8374.0,
+    44
+   ],
+   [
+    "22",
+    4996.8,
+    13
+   ]
+  ],
+  "entries_with_exit": 22,
+  "stints_opened": 22,
+  "stints_with_compound_and_new": 22,
+  "drivers_flagged_retired_or_stopped": [
+   "11",
+   "18",
+   "22",
+   "55"
+  ],
+  "jolpica_not_finished": [
+   "11",
+   "18",
+   "22",
+   "55"
+  ],
+  "lapcount_lag_s": {
+   "n": 50,
+   "median": -0.19,
+   "min": -0.28,
+   "max": -0.06
+  }
+ },
+ {
+  "session": "2024/2024-09-22_Singapore_Grand_Prix/2024-09-22_Race/",
+  "lt_entries": 25,
+  "jolpica_stops": 23,
+  "entries_matching_jolpica_lap": 23,
+  "jolpica_stops_matched": 23,
+  "lt_entries_without_jolpica_stop": 2,
+  "stint_opened_after_matched_entry": 23,
+  "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 0,
+  "unmatched_entries_unexplained": [
+   [
+    "23",
+    4974.3,
+    14
+   ],
+   [
+    "20",
+    9225.5,
+    56
+   ]
+  ],
+  "entries_with_exit": 23,
+  "stints_opened": 23,
+  "stints_with_compound_and_new": 23,
+  "drivers_flagged_retired_or_stopped": [
+   "20",
+   "23"
+  ],
+  "jolpica_not_finished": [
+   "20",
+   "23"
+  ],
+  "lapcount_lag_s": {
+   "n": 61,
+   "median": -0.21,
+   "min": -0.39,
+   "max": -0.04
+  }
+ },
+ {
+  "session": "2024/2024-10-20_United_States_Grand_Prix/2024-10-20_Race/",
+  "lt_entries": 23,
+  "jolpica_stops": 23,
+  "entries_matching_jolpica_lap": 23,
+  "jolpica_stops_matched": 23,
+  "lt_entries_without_jolpica_stop": 0,
+  "stint_opened_after_matched_entry": 23,
+  "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 0,
+  "unmatched_entries_unexplained": [],
+  "entries_with_exit": 23,
+  "stints_opened": 23,
+  "stints_with_compound_and_new": 23,
+  "drivers_flagged_retired_or_stopped": [
+   "44"
+  ],
+  "jolpica_not_finished": [
+   "44"
+  ],
+  "lapcount_lag_s": {
+   "n": 55,
+   "median": -0.18,
+   "min": -0.28,
+   "max": -0.04
+  }
+ },
+ {
+  "session": "2024/2024-10-27_Mexico_City_Grand_Prix/2024-10-27_Race/",
+  "lt_entries": 22,
+  "jolpica_stops": 21,
+  "entries_matching_jolpica_lap": 21,
+  "jolpica_stops_matched": 21,
+  "lt_entries_without_jolpica_stop": 1,
+  "stint_opened_after_matched_entry": 21,
+  "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 0,
+  "unmatched_entries_unexplained": [
+   [
+    "14",
+    4885.5,
+    14
+   ]
+  ],
+  "entries_with_exit": 21,
+  "stints_opened": 21,
+  "stints_with_compound_and_new": 21,
+  "drivers_flagged_retired_or_stopped": [
+   "14",
+   "22",
+   "23"
+  ],
+  "jolpica_not_finished": [
+   "14",
+   "22",
+   "23"
+  ],
+  "lapcount_lag_s": {
+   "n": 70,
+   "median": -0.19,
+   "min": -0.31,
+   "max": -0.04
+  }
+ },
+ {
+  "session": "2024/2024-11-03_S\u00e3o_Paulo_Grand_Prix/2024-11-03_Race/",
+  "lt_entries": 36,
+  "jolpica_stops": 35,
+  "entries_matching_jolpica_lap": 35,
+  "jolpica_stops_matched": 35,
+  "lt_entries_without_jolpica_stop": 1,
+  "stint_opened_after_matched_entry": 35,
+  "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 0,
+  "unmatched_entries_unexplained": [
+   [
+    "27",
+    7265.3,
+    29
+   ]
+  ],
+  "entries_with_exit": 35,
+  "stints_opened": 35,
+  "stints_with_compound_and_new": 35,
+  "drivers_flagged_retired_or_stopped": [
+   "18",
+   "23",
+   "27",
+   "43",
+   "55"
+  ],
+  "jolpica_not_finished": [
+   "18",
+   "23",
+   "27",
+   "43",
+   "55"
+  ],
+  "lapcount_lag_s": {
+   "n": 68,
+   "median": -0.2,
+   "min": -0.28,
+   "max": 0.02
+  }
+ },
+ {
+  "session": "2024/2024-11-23_Las_Vegas_Grand_Prix/2024-11-23_Race/",
+  "lt_entries": 41,
+  "jolpica_stops": 39,
+  "entries_matching_jolpica_lap": 39,
+  "jolpica_stops_matched": 39,
+  "lt_entries_without_jolpica_stop": 2,
+  "stint_opened_after_matched_entry": 39,
+  "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 0,
+  "unmatched_entries_unexplained": [
+   [
+    "23",
+    5916.2,
+    24
+   ],
+   [
+    "10",
+    4921.3,
+    14
+   ]
+  ],
+  "entries_with_exit": 39,
+  "stints_opened": 39,
+  "stints_with_compound_and_new": 39,
+  "drivers_flagged_retired_or_stopped": [
+   "10",
+   "23"
+  ],
+  "jolpica_not_finished": [
+   "10",
+   "23"
+  ],
+  "lapcount_lag_s": {
+   "n": 49,
+   "median": -0.2,
+   "min": -0.28,
+   "max": -0.03
+  }
+ },
+ {
+  "session": "2024/2024-12-01_Qatar_Grand_Prix/2024-12-01_Race/",
+  "lt_entries": 61,
+  "jolpica_stops": 60,
+  "entries_matching_jolpica_lap": 60,
+  "jolpica_stops_matched": 60,
+  "lt_entries_without_jolpica_stop": 1,
+  "stint_opened_after_matched_entry": 60,
+  "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 0,
+  "unmatched_entries_unexplained": [
+   [
+    "18",
+    4257.7,
+    7
+   ]
+  ],
+  "entries_with_exit": 60,
+  "stints_opened": 62,
+  "stints_with_compound_and_new": 62,
+  "drivers_flagged_retired_or_stopped": [
+   "11",
+   "18",
+   "27",
+   "31",
+   "43"
+  ],
+  "jolpica_not_finished": [
+   "11",
+   "18",
+   "27",
+   "31",
+   "43"
+  ],
+  "lapcount_lag_s": {
+   "n": 56,
+   "median": -0.21,
+   "min": -0.29,
+   "max": -0.12
+  }
+ },
+ {
+  "session": "2024/2024-12-08_Abu_Dhabi_Grand_Prix/2024-12-08_Race/",
+  "lt_entries": 30,
+  "jolpica_stops": 28,
+  "entries_matching_jolpica_lap": 28,
+  "jolpica_stops_matched": 28,
+  "lt_entries_without_jolpica_stop": 2,
+  "stint_opened_after_matched_entry": 28,
+  "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 0,
+  "unmatched_entries_unexplained": [
+   [
+    "43",
+    5877.3,
+    25
+   ],
+   [
+    "77",
+    6254.4,
+    29
+   ]
+  ],
+  "entries_with_exit": 28,
+  "stints_opened": 28,
+  "stints_with_compound_and_new": 28,
+  "drivers_flagged_retired_or_stopped": [
+   "11",
+   "30",
+   "43",
+   "77"
+  ],
+  "jolpica_not_finished": [
+   "11",
+   "30",
+   "43",
+   "77"
+  ],
+  "lapcount_lag_s": {
+   "n": 57,
+   "median": -0.2,
+   "min": -0.3,
+   "max": -0.02
+  }
+ },
+ {
+  "session": "2025/2025-03-16_Australian_Grand_Prix/2025-03-16_Race/",
+  "lt_entries": 82,
+  "jolpica_stops": 82,
+  "entries_matching_jolpica_lap": 82,
+  "jolpica_stops_matched": 82,
+  "lt_entries_without_jolpica_stop": 0,
+  "stint_opened_after_matched_entry": 80,
+  "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 0,
+  "unmatched_entries_unexplained": [],
+  "entries_with_exit": 82,
+  "stints_opened": 86,
+  "stints_with_compound_and_new": 86,
+  "drivers_flagged_retired_or_stopped": [
+   "14",
+   "30",
+   "5",
+   "55",
+   "6",
+   "7",
+   "81"
+  ],
+  "jolpica_not_finished": [
+   "14",
+   "30",
+   "5",
+   "55",
+   "6",
+   "7"
+  ],
+  "lapcount_lag_s": {
+   "n": 56,
+   "median": -0.19,
+   "min": -0.35,
+   "max": -0.0
+  }
+ },
+ {
+  "session": "2025/2025-03-23_Chinese_Grand_Prix/2025-03-23_Race/",
+  "lt_entries": 26,
+  "jolpica_stops": 25,
+  "entries_matching_jolpica_lap": 25,
+  "jolpica_stops_matched": 25,
+  "lt_entries_without_jolpica_stop": 1,
+  "stint_opened_after_matched_entry": 25,
+  "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 0,
+  "unmatched_entries_unexplained": [
+   [
+    "14",
+    3986.5,
+    3
+   ]
+  ],
+  "entries_with_exit": 25,
+  "stints_opened": 25,
+  "stints_with_compound_and_new": 25,
+  "drivers_flagged_retired_or_stopped": [
+   "14"
+  ],
+  "jolpica_not_finished": [
+   "10",
+   "14",
+   "16",
+   "44"
+  ],
+  "lapcount_lag_s": {
+   "n": 55,
+   "median": -0.19,
+   "min": -0.27,
+   "max": -0.05
+  }
+ },
+ {
+  "session": "2025/2025-04-06_Japanese_Grand_Prix/2025-04-06_Race/",
+  "lt_entries": 21,
+  "jolpica_stops": 21,
+  "entries_matching_jolpica_lap": 21,
+  "jolpica_stops_matched": 21,
+  "lt_entries_without_jolpica_stop": 0,
+  "stint_opened_after_matched_entry": 21,
+  "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 0,
+  "unmatched_entries_unexplained": [],
+  "entries_with_exit": 21,
+  "stints_opened": 21,
+  "stints_with_compound_and_new": 21,
+  "drivers_flagged_retired_or_stopped": [],
+  "jolpica_not_finished": [],
+  "lapcount_lag_s": {
+   "n": 52,
+   "median": -0.18,
+   "min": -0.31,
+   "max": 0.03
+  }
+ },
+ {
+  "session": "2025/2025-04-13_Bahrain_Grand_Prix/2025-04-13_Race/",
+  "lt_entries": 43,
+  "jolpica_stops": 42,
+  "entries_matching_jolpica_lap": 42,
+  "jolpica_stops_matched": 42,
+  "lt_entries_without_jolpica_stop": 1,
+  "stint_opened_after_matched_entry": 42,
+  "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 0,
+  "unmatched_entries_unexplained": [
+   [
+    "55",
+    7989.9,
+    44
+   ]
+  ],
+  "entries_with_exit": 42,
+  "stints_opened": 42,
+  "stints_with_compound_and_new": 42,
+  "drivers_flagged_retired_or_stopped": [
+   "55",
+   "63"
+  ],
+  "jolpica_not_finished": [
+   "27",
+   "55"
+  ],
+  "lapcount_lag_s": {
+   "n": 56,
+   "median": -0.18,
+   "min": -0.39,
+   "max": -0.01
+  }
+ },
+ {
+  "session": "2025/2025-04-20_Saudi_Arabian_Grand_Prix/2025-04-20_Race/",
+  "lt_entries": 20,
+  "jolpica_stops": 19,
+  "entries_matching_jolpica_lap": 19,
+  "jolpica_stops_matched": 19,
+  "lt_entries_without_jolpica_stop": 1,
+  "stint_opened_after_matched_entry": 19,
+  "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 0,
+  "unmatched_entries_unexplained": [
+   [
+    "22",
+    3581.8,
+    0
+   ]
+  ],
+  "entries_with_exit": 19,
+  "stints_opened": 19,
+  "stints_with_compound_and_new": 19,
+  "drivers_flagged_retired_or_stopped": [
+   "10",
+   "22"
+  ],
+  "jolpica_not_finished": [
+   "10",
+   "22"
+  ],
+  "lapcount_lag_s": {
+   "n": 49,
+   "median": -0.19,
+   "min": -0.28,
+   "max": 0.02
+  }
+ },
+ {
+  "session": "2025/2025-05-04_Miami_Grand_Prix/2025-05-04_Race/",
+  "lt_entries": 19,
+  "jolpica_stops": 18,
+  "entries_matching_jolpica_lap": 18,
+  "jolpica_stops_matched": 18,
+  "lt_entries_without_jolpica_stop": 1,
+  "stint_opened_after_matched_entry": 18,
+  "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 0,
+  "unmatched_entries_unexplained": [
+   [
+    "30",
+    6975.4,
+    35
+   ]
+  ],
+  "entries_with_exit": 18,
+  "stints_opened": 18,
+  "stints_with_compound_and_new": 18,
+  "drivers_flagged_retired_or_stopped": [
+   "30",
+   "5",
+   "7",
+   "87"
+  ],
+  "jolpica_not_finished": [
+   "30",
+   "5",
+   "7",
+   "87"
+  ],
+  "lapcount_lag_s": {
+   "n": 56,
+   "median": -0.18,
+   "min": -0.27,
+   "max": 0.0
+  }
+ },
+ {
+  "session": "2025/2025-05-18_Emilia_Romagna_Grand_Prix/2025-05-18_Race/",
+  "lt_entries": 37,
+  "jolpica_stops": 37,
+  "entries_matching_jolpica_lap": 37,
+  "jolpica_stops_matched": 37,
+  "lt_entries_without_jolpica_stop": 0,
+  "stint_opened_after_matched_entry": 37,
+  "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 0,
+  "unmatched_entries_unexplained": [],
+  "entries_with_exit": 37,
+  "stints_opened": 37,
+  "stints_with_compound_and_new": 37,
+  "drivers_flagged_retired_or_stopped": [
+   "12",
+   "31"
+  ],
+  "jolpica_not_finished": [
+   "12",
+   "31"
+  ],
+  "lapcount_lag_s": {
+   "n": 62,
+   "median": -0.17,
+   "min": -0.3,
+   "max": 0.0
+  }
+ },
+ {
+  "session": "2025/2025-05-25_Monaco_Grand_Prix/2025-05-25_Race/",
+  "lt_entries": 41,
+  "jolpica_stops": 40,
+  "entries_matching_jolpica_lap": 40,
+  "jolpica_stops_matched": 40,
+  "lt_entries_without_jolpica_stop": 1,
+  "stint_opened_after_matched_entry": 39,
+  "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 1,
+  "unmatched_entries_unexplained": [],
+  "entries_with_exit": 40,
+  "stints_opened": 39,
+  "stints_with_compound_and_new": 39,
+  "drivers_flagged_retired_or_stopped": [
+   "10",
+   "14"
+  ],
+  "jolpica_not_finished": [
+   "10",
+   "14"
+  ],
+  "lapcount_lag_s": {
+   "n": 77,
+   "median": -0.18,
+   "min": -0.36,
+   "max": 0.09
+  }
+ },
+ {
+  "session": "2025/2025-06-01_Spanish_Grand_Prix/2025-06-01_Race/",
+  "lt_entries": 55,
+  "jolpica_stops": 54,
+  "entries_matching_jolpica_lap": 54,
+  "jolpica_stops_matched": 54,
+  "lt_entries_without_jolpica_stop": 1,
+  "stint_opened_after_matched_entry": 54,
+  "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 0,
+  "unmatched_entries_unexplained": [
+   [
+    "23",
+    5854.1,
+    26
+   ]
+  ],
+  "entries_with_exit": 54,
+  "stints_opened": 54,
+  "stints_with_compound_and_new": 54,
+  "drivers_flagged_retired_or_stopped": [
+   "12",
+   "23"
+  ],
+  "jolpica_not_finished": [
+   "12",
+   "23"
+  ],
+  "lapcount_lag_s": {
+   "n": 65,
+   "median": -0.16,
+   "min": -0.28,
+   "max": 0.02
+  }
+ },
+ {
+  "session": "2025/2025-06-15_Canadian_Grand_Prix/2025-06-15_Race/",
+  "lt_entries": 83,
+  "jolpica_stops": 82,
+  "entries_matching_jolpica_lap": 82,
+  "jolpica_stops_matched": 82,
+  "lt_entries_without_jolpica_stop": 1,
+  "stint_opened_after_matched_entry": 82,
+  "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 1,
+  "unmatched_entries_unexplained": [],
+  "entries_with_exit": 82,
+  "stints_opened": 82,
+  "stints_with_compound_and_new": 82,
+  "drivers_flagged_retired_or_stopped": [
+   "23",
+   "30",
+   "4"
+  ],
+  "jolpica_not_finished": [
+   "23",
+   "30",
+   "4"
+  ],
+  "lapcount_lag_s": {
+   "n": 69,
+   "median": -0.19,
+   "min": -0.28,
+   "max": 0.88
+  }
+ },
+ {
+  "session": "2025/2025-06-29_Austrian_Grand_Prix/2025-06-29_Race/",
+  "lt_entries": 33,
+  "jolpica_stops": 32,
+  "entries_matching_jolpica_lap": 32,
+  "jolpica_stops_matched": 32,
+  "lt_entries_without_jolpica_stop": 1,
+  "stint_opened_after_matched_entry": 32,
+  "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 0,
+  "unmatched_entries_unexplained": [
+   [
+    "23",
+    5465.5,
+    14
+   ]
+  ],
+  "entries_with_exit": 32,
+  "stints_opened": 32,
+  "stints_with_compound_and_new": 32,
+  "drivers_flagged_retired_or_stopped": [
+   "1",
+   "12",
+   "23",
+   "55"
+  ],
+  "jolpica_not_finished": [
+   "1",
+   "12",
+   "23",
+   "55"
+  ],
+  "lapcount_lag_s": {
+   "n": 71,
+   "median": -0.2,
+   "min": -0.33,
+   "max": 73.96
+  }
+ },
+ {
+  "session": "2025/2025-07-06_British_Grand_Prix/2025-07-06_Race/",
+  "lt_entries": 36,
+  "jolpica_stops": 35,
+  "entries_matching_jolpica_lap": 35,
+  "jolpica_stops_matched": 35,
+  "lt_entries_without_jolpica_stop": 1,
+  "stint_opened_after_matched_entry": 35,
+  "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 0,
+  "unmatched_entries_unexplained": [
+   [
+    "12",
+    6362.2,
+    22
+   ]
+  ],
+  "entries_with_exit": 35,
+  "stints_opened": 35,
+  "stints_with_compound_and_new": 35,
+  "drivers_flagged_retired_or_stopped": [
+   "12",
+   "30",
+   "43",
+   "5",
+   "6"
+  ],
+  "jolpica_not_finished": [
+   "12",
+   "30",
+   "43",
+   "5",
+   "6"
+  ],
+  "lapcount_lag_s": {
+   "n": 51,
+   "median": -0.16,
+   "min": -0.33,
+   "max": 1.0
+  }
+ },
+ {
+  "session": "2025/2025-07-27_Belgian_Grand_Prix/2025-07-27_Race/",
+  "lt_entries": 26,
+  "jolpica_stops": 26,
+  "entries_matching_jolpica_lap": 26,
+  "jolpica_stops_matched": 26,
+  "lt_entries_without_jolpica_stop": 0,
+  "stint_opened_after_matched_entry": 20,
+  "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 0,
+  "unmatched_entries_unexplained": [],
+  "entries_with_exit": 26,
+  "stints_opened": 40,
+  "stints_with_compound_and_new": 40,
+  "drivers_flagged_retired_or_stopped": [],
+  "jolpica_not_finished": [],
+  "lapcount_lag_s": {
+   "n": 43,
+   "median": -0.2,
+   "min": -0.28,
+   "max": 0.0
+  }
+ },
+ {
+  "session": "2025/2025-08-03_Hungarian_Grand_Prix/2025-08-03_Race/",
+  "lt_entries": 30,
+  "jolpica_stops": 29,
+  "entries_matching_jolpica_lap": 29,
+  "jolpica_stops_matched": 29,
+  "lt_entries_without_jolpica_stop": 1,
+  "stint_opened_after_matched_entry": 29,
+  "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 0,
+  "unmatched_entries_unexplained": [
+   [
+    "87",
+    7506.3,
+    47
+   ]
+  ],
+  "entries_with_exit": 29,
+  "stints_opened": 29,
+  "stints_with_compound_and_new": 29,
+  "drivers_flagged_retired_or_stopped": [
+   "87"
+  ],
+  "jolpica_not_finished": [
+   "87"
+  ],
+  "lapcount_lag_s": {
+   "n": 69,
+   "median": -0.19,
+   "min": -0.28,
+   "max": 0.01
+  }
+ },
+ {
+  "session": "2025/2025-08-31_Dutch_Grand_Prix/2025-08-31_Race/",
+  "lt_entries": 40,
+  "jolpica_stops": 40,
+  "entries_matching_jolpica_lap": 40,
+  "jolpica_stops_matched": 40,
+  "lt_entries_without_jolpica_stop": 0,
+  "stint_opened_after_matched_entry": 40,
+  "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 0,
+  "unmatched_entries_unexplained": [],
+  "entries_with_exit": 40,
+  "stints_opened": 40,
+  "stints_with_compound_and_new": 40,
+  "drivers_flagged_retired_or_stopped": [
+   "16",
+   "4",
+   "44"
+  ],
+  "jolpica_not_finished": [
+   "16",
+   "4",
+   "44"
+  ],
+  "lapcount_lag_s": {
+   "n": 71,
+   "median": -0.19,
+   "min": -0.27,
+   "max": 0.05
+  }
+ },
+ {
+  "session": "2025/2025-09-07_Italian_Grand_Prix/2025-09-07_Race/",
+  "lt_entries": 20,
+  "jolpica_stops": 19,
+  "entries_matching_jolpica_lap": 19,
+  "jolpica_stops_matched": 19,
+  "lt_entries_without_jolpica_stop": 1,
+  "stint_opened_after_matched_entry": 19,
+  "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 0,
+  "unmatched_entries_unexplained": [
+   [
+    "14",
+    5547.8,
+    23
+   ]
+  ],
+  "entries_with_exit": 19,
+  "stints_opened": 19,
+  "stints_with_compound_and_new": 19,
+  "drivers_flagged_retired_or_stopped": [
+   "14",
+   "27"
+  ],
+  "jolpica_not_finished": [
+   "14",
+   "27"
+  ],
+  "lapcount_lag_s": {
+   "n": 52,
+   "median": -0.19,
+   "min": -0.31,
+   "max": 0.0
+  }
+ },
+ {
+  "session": "2025/2025-09-21_Azerbaijan_Grand_Prix/2025-09-21_Race/",
+  "lt_entries": 21,
+  "jolpica_stops": 21,
+  "entries_matching_jolpica_lap": 21,
+  "jolpica_stops_matched": 21,
+  "lt_entries_without_jolpica_stop": 0,
+  "stint_opened_after_matched_entry": 21,
+  "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 0,
+  "unmatched_entries_unexplained": [],
+  "entries_with_exit": 21,
+  "stints_opened": 21,
+  "stints_with_compound_and_new": 21,
+  "drivers_flagged_retired_or_stopped": [
+   "81"
+  ],
+  "jolpica_not_finished": [
+   "81"
+  ],
+  "lapcount_lag_s": {
+   "n": 50,
+   "median": -0.21,
+   "min": -0.42,
+   "max": -0.05
+  }
+ },
+ {
+  "session": "2025/2025-10-05_Singapore_Grand_Prix/2025-10-05_Race/",
+  "lt_entries": 23,
+  "jolpica_stops": 23,
+  "entries_matching_jolpica_lap": 23,
+  "jolpica_stops_matched": 23,
+  "lt_entries_without_jolpica_stop": 0,
+  "stint_opened_after_matched_entry": 23,
+  "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 0,
+  "unmatched_entries_unexplained": [],
+  "entries_with_exit": 23,
+  "stints_opened": 23,
+  "stints_with_compound_and_new": 23,
+  "drivers_flagged_retired_or_stopped": [],
+  "jolpica_not_finished": [],
+  "lapcount_lag_s": {
+   "n": 61,
+   "median": -0.2,
+   "min": -0.28,
+   "max": 0.12
+  }
+ },
+ {
+  "session": "2025/2025-10-19_United_States_Grand_Prix/2025-10-19_Race/",
+  "lt_entries": 21,
+  "jolpica_stops": 21,
+  "entries_matching_jolpica_lap": 21,
+  "jolpica_stops_matched": 21,
+  "lt_entries_without_jolpica_stop": 0,
+  "stint_opened_after_matched_entry": 21,
+  "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 0,
+  "unmatched_entries_unexplained": [],
+  "entries_with_exit": 21,
+  "stints_opened": 21,
+  "stints_with_compound_and_new": 21,
+  "drivers_flagged_retired_or_stopped": [
+   "55"
+  ],
+  "jolpica_not_finished": [
+   "55"
+  ],
+  "lapcount_lag_s": {
+   "n": 55,
+   "median": -0.2,
+   "min": -0.28,
+   "max": -0.11
+  }
+ },
+ {
+  "session": "2025/2025-10-26_Mexico_City_Grand_Prix/2025-10-26_Race/",
+  "lt_entries": 30,
+  "jolpica_stops": 27,
+  "entries_matching_jolpica_lap": 27,
+  "jolpica_stops_matched": 27,
+  "lt_entries_without_jolpica_stop": 3,
+  "stint_opened_after_matched_entry": 27,
+  "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 0,
+  "unmatched_entries_unexplained": [
+   [
+    "30",
+    3906.8,
+    4
+   ],
+   [
+    "14",
+    6311.5,
+    33
+   ],
+   [
+    "27",
+    5550.0,
+    24
+   ]
+  ],
+  "entries_with_exit": 27,
+  "stints_opened": 27,
+  "stints_with_compound_and_new": 27,
+  "drivers_flagged_retired_or_stopped": [
+   "14",
+   "27",
+   "30",
+   "55"
+  ],
+  "jolpica_not_finished": [
+   "14",
+   "27",
+   "30",
+   "55"
+  ],
+  "lapcount_lag_s": {
+   "n": 70,
+   "median": -0.2,
+   "min": -0.28,
+   "max": 0.01
+  }
+ },
+ {
+  "session": "2025/2025-11-09_S\u00e3o_Paulo_Grand_Prix/2025-11-09_Race/",
+  "lt_entries": 38,
+  "jolpica_stops": 37,
+  "entries_matching_jolpica_lap": 37,
+  "jolpica_stops_matched": 37,
+  "lt_entries_without_jolpica_stop": 1,
+  "stint_opened_after_matched_entry": 37,
+  "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 0,
+  "unmatched_entries_unexplained": [
+   [
+    "44",
+    6474.2,
+    36
+   ]
+  ],
+  "entries_with_exit": 37,
+  "stints_opened": 37,
+  "stints_with_compound_and_new": 37,
+  "drivers_flagged_retired_or_stopped": [
+   "16",
+   "44",
+   "5"
+  ],
+  "jolpica_not_finished": [
+   "16",
+   "44",
+   "5"
+  ],
+  "lapcount_lag_s": {
+   "n": 70,
+   "median": -0.17,
+   "min": -0.28,
+   "max": -0.05
+  }
+ },
+ {
+  "session": "2025/2025-11-30_Qatar_Grand_Prix/2025-11-30_Race/",
+  "lt_entries": 44,
+  "jolpica_stops": 41,
+  "entries_matching_jolpica_lap": 41,
+  "jolpica_stops_matched": 41,
+  "lt_entries_without_jolpica_stop": 3,
+  "stint_opened_after_matched_entry": 41,
+  "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 0,
+  "unmatched_entries_unexplained": [
+   [
+    "6",
+    8549.9,
+    54
+   ],
+   [
+    "87",
+    7351.1,
+    40
+   ],
+   [
+    "18",
+    8532.8,
+    54
+   ]
+  ],
+  "entries_with_exit": 41,
+  "stints_opened": 41,
+  "stints_with_compound_and_new": 41,
+  "drivers_flagged_retired_or_stopped": [
+   "18",
+   "27",
+   "6",
+   "87"
+  ],
+  "jolpica_not_finished": [
+   "18",
+   "27",
+   "6",
+   "87"
+  ],
+  "lapcount_lag_s": {
+   "n": 56,
+   "median": -0.19,
+   "min": -0.3,
+   "max": -0.08
+  }
+ },
+ {
+  "session": "2025/2025-12-07_Abu_Dhabi_Grand_Prix/2025-12-07_Race/",
+  "lt_entries": 27,
+  "jolpica_stops": 27,
+  "entries_matching_jolpica_lap": 27,
+  "jolpica_stops_matched": 27,
+  "lt_entries_without_jolpica_stop": 0,
+  "stint_opened_after_matched_entry": 27,
+  "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 0,
+  "unmatched_entries_unexplained": [],
+  "entries_with_exit": 27,
+  "stints_opened": 27,
+  "stints_with_compound_and_new": 27,
+  "drivers_flagged_retired_or_stopped": [],
+  "jolpica_not_finished": [],
+  "lapcount_lag_s": {
+   "n": 57,
+   "median": -0.16,
+   "min": -0.26,
+   "max": -0.03
+  }
+ },
+ {
+  "session": "2026/2026-03-08_Australian_Grand_Prix/2026-03-08_Race/",
+  "lt_entries": 34,
+  "jolpica_stops": 32,
+  "entries_matching_jolpica_lap": 32,
+  "jolpica_stops_matched": 32,
+  "lt_entries_without_jolpica_stop": 2,
+  "stint_opened_after_matched_entry": 32,
+  "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 2,
+  "unmatched_entries_unexplained": [],
+  "entries_with_exit": 32,
+  "stints_opened": 32,
+  "stints_with_compound_and_new": 32,
+  "drivers_flagged_retired_or_stopped": [
+   "14",
+   "18",
+   "27",
+   "6",
+   "77",
+   "81"
+  ],
+  "jolpica_not_finished": [
+   "14",
+   "27",
+   "6",
+   "77",
+   "81"
+  ],
+  "lapcount_lag_s": {
+   "n": 57,
+   "median": -0.18,
+   "min": -0.28,
+   "max": -0.01
+  }
+ },
+ {
+  "session": "2026/2026-03-15_Chinese_Grand_Prix/2026-03-15_Race/",
+  "lt_entries": 21,
+  "jolpica_stops": 19,
+  "entries_matching_jolpica_lap": 19,
+  "jolpica_stops_matched": 19,
+  "lt_entries_without_jolpica_stop": 2,
+  "stint_opened_after_matched_entry": 19,
+  "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 0,
+  "unmatched_entries_unexplained": [
+   [
+    "3",
+    8028.9,
+    44
+   ],
+   [
+    "14",
+    6782.2,
+    31
+   ]
+  ],
+  "entries_with_exit": 19,
+  "stints_opened": 19,
+  "stints_with_compound_and_new": 19,
+  "drivers_flagged_retired_or_stopped": [
+   "1",
+   "14",
+   "18",
+   "23",
+   "3",
+   "5",
+   "81"
+  ],
+  "jolpica_not_finished": [
+   "1",
+   "14",
+   "18",
+   "23",
+   "3",
+   "5",
+   "81"
+  ],
+  "lapcount_lag_s": {
+   "n": 55,
+   "median": -0.19,
+   "min": -0.28,
+   "max": 0.0
+  }
+ },
+ {
+  "session": "2026/2026-03-29_Japanese_Grand_Prix/2026-03-29_Race/",
+  "lt_entries": 30,
+  "jolpica_stops": 29,
+  "entries_matching_jolpica_lap": 29,
+  "jolpica_stops_matched": 29,
+  "lt_entries_without_jolpica_stop": 1,
+  "stint_opened_after_matched_entry": 29,
+  "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 0,
+  "unmatched_entries_unexplained": [
+   [
+    "18",
+    6993.1,
+    29
+   ]
+  ],
+  "entries_with_exit": 29,
+  "stints_opened": 29,
+  "stints_with_compound_and_new": 29,
+  "drivers_flagged_retired_or_stopped": [
+   "18",
+   "87"
+  ],
+  "jolpica_not_finished": [
+   "18",
+   "87"
+  ],
+  "lapcount_lag_s": {
+   "n": 52,
+   "median": -0.18,
+   "min": -0.27,
+   "max": -0.07
+  }
+ },
+ {
+  "session": "2026/2026-05-03_Miami_Grand_Prix/2026-05-03_Race/",
+  "lt_entries": 24,
+  "jolpica_stops": 22,
+  "entries_matching_jolpica_lap": 22,
+  "jolpica_stops_matched": 22,
+  "lt_entries_without_jolpica_stop": 2,
+  "stint_opened_after_matched_entry": 22,
+  "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 0,
+  "unmatched_entries_unexplained": [
+   [
+    "27",
+    4275.3,
+    6
+   ],
+   [
+    "30",
+    4111.8,
+    5
+   ]
+  ],
+  "entries_with_exit": 22,
+  "stints_opened": 22,
+  "stints_with_compound_and_new": 22,
+  "drivers_flagged_retired_or_stopped": [
+   "10",
+   "27",
+   "30",
+   "6"
+  ],
+  "jolpica_not_finished": [
+   "10",
+   "27",
+   "30",
+   "6"
+  ],
+  "lapcount_lag_s": {
+   "n": 56,
+   "median": -0.19,
+   "min": -0.27,
+   "max": 0.0
+  }
+ },
+ {
+  "session": "2026/2026-05-24_Canadian_Grand_Prix/2026-05-24_Race/",
+  "lt_entries": 36,
+  "jolpica_stops": 34,
+  "entries_matching_jolpica_lap": 34,
+  "jolpica_stops_matched": 34,
+  "lt_entries_without_jolpica_stop": 2,
+  "stint_opened_after_matched_entry": 34,
+  "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 2,
+  "unmatched_entries_unexplained": [],
+  "entries_with_exit": 34,
+  "stints_opened": 34,
+  "stints_with_compound_and_new": 34,
+  "drivers_flagged_retired_or_stopped": [
+   "1",
+   "11",
+   "14",
+   "23",
+   "41",
+   "63"
+  ],
+  "jolpica_not_finished": [
+   "1",
+   "11",
+   "14",
+   "23",
+   "41",
+   "63"
+  ],
+  "lapcount_lag_s": {
+   "n": 67,
+   "median": -0.17,
+   "min": -0.28,
+   "max": 0.0
+  }
+ },
+ {
+  "session": "2026/2026-06-07_Monaco_Grand_Prix/2026-06-07_Race/",
+  "lt_entries": 90,
+  "jolpica_stops": 86,
+  "entries_matching_jolpica_lap": 86,
+  "jolpica_stops_matched": 86,
+  "lt_entries_without_jolpica_stop": 4,
+  "stint_opened_after_matched_entry": 86,
+  "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 4,
+  "unmatched_entries_unexplained": [],
+  "entries_with_exit": 86,
+  "stints_opened": 86,
+  "stints_with_compound_and_new": 86,
+  "drivers_flagged_retired_or_stopped": [
+   "1",
+   "16",
+   "18",
+   "3",
+   "55",
+   "77",
+   "87"
+  ],
+  "jolpica_not_finished": [
+   "1",
+   "16",
+   "18",
+   "3",
+   "55",
+   "77",
+   "87"
+  ],
+  "lapcount_lag_s": {
+   "n": 77,
+   "median": -0.19,
+   "min": -0.28,
+   "max": -0.03
+  }
+ },
+ {
+  "session": "2026/2026-06-14_Barcelona_Grand_Prix/2026-06-14_Race/",
+  "lt_entries": 53,
+  "jolpica_stops": 48,
+  "entries_matching_jolpica_lap": 48,
+  "jolpica_stops_matched": 48,
+  "lt_entries_without_jolpica_stop": 5,
+  "stint_opened_after_matched_entry": 47,
+  "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 0,
+  "unmatched_entries_unexplained": [
+   [
+    "18",
+    3667.3,
+    4
+   ],
+   [
+    "27",
+    5715.5,
+    28
+   ],
+   [
+    "77",
+    4573.6,
+    14
+   ],
+   [
+    "16",
+    8470.1,
+    61
+   ],
+   [
+    "87",
+    8415.7,
+    59
+   ]
+  ],
+  "entries_with_exit": 48,
+  "stints_opened": 48,
+  "stints_with_compound_and_new": 48,
+  "drivers_flagged_retired_or_stopped": [
+   "12",
+   "14",
+   "16",
+   "18",
+   "23",
+   "27",
+   "77",
+   "87"
+  ],
+  "jolpica_not_finished": [
+   "12",
+   "14",
+   "16",
+   "18",
+   "27",
+   "77",
+   "87"
+  ],
+  "lapcount_lag_s": {
+   "n": 65,
+   "median": -0.19,
+   "min": -0.27,
+   "max": -0.03
+  }
+ },
+ {
+  "session": "2026/2026-06-28_Austrian_Grand_Prix/2026-06-28_Race/",
+  "lt_entries": 45,
+  "jolpica_stops": 41,
+  "entries_matching_jolpica_lap": 41,
+  "jolpica_stops_matched": 41,
+  "lt_entries_without_jolpica_stop": 4,
+  "stint_opened_after_matched_entry": 41,
+  "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 1,
+  "unmatched_entries_unexplained": [
+   [
+    "77",
+    3595.8,
+    1
+   ],
+   [
+    "11",
+    3741.1,
+    3
+   ],
+   [
+    "18",
+    6910.6,
+    44
+   ]
+  ],
+  "entries_with_exit": 41,
+  "stints_opened": 41,
+  "stints_with_compound_and_new": 41,
+  "drivers_flagged_retired_or_stopped": [
+   "11",
+   "18",
+   "55",
+   "77"
+  ],
+  "jolpica_not_finished": [
+   "11",
+   "18",
+   "55",
+   "77"
+  ],
+  "lapcount_lag_s": {
+   "n": 70,
+   "median": -0.17,
+   "min": -0.28,
+   "max": 2.6
+  }
+ },
+ {
+  "session": "2026/2026-07-05_British_Grand_Prix/2026-07-05_Race/",
+  "lt_entries": 52,
+  "jolpica_stops": 51,
+  "entries_matching_jolpica_lap": 51,
+  "jolpica_stops_matched": 51,
+  "lt_entries_without_jolpica_stop": 1,
+  "stint_opened_after_matched_entry": 51,
+  "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 0,
+  "unmatched_entries_unexplained": [
+   [
+    "23",
+    7721.2,
+    42
+   ]
+  ],
+  "entries_with_exit": 51,
+  "stints_opened": 51,
+  "stints_with_compound_and_new": 51,
+  "drivers_flagged_retired_or_stopped": [
+   "23",
+   "27",
+   "3"
+  ],
+  "jolpica_not_finished": [
+   "23",
+   "27",
+   "3"
+  ],
+  "lapcount_lag_s": {
+   "n": 51,
+   "median": -0.19,
+   "min": -0.28,
+   "max": -0.01
+  }
+ },
+ {
+  "session": "2026/2026-07-19_Belgian_Grand_Prix/2026-07-19_Race/",
+  "lt_entries": 30,
+  "jolpica_stops": 28,
+  "entries_matching_jolpica_lap": 28,
+  "jolpica_stops_matched": 28,
+  "lt_entries_without_jolpica_stop": 2,
+  "stint_opened_after_matched_entry": 28,
+  "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 0,
+  "unmatched_entries_unexplained": [
+   [
+    "11",
+    5066.7,
+    12
+   ],
+   [
+    "18",
+    6473.0,
+    24
+   ]
+  ],
+  "entries_with_exit": 28,
+  "stints_opened": 29,
+  "stints_with_compound_and_new": 29,
+  "drivers_flagged_retired_or_stopped": [
+   "11",
+   "18",
+   "63"
+  ],
+  "jolpica_not_finished": [
+   "11",
+   "18",
+   "63"
+  ],
+  "lapcount_lag_s": {
+   "n": 43,
+   "median": -0.18,
+   "min": -0.29,
+   "max": -0.02
+  }
+ },
+ {
+  "session": "2026/2026-07-26_Hungarian_Grand_Prix/2026-07-26_Race/",
+  "lt_entries": 47,
+  "jolpica_stops": 45,
+  "entries_matching_jolpica_lap": 45,
+  "jolpica_stops_matched": 45,
+  "lt_entries_without_jolpica_stop": 2,
+  "stint_opened_after_matched_entry": 44,
+  "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 1,
+  "unmatched_entries_unexplained": [
+   [
+    "11",
+    7627.0,
+    47
+   ]
+  ],
+  "entries_with_exit": 45,
+  "stints_opened": 45,
+  "stints_with_compound_and_new": 45,
+  "drivers_flagged_retired_or_stopped": [
+   "11",
+   "77",
+   "81"
+  ],
+  "jolpica_not_finished": [
+   "11",
+   "77",
+   "81"
+  ],
+  "lapcount_lag_s": {
+   "n": 69,
+   "median": -0.17,
+   "min": -0.28,
+   "max": -0.06
+  }
+ },
+ {
+  "session": "2026/2026-08-23_Dutch_Grand_Prix/2026-08-23_Race/",
+  "lt_entries": 68,
+  "jolpica_stops": 65,
+  "entries_matching_jolpica_lap": 65,
+  "jolpica_stops_matched": 65,
+  "lt_entries_without_jolpica_stop": 3,
+  "stint_opened_after_matched_entry": 65,
+  "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 0,
+  "unmatched_entries_unexplained": [
+   [
+    "23",
+    10613.9,
+    65
+   ],
+   [
+    "18",
+    8876.8,
+    44
+   ],
+   [
+    "77",
+    10263.5,
+    60
+   ]
+  ],
+  "entries_with_exit": 65,
+  "stints_opened": 65,
+  "stints_with_compound_and_new": 65,
+  "drivers_flagged_retired_or_stopped": [
+   "18",
+   "23",
+   "3",
+   "31",
+   "77",
+   "87"
+  ],
+  "jolpica_not_finished": [
+   "18",
+   "23",
+   "3",
+   "31",
+   "77",
+   "87"
+  ],
+  "lapcount_lag_s": {
+   "n": 71,
+   "median": -0.18,
+   "min": -0.29,
+   "max": 0.02
+  }
+ },
+ {
+  "session": "2026/2026-09-06_Italian_Grand_Prix/2026-09-06_Race/",
+  "lt_entries": 32,
+  "jolpica_stops": 30,
+  "entries_matching_jolpica_lap": 30,
+  "jolpica_stops_matched": 30,
+  "lt_entries_without_jolpica_stop": 2,
+  "stint_opened_after_matched_entry": 30,
+  "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 1,
+  "unmatched_entries_unexplained": [
+   [
+    "14",
+    7554.4,
+    22
+   ]
+  ],
+  "entries_with_exit": 30,
+  "stints_opened": 30,
+  "stints_with_compound_and_new": 30,
+  "drivers_flagged_retired_or_stopped": [
+   "14",
+   "16",
+   "18"
+  ],
+  "jolpica_not_finished": [
+   "14",
+   "16",
+   "18"
+  ],
+  "lapcount_lag_s": {
+   "n": 52,
+   "median": -0.16,
+   "min": -0.27,
+   "max": -0.03
+  }
+ },
+ {
+  "session": "2026/2026-09-13_Spanish_Grand_Prix/2026-09-13_Race/",
+  "lt_entries": 28,
+  "jolpica_stops": 25,
+  "entries_matching_jolpica_lap": 25,
+  "jolpica_stops_matched": 25,
+  "lt_entries_without_jolpica_stop": 3,
+  "stint_opened_after_matched_entry": 25,
+  "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 0,
+  "unmatched_entries_unexplained": [
+   [
+    "44",
+    4148.2,
+    5
+   ],
+   [
+    "11",
+    6773.1,
+    30
+   ],
+   [
+    "55",
+    8042.0,
+    42
+   ]
+  ],
+  "entries_with_exit": 25,
+  "stints_opened": 25,
+  "stints_with_compound_and_new": 25,
+  "drivers_flagged_retired_or_stopped": [
+   "11",
+   "18",
+   "44",
+   "55"
+  ],
+  "jolpica_not_finished": [
+   "11",
+   "18",
+   "44",
+   "55"
+  ],
+  "lapcount_lag_s": {
+   "n": 56,
+   "median": -0.17,
+   "min": -0.27,
+   "max": 0.02
+  }
+ },
+ {
+  "session": "2026/2026-09-26_Azerbaijan_Grand_Prix/2026-09-26_Race/",
+  "lt_entries": 38,
+  "jolpica_stops": 36,
+  "entries_matching_jolpica_lap": 36,
+  "jolpica_stops_matched": 36,
+  "lt_entries_without_jolpica_stop": 2,
+  "stint_opened_after_matched_entry": 36,
+  "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 0,
+  "unmatched_entries_unexplained": [
+   [
+    "14",
+    5673.1,
+    19
+   ],
+   [
+    "43",
+    7720.1,
+    35
+   ]
+  ],
+  "entries_with_exit": 36,
+  "stints_opened": 36,
+  "stints_with_compound_and_new": 36,
+  "drivers_flagged_retired_or_stopped": [
+   "1",
+   "10",
+   "14",
+   "18",
+   "23",
+   "43",
+   "77"
+  ],
+  "jolpica_not_finished": [
+   "1",
+   "10",
+   "14",
+   "18",
+   "23",
+   "43",
+   "77"
+  ],
+  "lapcount_lag_s": {
+   "n": 50,
+   "median": -0.17,
+   "min": -0.31,
+   "max": 0.07
+  }
+ },
+ {
+  "session": "2026/2026-10-04_Bahrain_Grand_Prix/2026-10-04_Race/",
+  "lt_entries": 73,
+  "jolpica_stops": 73,
+  "entries_matching_jolpica_lap": 73,
+  "jolpica_stops_matched": 73,
+  "lt_entries_without_jolpica_stop": 0,
+  "stint_opened_after_matched_entry": 48,
+  "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 0,
+  "unmatched_entries_unexplained": [],
+  "entries_with_exit": 73,
+  "stints_opened": 75,
+  "stints_with_compound_and_new": 75,
+  "drivers_flagged_retired_or_stopped": [
+   "23",
+   "63",
+   "77"
+  ],
+  "jolpica_not_finished": [
+   "23",
+   "63",
+   "77"
+  ],
+  "lapcount_lag_s": {
+   "n": 54,
+   "median": -0.21,
+   "min": -0.28,
+   "max": -0.03
+  }
+ }
+]

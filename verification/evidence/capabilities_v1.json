@@ -8,6 +8,28 @@
   "lt_entries_without_jolpica_stop": 1,
   "stint_opened_after_matched_entry": 33,
   "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 0,
+  "unmatched_entries_unexplained": [
+   [
+    "7",
+    3889.3,
+    34
+   ]
+  ],
+  "entries_with_exit": 33,
+  "stints_opened": 33,
+  "stints_with_compound_and_new": 33,
+  "drivers_flagged_retired_or_stopped": [
+   "3",
+   "33",
+   "7"
+  ],
+  "jolpica_not_finished": [
+   "3",
+   "33",
+   "7"
+  ],
   "lapcount_lag_s": {
    "n": 53,
    "median": -0.14,
@@ -24,6 +46,22 @@
   "lt_entries_without_jolpica_stop": 0,
   "stint_opened_after_matched_entry": 20,
   "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 0,
+  "unmatched_entries_unexplained": [],
+  "entries_with_exit": 20,
+  "stints_opened": 20,
+  "stints_with_compound_and_new": 20,
+  "drivers_flagged_retired_or_stopped": [
+   "16",
+   "2",
+   "33"
+  ],
+  "jolpica_not_finished": [
+   "16",
+   "2",
+   "33"
+  ],
   "lapcount_lag_s": {
    "n": 69,
    "median": 1.75,
@@ -40,6 +78,26 @@
   "lt_entries_without_jolpica_stop": 2,
   "stint_opened_after_matched_entry": 18,
   "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 2,
+  "unmatched_entries_unexplained": [],
+  "entries_with_exit": 18,
+  "stints_opened": 18,
+  "stints_with_compound_and_new": 18,
+  "drivers_flagged_retired_or_stopped": [
+   "10",
+   "27",
+   "31",
+   "7",
+   "9"
+  ],
+  "jolpica_not_finished": [
+   "10",
+   "27",
+   "31",
+   "7",
+   "9"
+  ],
   "lapcount_lag_s": {
    "n": 54,
    "median": -0.07,
@@ -56,6 +114,22 @@
   "lt_entries_without_jolpica_stop": 1,
   "stint_opened_after_matched_entry": 22,
   "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 1,
+  "unmatched_entries_unexplained": [],
+  "entries_with_exit": 22,
+  "stints_opened": 22,
+  "stints_with_compound_and_new": 22,
+  "drivers_flagged_retired_or_stopped": [
+   "3",
+   "55",
+   "8"
+  ],
+  "jolpica_not_finished": [
+   "3",
+   "55",
+   "8"
+  ],
   "lapcount_lag_s": {
    "n": 57,
    "median": -0.07,
@@ -72,6 +146,30 @@
   "lt_entries_without_jolpica_stop": 0,
   "stint_opened_after_matched_entry": 78,
   "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 0,
+  "unmatched_entries_unexplained": [],
+  "entries_with_exit": 78,
+  "stints_opened": 78,
+  "stints_with_compound_and_new": 78,
+  "drivers_flagged_retired_or_stopped": [
+   "10",
+   "11",
+   "16",
+   "27",
+   "3",
+   "4",
+   "77"
+  ],
+  "jolpica_not_finished": [
+   "10",
+   "11",
+   "16",
+   "27",
+   "3",
+   "4",
+   "77"
+  ],
   "lapcount_lag_s": {
    "n": 63,
    "median": -0.08,
@@ -88,6 +186,29 @@
   "lt_entries_without_jolpica_stop": 2,
   "stint_opened_after_matched_entry": 25,
   "stint_opened_after_unmatched_entry": 1,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 0,
+  "unmatched_entries_unexplained": [
+   [
+    "10",
+    2134.7,
+    0
+   ],
+   [
+    "18",
+    6823.3,
+    44
+   ]
+  ],
+  "entries_with_exit": 26,
+  "stints_opened": 26,
+  "stints_with_compound_and_new": 26,
+  "drivers_flagged_retired_or_stopped": [
+   "18"
+  ],
+  "jolpica_not_finished": [
+   "18"
+  ],
   "lapcount_lag_s": {
    "n": 54,
    "median": -0.08,
@@ -104,6 +225,50 @@
   "lt_entries_without_jolpica_stop": 4,
   "stint_opened_after_matched_entry": 38,
   "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 1,
+  "unmatched_entries_unexplained": [
+   [
+    "3",
+    3205.2,
+    16
+   ],
+   [
+    "18",
+    3405.1,
+    19
+   ],
+   [
+    "8",
+    5658.9,
+    48
+   ]
+  ],
+  "entries_with_exit": 38,
+  "stints_opened": 38,
+  "stints_with_compound_and_new": 38,
+  "drivers_flagged_retired_or_stopped": [
+   "18",
+   "20",
+   "23",
+   "26",
+   "3",
+   "33",
+   "63",
+   "7",
+   "8"
+  ],
+  "jolpica_not_finished": [
+   "18",
+   "20",
+   "23",
+   "26",
+   "3",
+   "33",
+   "63",
+   "7",
+   "8"
+  ],
   "lapcount_lag_s": {
    "n": 66,
    "median": -0.1,
@@ -120,6 +285,42 @@
   "lt_entries_without_jolpica_stop": 2,
   "stint_opened_after_matched_entry": 66,
   "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 2,
+  "unmatched_entries_unexplained": [],
+  "entries_with_exit": 66,
+  "stints_opened": 66,
+  "stints_with_compound_and_new": 66,
+  "drivers_flagged_retired_or_stopped": [
+   "10",
+   "11",
+   "16",
+   "18",
+   "20",
+   "23",
+   "26",
+   "3",
+   "31",
+   "33",
+   "4",
+   "44",
+   "5",
+   "55",
+   "6",
+   "63",
+   "77",
+   "99"
+  ],
+  "jolpica_not_finished": [
+   "10",
+   "18",
+   "20",
+   "31",
+   "33",
+   "55",
+   "6",
+   "99"
+  ],
   "lapcount_lag_s": {
    "n": 58,
    "median": -0.09,
@@ -136,6 +337,18 @@
   "lt_entries_without_jolpica_stop": 0,
   "stint_opened_after_matched_entry": 23,
   "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 0,
+  "unmatched_entries_unexplained": [],
+  "entries_with_exit": 23,
+  "stints_opened": 23,
+  "stints_with_compound_and_new": 23,
+  "drivers_flagged_retired_or_stopped": [
+   "11"
+  ],
+  "jolpica_not_finished": [
+   "11"
+  ],
   "lapcount_lag_s": {
    "n": 54,
    "median": -0.08,
@@ -152,6 +365,40 @@
   "lt_entries_without_jolpica_stop": 3,
   "stint_opened_after_matched_entry": 39,
   "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 0,
+  "unmatched_entries_unexplained": [
+   [
+    "10",
+    7490.3,
+    51
+   ],
+   [
+    "14",
+    5550.2,
+    31
+   ],
+   [
+    "6",
+    7459.0,
+    50
+   ]
+  ],
+  "entries_with_exit": 40,
+  "stints_opened": 40,
+  "stints_with_compound_and_new": 40,
+  "drivers_flagged_retired_or_stopped": [
+   "10",
+   "14",
+   "6",
+   "9"
+  ],
+  "jolpica_not_finished": [
+   "10",
+   "14",
+   "6",
+   "9"
+  ],
   "lapcount_lag_s": {
    "n": 55,
    "median": -0.09,
@@ -168,6 +415,115 @@
   "lt_entries_without_jolpica_stop": 20,
   "stint_opened_after_matched_entry": 0,
   "stint_opened_after_unmatched_entry": 20,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 0,
+  "unmatched_entries_unexplained": [
+   [
+    "33",
+    15964.7,
+    2
+   ],
+   [
+    "63",
+    15966.5,
+    2
+   ],
+   [
+    "44",
+    15968.2,
+    2
+   ],
+   [
+    "3",
+    15971.6,
+    2
+   ],
+   [
+    "5",
+    15974.2,
+    2
+   ],
+   [
+    "10",
+    15977.4,
+    2
+   ],
+   [
+    "31",
+    15978.9,
+    2
+   ],
+   [
+    "16",
+    15980.3,
+    2
+   ],
+   [
+    "6",
+    15982.1,
+    2
+   ],
+   [
+    "55",
+    15984.3,
+    2
+   ],
+   [
+    "14",
+    15986.8,
+    2
+   ],
+   [
+    "77",
+    15988.9,
+    2
+   ],
+   [
+    "99",
+    15991.1,
+    2
+   ],
+   [
+    "4",
+    15993.1,
+    2
+   ],
+   [
+    "22",
+    15995.0,
+    2
+   ],
+   [
+    "47",
+    15997.0,
+    2
+   ],
+   [
+    "9",
+    15999.6,
+    2
+   ],
+   [
+    "18",
+    16001.7,
+    2
+   ],
+   [
+    "7",
+    16005.6,
+    2
+   ],
+   [
+    "11",
+    16008.5,
+    2
+   ]
+  ],
+  "entries_with_exit": 20,
+  "stints_opened": 28,
+  "stints_with_compound_and_new": 28,
+  "drivers_flagged_retired_or_stopped": [],
+  "jolpica_not_finished": [],
   "lapcount_lag_s": {
    "n": 3,
    "median": -0.12,
@@ -184,6 +540,43 @@
   "lt_entries_without_jolpica_stop": 3,
   "stint_opened_after_matched_entry": 29,
   "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 0,
+  "unmatched_entries_unexplained": [
+   [
+    "11",
+    8793.5,
+    54
+   ],
+   [
+    "7",
+    6104.7,
+    24
+   ],
+   [
+    "63",
+    6211.9,
+    25
+   ]
+  ],
+  "entries_with_exit": 29,
+  "stints_opened": 29,
+  "stints_with_compound_and_new": 29,
+  "drivers_flagged_retired_or_stopped": [
+   "11",
+   "6",
+   "63",
+   "7",
+   "99"
+  ],
+  "jolpica_not_finished": [
+   "11",
+   "6",
+   "63",
+   "7",
+   "9",
+   "99"
+  ],
   "lapcount_lag_s": {
    "n": 57,
    "median": -0.09,
@@ -200,6 +593,33 @@
   "lt_entries_without_jolpica_stop": 2,
   "stint_opened_after_matched_entry": 50,
   "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 0,
+  "unmatched_entries_unexplained": [
+   [
+    "31",
+    7974.8,
+    40
+   ],
+   [
+    "81",
+    5097.0,
+    12
+   ]
+  ],
+  "entries_with_exit": 50,
+  "stints_opened": 50,
+  "stints_with_compound_and_new": 50,
+  "drivers_flagged_retired_or_stopped": [
+   "16",
+   "31",
+   "81"
+  ],
+  "jolpica_not_finished": [
+   "16",
+   "31",
+   "81"
+  ],
   "lapcount_lag_s": {
    "n": 56,
    "median": -0.12,
@@ -216,6 +636,26 @@
   "lt_entries_without_jolpica_stop": 1,
   "stint_opened_after_matched_entry": 37,
   "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 0,
+  "unmatched_entries_unexplained": [
+   [
+    "55",
+    6454.9,
+    22
+   ]
+  ],
+  "entries_with_exit": 37,
+  "stints_opened": 37,
+  "stints_with_compound_and_new": 37,
+  "drivers_flagged_retired_or_stopped": [
+   "55",
+   "81"
+  ],
+  "jolpica_not_finished": [
+   "55",
+   "81"
+  ],
   "lapcount_lag_s": {
    "n": 43,
    "median": -0.12,
@@ -232,6 +672,24 @@
   "lt_entries_without_jolpica_stop": 1,
   "stint_opened_after_matched_entry": 37,
   "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 0,
+  "unmatched_entries_unexplained": [
+   [
+    "55",
+    8954.6,
+    56
+   ]
+  ],
+  "entries_with_exit": 37,
+  "stints_opened": 37,
+  "stints_with_compound_and_new": 37,
+  "drivers_flagged_retired_or_stopped": [
+   "55"
+  ],
+  "jolpica_not_finished": [
+   "55"
+  ],
   "lapcount_lag_s": {
    "n": 57,
    "median": -0.2,
@@ -248,6 +706,14 @@
   "lt_entries_without_jolpica_stop": 0,
   "stint_opened_after_matched_entry": 42,
   "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 0,
+  "unmatched_entries_unexplained": [],
+  "entries_with_exit": 42,
+  "stints_opened": 42,
+  "stints_with_compound_and_new": 42,
+  "drivers_flagged_retired_or_stopped": [],
+  "jolpica_not_finished": [],
   "lapcount_lag_s": {
    "n": 65,
    "median": -0.2,
@@ -264,6 +730,35 @@
   "lt_entries_without_jolpica_stop": 2,
   "stint_opened_after_matched_entry": 22,
   "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 0,
+  "unmatched_entries_unexplained": [
+   [
+    "18",
+    8374.0,
+    44
+   ],
+   [
+    "22",
+    4996.8,
+    13
+   ]
+  ],
+  "entries_with_exit": 22,
+  "stints_opened": 22,
+  "stints_with_compound_and_new": 22,
+  "drivers_flagged_retired_or_stopped": [
+   "11",
+   "18",
+   "22",
+   "55"
+  ],
+  "jolpica_not_finished": [
+   "11",
+   "18",
+   "22",
+   "55"
+  ],
   "lapcount_lag_s": {
    "n": 50,
    "median": -0.19,
@@ -280,6 +775,35 @@
   "lt_entries_without_jolpica_stop": 2,
   "stint_opened_after_matched_entry": 28,
   "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 0,
+  "unmatched_entries_unexplained": [
+   [
+    "43",
+    5877.3,
+    25
+   ],
+   [
+    "77",
+    6254.4,
+    29
+   ]
+  ],
+  "entries_with_exit": 28,
+  "stints_opened": 28,
+  "stints_with_compound_and_new": 28,
+  "drivers_flagged_retired_or_stopped": [
+   "11",
+   "30",
+   "43",
+   "77"
+  ],
+  "jolpica_not_finished": [
+   "11",
+   "30",
+   "43",
+   "77"
+  ],
   "lapcount_lag_s": {
    "n": 57,
    "median": -0.2,
@@ -296,6 +820,29 @@
   "lt_entries_without_jolpica_stop": 0,
   "stint_opened_after_matched_entry": 80,
   "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 0,
+  "unmatched_entries_unexplained": [],
+  "entries_with_exit": 82,
+  "stints_opened": 86,
+  "stints_with_compound_and_new": 86,
+  "drivers_flagged_retired_or_stopped": [
+   "14",
+   "30",
+   "5",
+   "55",
+   "6",
+   "7",
+   "81"
+  ],
+  "jolpica_not_finished": [
+   "14",
+   "30",
+   "5",
+   "55",
+   "6",
+   "7"
+  ],
   "lapcount_lag_s": {
    "n": 56,
    "median": -0.19,
@@ -312,6 +859,14 @@
   "lt_entries_without_jolpica_stop": 0,
   "stint_opened_after_matched_entry": 20,
   "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 0,
+  "unmatched_entries_unexplained": [],
+  "entries_with_exit": 26,
+  "stints_opened": 40,
+  "stints_with_compound_and_new": 40,
+  "drivers_flagged_retired_or_stopped": [],
+  "jolpica_not_finished": [],
   "lapcount_lag_s": {
    "n": 43,
    "median": -0.2,
@@ -328,6 +883,14 @@
   "lt_entries_without_jolpica_stop": 0,
   "stint_opened_after_matched_entry": 27,
   "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 0,
+  "unmatched_entries_unexplained": [],
+  "entries_with_exit": 27,
+  "stints_opened": 27,
+  "stints_with_compound_and_new": 27,
+  "drivers_flagged_retired_or_stopped": [],
+  "jolpica_not_finished": [],
   "lapcount_lag_s": {
    "n": 57,
    "median": -0.16,
@@ -344,6 +907,27 @@
   "lt_entries_without_jolpica_stop": 2,
   "stint_opened_after_matched_entry": 32,
   "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 2,
+  "unmatched_entries_unexplained": [],
+  "entries_with_exit": 32,
+  "stints_opened": 32,
+  "stints_with_compound_and_new": 32,
+  "drivers_flagged_retired_or_stopped": [
+   "14",
+   "18",
+   "27",
+   "6",
+   "77",
+   "81"
+  ],
+  "jolpica_not_finished": [
+   "14",
+   "27",
+   "6",
+   "77",
+   "81"
+  ],
   "lapcount_lag_s": {
    "n": 57,
    "median": -0.18,
@@ -360,6 +944,28 @@
   "lt_entries_without_jolpica_stop": 1,
   "stint_opened_after_matched_entry": 51,
   "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 0,
+  "unmatched_entries_unexplained": [
+   [
+    "23",
+    7721.2,
+    42
+   ]
+  ],
+  "entries_with_exit": 51,
+  "stints_opened": 51,
+  "stints_with_compound_and_new": 51,
+  "drivers_flagged_retired_or_stopped": [
+   "23",
+   "27",
+   "3"
+  ],
+  "jolpica_not_finished": [
+   "23",
+   "27",
+   "3"
+  ],
   "lapcount_lag_s": {
    "n": 51,
    "median": -0.19,
@@ -376,6 +982,22 @@
   "lt_entries_without_jolpica_stop": 0,
   "stint_opened_after_matched_entry": 48,
   "stint_opened_after_unmatched_entry": 0,
+  "unmatched_entries_explained_by_served_penalty": 0,
+  "unmatched_entries_followed_by_no_further_lap": 0,
+  "unmatched_entries_unexplained": [],
+  "entries_with_exit": 73,
+  "stints_opened": 75,
+  "stints_with_compound_and_new": 75,
+  "drivers_flagged_retired_or_stopped": [
+   "23",
+   "63",
+   "77"
+  ],
+  "jolpica_not_finished": [
+   "23",
+   "63",
+   "77"
+  ],
   "lapcount_lag_s": {
    "n": 54,
    "median": -0.21,
