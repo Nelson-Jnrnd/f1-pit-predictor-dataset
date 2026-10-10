@@ -4,6 +4,8 @@
 
 Approved — bounded re-review PASS recorded on PR #25 for substantive head `50d9e5f8c58d6c49f333418c19f55d3057c0567f`; Product Owner confirmed merge.
 
+**Amendment A1 (Issue #27):** approved; independent bounded review PASS on PR #31. It adds `EntryLapContext` and the target-initialization run manifest, which the #22 integration gate requires (findings F1 and F4). The amendment is additive and changes no event, episode, eligibility, or resolution semantics.
+
 ## Abstraction level
 
 Detailed data/target design — retrospective pit-visit/event reconstruction, tyre-service qualification, target eligibility materialization, target-episode identity, target resolution states, terminal/race-participation scope, truncation handling, and provenance.
@@ -94,7 +96,7 @@ A logical `TargetTruthSourceManifest` records at least:
 
 - `RaceSessionKey`;
 - source/provider family and acquisition mode;
-- endpoint/source names used for pit-entry, tyre-service, participation, and terminal evidence;
+- endpoint/source names used for pit-entry, tyre-service, participation, terminal, and lap-completion (Amendment A1) evidence;
 - exact frozen content identities/hashes;
 - retrieval/capture date;
 - parser/adapter revision;
@@ -126,7 +128,8 @@ A support result may independently establish capabilities such as:
 - tyre-service negative qualification;
 - race-participation membership reconstruction;
 - terminal participation reconstruction;
-- complete interval coverage for no-event claims.
+- complete interval coverage for no-event claims;
+- driver official lap-completion occurrence reconstruction (Amendment A1; needed for `EntryLapContext`).
 
 A source may support one capability without supporting another. No single global `SUPPORTED` flag is sufficient.
 
@@ -379,6 +382,55 @@ A tyre-serviced visit that is proven pre-race/grid or at/after terminal particip
 
 Event occurrence is the referenced visit's pit-entry occurrence; it is never shifted to pit-box arrival, tyre-service time, pit exit, or the first later record confirming tyre service.
 
+## Entry lap context (Amendment A1, Issue #27)
+
+### Purpose
+
+`design/PREDICTION_CONTRACT.md` (#20) locates a resolved pit entry on its driver-lap-offset grid. To do that it needs the selected driver's official completed-race-lap count at the pit-entry occurrence, `c(E)`. That count is retrospective race truth. Under #17 dependency rule 4, only this retrospective-resolution boundary may derive it from source evidence. The development and backtest joins may not.
+
+### Lap counter
+
+`c(E)` is measured on the driver's **as-raced official completed-race-lap counter**. This is the same counter whose advancement triggers #18 lap-completion checkpoints, with lap completions ordered by their **occurrence** time. A later classification adjustment (for example a red-flag countback, lap-deletion bookkeeping, or a post-race result correction) is never substituted for the as-raced sequence.
+
+Lap-completion occurrence times `C_1 < C_2 < …` are reconstructed from frozen retrospective evidence under the new support capability *driver official lap-completion occurrence reconstruction*. Prediction-time availability authority (#18) is not required for this retrospective use. Processed FastF1 lap rows may contribute only under a validated method, as with `PitInTime`.
+
+### Derivation
+
+This is the derivation defined in `design/PREDICTION_CONTRACT.md` (#20), restated here for the producer. Given the qualifying event's `pit_entry_occurrence` `E` (exact or bounds `[e_lo, e_hi]`), and lap-completion occurrences (exact or bounded):
+
+```text
+exact:    c(E) = #{ k : C_k ≤ E }
+bounded:  c_lo = #{ k : C_k.upper ≤ E.lower }      # certainly completed before entry
+          c_hi = #{ k : C_k.lower ≤ E.upper }      # possibly completed before entry
+```
+
+A lap completion occurring at the same instant as the entry counts as completed. If `c_lo == c_hi`, the value is exact. The formulas assume every official lap completion up to `E.upper` is present in the evidence. A completion that is **missing**, not merely imprecisely timed, shifts the count without widening the bounds, so a lap-completion coverage gap in that window makes the bounds undefensible. If evidence makes even the bounds undefensible, no `EntryLapContext` is produced. The reason is recorded on the resolution artifact as `entry_lap_context_absent_reason`, and #20 then maps the outcome to `MAPPING_UNAVAILABLE`.
+
+### Artifact
+
+```text
+EntryLapContext
+  artifact_id
+  qualifying_event_ref
+  driver_entry_key
+  resolution_run_ref                 # produced inside exactly one resolution run
+  lap_counter_ref                    # identifies the as-raced official counter (same as #18 checkpoints)
+  c_exact? | (c_lo, c_hi)
+  lap_completion_evidence_refs
+  support_validation_refs
+  entry_lap_derivation_version
+  repository_revision
+  provenance
+```
+
+Rules:
+
+1. An `EntryLapContext` is created only by retrospective target resolution, within a declared `resolution_run_ref`, for a `QualifyingPitEventArtifact` that the run selects as an `OBSERVED_EVENT` target.
+2. For a given resolution run there is at most one `EntryLapContext` per qualifying event. All episodes in that run resolving to the event reference the same context.
+3. It is never consumed by observation reconstruction, eligibility/initialization, or prediction. It is retrospective truth for the controlled joins only.
+4. It changes no event, visit, episode, eligibility, or resolution semantics. An `OBSERVED_EVENT` remains `OBSERVED_EVENT` whether or not a context exists.
+5. Improved lap evidence creates a new resolution run and new context artifacts. Existing artifacts are never overwritten.
+
 ## Causal eligibility and target-episode initialization
 
 ### Eligibility input boundary
@@ -423,7 +475,7 @@ No later outcome is backfilled into this artifact.
 
 ### Target episode identity
 
-Exactly one `TargetEpisodeInitialization` is created for each `ELIGIBLE` observation. No ordinary episode is created for `INELIGIBLE` or `INDETERMINATE` decisions.
+Within one target-initialization run, exactly one `TargetEpisodeInitialization` is created for each `ELIGIBLE` observation. No ordinary episode is created for `INELIGIBLE` or `INDETERMINATE` decisions.
 
 ```text
 TargetEpisodeInitialization
@@ -445,6 +497,34 @@ The episode key is observation-owned, not event-owned. Successive eligible obser
 
 The initialization artifact contains no eventual event ID, terminal outcome, or truncation result.
 
+### Target-initialization run (Amendment A1)
+
+Eligibility decisions and episode initializations are produced by a declared target-initialization run:
+
+```text
+TargetInitializationRunManifest
+  target_initialization_run_ref
+  observation_reconstruction_run_ref     # the #18 run whose observations are decided
+  target_definition_version
+  initialization_policy_version
+  repository_revision, configuration digest
+  records[]:                             # exactly one per canonical observation in that #18 run
+    observation_artifact_ref
+    semantic_observation_key
+    eligibility_decision_ref
+    eligibility_status
+    target_episode_initialization_ref?   # present iff ELIGIBLE
+  counts by status / reason
+```
+
+Invariants:
+
+- Coverage is exhaustive: every canonical observation emitted by the referenced #18 run has exactly one decision record.
+- An `ELIGIBLE` record always has an initialization reference.
+- Missing records are run defects, not ineligibility.
+- The manifest consumes no retrospective evidence, which preserves the causal boundary.
+- Re-running with a changed policy creates a new run. Decisions consumed by earlier replays are never overwritten.
+
 ## Retrospective target resolution
 
 ### Resolution inputs
@@ -454,6 +534,7 @@ A resolver consumes:
 - one immutable `TargetEpisodeInitialization`;
 - its exact observation/prediction-boundary references;
 - the reconstructed pit-visit/event catalog for the same driver entry/session;
+- lap-completion occurrence evidence for the same driver entry (Amendment A1, for `EntryLapContext`);
 - the applicable retrospective terminal boundary and participation evidence;
 - reconstruction coverage/support metadata;
 - target-resolution policy/configuration/version.
@@ -577,6 +658,7 @@ TargetEvidenceCoverage
   race_participation_scope_coverage
   tyre_service_positive_coverage
   tyre_service_negative_coverage
+  lap_completion_coverage        # Amendment A1
   terminal_coverage
   known_gaps[]
   support_validation_refs[]
@@ -599,9 +681,12 @@ TargetResolutionArtifact
   prediction_boundary_ref
   resolution_state
   qualifying_event_ref?          # OBSERVED_EVENT only
+  entry_lap_context_ref?         # OBSERVED_EVENT only; same resolution_run_ref (Amendment A1)
+  entry_lap_context_absent_reason?  # OBSERVED_EVENT without a context
   terminal_boundary_ref?         # required whenever used to prove scope/closure
   truncation_reasons[]            # TRUNCATED_INDETERMINATE
   evidence_coverage
+  target_initialization_run_ref  # Amendment A1; every resolution run declares exactly one
   source_manifest_refs
   event_reconstruction_policy_version
   tyre_service_policy_version
@@ -611,6 +696,8 @@ TargetResolutionArtifact
   supersedes_resolution_ref?
   provenance
 ```
+
+Field presence (Amendment A1): for `OBSERVED_EVENT`, exactly one of `entry_lap_context_ref` or `entry_lap_context_absent_reason` is present; for other states, neither is. A resolution run declares exactly one `target_initialization_run_ref`, and resolves only initializations from that run. Selection by `target_episode_key` is therefore unambiguous within the run.
 
 A resolution artifact is immutable for one declared source/configuration/policy/run. Improved evidence or reconstruction creates a new artifact/version; it does not mutate a result already consumed by a replay/backtest run.
 
@@ -660,6 +747,7 @@ TargetEpisodeDatasetRecord
   prediction_boundary_ref
   resolution_state
   event_ref? / event_entry_occurrence?
+  entry_lap_context_ref? / entry_lap_context_absent_reason?
   terminal_boundary_ref?
   truncation_reasons[]
   evidence_coverage
@@ -672,8 +760,8 @@ Physical columns/types/file format are implementation choices. Observed-event, t
 
 ```text
 CanonicalObservation
-  1 -> 1 EligibilityDecision
-  1 -> 0..1 TargetEpisodeInitialization
+  1 -> 1 EligibilityDecision per target-initialization run
+  1 -> 0..1 TargetEpisodeInitialization per target-initialization run
 
 DriverEntry
   1 -> many PitVisitArtifact
@@ -687,6 +775,14 @@ TargetEpisodeInitialization
 
 TargetResolutionArtifact (OBSERVED_EVENT)
   many episodes may -> same QualifyingPitEventArtifact
+  1 -> 0..1 EntryLapContext (same resolution_run_ref)
+
+QualifyingPitEventArtifact
+  1 -> 0..many EntryLapContext versions globally
+  1 -> at most 1 EntryLapContext per declared resolution run
+
+TargetInitializationRun
+  1 -> exactly 1 EligibilityDecision per canonical observation of its #18 run
 ```
 
 This preserves repeated-forecast semantics and immutable re-resolution lineage. Two observations at `T1` and `T2` may create separate episodes that both resolve to the same later in-scope tyre-service event when no qualifying event occurred between them.
@@ -757,7 +853,10 @@ The verification baseline after the design integration gate must establish a tar
 19. terminal-no-event cases proving complete pit/service/race-scope follow-up rather than relying on final status alone;
 20. successive target episodes resolving to the same eventual event while retaining distinct episode IDs;
 21. multiple immutable resolution versions for one episode with exactly one selected resolution per declared run;
-22. deterministic reconstruction/provenance from identical frozen sources/configuration.
+22. deterministic reconstruction/provenance from identical frozen sources/configuration;
+23. **lap-completion occurrence reconstruction support by endpoint/era, compared with #18 checkpoint lap counts so that the counters are proven identical;**
+24. **`EntryLapContext` exact and bounded derivations, including a lap completion at the same instant as the entry, a red-flag countback proving the as-raced counter is used, and an evidence gap producing `entry_lap_context_absent_reason`;**
+25. **target-initialization run exhaustiveness: one decision per canonical observation, and an initialization present iff `ELIGIBLE`.**
 
 Verification may establish support only for a subset of seasons/source eras. Unsupported historical scopes remain explicitly truncated/indeterminate rather than backfilled from legacy labels.
 
@@ -767,7 +866,7 @@ Verification may establish support only for a subset of seasons/source eras. Uns
 | --- | --- |
 | Exact source/endpoint/season support matrix and empirical reliability/tolerances | Verification baseline after #22 |
 | Exact physical schemas, file formats, hashing, package classes, parser code, CLI commands | Implementation |
-| Exact probability timing-region representation and mapping of resolved in-scope event occurrence into it | #20 — prediction distribution/model-facing contract |
+| Exact probability timing-region representation and mapping of resolved in-scope event occurrence into it (using `EntryLapContext`) | #20 — prediction distribution/model-facing contract |
 | Replay ordering, temporal development/final-evaluation mechanics, resolution-version selection/accounting | #21 — replay/backtest contract |
 | Final metrics, censoring/truncation statistical treatment, weighting/dependence estimators | Verification/statistical phase |
 | Model features, model family, calibration, hyperparameters | Model verification/experimentation |
@@ -785,6 +884,7 @@ Verification may establish support only for a subset of seasons/source eras. Uns
 - **Identity separation/versioning:** observation, target episode, pit visit, event, and resolution-version identities are distinct; one episode can have multiple immutable resolution versions globally but exactly one selected result per declared run.
 - **Ambiguity handling:** unresolved service, entry ordering, race-scope/terminal ordering, visit segmentation, source gaps, and terminal uncertainty fail closed when they can change target truth.
 - **Consumer contract:** #20/#21 receive one canonical target initialization/resolution contract without redefining target semantics.
+- **Amendment A1:** `EntryLapContext` provides the lap count at pit entry on the #18 lap counter, inside the declared resolution run; the target-initialization run manifest makes eligibility coverage auditable.
 - **Scope discipline:** no probability output representation, model, metric/statistical method, live runtime, or production implementation is selected.
 
 ## Product Owner decisions
@@ -828,3 +928,19 @@ The design now:
 - Product Owner decision: none required; Product Owner confirmed the PR is good to merge.
 
 This final metadata-only commit records the passing bounded re-review and does not change the reviewed substantive design.
+
+### Amendment A1 (Issue #27) — review
+
+- Scope: `EntryLapContext`, the lap-completion support capability, the target-initialization run manifest, the resolution/dataset reference fields, and verification items 23–25.
+- Trigger: #22 integration gate findings F1 (Blocking) and F4 (Minor).
+- PR: #31
+- Reviewer: independent review agent; recorded on PR #31 as a `COMMENT` review through the connected account
+- Date: 2026-10-09
+- Reviewed head: `93e244299d6e98bb38ae1ba9d395e6641e2400c0`
+- Outcome: **PASS**. No Blocking or Major findings. F1 and F4 (#19 part) are satisfied, with no regressions in #20 or #21.
+- Minor findings fixed in the follow-up commit:
+  1. eligibility and initialization cardinality is now scoped per target-initialization run, and each resolution run declares exactly one initialization run;
+  2. lap-completion evidence is added to the resolution inputs and to `TargetTruthSourceManifest`.
+- Observations adopted: the missing-completion coverage rule, a cross-reference to the #20 formula, the field-presence rule, and `lap_completion_coverage`.
+- Product Owner decision: none required.
+
