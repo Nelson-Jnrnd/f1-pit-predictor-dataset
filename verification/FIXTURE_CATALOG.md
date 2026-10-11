@@ -2,7 +2,9 @@
 
 ## Status
 
-Draft, reworked after the full scoped review on PR #40. A bounded re-review is required before approval.
+Approved, except for the split section. The bounded re-review on PR #40 (head `d2b15d5`) resolved all 23 prior findings, but found two Major regressions (N1, N2) in FX-E2E-04 and FX-E2E-10.
+
+Under the non-convergence rule, those two scenarios were **split into Issue #41**, which gets its own independent review. They are fixed in this file and marked "split slice, #41". Minor findings N3–N9 are applied. Every other entry stands as reviewed.
 
 ## Abstraction level
 
@@ -120,7 +122,7 @@ Implementation turns each entry into an automated test without inventing expecte
 | FX-OBS-06 | O-6 | REAL((2025,12), S-RD) | C | All 8 streams → stored bytes reproduce the evidence SHA-256 values. `ArchiveRecordKey` ordinals are contiguous from 0 and prefixes are unchanged. No `SourceAvailabilityKey` exists without an authority-validation reference |
 | FX-OBS-07 | O-12 | REAL((2025,12), S-RD) | C | Reconstruct twice from identical snapshot and configuration → identical observation digests and identical attempt-record lists |
 | FX-OBS-08 | O-8 | SYN | C | Driver 44 counts 20 @4910. A malformed `TimingData` line follows @5000. The next valid driver-44 record is count 22 @5090 → the malformed line is counted in gap metadata and no fact is taken from it. L21 attempt: `INDETERMINATE_CHECKPOINT` (`LAP_COUNT_JUMP`). L22 checkpoint @5090 is valid |
-| FX-OBS-09a | O-8 (recovery) | SYN | C | A `TimingData` stream gap breaks continuity for driver 44's `Position` field over [5000, 5300]. No full-state update arrives until a `Position` value @5320 → observations with triggers in (5005, 5320) carry `Position` for 44 as **unknown** (omitted), not the stale pre-gap value. Observations after 5320 carry the new value. This follows #18 "state unknown after gap until reset" |
+| FX-OBS-09a | O-8 (recovery) | SYN | C | The **whole** `TimingData` stream has no records between P = 5000 and P = 5300, declared a continuity gap in the source manifest. Driver 44's next `Position` value arrives @5320 → observations whose trigger comes after the gap start in stream order, and before the 5320 record, carry driver 44's `Position` as **unknown** (omitted), not the stale value. Later observations carry the new value (#18: state unknown after a gap until reset) |
 | FX-OBS-09 | O-9 | SYN | C | FastF1 `Laps.Time` differs from the raw advance prefix by 3 s → the boundary uses the raw prefix only. Processed values never become availability evidence |
 | FX-OBS-10 | O-10 | SYN | C | Driver 1 `LastLapTime` for lap 10 is 1:32.5 @4000, corrected to 1:33.0 @4500 (`TimingData`, same stream as the lap triggers) → an observation whose trigger precedes 4500 in stream order shows 1:32.5. A trigger after the 4500 record in stream order shows 1:33.0 (same-stream rule, #35). The L10 artifact is unchanged after the correction |
 | FX-OBS-11 | O-11 | SYN | C | Driver 44 L10 trigger @5000. Driver 1 sector update @4985 (same stream, earlier in order) → admitted. Driver 1 lap-12 advance @5003 (after the trigger in order) → excluded. No equal-lap alignment |
@@ -132,9 +134,9 @@ Implementation turns each entry into an automated test without inventing expecte
 | FX-OBS-17 | O-15 | SYN | C | `TotalLaps` 58 @6 → the start observation (`Started` 3600) has `SCHEDULED_RACE_DISTANCE_LAPS` = 58. Admitted because 6 + 300 < 3595 |
 | FX-OBS-18 | O-15 | SYN | C | `TotalLaps` 58 @6, revised to 57 @3550 (aborted start) → the revision fails the #35 pre-race margin (3550 + 300 ≥ 3595). It is **not admissible for any in-race checkpoint**, so **every** in-race observation carries 58. (Consequence routed: see Routing R-A) |
 | FX-OBS-19 | O-15 | SYN | C | Only a final-classification distance exists → fact omitted with `SCHEDULED_DISTANCE_UNAVAILABLE`, and #20 yields `REQUIRED_CONTEXT_MISSING` (FX-PRD-21) |
-| FX-OBS-20 | O-3, O-4 | SYN | C | The same `SessionStatus` stream classified S-RG (rewritten archive) → no `RACE_START` checkpoint. The attempt record is `INDETERMINATE_CHECKPOINT` (`ARCHIVE_AVAILABILITY_UNVERIFIED`). Classified S-22 (unretrievable) → `SESSION` `INDETERMINATE_SOURCE` (`SOURCE_AUTHORITY_UNSUPPORTED`) |
+| FX-OBS-20 | O-3, O-4 | SYN | C | The same `SessionStatus` stream classified S-RG (rewritten archive) → no `RACE_START` checkpoint. The attempt record is `INDETERMINATE_CHECKPOINT` (`ARCHIVE_AVAILABILITY_UNVERIFIED`). A session whose archive request returns HTTP 403 (S-22, no bytes) → `SESSION` `INDETERMINATE_SOURCE` with reason `SOURCE_STREAM_MISSING`, and scope class `UNSUPPORTED` |
 | FX-OBS-21 | O-3, O-5 | SYN | C | `TimingData` lap advances in an S-RG-classified source → every lap-checkpoint attempt is `INDETERMINATE_CHECKPOINT` (`ARCHIVE_AVAILABILITY_UNVERIFIED`), even though prefixes and counts look plausible (#18 rule 6) |
-| FX-OBS-22 | O-10 (#35 F-A3) | SYN | C | Driver 63's lap-38 advance is published late @7248, while the other drivers' advances are normal. The lap-fixture residual is −69.9 s for 63 only → the L38 checkpoint boundary is P = 7248 (the late prefix). No unhealthy window is created (single driver) |
+| FX-OBS-22 | O-10 (#35 F-A3) | SYN | C | Driver 63's lap-38 advance is published late @7248, while the other drivers' advances are normal. The lap-fixture residuals for driver 63 are +69.9 s on lap 38 and −69.9 s on lap 39; all other drivers are normal → the L38 checkpoint boundary is P = 7248 (the late prefix). No unhealthy window is created (single driver) |
 | FX-OBS-23 | O-15 | SYN | C | S-RD observation → the `SCHEDULED_RACE_DISTANCE_LAPS` fact class is the streamed bounded-time class, not `STATIC_PRIOR`. The `DISTANCE_REVISION_CHANNEL_UNVERIFIED` reason code is absent |
 
 ## Target reconstruction (#19)
@@ -147,7 +149,7 @@ Implementation turns each entry into an automated test without inventing expecte
 | FX-TGT-03a | T-2 (first-lap edge) | SYN | C | `Started` @3600, bounded [3595, 3605]; entry @3602, bounded [3597, 3607] → overlap gives `INDETERMINATE_RACE_PARTICIPATION`. An entry @3612 ([3607, 3617]) → `IN_RACE_PARTICIPATION` |
 | FX-TGT-04 | T-3 | SYN | C | Driver 31: last advance @5950, `Retired:true` @6000, entry @6100 ([6095, 6105] ≥ the terminal upper bound 6000) → `OUTSIDE_RACE_PARTICIPATION`. Any entry after the driver's finish terminal is likewise outside |
 | FX-TGT-05 | T-4 | SYN | C | (b) `InPit:false` with no prior entry → segmentation anomaly flagged; no visit. (c) Entry with no exit before session end → exit-open visit retained. **(a) PENDING-OWNER:** a second `InPit:true` 0.4 s after the first, with no exit between. Whether it is a duplicate (one visit) or an anomaly depends on the source-lineage equivalence criterion. Routed (R-B) |
-| FX-TGT-05a | T-4 (malformed) | SYN | C | A malformed `TimingData` line inside [entry, entry + 40] of a visit → the visit's `visit_segmentation_quality` is degraded. An episode that the visit could resolve is `TRUNCATED_INDETERMINATE` ("source gap may hide visit") |
+| FX-TGT-05a | T-4 (malformed) | SYN | C | A malformed `TimingData` line inside [entry, entry + 40] of a visit, before any exit record, so it could hide an exit and re-entry → the visit's `visit_segmentation_quality` is degraded. An episode for which this visit could be the earliest qualifying event is `TRUNCATED_INDETERMINATE` (#19 rule 9: a gap that can change visit identity). A malformed line after a proven earlier event does not change that episode |
 | FX-TGT-06 | T-5 | SYN | C | Driver 4: entry @5000 (exit 5021), entry @5040 (exit 5062), both with c = 30 → two visits with distinct `visit_discriminator`, ordered by stream order |
 | FX-TGT-08 | T-7 | SYN | U | Window updates: stint 2 `{TyresNotChanged:"1"}` @entry+1, then stint 2 `{TyresNotChanged:"0", New:"true", Compound:"HARD"}` @entry+6 → `CONFIRMED_TYRE_SERVICE` (last update) |
 | FX-TGT-09 | T-8 | SYN | U | Last update `{TyresNotChanged:"0", New:"false", Compound:"MEDIUM", StartLaps:8}`, previous stint MEDIUM → `CONFIRMED_TYRE_SERVICE`. Compound equality is not a negative |
@@ -161,7 +163,7 @@ Implementation turns each entry into an automated test without inventing expecte
 | FX-TGT-15 | T-14 | SYN | U | B bounded (5950, 6000]. Entry [5935, 5945] → `STRICTLY_BEFORE_TERMINAL`. [6005, 6015] → `AT_OR_AFTER_TERMINAL`. [5955, 5965] → `INDETERMINATE_TERMINAL_RELATION` |
 | FX-TGT-15a | T-14 (exact) | SYN | U | Exact E = B = 6000 → `AT_OR_AFTER_TERMINAL` |
 | FX-TGT-16 | T-15 | SYN | C | Episode T bounds [4995, 5005]; finish terminal B = driver lap completion @9050 (bounded [9045, 9055]); confirmed-service in-scope entries @5600 and @7000 → `OBSERVED_EVENT` referencing the 5600 event. A confirmed-service entry @9100 never resolves any episode |
-| FX-TGT-17 | T-16 | SYN | C | Driver 22: entry @6000 (exit @6004), entry @6008, both confirmed service. Bounds [5995, 6005] and [6003, 6013] overlap, but `TimingData` stream order fixes entry 1 before entry 2 (RA-3) → `OBSERVED_EVENT` on the 6000 entry. Truncation for genuinely unorderable candidates cannot occur within one stream in S-RD, so this sub-case is not constructible there |
+| FX-TGT-17 | T-16 | SYN | C | Episode T bounds [5495, 5505], finish B = 9050. Driver 22: entry @6000 (exit @6004), entry @6008, both confirmed service. Bounds [5995, 6005] and [6003, 6013] overlap, but `TimingData` stream order fixes entry 1 before entry 2 (RA-3) → `OBSERVED_EVENT` on the 6000 entry. Truncation for genuinely unorderable candidates cannot occur within one stream in S-RD, so this sub-case is not constructible there |
 | FX-TGT-18 | T-17 | SYN | U | Driver 31: last advance @5950, `Retired:true` @6000 → terminal; B ∈ (5950, 6000] |
 | FX-TGT-19 | T-17 | SYN | U | (i) `Stopped:true` @6000 after the last advance (5950) and before the last `Finished` → terminal. (ii) `Stopped:true` @5000 with advances after 5100 (red flag) → not terminal. (iii) In-race black flag: RCM "BLACK FLAG ... CAR 27" @7000, no further advances, `Stopped` @7020 → terminal. (iv) A post-race disqualification exists only in final results (no archive signal) → not a participation terminal |
 | FX-TGT-20 | T-17 | REAL(S-RD) | C | Combined rule versus Jolpica non-finishers (disqualifications excluded) → 157/158 (`capabilities_raceday_scope_v2.json`); regression guard |
@@ -175,7 +177,7 @@ Implementation turns each entry into an automated test without inventing expecte
 | FX-TGT-27 | T-24 | SYN | U | Advances lap 30 @4900, lap 31 @5000. Entry record after the lap-31 record in stream order → `c_exact` = 31. Entry before it → 30. (Equal-instant completion counts as completed) |
 | FX-TGT-28 | T-24 | SYN | U | Red flag after lap 40, classification countback to 39, as-raced counter 40 at entry → `c_exact` = 40 |
 | FX-TGT-29 | T-24 | SYN | U | Driver count jumps 30 → 32 before the entry → no `EntryLapContext`; `entry_lap_context_absent_reason` is set; still `OBSERVED_EVENT` |
-| FX-TGT-29a | T-24 (bounded formula) | SYN | U | #19 formula with bounded inputs: laps 1–29 certainly completed earlier; C₃₀ = [4895, 4905]; C₃₁ = [4995, 5005]; E = [4998, 5008] → `c_lo` = 30, `c_hi` = 31. (In S-RD the order-based method is always exact, so this exercises the formula only) |
+| FX-TGT-29a | T-24 (bounded formula) | SYN | U | #19 formula with bounded inputs: laps 1–29 certainly completed earlier; C₃₀ = [4895, 4905]; C₃₁ = [4995, 5005]; no further completions; E = [4998, 5008] → `c_lo` = 30, `c_hi` = 31. (In S-RD the order-based method is always exact, so this exercises the formula only) |
 | FX-TGT-30 | T-25 | SYN | C | #18 run with 10 canonical observations (7 eligible, 2 ineligible, 1 indeterminate) → manifest has 10 records and 7 initializations; an initialization is present iff the decision is `ELIGIBLE` |
 
 ## Prediction contract (#20)
@@ -248,7 +250,7 @@ Implementation turns each entry into an automated test without inventing expecte
 | FX-SUP-04 | #35 (A) | SYN | C | `TrackStatus` facts in S-RD → omitted with reason `ARCHIVE_AVAILABILITY_UNVERIFIED`. The observation is `VALID_WITH_OMISSIONS` |
 | FX-SUP-05 | #35 bounds | SYN | U | Cross-stream fact @989.9, trigger @1000 → admitted. @990.0 → omitted |
 | FX-SUP-06 | #35 bounds | SYN | U | Same-stream record @999.9, before the trigger in stream order → admitted. Field inside the trigger record → admitted. Same-stream record after the trigger in stream order (equal prefix) → omitted |
-| FX-SUP-07 | #35 health (a) | SYN | U | Driver 1 lap 46 spans [8530, 8622] with `LastLapTime` 90.0 s → r = +2.0. Driver 10 lap 46 spans [8540, 8640] with `LastLapTime` 98.2 s → r = +1.8 → common-mode window [8530, 8640]. A trigger @8600 → `INDETERMINATE_CHECKPOINT` (`COARSE_TIME_AMBIGUITY`); facts inside are omitted. Driver 63 alone with r = +30, then −30 on the next lap → no window |
+| FX-SUP-07 | #35 health (a) | SYN | U | Driver 1 lap 46 spans [8530, 8622] with `LastLapTime` 90.0 s → r = +2.0. Driver 10 lap 46 spans [8540, 8640] with `LastLapTime` 98.2 s → r = +1.8 → common-mode anomaly. The illustrative extent [8530, 8640] is the union of the flagged laps; #35 does not define the extent, so it is not asserted. A trigger @8600 (inside both flagged laps) → `INDETERMINATE_CHECKPOINT` (`COARSE_TIME_AMBIGUITY`); facts inside are omitted. Driver 63 alone with r = +30, then −30 on the next lap → no window |
 | FX-SUP-08 | #35 health (b) | SYN | U | In-race interval [6000, 6300] with no lap-fixture check. (i) No RCM anchor in [5940, 6360] → unhealthy. (iii) The only anchor @6150 has deviation +0.9 (outside [−1.2, +0.7]) → unhealthy. **(ii) PENDING-OWNER:** a single in-band anchor @6150. Whether one anchor heals the whole interval, or each point needs an anchor within ±60 s, is unresolved. Routed (R-F) |
 | FX-SUP-09 | #35 pre-race | SYN | U | `Started` @3400. Pre-race fact @3094.9 → admitted. @3095.0 → omitted |
 | FX-SUP-10 | #35 health (c) | SYN | U | A record after the last `Finished` → unhealthy; never a fact for in-race checkpoints |
@@ -267,7 +269,7 @@ Implementation turns each entry into an automated test without inventing expecte
 | FX-EVL-04 | §1 | SYN | C | A development snapshot with minimum probability 5e-7 → lock refused |
 | FX-EVL-05 | §2 | SYN | U | Paired units (S_locked, S_ref) = (1.0, 1.2), (0.5, 0.4) → ΔS = −0.05 |
 | FX-EVL-06 | §3 | SYN | U | Paired differences by race: g1 [0.1, 0.3]; g2 [−0.2, 0.0, 0.2]; g3 [0.4]; g4 [−0.1, 0.1] (n = 8, G = 4) → ΔS = 0.1. CR2 variance = (1/64)·Σ_g (Σ residuals_g)² / (1 − n_g/8) = 0.0055238095238095. SE = 0.0743223352957207. 95 % interval with t(3, 0.975) = 3.182446305284263 → [−0.1365268413619644, 0.3365268413619644]. G < 10 → flagged **descriptive only** |
-| FX-EVL-07 | §3 | SYN | U | Wild cluster bootstrap (unrestricted, Webb six-point weights, B = 9,999): (i) if every unit difference equals 0.2, the interval is [0.2, 0.2] exactly; (ii) the same seed gives an identical interval |
+| FX-EVL-07 | §3 | SYN | U | Wild cluster bootstrap (unrestricted, Webb six-point weights, B = 9,999, **percentile** interval): (i) if every unit difference equals 0.2, the interval is [0.2, 0.2] exactly; (ii) the same seed gives an identical interval |
 | FX-EVL-08 | §4 | SYN | C | B1 at T falls back to B0 when the compound is omitted, when the latest admissible stint update has `TyresNotChanged:"1"`, or when there has been no admissible stint update since the last entry |
 | FX-EVL-09 | §6 | SYN | U | A (rank 2, mean 1.000); C (rank 1, mean 1.020), with ΔS(C vs A) = 0.020: SE 0.030 → choose C. SE 0.010 → choose A |
 | FX-EVL-10 | §6 | SYN | U | The chosen candidate's ΔS against B1 ≥ 0 → lock B1; primary comparison is B1 against B0 |
@@ -285,13 +287,13 @@ All scenarios are `SYN` (except E2E-09), use the defaults, and use a **stub mode
 | FX-E2E-01 | **Observed event.** Driver 16: lap advances 20 @5000, 21 @5090, 22 @5180; entry @5200 (c = 22), confirmed service; finish B = 9050. Observation L20 (T = 5000, N_T = 57, so K_T = 37) | Snapshot; `OBSERVED_EVENT`; `REALIZED_REGION {2}`; A9; S = ln 38 |
 | FX-E2E-02 | **Terminal no-event.** Driver 16, L50 at T = 8200 (K_T = 7); no visits; finish B = 9050; complete coverage | `TERMINAL_NO_EVENT`; `REALIZED_NO_EVENT`; A11; S = ln 8 |
 | FX-E2E-03 | **Truncated.** As E2E-01, but the entry @5200 has last update `TyresNotChanged:"1"` and no penalty | `TRUNCATED_INDETERMINATE`; `NOT_REALIZED`; A6; not scored |
-| FX-E2E-04 | **Ineligible.** Driver 16 completes lap 57 @9050, after the leader's `Finished` @9000. The checkpoint L57 trigger is @9050 (#19 eligibility: no future race progression remains) | `INELIGIBLE`; no request or snapshot; A2 |
+| FX-E2E-04 | **Ineligible (split slice, #41).** Driver 31's lap-30 advance record @6000 (healthy window, before `Finished`) carries `Retired:true` **in the same payload**. Same-payload fields are available at T by construction (#35). #19 eligibility: "participation is already terminal" at T | `INELIGIBLE`; no request or snapshot; A2. *Note:* post-finish checkpoints are always clock-unhealthy (#35 rule (c)) and become A1, so "no future race progression" ineligibility cannot be reached in S-RD. Routed as information (R-H) |
 | FX-E2E-05 | **Defective.** As E2E-01, but driver 16's count jumps 21 → 23 before the entry | `MAPPING_UNAVAILABLE`; A8; run `DEFECTIVE`; no `PRIMARY` |
 | FX-E2E-06 | **Leakage: future facts.** Rival pit entry @5003 (same stream, after the L20 trigger record) and RCM message @4993 (cross-stream, inside 10 s) | Neither appears in the L20 observation, input view or snapshot |
 | FX-E2E-07 | **Successive checkpoints.** E2E-01 plus observation L21 (T = 5090) | Two units: `{2}` on L20's grid and `{1}` on L21's grid; same `eventual_event_key`; distinct episodes |
 | FX-E2E-08 | **Clock anomaly.** Common-mode window [6000, 6200]; lap trigger @6100 | `INDETERMINATE_CHECKPOINT`; A1; no snapshot |
 | FX-E2E-09 | **Real smoke test.** REAL((2024,10), S-RD), full chain | Every A9 `c(E)` agrees with Jolpica; category counts reproducible across two runs; no `MAPPING_CONFLICT` |
-| FX-E2E-10 | **Counterfactual futures (cross-state leakage).** One identical record history up to and including driver 16's L20 trigger @5000, followed by five different futures: (a) confirmed service @5200 (observed event); (b) no visits until finish (terminal no-event); (c) the 5200 visit with `TyresNotChanged:"1"` (truncated); (d) no visits; driver 16's last advance is @5270 and it shows `Retired:true` @5300 (retirement terminal B ∈ (5270, 5300], complete coverage over (T, B)); (e) a lap-count jump before the 5200 entry (defective) | **Identical across all five:** the observation digest for L20, the eligibility decision, the initialization, `request_digest`, the snapshot `content_digest`, and the attempt record. Only resolution, mapping and accounting differ: (a) A9, (b) A11, (c) A6, (d) A11 (`TERMINAL_NO_EVENT` at retirement), (e) A8. Ineligibility is decided causally at T, so it cannot be a future. Observations whose own T falls after the 5300 retirement are covered by FX-E2E-04 and FX-TGT-04. Any difference on the prediction side fails the test |
+| FX-E2E-10 | **Counterfactual futures (cross-state leakage).** One identical record history up to and including driver 16's L20 trigger @5000, followed by five different futures: (a) confirmed service @5200 (observed event); (b) no visits until finish (terminal no-event); (c) the 5200 visit with `TyresNotChanged:"1"` (truncated); (d) no visits; driver 16's last advance is @5270 and it shows `Retired:true` @5300 (retirement terminal B ∈ (5270, 5300], complete coverage over (T, B)); (e) a lap-count jump before the 5200 entry (defective) | **Content identical across all five** (split slice, #41): the L20 observation's `canonical_state`, `prediction_boundary` and quality; the eligibility status, reason codes and causal input fact content; the initialization's target-definition and policy fields; the `input_view` values; `request_digest`; and the snapshot's `content_digest`. **Excluded, because they legitimately differ:** artifact ids, `observation_artifact_ref`, `target_episode_key` and other snapshot-scoped identifiers and provenance, which are tied to each future's source snapshot (#18). Only resolution, mapping and accounting differ: (a) A9, (b) A11, (c) A6, (d) A11 (`TERMINAL_NO_EVENT` at retirement), (e) A8. Ineligibility is decided causally at T, so it cannot be a future. Observations whose own T falls after the 5300 retirement are covered by FX-E2E-04 and FX-TGT-04. Any difference on the prediction side fails the test |
 
 ## Deferred items
 
@@ -305,15 +307,16 @@ All scenarios are `SYN` (except E2E-09), use the defaults, and use a **stub mode
 
 ## Routing (open clarifications; PENDING-OWNER entries)
 
-| Ref | Question | Owner | Affected fixtures |
-| --- | --- | --- | --- |
-| R-A | A `TotalLaps` revision published within 300 s before the start is never admissible in-race, so `N_T` stays stale for the whole race. Keep this, or define a later admission route? Any relaxation must be checked against the conditions of the PO evidence exception (`DECISION_BOUNDARIES`) | #35 | FX-OBS-18 (expects the current rule) |
-| R-B | The source-lineage equivalence criterion for duplicate `InPit:true` records | #35 / #19 | FX-TGT-05(a) |
-| R-C | Precedence when a served-penalty visit has last update `TyresNotChanged:"0"` (none observed, 0/10) | #35 / #19 | FX-TGT-10 note |
-| R-D | Optional initialization-lineage check in the development join (gate O3) | #21 | FX-RPL-25 |
-| R-E | R-5 wording: the "reseeded rerun under the same lock" case is unreachable | #21 | FX-RPL-07 note |
-| R-F | How health-window rule (b) is quantified (one anchor per interval, or per point within ±60 s) | #35 | FX-SUP-08(ii) |
-| R-G | Lap context for indeterminate visits (#37 §8.5) | #19 | FX-EVL-14 |
+| Ref | Question | Owner | Assumption used here | Status | Affected fixtures |
+| --- | --- | --- | --- | --- | --- |
+| R-A | A `TotalLaps` revision published within 300 s before the start is never admissible in-race, so `N_T` stays stale for the whole race. Keep this, or define a later admission route? Any relaxation must be checked against the conditions of the PO evidence exception (`DECISION_BOUNDARIES`) | #35 | Current #35 rule applies (no in-race admission) | Open | FX-OBS-18 (expects the current rule) |
+| R-B | The source-lineage equivalence criterion for duplicate `InPit:true` records | #35 / #19 | None; fixture part (a) not asserted | Open | FX-TGT-05(a) |
+| R-C | Precedence when a served-penalty visit has last update `TyresNotChanged:"0"` (none observed, 0/10) | #35 / #19 | Non-conflicting data only | Open | FX-TGT-10 note |
+| R-D | Optional initialization-lineage check in the development join (gate O3) | #21 | Mismatch only logged | Open | FX-RPL-25 |
+| R-E | R-5 wording: the "reseeded rerun under the same lock" case is unreachable | #21 | #21 refuses seed mismatch at replay | Open (wording) | FX-RPL-07 note |
+| R-F | How health-window rule (b) is quantified (one anchor per interval, or per point within ±60 s) | #35 | Only unambiguous cases (i), (iii) asserted | Open | FX-SUP-08(ii) |
+| R-G | Lap context for indeterminate visits (#37 §8.5) | #19 | Diagnostic "not computable" until provided | Open | FX-EVL-14 |
+| R-H | Post-finish "no future race progression" ineligibility cannot be reached in S-RD (post-finish checkpoints are unhealthy) | #19 / #35 | Information only | Informational | FX-E2E-04 note |
 
 ## Acceptance mapping (Issue #36)
 
@@ -367,6 +370,20 @@ All scenarios are `SYN` (except E2E-09), use the defaults, and use a **stub mode
     - The "no contradiction" statement is replaced by routing entries.
     - FX-OBS-22 adds a delayed-publication fixture.
 
-### Bounded re-review
+### Bounded re-review: FAIL on the split section only
 
-Required under `governance/REVIEW_POLICY.md`.
+- PR: #40. Reviewer: the same independent review agent; recorded on PR #40 as a `COMMENT` review. Date: 2026-10-11. Reviewed head: `d2b15d5`.
+- All 23 prior findings are resolved or acceptably routed, and the PENDING-OWNER routing is accepted under SPEC_PROCESS. The recomputed values are correct.
+- Two Major regressions remain:
+  - N1: FX-E2E-04 contradicted #35 health rule (c).
+  - N2: FX-E2E-10 asserted identity for identifiers scoped to the snapshot.
+- Seven Minor findings (N3–N9) were also raised.
+- **Non-convergence handling:**
+  - No third review cycle on this slice.
+  - N1 and N2 were split into Issue #41, a new sub-slice with its own independent review.
+  - N3–N9 were applied as Minor fixes.
+  - All other entries stand as passed.
+
+### Split sub-slice (#41) review
+
+Pending.
