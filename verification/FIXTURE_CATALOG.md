@@ -2,9 +2,9 @@
 
 ## Status
 
-Approved, except for the split section. The bounded re-review on PR #40 (head `d2b15d5`) resolved all 23 prior findings, but found two Major regressions (N1, N2) in FX-E2E-04 and FX-E2E-10.
+Approved, including the split section. The bounded re-review on PR #40 (head `d2b15d5`) resolved all 23 prior findings, but found two Major regressions (N1, N2) in FX-E2E-04 and FX-E2E-10.
 
-Under the non-convergence rule, those two scenarios were **split into Issue #41**, which gets its own independent review. They are fixed in this file and marked "split slice, #41". Minor findings N3–N9 are applied. Every other entry stands as reviewed.
+Under the non-convergence rule, those two scenarios were **split into Issue #41**, which gets its own independent review. They are fixed in this file and marked "split slice, #41". The #41 sub-slice passed its bounded re-review (see *Split sub-slice (#41) review*). Minor findings N3–N9 are applied. Every other entry stands as reviewed.
 
 ## Abstraction level
 
@@ -283,7 +283,7 @@ Implementation turns each entry into an automated test without inventing expecte
 All scenarios are `SYN` (except E2E-09) and use the defaults.
 
 - **Stub model (most scenarios):** emits the uniform distribution p_j = q = 1/(K_T + 1).
-- **Stub model (FX-E2E-10):** a deterministic stub that depends on its input. It sets p_0 = 0.05 + 0.9·(1 − e^(−a/20)) for stint age a in the input view, then spreads the remaining mass uniformly over the other K_T − 1 regions and q. Any input difference therefore changes the distribution.
+- **Stub model (FX-E2E-10):** a deterministic stub that depends on its input. It sets p_0 = 0.05 + 0.9·(1 − e^(−a/20)) for stint age a in the input view, then spreads the remaining mass uniformly over the other K_T − 1 regions and q. A difference in stint age therefore changes the distribution. Other input differences are caught by the input-view comparison.
 
 | ID | Scenario | Expected end state |
 | --- | --- | --- |
@@ -296,7 +296,7 @@ All scenarios are `SYN` (except E2E-09) and use the defaults.
 | FX-E2E-07 | **Successive checkpoints.** E2E-01 plus observation L21 (T = 5090) | Two units: `{2}` on L20's grid and `{1}` on L21's grid; same `eventual_event_key`; distinct episodes |
 | FX-E2E-08 | **Clock anomaly.** Common-mode window [6000, 6200]; lap trigger @6100 | `INDETERMINATE_CHECKPOINT`; A1; no snapshot |
 | FX-E2E-09 | **Real smoke test.** REAL((2024,10), S-RD), full chain | Every A9 `c(E)` agrees with Jolpica; category counts reproducible across two runs; no `MAPPING_CONFLICT` |
-| FX-E2E-10 | **Counterfactual futures (cross-state leakage), split slice, #41.** Driver 16 has one identical record history up to and including its L20 trigger @5000: the same records, prefixes, within-stream ordinals and payload bytes. Five different futures follow. (a) A confirmed-service entry @5200 with c = 22 (observed event). (b) No visits until driver 16's finish terminal B = 9050 (terminal no-event). (c) The @5200 visit's last stint update has `TyresNotChanged:"1"` and there is no penalty (truncated). (d) No visits; driver 16's last advance is @5270 and it shows `Retired:true` @5300, giving retirement terminal B ∈ (5270, 5300] with complete coverage over (T, B). (e) Driver 16's count goes 21 @5090 → 23 @5180, with confirmed service @5200 (defective) | **Comparison projection Π (independent of the snapshot).** For every fact: kind, subject keys (session, driver entry), value, availability class and bounds, stream, prefix, within-stream ordinal, payload SHA-256. Π excludes `source_snapshot_id`, artifact ids, run refs and provenance. **Equal across all five:** Π(the L20 observation's `canonical_state`); the `prediction_boundary` (the validation-scoped `authority_validation_ref` is identical); the observation quality; the eligibility status, reason codes and Π(causal input facts); the initialization's target-definition and policy fields; and the input view's values, omissions and Π(`derivation_input_fact_refs`). Hence the stub's emitted distribution is identical. **`request_digest` and `content_digest` equality: PENDING-OWNER (R-I).** Both digests cover the fact refs, and whether those refs depend on the snapshot is not fixed. Until R-I is accepted, the fixture asserts equality of digests computed over the Π-projected request. **Excluded, because they legitimately differ:** artifact ids, `observation_artifact_ref`, `target_episode_key`, and other snapshot-scoped identifiers and provenance (#18). **Accounting:** (a) A9, region 2; (b) A11; (c) A6; (d) A11 (`TERMINAL_NO_EVENT` at retirement); (e) A8. Only resolution, mapping and accounting differ. Ineligibility is decided causally at T, so it cannot be a future; in (d), driver 16 has no later checkpoints. *Note (b):* (T, B) contains the post-`Finished` unhealthy window. `TERMINAL_NO_EVENT` still holds, because entries after `Finished` are outside participation (#35 (C)) and cannot hide a relevant event |
+| FX-E2E-10 | **Counterfactual futures (cross-state leakage), split slice, #41.** Driver 16 has one identical record history up to and including its L20 trigger @5000: the same records, prefixes, within-stream ordinals and payload bytes. Five different futures follow. (a) A confirmed-service entry @5200 with c = 22 (observed event). (b) No visits until driver 16's finish terminal B = 9050 (terminal no-event). (c) The @5200 visit's last stint update has `TyresNotChanged:"1"` and there is no penalty (truncated). (d) No visits; driver 16's last advance is @5270 and it shows `Retired:true` @5300, giving retirement terminal B ∈ (5270, 5300] with complete coverage over (T, B). (e) Driver 16's count goes 21 @5090 → 23 @5180, with confirmed service @5200 (defective) | **Comparison projection Π (independent of the snapshot).** For every fact: kind, subject keys (session, driver entry), value, availability class and bounds, stream, prefix, within-stream ordinal, payload SHA-256. Π excludes `source_snapshot_id`, artifact ids, run refs and provenance. **Equal across all five:** Π(the L20 observation's `canonical_state`); the `prediction_boundary` (the validation-scoped `authority_validation_ref` is identical); the observation quality; the eligibility status, reason codes and Π(causal input facts); the initialization's target-definition and policy fields; and the input view's values, omissions and Π(`derivation_input_fact_refs`). Hence the stub's emitted distribution is identical. **`request_digest` and `content_digest` equality: PENDING-OWNER (R-I).** Both digests cover the fact refs, and whether those refs depend on the snapshot is not fixed. Until R-I is accepted, the fixture asserts equality of digests computed over the Π-projected request. **Excluded, because they legitimately differ:** artifact ids, `observation_artifact_ref`, `target_episode_key`, and other snapshot-scoped identifiers and provenance (#18). **Accounting:** (a) A9, region 2; (b) A11; (c) A6; (d) A11 (`TERMINAL_NO_EVENT` at retirement); (e) A8. Only resolution, mapping and accounting differ. Ineligibility is decided causally at T, so it cannot be a future; in (d), driver 16 has no checkpoints after the retirement. *Note (b):* (T, B) contains the post-`Finished` unhealthy window. `TERMINAL_NO_EVENT` still holds, because entries after `Finished` are outside participation (#35 (C)) and cannot hide a relevant event |
 
 ## Deferred items
 
@@ -417,6 +417,9 @@ All scenarios are `SYN` (except E2E-09) and use the defaults.
 7. O3: FX-E2E-10 uses a deterministic stub model that depends on its input.
 8. O4: a note on the post-`Finished` window is added.
 
-#### Bounded re-review
+#### Bounded re-review: PASS
 
-Required.
+- PR: #40 (#41 sub-slice). Reviewer: the same fresh independent review agent; recorded on PR #40 as a `COMMENT` review. Date: 2026-10-11. Reviewed head: `233fd83709c187a5ff1055563945801c5b9ce8d9`.
+- Outcome: **PASS**. Prior findings 1–4 and observations O1–O4 are resolved, and the Issue #41 acceptance criteria are met.
+- A follow-up commit fixed the Minor R1 (stub-sensitivity wording) and the observation (no checkpoints after the retirement).
+- Product Owner decision: none required.
