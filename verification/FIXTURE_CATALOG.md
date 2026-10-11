@@ -280,20 +280,23 @@ Implementation turns each entry into an automated test without inventing expecte
 
 ## Cross-component reference scenarios (end to end)
 
-All scenarios are `SYN` (except E2E-09), use the defaults, and use a **stub model** that emits the uniform distribution p_j = q = 1/(K_T + 1).
+All scenarios are `SYN` (except E2E-09) and use the defaults.
+
+- **Stub model (most scenarios):** emits the uniform distribution p_j = q = 1/(K_T + 1).
+- **Stub model (FX-E2E-10):** a deterministic stub that depends on its input. It sets p_0 = 0.05 + 0.9·(1 − e^(−a/20)) for stint age a in the input view, then spreads the remaining mass uniformly over the other K_T − 1 regions and q. Any input difference therefore changes the distribution.
 
 | ID | Scenario | Expected end state |
 | --- | --- | --- |
 | FX-E2E-01 | **Observed event.** Driver 16: lap advances 20 @5000, 21 @5090, 22 @5180; entry @5200 (c = 22), confirmed service; finish B = 9050. Observation L20 (T = 5000, N_T = 57, so K_T = 37) | Snapshot; `OBSERVED_EVENT`; `REALIZED_REGION {2}`; A9; S = ln 38 |
 | FX-E2E-02 | **Terminal no-event.** Driver 16, L50 at T = 8200 (K_T = 7); no visits; finish B = 9050; complete coverage | `TERMINAL_NO_EVENT`; `REALIZED_NO_EVENT`; A11; S = ln 8 |
 | FX-E2E-03 | **Truncated.** As E2E-01, but the entry @5200 has last update `TyresNotChanged:"1"` and no penalty | `TRUNCATED_INDETERMINATE`; `NOT_REALIZED`; A6; not scored |
-| FX-E2E-04 | **Ineligible (split slice, #41).** Driver 31's lap-30 advance record @6000 (healthy window, before `Finished`) carries `Retired:true` **in the same payload**. Same-payload fields are available at T by construction (#35). #19 eligibility: "participation is already terminal" at T | `INELIGIBLE`; no request or snapshot; A2. *Note:* post-finish checkpoints are always clock-unhealthy (#35 rule (c)) and become A1, so "no future race progression" ineligibility cannot be reached in S-RD. Routed as information (R-H) |
+| FX-E2E-04 | **Ineligible (split slice, #41).** Driver 31's lap-30 advance record @6000 carries `Retired:true` **in the same payload**. The record lies in a healthy window and before `Finished`. Same-payload fields are available at T by construction (#35). The retirement establishes terminal participation under the #35 (C) membership rule (`Retired:true`). This satisfies the #19 eligibility clause "participation is already terminal" at T. **Only the L30 row is asserted.** Driver 31's earlier episodes (e.g. L29) get an empty terminal bound (6000, 6000]; that is routed as R-K | `INELIGIBLE`; no request and no snapshot; A2. *Note:* post-finish checkpoints are always clock-unhealthy (#35 rule (c)) and become A1. So "no future race progression" ineligibility cannot be reached **by the post-finish route** in S-RD (R-H). Whether L ≥ N_T at a trigger that is not after `Finished` establishes that condition is open (R-J) |
 | FX-E2E-05 | **Defective.** As E2E-01, but driver 16's count jumps 21 → 23 before the entry | `MAPPING_UNAVAILABLE`; A8; run `DEFECTIVE`; no `PRIMARY` |
 | FX-E2E-06 | **Leakage: future facts.** Rival pit entry @5003 (same stream, after the L20 trigger record) and RCM message @4993 (cross-stream, inside 10 s) | Neither appears in the L20 observation, input view or snapshot |
 | FX-E2E-07 | **Successive checkpoints.** E2E-01 plus observation L21 (T = 5090) | Two units: `{2}` on L20's grid and `{1}` on L21's grid; same `eventual_event_key`; distinct episodes |
 | FX-E2E-08 | **Clock anomaly.** Common-mode window [6000, 6200]; lap trigger @6100 | `INDETERMINATE_CHECKPOINT`; A1; no snapshot |
 | FX-E2E-09 | **Real smoke test.** REAL((2024,10), S-RD), full chain | Every A9 `c(E)` agrees with Jolpica; category counts reproducible across two runs; no `MAPPING_CONFLICT` |
-| FX-E2E-10 | **Counterfactual futures (cross-state leakage).** One identical record history up to and including driver 16's L20 trigger @5000, followed by five different futures: (a) confirmed service @5200 (observed event); (b) no visits until finish (terminal no-event); (c) the 5200 visit with `TyresNotChanged:"1"` (truncated); (d) no visits; driver 16's last advance is @5270 and it shows `Retired:true` @5300 (retirement terminal B ∈ (5270, 5300], complete coverage over (T, B)); (e) a lap-count jump before the 5200 entry (defective) | **Content identical across all five** (split slice, #41): the L20 observation's `canonical_state`, `prediction_boundary` and quality; the eligibility status, reason codes and causal input fact content; the initialization's target-definition and policy fields; the `input_view` values; `request_digest`; and the snapshot's `content_digest`. **Excluded, because they legitimately differ:** artifact ids, `observation_artifact_ref`, `target_episode_key` and other snapshot-scoped identifiers and provenance, which are tied to each future's source snapshot (#18). Only resolution, mapping and accounting differ: (a) A9, (b) A11, (c) A6, (d) A11 (`TERMINAL_NO_EVENT` at retirement), (e) A8. Ineligibility is decided causally at T, so it cannot be a future. Observations whose own T falls after the 5300 retirement are covered by FX-E2E-04 and FX-TGT-04. Any difference on the prediction side fails the test |
+| FX-E2E-10 | **Counterfactual futures (cross-state leakage), split slice, #41.** Driver 16 has one identical record history up to and including its L20 trigger @5000: the same records, prefixes, within-stream ordinals and payload bytes. Five different futures follow. (a) A confirmed-service entry @5200 with c = 22 (observed event). (b) No visits until driver 16's finish terminal B = 9050 (terminal no-event). (c) The @5200 visit's last stint update has `TyresNotChanged:"1"` and there is no penalty (truncated). (d) No visits; driver 16's last advance is @5270 and it shows `Retired:true` @5300, giving retirement terminal B ∈ (5270, 5300] with complete coverage over (T, B). (e) Driver 16's count goes 21 @5090 → 23 @5180, with confirmed service @5200 (defective) | **Comparison projection Π (independent of the snapshot).** For every fact: kind, subject keys (session, driver entry), value, availability class and bounds, stream, prefix, within-stream ordinal, payload SHA-256. Π excludes `source_snapshot_id`, artifact ids, run refs and provenance. **Equal across all five:** Π(the L20 observation's `canonical_state`); the `prediction_boundary` (the validation-scoped `authority_validation_ref` is identical); the observation quality; the eligibility status, reason codes and Π(causal input facts); the initialization's target-definition and policy fields; and the input view's values, omissions and Π(`derivation_input_fact_refs`). Hence the stub's emitted distribution is identical. **`request_digest` and `content_digest` equality: PENDING-OWNER (R-I).** Both digests cover the fact refs, and whether those refs depend on the snapshot is not fixed. Until R-I is accepted, the fixture asserts equality of digests computed over the Π-projected request. **Excluded, because they legitimately differ:** artifact ids, `observation_artifact_ref`, `target_episode_key`, and other snapshot-scoped identifiers and provenance (#18). **Accounting:** (a) A9, region 2; (b) A11; (c) A6; (d) A11 (`TERMINAL_NO_EVENT` at retirement); (e) A8. Only resolution, mapping and accounting differ. Ineligibility is decided causally at T, so it cannot be a future; in (d), driver 16 has no later checkpoints. *Note (b):* (T, B) contains the post-`Finished` unhealthy window. `TERMINAL_NO_EVENT` still holds, because entries after `Finished` are outside participation (#35 (C)) and cannot hide a relevant event |
 
 ## Deferred items
 
@@ -316,7 +319,10 @@ All scenarios are `SYN` (except E2E-09), use the defaults, and use a **stub mode
 | R-E | R-5 wording: the "reseeded rerun under the same lock" case is unreachable | #21 | #21 refuses seed mismatch at replay | Open (wording) | FX-RPL-07 note |
 | R-F | How health-window rule (b) is quantified (one anchor per interval, or per point within ±60 s) | #35 | Only unambiguous cases (i), (iii) asserted | Open | FX-SUP-08(ii) |
 | R-G | Lap context for indeterminate visits (#37 §8.5) | #19 | Diagnostic "not computable" until provided | Open | FX-EVL-14 |
-| R-H | Post-finish "no future race progression" ineligibility cannot be reached in S-RD (post-finish checkpoints are unhealthy) | #19 / #35 | Information only | Informational | FX-E2E-04 note |
+| R-H | Post-finish "no future race progression" ineligibility cannot be reached in S-RD **by the post-finish route** (post-finish checkpoints are unhealthy) | #19 / #35 | Information only | Informational | FX-E2E-04 note |
+| R-I | Fact references that enter `input_view` (`derivation_input_fact_refs`) must not depend on the snapshot (projected keys only), so that `request_digest` and `content_digest` are invariant to the source snapshot when the content is identical | #20 / implementation | Digest equality is asserted over the Π-projected request only | Open | FX-E2E-10 |
+| R-J | Does L ≥ N_T at a trigger that is not after `Finished` establish "no future race progression" (`INELIGIBLE`)? | #19 | Not asserted | Open | FX-E2E-04 note |
+| R-K | When a lap advance and `Retired:true` share one record, the terminal bound (last advance, retirement] is empty for earlier episodes. How should B be bounded? | #35 | Only the L30 row of FX-E2E-04 is asserted | Open | FX-E2E-04 |
 
 ## Acceptance mapping (Issue #36)
 
@@ -386,4 +392,31 @@ All scenarios are `SYN` (except E2E-09), use the defaults, and use a **stub mode
 
 ### Split sub-slice (#41) review
 
-Pending.
+#### Full scoped review: FAIL, rework required
+
+- PR: #40 (#41 sub-slice). Reviewer: a fresh independent review agent; recorded on PR #40 as a `COMMENT` review. Date: 2026-10-11. Reviewed head: `79b7df6`.
+- Confirmed correct:
+  - FX-E2E-04 can be built and gives `INELIGIBLE`/A2.
+  - The accounting for futures (a)–(e) is right.
+  - The identifier exclusions are right.
+- Findings:
+  1. Major: FX-E2E-10 still pulled in snapshot-scoped lineage indirectly, through facts, fact refs and digests.
+  2. Minor: the R-H claim was overbroad.
+  3. Minor: future (e) was inexact.
+  4. Minor: one sentence was misleading.
+- Observations O1–O4 were also raised.
+
+#### Rework
+
+1. FX-E2E-10 now uses an explicit snapshot-independent projection Π for every compared item. Digest equality is PENDING-OWNER (R-I, owner #20/implementation) and is asserted over the Π-projected request until R-I is accepted.
+2. R-H is restricted to the post-finish route. A new R-J routes the L ≥ N_T question to #19 as Open.
+3. Future (e) is now exact: driver 16, 21 @5090 → 23 @5180.
+4. The misleading sentence is reworded.
+5. O1: only the L30 row is asserted; the empty bound is routed as R-K.
+6. O2: the #35 (C) membership rule is cited.
+7. O3: FX-E2E-10 uses a deterministic stub model that depends on its input.
+8. O4: a note on the post-`Finished` window is added.
+
+#### Bounded re-review
+
+Required.
