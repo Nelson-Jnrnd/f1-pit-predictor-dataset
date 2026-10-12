@@ -178,4 +178,4 @@ Official documentation checked 2026-10-12. These support capability descriptions
 - Bounded re-review: PASS after explicit contained/disjoint/partially overlapping treatment and acceptance coverage. No Blocking, Major or outstanding Minor findings.
 - Scope: the Replay Explorer specification and product/decision amendments, against the approved pipeline semantics and user-selected direction. Rendered PDF layout is separately verified.
 - Detailed UX and technology choices remain proposed for Product Owner validation; this review does not authorize implementation or deployment.
-- GitHub review reference: to be attached to the draft specification PR.
+- GitHub review reference: draft PR #47, review `5490099069`, on substantive remote head `faef2ac9a3633d74c50961b3e749f81af95e10cb`.
