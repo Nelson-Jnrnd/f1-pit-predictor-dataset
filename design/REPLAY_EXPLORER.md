@@ -1,8 +1,8 @@
-# Replay Explorer - proposed UX and delivery specification
+# Replay Explorer - approved UX and delivery specification
 
 ## Status and scope
 
-**Proposed - revised after 2026-10-12 UI feedback; awaiting Product Owner validation.** Replay Explorer as the sole interface direction is already approved in `decisions/2026-10-12-v2-replay-explorer-direction.md`. Screens, interactions and recommended technologies below remain proposals. No production implementation or deployment is authorized by this artifact.
+**Approved by the Product Owner on 2026-10-12**, following independent review PASS. Approval covers the revised screens, information restraint, motorsport imagery, race timing extension and React/TypeScript/Vite static viewer architecture. See `decisions/2026-10-12-v2-replay-explorer-design-approval.md`. Implementation may proceed through the synthetic viewer then one verified development-race milestone; public deployment remains separately authorized.
 
 Baseline: `main` at `4d47e9f552796f68919db4c6e951c408cb03bd17`, including the verification integration PASS. Consume `design/SYSTEM_ARCHITECTURE.md`, `OBSERVATION_RECONSTRUCTION.md`, `TARGET_RECONSTRUCTION.md`, `PREDICTION_CONTRACT.md`, `REPLAY_BACKTEST.md`, `verification/EVALUATION_PROTOCOL.md`, and all approved decisions. This artifact owns presentation behavior and a read-only export boundary; it does not redefine any prediction or evaluation semantics.
 
@@ -198,3 +198,6 @@ Asset registry: [REPLAY_EXPLORER_ASSETS.md](REPLAY_EXPLORER_ASSETS.md). Rendered
 ## 10. Requested race-timing extension
 
 The Product Owner requested timing tower and track-position context on 12 October 2026, using existing F1_Telemetry_Charts information/interaction decisions. [REPLAY_TIMING.md](REPLAY_TIMING.md) proposes the detailed extension and owns its shared-clock/selection behavior. It supersedes earlier exclusions of track-position display and same-lap driver alignment; continuous animation and automatic playback remain excluded. S2 gains a map/tower with replacement timing tabs; the four surfaces remain. New provider/export coverage requires causal verification and protected-final gates. Detailed design remains proposed. Acceptance now includes fixed-clock subject switching with an explicitly older or missing forecast, distinct comparison selection and whole-field common-time alignment.
+
+
+Product Owner validated the complete revised design and timing supplement on 2026-10-12: “Perfect I valdiate that”. Earlier proposed/approval-pending statements in historical review notes describe their review-time state and are superseded by this approval.

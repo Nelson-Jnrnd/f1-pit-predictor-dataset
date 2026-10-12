@@ -1,6 +1,6 @@
 # Replay Explorer: race timing extension
 
-Status: proposed detailed design for Product Owner validation. User requested timing tower and car positions at the prediction lap on 12 October 2026. Historical Replay Explorer remains the product; no current-race feed, implementation or publication is authorized.
+Status: approved by the Product Owner on 2026-10-12 after bounded independent re-review PASS. User requested timing tower and car positions at the prediction lap on 12 October 2026. Historical Replay Explorer remains the product; no current-race feed or public publication is authorized. Implementation follows the approved staged delivery.
 
 ## Source decisions
 
@@ -52,4 +52,4 @@ React/TypeScript/Vite recommendation unchanged. Use SVG for validated geometry, 
 5. Sparse positions leave timing usable; a driver without coordinates remains selectable from the tower.
 6. Readable desktop/mobile, accessible values, all tabs, no raw implementation vocabulary. Export rejects protected data.
 
-Detailed design remains proposed. Review status: independent scoped review initially identified two clock/parent-spec conflicts; corrected and bounded re-review PASS by /root/review_ui_restraint. Stale acceptance wording and report clock phrasing also corrected. All three mockup pages visually inspected. GitHub record: draft PR #47, passing review to be attached to this revision. User-facing mockup supplement uses synthetic timing/car positions, not race results.
+Detailed design approved on 2026-10-12. Review status: independent scoped review initially identified two clock/parent-spec conflicts; corrected and bounded re-review PASS by /root/review_ui_restraint. Stale acceptance wording and report clock phrasing also corrected. All three mockup pages visually inspected. GitHub record: draft PR #47, passing review 5494958391 on commit 42953a375c47c164d4d76ede21af5f8ba75cad47. User-facing mockup supplement uses synthetic timing/car positions, not race results.

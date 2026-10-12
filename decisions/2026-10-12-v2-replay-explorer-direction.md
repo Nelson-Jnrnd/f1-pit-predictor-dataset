@@ -21,3 +21,8 @@ Existing observation, target, distribution, replay and evaluation contracts rema
 ## Next step
 
 Review `design/REPLAY_EXPLORER.md` and the visual validation report. Persist the resulting detail approval or requested changes before implementation. The user-facing design remains proposed until that approval.
+
+
+## Subsequent detailed approval
+
+On 2026-10-12 the Product Owner validated the revised mockups and race-timing supplement. The earlier pending boundary above is superseded by [the detailed design approval](2026-10-12-v2-replay-explorer-design-approval.md). Historical timing is included; a current-race feed remains excluded.

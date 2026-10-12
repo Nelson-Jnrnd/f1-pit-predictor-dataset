@@ -24,7 +24,7 @@ V2 core scope is a leakage-aware F1 pit-timing prediction project that:
 
 ## Initial user ambition
 
-Historical race replay/backtesting is the first consumption mode. On 2026-10-12 the Product Owner selected Replay Explorer as the sole initial interface direction; detailed screens and technologies in `design/REPLAY_EXPLORER.md` remain proposed pending validation.
+Historical race replay/backtesting is the first consumption mode. On 2026-10-12 the Product Owner selected Replay Explorer as the sole initial interface direction; revised screens, synchronized historical race timing and technologies in `design/REPLAY_EXPLORER.md` and `design/REPLAY_TIMING.md` were approved on 2026-10-12.
 
 The project should be able to reconstruct a historical prediction point, show or expose the prediction associated with that state, and evaluate it against subsequent race events. The approved presentation direction is an interactive historical race/driver/checkpoint explorer, consuming saved artifacts and offering explicit retrospective comparison. This does not approve the detailed UX or stack yet.
 

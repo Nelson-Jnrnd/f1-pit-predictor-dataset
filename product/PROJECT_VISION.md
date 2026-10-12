@@ -58,7 +58,7 @@ The value is not tied to a particular model family, feature set, library, API, d
 
 The first user-facing outcome is a historical race replay/backtesting experience in which a point-in-time race state can be associated with a pit-window prediction for a driver and compared with what subsequently happened.
 
-On 2026-10-12 the Product Owner selected **Replay Explorer only** as the initial user experience: interactive historical race/driver/checkpoint navigation over saved artifacts. Prediction Laboratory and Guided Race Story are outside the initial interface scope. Detailed UX and technology choices remain proposed for validation in `design/REPLAY_EXPLORER.md`.
+On 2026-10-12 the Product Owner selected **Replay Explorer only** as the initial user experience: interactive historical race/driver/checkpoint navigation over saved artifacts. Prediction Laboratory and Guided Race Story are outside the initial interface scope. Revised UX, synchronized historical race timing and static React/TypeScript/Vite architecture were approved on 2026-10-12; see `design/REPLAY_EXPLORER.md`, `design/REPLAY_TIMING.md` and the design approval decision.
 
 Live inference is a possible later extension, not an initial product commitment.
 
