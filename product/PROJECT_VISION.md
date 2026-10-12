@@ -10,7 +10,7 @@ Wave 0 — product / research direction.
 
 ## Durable direction
 
-See `decisions/2026-09-08-v2-project-direction.md`.
+See `decisions/2026-09-08-v2-project-direction.md` and `decisions/2026-10-12-v2-replay-explorer-direction.md`.
 
 ## Concise project statement
 
@@ -57,6 +57,8 @@ The value is not tied to a particular model family, feature set, library, API, d
 ## User-facing outcome
 
 The first user-facing outcome is a historical race replay/backtesting experience in which a point-in-time race state can be associated with a pit-window prediction for a driver and compared with what subsequently happened.
+
+On 2026-10-12 the Product Owner selected **Replay Explorer only** as the initial user experience: interactive historical race/driver/checkpoint navigation over saved artifacts. Prediction Laboratory and Guided Race Story are outside the initial interface scope. Revised UX, synchronized historical race timing and static React/TypeScript/Vite architecture were approved on 2026-10-12; see `design/REPLAY_EXPLORER.md`, `design/REPLAY_TIMING.md` and the design approval decision.
 
 Live inference is a possible later extension, not an initial product commitment.
 

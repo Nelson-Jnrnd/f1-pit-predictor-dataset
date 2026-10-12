@@ -10,7 +10,7 @@ Wave 0 — product / research scope. This file does not define architecture or i
 
 ## Durable direction
 
-See `decisions/2026-09-08-v2-project-direction.md`.
+See `decisions/2026-09-08-v2-project-direction.md` and `decisions/2026-10-12-v2-replay-explorer-direction.md`.
 
 ## Core scope
 
@@ -24,16 +24,16 @@ V2 core scope is a leakage-aware F1 pit-timing prediction project that:
 
 ## Initial user ambition
 
-Historical race replay/backtesting is the first consumption mode.
+Historical race replay/backtesting is the first consumption mode. On 2026-10-12 the Product Owner selected Replay Explorer as the sole initial interface direction; revised screens, synchronized historical race timing and technologies in `design/REPLAY_EXPLORER.md` and `design/REPLAY_TIMING.md` were approved on 2026-10-12.
 
-The project should be able to reconstruct a historical prediction point, show or expose the prediction associated with that state, and evaluate it against subsequent race events. This statement does not define a UI.
+The project should be able to reconstruct a historical prediction point, show or expose the prediction associated with that state, and evaluate it against subsequent race events. The approved presentation direction is an interactive historical race/driver/checkpoint explorer, consuming saved artifacts and offering explicit retrospective comparison. This does not approve the detailed UX or stack yet.
 
 ## Likely future extensions
 
 These are explicitly outside the initial core unless separately approved:
 
 - live inference during an ongoing race;
-- live race dashboard / richer interactive replay experience;
+- live race dashboard and replay features beyond the bounded Replay Explorer;
 - next-compound prediction;
 - richer multi-event or multi-stint forecasting;
 - counterfactual strategy analysis;
@@ -52,6 +52,7 @@ The initial core does not include:
 - counterfactual simulation of alternative strategy actions;
 - a production live-data pipeline;
 - a committed live dashboard;
+- a Prediction Laboratory or Guided Race Story interface;
 - automated race engineering decisions.
 
 ## Technical choices deliberately not frozen
