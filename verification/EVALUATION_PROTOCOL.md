@@ -4,7 +4,7 @@
 
 Approved. The bounded re-review passed on PR #39 for substantive head `eca220a5d96ae71c0a276169bc6485e8fd8e218c`. A follow-up commit applies only the reviewer's three Minor clarifications.
 
-**#43 reconciliation (V1, V3-V5):** In review. The original baseline remains approved; the bounded reconciliation delta requires independent review.
+**#43 reconciliation (V1, V3-V5):** Approved - PR #45 review `5489060100`, independent reviewer `/root/review_reconciliation`, 2026-10-12; substantive head `f44c37b7190dc118b65a80c16b10bb85024cc0e3`. The original baseline remains approved; the bounded reconciliation delta passed independent review.
 
 ## Abstraction level
 
@@ -297,4 +297,6 @@ Observations adopted: the alternative censoring and lap-level construction, and 
 
 ### #43 reconciliation - review scope
 
-In review. V1: consumes #21 A2 with predeclared B1/B0 slots and one final comparison; the reserved final resolution identity avoids pre-lock inspection. V2: development-only target regression and accounting measurements preserve the accurate exposure declaration. V3: event-trajectory weighting is retrospective. V4: metadata-only F2 inclusion explicitly accepts and reports structural defects without selective race removal. V5: unrestricted percentile wild-bootstrap variant specified. O1: commitment-to-lock lineage recorded. No product decision or semantic change is required.
+Approved. V1: consumes #21 A2 with predeclared B1/B0 slots and one final comparison; the reserved final resolution identity avoids pre-lock inspection. V2: development-only target regression and accounting measurements preserve the accurate exposure declaration. V3: event-trajectory weighting is retrospective. V4: metadata-only F2 inclusion explicitly accepts and reports structural defects without selective race removal. V5: unrestricted percentile wild-bootstrap variant specified. O1: commitment-to-lock lineage recorded. No product decision or semantic change is required.
+
+Independent scoped reconciliation review: PR #45 review `5489060100`, independent reviewer `/root/review_reconciliation`, 2026-10-12; substantive head `f44c37b7190dc118b65a80c16b10bb85024cc0e3`. PASS; no Blocking or Major findings. The separate #43 integration re-check is still required.

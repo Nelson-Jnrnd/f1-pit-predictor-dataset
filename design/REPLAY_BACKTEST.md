@@ -6,7 +6,7 @@ Approved — bounded re-review PASS recorded on PR #28 for substantive head `564
 
 **Amendment A1 (Issue #29):** approved; bounded re-review PASS on PR #32. It consumes #18 `CheckpointAttemptRecord`s, including key-less identity failures (#22 finding F2, #21 part), and adds an initialization-lineage check at the backtest join (#22 finding F4, #21 part).
 
-**Amendment A2 (#43 V1):** In review. Adds predeclared reference procedures to a single locked final comparison. The original design and A1 remain approved; the A2 delta requires independent review.
+**Amendment A2 (#43 V1):** Approved - independent scoped review PASS on PR #45 review `5489060100`, independent reviewer `/root/review_reconciliation`, 2026-10-12; substantive head `f44c37b7190dc118b65a80c16b10bb85024cc0e3`. Adds predeclared reference procedures to a single locked final comparison. The original design and A1 remain approved; the A2 delta has passed independent review.
 
 ## Abstraction level
 
@@ -127,6 +127,7 @@ ProcedureSpec
 DevelopmentRunConfig
   protocol_id, partition_role (DEVELOPMENT_FIT | FINAL_REFIT), fold_id?, lock_id?
   procedure_id
+  procedure_slot?                   # A2: SELECTED/reference_id for FINAL_REFIT
   cutoff c
   training_races                    # all races r with t(r) concluded before t(c), within supported_scope
   observation/initialization run refs, resolution_run_ref, mapping version
@@ -135,7 +136,7 @@ DevelopmentRunConfig
 The development join (#17 rule 7) enforces:
 
 1. Every training race has concluded before `t(c)`.
-2. If any training race is in the protocol's `final_partition`, the run must be `FINAL_REFIT` and must reference a `lock_id` whose procedure and seeds it uses. Before a lock exists, final-partition races are refused.
+2. If any training race is in the protocol's `final_partition`, the run must be `FINAL_REFIT` and must reference a `lock_id` and select its `SELECTED` or declared reference slot whose procedure and seeds it uses (A2). Before a lock exists, final-partition races are refused.
 3. Every race it reads is recorded in the ledger before the join executes: `FINAL_REFIT_TRAINING` for final-partition races under the lock, and `DEVELOPMENT_JOIN` otherwise.
 
 It produces record-level development accounting (see *Development categories*) and a #20 `ModelArtifact` with `development_run_ref` and `development_temporal_boundary_ref = c`.
@@ -252,7 +253,7 @@ EvaluationLock
 
 **Reference registration (A2).** The reference list, including each versioned procedure, is predeclared in the protocol before final outcomes are opened. Its fitted artifacts, schedules and seeds are frozen in the lock using development evidence only. Reference ids are unique; `SELECTED` is reserved. If the selected procedure is also a reference, that reference slot aliases the selected entry (identical procedure, artifacts and seeds) rather than fitting another version. All reference refits obey the same cutoff and ledger rules as the selected procedure. Reference registration cannot be extended after locking.
 
-With `final_refit_cadence ≠ NONE`, refits use the lock's procedure and seeds with cutoff = the predicted race (or the first race of its season). Every refit is a `FINAL_REFIT` `DevelopmentRun` that references the lock. Refits are reproducible from the lock and do not change the procedure.
+With `final_refit_cadence ≠ NONE`, each refit selects its declared `SELECTED` or reference slot and uses that entry's procedure and seeds with cutoff = the predicted race (or the first race of its season). Every refit is a `FINAL_REFIT` `DevelopmentRun` that references the lock. Refits are reproducible from the lock and do not change the procedure.
 
 ```text
 FinalEvaluationLedger               # append-only, keyed by RaceSessionKey; covers every race,
@@ -317,7 +318,7 @@ Rules:
 - **A0, A5, A7, and A8 are not cohort filters.** They are run-validity defects. A backtest run with any of them in scope is `DEFECTIVE`, and none of its scores may carry analysis class `PRIMARY`. Because A7 and A8 can occur only for observed events, filtering them per record would select by outcome type.
 - To evaluate despite such defects, races or eras must be removed beforehand through `supported_scope`, for example by the `EntryLapContext` support matrix. They are never removed record by record.
 - The primary cohort of a `VALID` run is A9 ∪ A10 ∪ A11. It is recomputed from the categories and checked against the unit table.
-- **Comparing procedures:** comparisons use the intersection of their scored records, or report A4 counts alongside the scores.
+- **Comparing procedures:** follow scorer rule 7 (A2): a primary paired claim needs identical full cohorts; a differing-cohort intersection is secondary, with unmatched and A4 counts reported.
 
 ### Record-level accounting table
 
@@ -555,4 +556,4 @@ None required. The protocol shape, lock and ledger, accounting categories, and r
 
 ### Amendment A2 (#43 V1) - review scope
 
-In review. Scope: predeclared references, slot-specific replay validation, complete comparison assembly with one race opening, per-slot accounting/identity/reproduction, and paired scoring. Upstream prediction/target semantics, category precedence and ledger labels are unchanged. Required verification: declared selected/B1/B0 comparison opens each race once; unknown references, mutated schedules/seeds and missing slots are refused before opening; reproduction compares every slot; mismatched cohorts cannot produce a primary paired claim. Independent scoped review is required before A2 approval.
+Approved. Scope: predeclared references, slot-specific replay validation, complete comparison assembly with one race opening, per-slot accounting/identity/reproduction, and paired scoring. Upstream prediction/target semantics, category precedence and ledger labels are unchanged. Required verification: declared selected/B1/B0 comparison opens each race once; unknown references, mutated schedules/seeds and missing slots are refused before opening; reproduction compares every slot; mismatched cohorts cannot produce a primary paired claim. Independent scoped review PASS: PR #45 review `5489060100`, independent reviewer `/root/review_reconciliation`, 2026-10-12; substantive head `f44c37b7190dc118b65a80c16b10bb85024cc0e3`. No Blocking or Major findings. Two Minor wording clarifications (refit slot and comparison cohort) applied; reviewer requires no further cycle.

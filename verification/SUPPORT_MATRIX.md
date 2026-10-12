@@ -349,3 +349,7 @@ No design defect was found. The findings fit inside the #18/#19 rules, which ant
   6. Corrected the hash-checking statement for downstream tools.
   7. Noted that the paired-residual interpretation relies on RA-1.
 - Product Owner decision: Option B, already persisted; no further decision is required.
+
+### #43 V2 routing correction - review
+
+Development-only pre-lock cohort measurement and locked-join-only final measurement passed independent scoped review: PR #45 review `5489060100`, independent reviewer `/root/review_reconciliation`, 2026-10-12; substantive head `f44c37b7190dc118b65a80c16b10bb85024cc0e3`. This changes routing only, not source verdicts or recorded evidence.

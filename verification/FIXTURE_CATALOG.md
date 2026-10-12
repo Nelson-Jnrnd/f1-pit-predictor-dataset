@@ -6,7 +6,7 @@ Approved, including the split section. The bounded re-review on PR #40 (head `d2
 
 Under the non-convergence rule, those two scenarios were **split into Issue #41**, which gets its own independent review. They are fixed in this file and marked "split slice, #41". The #41 sub-slice passed its bounded re-review (see *Split sub-slice (#41) review*). Minor findings N3–N9 are applied. Every other entry stands as reviewed.
 
-**#43 reconciliation (V1-V6 coverage):** In review. Only the delta below is reopened; the prior reviewed catalog remains the baseline.
+**#43 reconciliation (V1-V6 coverage):** Approved - PR #45 review `5489060100`, independent reviewer `/root/review_reconciliation`, 2026-10-12; substantive head `f44c37b7190dc118b65a80c16b10bb85024cc0e3`. The delta below passed independent scoped review; the prior reviewed catalog remains the baseline.
 
 ## Abstraction level
 
@@ -447,4 +447,6 @@ All scenarios are `SYN` (except E2E-09) and use the defaults.
 
 ### #43 reconciliation - review scope
 
-In review. REAL target-truth regression is now S-DEV only. Recomputed committed-evidence expectations: 1334/1334 stop/lap matches, two penalty visits, 84/84 combined-terminal matches, zero lap jumps/regressions. Added A2 comparison/ledger/cohort/reproduction and protocol-lineage fixtures; final-isolation guard; PO exception validation/observation/report provenance fixtures; F2 structural-defect fixture. FX-EVL-07 consumes the variant explicitly owned by #37. No production tests or model work are introduced.
+Approved. REAL target-truth regression is now S-DEV only. Recomputed committed-evidence expectations: 1334/1334 stop/lap matches, two penalty visits, 84/84 combined-terminal matches, zero lap jumps/regressions. Added A2 comparison/ledger/cohort/reproduction and protocol-lineage fixtures; final-isolation guard; PO exception validation/observation/report provenance fixtures; F2 structural-defect fixture. FX-EVL-07 consumes the variant explicitly owned by #37. No production tests or model work are introduced.
+
+Independent scoped reconciliation review: PR #45 review `5489060100`, independent reviewer `/root/review_reconciliation`, 2026-10-12; substantive head `f44c37b7190dc118b65a80c16b10bb85024cc0e3`. PASS; no Blocking or Major findings. The separate #43 integration re-check is still required.
