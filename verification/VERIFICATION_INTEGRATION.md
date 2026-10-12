@@ -2,9 +2,11 @@
 
 ## Status
 
-CHANGES REQUIRED (initial review, 2026-10-11, `main` at `1117d6d`).
+**PASS** (single bounded re-check, 2026-10-12; reviewed `main` at `aa316a7bcd16d3c53d54a55a1698d2405c51f979`). This outcome supersedes the initial CHANGES REQUIRED verdict below.
 
-The review records one Blocking finding (V1), two Major findings (V2, V3), three Minor findings (V4–V6) and one Observation (O1). V1 and V2 involve the evaluation lock, the ledger and the final partition, and they must be resolved before any `EvaluationLock`, `BacktestRun` or `ScoreRun` contract is implemented. **Implementation is not yet unblocked.** Each required change is bounded and routed to one owning artifact. No Product Owner decision is required. All eleven routed clarifications R-A..R-K (Issue #42) are confirmed non-blocking, under the conditions recorded in *Routed clarifications*.
+V1-V6 are resolved by the independently reviewed amendments in PR #45 (review `5489060100`). O1 now has an explicit implementation requirement and fixture. R-A..R-K retain their routed, non-blocking defaults and their pre-registration conditions. The technical implementation gate passes. **The Product Owner has requested a concise visual overview for approval before implementation; implementation remains paused for that requested overview approval.** No production work or final-resolution opening was performed by this re-check.
+
+The initial composition checks, findings and outcome are preserved as the historical review record. Current closure evidence is recorded in *Bounded re-check* below.
 
 ## Abstraction level
 
@@ -36,7 +38,7 @@ Locks consumed unchanged:
 
 Open clarifications considered: Issue #42 (R-A..R-H in the body, R-I..R-K in its comment). These match the routing table in `verification/FIXTURE_CATALOG.md` *Routing*.
 
-## Integration result
+## Initial integration result (2026-10-11, superseded)
 
 Most of the verification baseline composes into one chain:
 
@@ -62,7 +64,7 @@ The final-evaluation segment of the chain does not compose:
 
 Both problems fail closed: neither leaks information into a prediction. They do mean, however, that the primary claim as specified cannot be produced, and that a natural implementation order could irreversibly cost 2026 R1–R16 their `PRIMARY_FINAL` eligibility.
 
-## Composition checks
+## Initial composition checks (2026-10-11, superseded)
 
 ### 1. Season allocation uses only supported scope — PASS (Minor V4 for P-F2)
 
@@ -186,7 +188,7 @@ These parts do not compose:
 
 See *Routed clarifications* below.
 
-## Findings
+## Initial findings (preserved; V1-V6 resolved at bounded re-check)
 
 ### Blocking
 
@@ -323,14 +325,14 @@ None of R-A..R-K blocks implementation. Each has an approved fail-closed default
 
 | Question | Classification | Owner / next phase | Status |
 | --- | --- | --- | --- |
-| Does the verification baseline compose with the designs? | Current-scope integration decision | #43 | **CHANGES REQUIRED**: V1–V6 |
-| Final paired comparison under lock and ledger | Cross-slice dependency | #21 amendment (or #37 alone; see V1) | Open (V1, Blocking) |
-| Final-partition exposure through REAL fixtures and implementation truncation-rate measurement | Cross-slice dependency | #36; consequential #37, #35 | Open (V2, Major) |
-| Analysis class of the event-trajectory-weighted mean | Cross-slice consistency | #37 | Open (V3, Major) |
-| P-F2 per-race `EntryLapContext` support before the lock | Cross-slice consistency | #37 (with #35 (C)) | Open (V4, Minor) |
-| Wild-bootstrap variant | Ownership | #37 or #36 | Open (V5, Minor) |
-| PO-exception provenance fixture | Verification coverage | #36 | Open (V6, Minor) |
-| Protocol-id lineage after late fields | Later-phase decision | Implementation | Open (O1, Observation) |
+| Does the verification baseline compose with the designs? | Current-scope integration decision | #43 | **PASS** at bounded re-check; V1-V6 resolved |
+| Final paired comparison under lock and ledger | Cross-slice dependency | #21 amendment (or #37 alone; see V1) | Resolved by #21 A2 / #37, PR #45 |
+| Final-partition exposure through REAL fixtures and implementation truncation-rate measurement | Cross-slice dependency | #36; consequential #37, #35 | Resolved by #36 final-isolation convention / #37 declaration / #35 routing, PR #45 |
+| Analysis class of the event-trajectory-weighted mean | Cross-slice consistency | #37 | Resolved by #37 section 2, PR #45 |
+| P-F2 per-race `EntryLapContext` support before the lock | Cross-slice consistency | #37 (with #35 (C)) | Resolved by #37 F2 structural-risk policy, PR #45 |
+| Wild-bootstrap variant | Ownership | #37 or #36 | Resolved by #37 section 3, PR #45 |
+| PO-exception provenance fixture | Verification coverage | #36 | Resolved by FX-SUP-15 / FX-EVL-15, PR #45 |
+| Protocol-id lineage after late fields | Later-phase decision | Implementation | Requirement specified in #37 Protocol lineage and FX-RPL-31; implementation deferred |
 | R-A..R-K | Cross-slice clarifications | As listed above | Open; non-blocking |
 | Candidate procedures, scorer code, schemas, storage, access control for the joins | Later-phase decision | Implementation / experimentation | Deferred |
 
@@ -339,11 +341,11 @@ There are no Product Owner-reserved decisions in this gate.
 ## Acceptance criteria (Issue #43)
 
 - [x] The cross-artifact composition checks are recorded with exact references (checks 1–9).
-- [x] The verdict is recorded: **CHANGES REQUIRED**. Every finding is routed to its owner with a required change (V1–V6, O1).
-- [x] The gate follows the rules: one full integration review is done. At most one bounded re-check follows the provider fixes, per `governance/REVIEW_POLICY.md`.
+- [x] The initial verdict **CHANGES REQUIRED** and superseding bounded re-check **PASS** are recorded. V1-V6 are closed with exact evidence; O1 and R-A..R-K remain routed.
+- [x] One full integration review and exactly one bounded re-check after the provider fixes are complete, per `governance/REVIEW_POLICY.md`. No fresh slice review was performed.
 - [x] R-A..R-K are confirmed non-blocking (*Routed clarifications*).
 
-## Gate outcome
+## Initial gate outcome (2026-10-11, superseded)
 
 **CHANGES REQUIRED** (initial review, 2026-10-11, `main` at `1117d6d`).
 
@@ -369,3 +371,31 @@ None of these items reopens an approved semantic lock or needs a Product Owner d
   - Observation: O1.
 - Routed clarifications R-A..R-K: confirmed non-blocking.
 - Product Owner decision: none required.
+
+
+### Bounded re-check (2026-10-12)
+
+- Reviewer: independent integration agent `/root/integration_recheck`. This agent authored none of the reviewed designs, verification slices or PR #45 amendments.
+- Reviewed state: `main` at exact SHA `aa316a7bcd16d3c53d54a55a1698d2405c51f979`, containing the initial gate record in PR #44 (`ce1652d`) and reconciliation PR #45 (`aa316a7`). The substantive delta is `git diff ce1652d..aa316a7`.
+- Provider approval evidence: PR #45, passing independent scoped review `5489060100`, reviewer `/root/review_reconciliation`, substantive head `f44c37b7190dc118b65a80c16b10bb85024cc0e3`; two Minor wording clarifications applied without another cycle, as that reviewer permitted.
+- Scope: prior V1-V6, regressions introduced by their fixes, and Issue #43 acceptance only. The approved designs, #22 PASS, Wave 1 contracts and durable Product Owner decisions were consumed as locks. No fresh internal slice review, production implementation, target-resolution read or model experiment was performed. Only already-committed support evidence was read to check revised fixture totals.
+
+| Prior item | Bounded resolution evidence | Result |
+| --- | --- | --- |
+| V1: final paired comparison | #21 A2: *Protocol*, *ReplayRun*, *Backtest join* rules 1-2, *Reference registration*, *Comparison opening*, *Reproduction rule*, scorer rule 7; #37 sections 2 and 7; FX-RPL-27..30 | Resolved. B1/B0 are predeclared and frozen with the selected procedure, complete slot coverage is checked before opening, one BacktestRun opens each race once, paired scores inherit its label. If B1 is selected its slot aliases SELECTED; the primary comparison is B1 versus B0. Full identical cohorts and a VALID comparison are required for PRIMARY; differing cohorts permit only a visible SECONDARY intersection. |
+| V2: pre-lock final exposure | #36 *Final isolation* convention, FX-TGT-02/-11/-20/-26, FX-SUP-12, FX-RPL-32; #35 *Consequences* and *Routing*; #37 P-F1 reserved resolution identity and prior-exposure declaration | Resolved. REAL target reconstruction and exploratory cohort/truncation measurement are development-only. Final resolutions are first consumed in the locked ledger-gated join. Recomputed frozen evidence for the 39 development races gives 1334/1334 stop/lap matches, two penalty visits, 84/84 combined-terminal matches, zero jumps and zero regressions, matching the catalog. Existing raw-source inspection remains explicitly declared. |
+| V3: outcome-derived weighting | #37 section 2; #21 *Grouping metadata* and scorer rule 3 | Resolved. Event-trajectory weighting is RETROSPECTIVE_DIAGNOSTIC; driver-race weighting remains SECONDARY. Primary unit weighting is unchanged. |
+| V4: F2 structural support risk | #37 section 7 *F2 structural-risk policy*; #35 (C) EntryLapContext support; FX-EVL-16 | Resolved. Metadata-only inclusion does not upgrade lap support. A post-lock anomaly makes the affected run DEFECTIVE, with no primary/confirmatory claim, all declared races and defects reported, and no selective race removal or replacement claim. |
+| V5: bootstrap ownership | #37 section 3; FX-EVL-07 | Resolved. The protocol owns the unrestricted Webb six-point, 9999-replicate percentile variant, residual construction, quantiles and predeclared seed; the fixture consumes it. CR2 remains the primary interval. |
+| V6: exception provenance coverage | FX-SUP-15; FX-EVL-15; #35 residual assumptions; #37 sections 7 and 9; 2026-10-10 decision *Consequences* | Resolved. Acceptance covers the exception and RA-1..RA-4 through authority validation, derived observations and score reports, and rejects missing lineage/report disclosures. |
+| O1: commitment-to-lock identity | #37 section 7 *Protocol lineage*, P-F1 reserved identity and P-F2 fixed-list rule; FX-RPL-31 | Explicitly routed to implementation. Retain committed and locked digests, verify only deterministic predeclared fields were resolved, and refuse intervening final openings or changed choices. |
+
+**Regression check.** The added comparison slots refine #21's delegated orchestration without changing #18 observation ownership, #19 causal initialization versus retrospective resolution, #20 forecast dependency closure or mapping, checkpoint/episode/event meaning, category precedence or ledger labels. Every slot shares observation, initialization and resolution selection. #21 *Record-level accounting table* makes accounting per procedure slot and explicitly states that reference rows are not additional temporal checkpoints: candidate/checkpoint totals are therefore compared per slot, rather than summed across SELECTED/B1/B0. Undeclared/mutated/incomplete slots fail before opening, reproduction checks every slot, and any A0/A5/A7/A8 makes the whole comparison DEFECTIVE. The final holdout remains outcome-isolated during development. No cross-slice regression was found in the amended composition.
+
+**R-A..R-K confirmation.** All eleven stay with the owners and conservative defaults in *Routed clarifications*. In particular R-F excludes clock windows whose integrity cannot be shown; R-G remains not computable; R-I asserts projected digest equality; R-J uses INDETERMINATE for ambiguous causal eligibility and must resolve before P-F1 pre-registration; R-K cannot assert no-event without a defensible terminal boundary and must resolve before pre-registration if the case occurs in S-RD. The amendments neither silently settle nor relax these handoffs. They do not block starting bounded implementation.
+
+**Issue #43 acceptance.** Exact composition references and finding closures are recorded above; no unresolved required gate finding remains; the single allowed bounded re-check is complete. No new Product Owner-reserved decision or semantic change is introduced.
+
+**Outcome: PASS.** The technical verification integration gate passes for the reviewed SHA. Implementation is technically unblocked, subject to the Product Owner's current request to approve the concise visual overview before implementation begins. Remaining work is that overview approval, then bounded implementation and experimentation under the approved contracts and routed conditions.
+
+- GitHub review / PR record: to be attached by the coordinating agent when this gate record is submitted. This entry is the independent passing outcome for the exact reviewed main state above.
