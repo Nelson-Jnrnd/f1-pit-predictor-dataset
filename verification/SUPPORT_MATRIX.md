@@ -256,7 +256,7 @@ Scope: S-RD and S-RG, excluding 2022. Retrospective use is not subject to availa
 - **Target-only scope:** S-RD ∪ S-RG, minus Bahrain 2018 and Hungary 2018. It cannot produce V2 observations.
 - **Tyre-service indeterminacy is the dominant expected coverage loss.** In the race-day census, about 301 of 2,071 in-race visits (14.5 %) are `INDETERMINATE_TYRE_SERVICE`: 212 NEG visits without a penalty, plus 89 NONE. That is about 5.5 per race. Each one truncates the episodes that precede it for that driver, back to the previous confirmed event or the race start.
   - A sizeable share of episodes may resolve as `TRUNCATED_INDETERMINATE`.
-  - The exact rate is measured through the #21 accounting during implementation.
+  - During implementation, the exact rate is measured through #21 accounting on **development-partition races only** (2024 R10-R24 and 2025 R1-R24). Final-partition rates are measured only inside the locked final BacktestRun after its ledger openings; target regression fixtures and exploratory coverage measurements must not inspect final resolutions before the lock (#43 V2).
   - The main remedy is an independent tyre-change truth source (see *Upgrade paths*).
 - **Clock-unhealthy windows** make checkpoints indeterminate only in 3 of 55 races, each for about 3–4 minutes.
 - **Hand-off to #37.** S-RD spans fewer than three full seasons, so `ROLLING_RACE_BLOCK` or `PRESPECIFIED` with `LOW_POWER` applies (#21). A 2026 final partition has no thesis-era exposure. However, 2024–2026 race-day data (pit, stint and penalty statistics in aggregate) was inspected for this verification. #37 must decide whether to declare that as prior exposure.
@@ -275,7 +275,7 @@ Scope: S-RD and S-RG, excluding 2022. Retrospective use is not subject to availa
 | --- | --- | --- |
 | Bounds, health windows, admission rules, `TotalLaps ≤ 0`, tyre and terminal rules, order-based `c(E)` | Verification parameters (this artifact) | #35; consumed by #36 fixtures and by the implementation |
 | Fixture-level behaviours (#18 items 10, 11, 14; #19 items 5, 6, 16, 20–22, 24, 25) | Cross-slice | #36 |
-| Cohort and truncation rates | Later phase | Implementation (#21 accounting) |
+| Cohort and truncation rates | Later phase | Implementation (#21 accounting), development races only before locking; final races only through the locked final join (#43 V2) |
 | Season allocation, prior-exposure declaration, `LOW_POWER` | Cross-slice | #37 |
 | Capture tooling and independent tyre truth | Optional later work | Future verification |
 
@@ -349,3 +349,7 @@ No design defect was found. The findings fit inside the #18/#19 rules, which ant
   6. Corrected the hash-checking statement for downstream tools.
   7. Noted that the paired-residual interpretation relies on RA-1.
 - Product Owner decision: Option B, already persisted; no further decision is required.
+
+### #43 V2 routing correction - review
+
+Development-only pre-lock cohort measurement and locked-join-only final measurement passed independent scoped review: PR #45 review `5489060100`, independent reviewer `/root/review_reconciliation`, 2026-10-12; substantive head `f44c37b7190dc118b65a80c16b10bb85024cc0e3`. This changes routing only, not source verdicts or recorded evidence.

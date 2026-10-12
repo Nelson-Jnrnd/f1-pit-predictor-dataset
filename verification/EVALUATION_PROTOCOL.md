@@ -4,6 +4,8 @@
 
 Approved. The bounded re-review passed on PR #39 for substantive head `eca220a5d96ae71c0a276169bc6485e8fd8e218c`. A follow-up commit applies only the reviewer's three Minor clarifications.
 
+**#43 reconciliation (V1, V3-V5):** Approved - PR #45 review `5489060100`, independent reviewer `/root/review_reconciliation`, 2026-10-12; substantive head `f44c37b7190dc118b65a80c16b10bb85024cc0e3`. The original baseline remains approved; the bounded reconciliation delta passed independent review.
+
 ## Abstraction level
 
 This is a verification and statistical design artifact. It fixes the following choices, which `design/REPLAY_BACKTEST.md` (#21) and `contexts/EVALUATION_BACKTESTING.md` routed to verification:
@@ -60,11 +62,11 @@ This protocol uses the **logarithmic score on the realized outcome**, in nats pe
 - **Primary aggregate.** The mean log score over cohort units, each unit weighted equally (#21 grouping level `unit`).
 - **Primary skill.**
   - `ΔS = mean(S_locked − S_ref)` on the identical unit set. Negative values favour the locked procedure.
-  - The reference is B1 (section 4).
-  - If section 6 rule 3 locks B1 itself, the primary comparison becomes **B1 against B0**.
-- **Secondary aggregates** (analysis class `SECONDARY`, full cohort):
-  - the driver-race-weighted mean, where each driver-race carries total weight 1;
-  - the event-trajectory-weighted mean.
+  - The reference is B1 (section 4). B1 and B0 are predeclared reference procedures under #21 Amendment A2, frozen in the same lock and evaluated in the same final BacktestRun as the selected procedure.
+  - Paired scores use the same full scored cohort in both slots for a `PRIMARY` claim. Cohort differences give only a `SECONDARY` intersection comparison with all unmatched and A4 counts reported (#21 A2).
+  - If section 6 rule 4 locks B1 itself, the primary comparison becomes **B1 against B0**.
+- **Secondary aggregate** (analysis class `SECONDARY`, full cohort): the driver-race-weighted mean, where each driver-race carries total weight 1.
+- **Retrospective aggregate** (`RETROSPECTIVE_DIAGNOSTIC`): the event-trajectory-weighted mean. Its weights depend on eventual outcomes; it never defines the primary population.
 - **Outcome-conditioned breakdowns** are labelled `RETROSPECTIVE_DIAGNOSTIC` (#21 scorer rule 3). They cover breakdowns by A9/A10/A11, and breakdowns by `K_T` tercile, where the tercile cut-points are fixed from **development** data.
 
 ## 3. Dependence-aware uncertainty (few clusters)
@@ -77,7 +79,7 @@ Units are dependent within a race. The cluster is therefore the race session. Wi
   - Use the **t distribution with G − 1 degrees of freedom**.
   - Report the 95 % interval.
 - **Co-reported.**
-  - A wild cluster bootstrap (Webb six-point weights, B = 9,999) interval for `ΔS`.
+  - An **unrestricted wild cluster bootstrap, percentile interval** (Webb six-point weights, B = 9,999) for `ΔS`. Fit the intercept without imposing a null; multiply its residuals by one independently drawn weight per race, add them to the fitted values, and refit the unit-weighted intercept. Report the 2.5th and 97.5th percentiles of the bootstrap intercepts (linear interpolation quantiles). The bootstrap seed is predeclared. This co-reported interval is distinct from the primary CR2 interval.
   - A leave-one-race-out jackknife. This is an influence check only, naming the most influential race.
 - **Minimum cluster count.** With **G < 10** races, intervals are reported as **descriptive only**, and the claim is limited to the point estimate and its sign. This applies to F2 unless it reaches 10 races, which it cannot in 2026.
 - **Qualifiers and caveats.** Every claim carries `LOW_POWER` (#21). No fixed-α hypothesis test is pre-registered. All intervals are conditional on the fitted, locked models. They do not include training variability.
@@ -149,7 +151,8 @@ Two `BacktestProtocol`s are declared. Each conforms to #21 as written: one final
 | `final_partition` | 2026 R1–R16 (16 races) |
 | `development_fold_rule` | `ROLLING_RACE_BLOCK`. Minimum training block: 2024 R10–R24 (15 races). Blocks of `b = 6`: 2025 R1–6, R7–12, R13–18, R19–24 (4 folds), each with cutoff equal to the block's first race |
 | `final_refit_cadence` | `NONE`. One `ModelArtifact` fitted on all 39 development races, with cutoff 2026 R1 |
-| `resolution_run_ref` | The first complete #19 resolution run over S-RD produced by the implementation, declared by reference before the lock |
+| `resolution_run_ref` | A reserved #19 resolution-run identity and frozen configuration/source references, declared before the lock. Final resolution contents are produced for the locked evaluation and are first consumed only through its ledger-gated join; no pre-lock final resolution inspection or coverage measurement |
+| `reference_procedure_specs` | B1 and B0, versioned under section 4 and #21 A2, committed with the protocol. Their seeds and development-fitted schedules are frozen alongside the selected procedure |
 | `primary_cohort_rule_version` | `cohort/v2` |
 | `candidate_scope_rule` | All race sessions and driver entries in the partitions; no further restriction |
 | `prior_exposure` | See below |
@@ -160,7 +163,7 @@ Two `BacktestProtocol`s are declared. Each conforms to #21 as written: one final
 - During #35 verification, the raw archive streams of 2026 R1–R16 (and of 2024–2025 races) were downloaded and processed, together with Jolpica results and pit-stop responses.
 - The committed evidence includes **per-race, per-driver facts** for those races: pit entries with laps, tyre-service classes, penalty visits, retired and stopped drivers, `TotalLaps` series and clock behaviour. These are in `verification/evidence/capabilities_raceday_scope_v2.json`, `probe_raceday_scope_v*.json` and `clock_fixture_raceday_scope_v1.json`.
 - **This protocol, including the B0 and B1 specifications, the 50 % truncation threshold and the expected truncation share, was authored after that inspection.** B1 can become the locked procedure (section 6, rule 4).
-- No model was fitted to those races, and no V2 resolution artifact was read. This is therefore a declaration, not a ledger opening (#21).
+- At protocol authoring, no model was fitted to those races, and no V2 resolution artifact was read. This is therefore a declaration, not a ledger opening (#21). Implementation tests that reconstruct targets and measure cohort/truncation rates are restricted to the development partition, as the fixture catalog requires. The ledger and exposure declaration must be updated if any subsequent final resolution is accessed outside the locked join; this would make the affected race unavailable for a new primary claim.
 - F1 claims carry `PRIOR_EXPOSURE_DECLARED`.
 
 ### P-F2 (confirmatory)
@@ -170,7 +173,7 @@ Two `BacktestProtocol`s are declared. Each conforms to #21 as written: one final
 | `supported_scope` | P-F1's 55 races, plus the F2 races admitted by the inclusion rule below |
 | `development_partition` | As P-F1 |
 | `final_partition` | **Rule:** every 2026 Formula 1 championship race held after 2026 R16 and before 2027-01-01 that passes the F2 inclusion rule. The rule is resolved to a **fixed list of races**, recorded in P-F2 before its lock and before any F2 opening; #21 coverage checks against that list |
-| Lock | A separate `EvaluationLock` with the **same** `procedure_id`, seeds and `ModelArtifact` as P-F1, and no refit |
+| Lock | A separate `EvaluationLock` with the **same** selected and B1/B0 reference procedures, seeds and model artifacts as P-F1, and no refit |
 | Commitment | P-F2 (rule and digest) is committed **before any P-F1 final opening** |
 | `prior_exposure` | None, provided the inclusion rule is followed |
 | Qualifiers | `LOW_POWER`. With fewer than 10 races, intervals are descriptive only (section 3) |
@@ -182,6 +185,10 @@ Two `BacktestProtocol`s are declared. Each conforms to #21 as written: one final
 3. The SHA-256 of the raw downloaded bytes, computed **without parsing**, is identical across two retrievals at least 24 h apart.
 
 No record content may be parsed or analysed before the P-F2 lock. A failing race is excluded through scope, never record by record. Any capability, pit or tyre analysis of an F2 race before its lock is an exposure. It must be registered as an `AD_HOC_OPENING` (#21), which makes that race `POST_HOC`, or declared in P-F2's `prior_exposure`.
+
+**F2 structural-risk policy (V4).** The metadata-only inclusion rule is retained. It does not prove per-race lap-counter continuity before locking. P-F2 explicitly accepts the risk that post-lock checks discover unsupported lap jumps/regressions. Such an affected run is `DEFECTIVE` under #21 (including A8 when the context cannot be mapped); no primary or confirmatory performance claim is made from it. Report the declared race list, anomaly, defect counts and any scores as diagnostic only. Do not remove the affected race after outcomes are opened, change the frozen inclusion rule, or replace the run with a selectively reduced confirmatory claim. P-F2's attempted evaluation is reported regardless of P-F1's result. This policy is a fail-closed consequence, not an expansion of #35 support.
+
+**Protocol lineage (O1).** Record both the initial committed digest and the locked `protocol_id`, with each intervening deterministic resolution of the reserved run reference or F2 race-list rule. The lock check verifies that only those predeclared fields were resolved and that no final outcome was opened in between. It must not silently reuse the earlier digest.
 
 **Claims.** The primary final claim is `ΔS` on P-F1, labelled `PRIMARY_FINAL` by the ledger. P-F2 then gives an independent confirmatory claim with the same locked artifact. The P-F2 claim is **reported whatever the P-F1 result**, so confirmation is never selective. Both claims cite the evidence exception and RA-1–RA-4 (#35).
 
@@ -286,3 +293,10 @@ Observations adopted: the alternative censoring and lap-level construction, and 
   - R2: the B1 fallback trigger uses only facts at T.
   - R3: the P-F2 rule is resolved to a fixed list before its lock, and P-F2 is reported whatever P-F1 shows.
 - Product Owner decision: none required.
+
+
+### #43 reconciliation - review scope
+
+Approved. V1: consumes #21 A2 with predeclared B1/B0 slots and one final comparison; the reserved final resolution identity avoids pre-lock inspection. V2: development-only target regression and accounting measurements preserve the accurate exposure declaration. V3: event-trajectory weighting is retrospective. V4: metadata-only F2 inclusion explicitly accepts and reports structural defects without selective race removal. V5: unrestricted percentile wild-bootstrap variant specified. O1: commitment-to-lock lineage recorded. No product decision or semantic change is required.
+
+Independent scoped reconciliation review: PR #45 review `5489060100`, independent reviewer `/root/review_reconciliation`, 2026-10-12; substantive head `f44c37b7190dc118b65a80c16b10bb85024cc0e3`. PASS; no Blocking or Major findings. The separate #43 integration re-check is still required.

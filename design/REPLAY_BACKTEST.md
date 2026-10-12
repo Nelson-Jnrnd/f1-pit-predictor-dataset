@@ -6,6 +6,8 @@ Approved — bounded re-review PASS recorded on PR #28 for substantive head `564
 
 **Amendment A1 (Issue #29):** approved; bounded re-review PASS on PR #32. It consumes #18 `CheckpointAttemptRecord`s, including key-less identity failures (#22 finding F2, #21 part), and adds an initialization-lineage check at the backtest join (#22 finding F4, #21 part).
 
+**Amendment A2 (#43 V1):** Approved - independent scoped review PASS on PR #45 review `5489060100`, independent reviewer `/root/review_reconciliation`, 2026-10-12; substantive head `f44c37b7190dc118b65a80c16b10bb85024cc0e3`. Adds predeclared reference procedures to a single locked final comparison. The original design and A1 remain approved; the A2 delta has passed independent review.
+
 ## Abstraction level
 
 Detailed replay/backtest design: replay ordering, prediction-snapshot generation runs, run identity/configuration/provenance, the temporal development versus final-evaluation mechanism, candidate and cohort selection, accounting of non-scored cases, grouping metadata for repeated forecasts, the scorer plug-in boundary, and minimum audit artifacts.
@@ -71,6 +73,7 @@ BacktestProtocol
   resolution_run_ref                # selects exactly one resolution per episode
   primary_cohort_rule_version       # cohort/v2
   prior_exposure[]                  # known earlier uses of final-partition races (see below)
+  reference_procedure_specs[]       # A2: reference_id + ProcedureSpec digest, fixed before opening
   declared_at, repository_revision
 ```
 
@@ -124,6 +127,7 @@ ProcedureSpec
 DevelopmentRunConfig
   protocol_id, partition_role (DEVELOPMENT_FIT | FINAL_REFIT), fold_id?, lock_id?
   procedure_id
+  procedure_slot?                   # A2: SELECTED/reference_id for FINAL_REFIT
   cutoff c
   training_races                    # all races r with t(r) concluded before t(c), within supported_scope
   observation/initialization run refs, resolution_run_ref, mapping version
@@ -132,7 +136,7 @@ DevelopmentRunConfig
 The development join (#17 rule 7) enforces:
 
 1. Every training race has concluded before `t(c)`.
-2. If any training race is in the protocol's `final_partition`, the run must be `FINAL_REFIT` and must reference a `lock_id` whose procedure and seeds it uses. Before a lock exists, final-partition races are refused.
+2. If any training race is in the protocol's `final_partition`, the run must be `FINAL_REFIT` and must reference a `lock_id` and select its `SELECTED` or declared reference slot whose procedure and seeds it uses (A2). Before a lock exists, final-partition races are refused.
 3. Every race it reads is recorded in the ledger before the join executes: `FINAL_REFIT_TRAINING` for final-partition races under the lock, and `DEVELOPMENT_JOIN` otherwise.
 
 It produces record-level development accounting (see *Development categories*) and a #20 `ModelArtifact` with `development_run_ref` and `development_temporal_boundary_ref = c`.
@@ -147,6 +151,7 @@ ReplayRunConfig
   observation_reconstruction_run_ref
   target_initialization_run_ref
   inference_seed_policy
+  procedure_slot: SELECTED | reference_id  # FINAL_EVALUATION; A2
   prediction_contract_version
   repository_revision, dependency_lock_ref
 ```
@@ -155,7 +160,7 @@ Rules:
 
 - **Direct-input allowlist:** the run's direct inputs may be only the observation run, the initialization run, the model artifacts in `model_schedule`, and the config. A model artifact's own provenance legitimately references development resolutions; that is not a direct input. Any direct reference to a resolution, event, mapping, backtest, or score aborts the run.
 - **Per-race cutoff check:** for every race `r` in scope, `t(cutoff(model_schedule[r])) ≤ t(r)`.
-- **Final evaluation:** `model_schedule` must equal the lock's `final_model_schedule`, and `inference_seed_policy` must equal the lock's, exactly.
+- **Final evaluation (A2):** `procedure_slot` selects exactly one entry in the lock: `SELECTED`, or a declared `reference_id`. The procedure, model schedule, fit seeds and inference seed policy must exactly match that entry. Undeclared references and changed entries are refused. This slot is fixed before replay and never selected from final outcomes.
 
 #### Ordering
 
@@ -199,14 +204,14 @@ ReplayRunManifest
 ```text
 BacktestRunConfig
   protocol_id, partition_role (DEVELOPMENT_VALIDATION | FINAL_EVALUATION), fold_id?, lock_id?
-  replay_run_refs[]                 # one or more, same lock/fold; together cover the scope
+  replay_run_refs[]                 # one or more, same lock/fold; A2: keyed by procedure_slot
   resolution_run_ref, mapping_version
 ```
 
 The backtest join (#17 rule 8) enforces:
 
-1. **Coverage:** the union of replay scopes equals `partition ∩ supported_scope ∩ candidate scope` (for a fold, its validation races). A missing race is a run-validity defect.
-2. **Final gating:** for `FINAL_EVALUATION`, a lock is required, and every replay must carry the lock's `model_schedule` and `inference_seed_policy`. The ledger openings are written **before** any final-partition resolution is read. The ledger assigns the role; the caller does not.
+1. **Coverage:** the union of replay scopes equals `partition ∩ supported_scope ∩ candidate scope` (for a fold, its validation races). A missing race is a run-validity defect. For final comparisons (A2), this is checked separately for `SELECTED` and every declared reference slot. Each slot has exactly one replay record per candidate attempt; duplicate or missing attempts are defects. All slots use the same observation and initialization runs and resolution selection.
+2. **Final gating (A2):** for `FINAL_EVALUATION`, a lock is required, and every replay must match its declared procedure slot under the *ReplayRun* check. The selected and reference replays are assembled in **one BacktestRun**. One ledger opening per race covers the entire predeclared comparison, written **before** any final-partition resolution is read. References do not open races separately or earlier. An incomplete comparison is refused before opening. The ledger assigns the role; the caller does not.
 3. **Resolution run:** `resolution_run_ref` must equal the protocol's, except for a run declared as a resolution correction, which the ledger labels `RESOLUTION_REEVALUATION`. A `RESOLUTION_REEVALUATION` may carry `analysis_class = PRIMARY` only if the primary run was `DEFECTIVE` solely because of A5, A7, or A8. It is then reported as a correction of the primary, with both runs shown; otherwise it is `SECONDARY`.
 4. Development-validation backtests write `DEVELOPMENT_VALIDATION` openings for their races.
 5. **Initialization lineage (Amendment A1):** for every predicted record, the snapshot's `target_episode_initialization_ref` must equal the selected resolution's `target_episode_initialization_ref`. The resolution run's declared `target_initialization_run_ref` must also equal the replay's. Any mismatch is recorded as A0 `UPSTREAM_LINKAGE_DEFECT`.
@@ -241,10 +246,14 @@ EvaluationLock
   selection_evidence_refs[]         # development ScoreRuns that justified the choice; each must come
                                     # from a VALID fold backtest (defective folds are rescoped via
                                     # supported_scope, not used as selection evidence)
+  reference_procedures[]             # A2: reference_id, procedure_id, fit seeds, inference_seed_policy,
+                                    # final_model_schedule; immutable under the same lock
   locked_at
 ```
 
-With `final_refit_cadence ≠ NONE`, refits use the lock's procedure and seeds with cutoff = the predicted race (or the first race of its season). Every refit is a `FINAL_REFIT` `DevelopmentRun` that references the lock. Refits are reproducible from the lock and do not change the procedure.
+**Reference registration (A2).** The reference list, including each versioned procedure, is predeclared in the protocol before final outcomes are opened. Its fitted artifacts, schedules and seeds are frozen in the lock using development evidence only. Reference ids are unique; `SELECTED` is reserved. If the selected procedure is also a reference, that reference slot aliases the selected entry (identical procedure, artifacts and seeds) rather than fitting another version. All reference refits obey the same cutoff and ledger rules as the selected procedure. Reference registration cannot be extended after locking.
+
+With `final_refit_cadence ≠ NONE`, each refit selects its declared `SELECTED` or reference slot and uses that entry's procedure and seeds with cutoff = the predicted race (or the first race of its season). Every refit is a `FINAL_REFIT` `DevelopmentRun` that references the lock. Refits are reproducible from the lock and do not change the procedure.
 
 ```text
 FinalEvaluationLedger               # append-only, keyed by RaceSessionKey; covers every race,
@@ -271,6 +280,7 @@ Labels for `FINAL_EVALUATION` openings of race `r`:
 
 Rules:
 
+- **Comparison opening (A2):** selected and reference slots in one final backtest share one race opening and its label. An independent reference backtest is another opening and receives the ordinary ledger treatment. No reference-only run can reserve a primary label for a later selected run.
 - **Every outcome join is an opening.** The development join, the backtest join, and registered ad hoc reads write a ledger entry for every race whose resolutions they read, whatever the protocol or partition. A race used for development under any protocol is therefore permanently ineligible for `PRIMARY_FINAL`.
 - `FINAL_REFIT_TRAINING` openings of race `r` are legitimate only when the refit cutoff is later than `r`, under the same lock. They do not change `r`'s label for that lock; for any other lock they count as earlier openings.
 - A protocol's `prior_exposure` list is checked against the ledger. Every ledger opening of a final-partition race that predates the protocol must be listed, and is filled in from the ledger when it is not.
@@ -308,14 +318,14 @@ Rules:
 - **A0, A5, A7, and A8 are not cohort filters.** They are run-validity defects. A backtest run with any of them in scope is `DEFECTIVE`, and none of its scores may carry analysis class `PRIMARY`. Because A7 and A8 can occur only for observed events, filtering them per record would select by outcome type.
 - To evaluate despite such defects, races or eras must be removed beforehand through `supported_scope`, for example by the `EntryLapContext` support matrix. They are never removed record by record.
 - The primary cohort of a `VALID` run is A9 ∪ A10 ∪ A11. It is recomputed from the categories and checked against the unit table.
-- **Comparing procedures:** comparisons use the intersection of their scored records, or report A4 counts alongside the scores.
+- **Comparing procedures:** follow scorer rule 7 (A2): a primary paired claim needs identical full cohorts; a differing-cohort intersection is secondary, with unmatched and A4 counts reported.
 
 ### Record-level accounting table
 
-One row per candidate record:
+One row per candidate record **per procedure slot** in a final comparison (A2). Category precedence is unchanged; reference records are not additional temporal checkpoints:
 
 ```text
-attempt_key, semantic_observation_key?, grouping keys, category, observation_artifact_ref?,
+procedure_slot?, attempt_key, semantic_observation_key?, grouping keys, category, observation_artifact_ref?,
 target_episode_key?, snapshot_id?, prediction_failure_ref?,
 target_resolution_artifact_ref?, resolution_state?, realized_outcome_kind?
 ```
@@ -337,6 +347,7 @@ How fitting treats A6 or set-valued outcomes is recorded in the `ProcedureSpec`.
 EvaluationUnit
   evaluation_unit_id                # run-scoped
   backtest_run_id
+  procedure_slot?                   # A2; distinguishes selected/reference units
   snapshot_id                       # #20, immutable, referenced not copied
   target_episode_key
   target_resolution_artifact_ref
@@ -368,9 +379,10 @@ GroupingKeys
 
 ## Reproduction rule
 
-A re-executed run gets a new run id. It is a reproduction of an earlier run only if, after removing run-scoped identifiers (`run ids`, `snapshot_id`, `evaluation_unit_id`, `prediction_run_ref`) and keying records by the #18 `attempt_key` (which covers key-less rows), together with `target_episode_key` where present, the following all hold:
+A re-executed run gets a new run id. It is a reproduction of an earlier run only if, after removing run-scoped identifiers (`run ids`, `snapshot_id`, `evaluation_unit_id`, `prediction_run_ref`) and keying records by `procedure_slot` (A2) and the #18 `attempt_key` (which covers key-less rows), together with `target_episode_key` where present, the following all hold:
 
-- the record sets are identical;
+- the declared slot set and each slot's frozen procedure, seeds and schedule are identical (A2);
+- the record sets are identical within every slot;
 - the categories are identical;
 - the resolution references are identical;
 - each prediction's `request_digest` is equal;
@@ -409,15 +421,16 @@ Rules:
 4. Pit-window summaries may be scored only as `SECONDARY` and never replace the canonical distribution.
 5. `ledger_role` is copied from the ledger labels of the races in the run. A run mixing labels reports per-label results.
 6. Metrics, set-valued outcome scoring, aggregation, and confidence procedures are owned by verification/statistics. New scorers plug in without changes here.
+7. **Paired scoring (A2):** a paired ScoreRun reads selected and declared-reference slots of the **same BacktestRun**, matching `(attempt_key, target_episode_key)` and verifying the same observation, initialization, resolution, grid and realized outcome. It records the compared slots and all unmatched/A4 counts. No extra outcome join or ledger opening is made by scoring; the race labels are copied unchanged. A paired `PRIMARY` claim requires the full primary cohort to be identical in both slots and the entire comparison run to be `VALID`. If cohorts differ, only a reported intersection comparison with class `SECONDARY` is allowed; procedure failures must remain visible. An empty intersection has no score. Outcome-conditioned comparisons remain `RETROSPECTIVE_DIAGNOSTIC`.
 
 ## Leakage controls
 
 1. **Replay direct-input allowlist** (see *ReplayRun*).
 2. **Per-race cutoff check** using the single convention `t(cutoff) ≤ t(r)`.
-3. **Lock check:** a final backtest requires a lock, a matching protocol digest, and replays whose model schedule equals the lock's.
+3. **Lock check:** a final backtest requires a lock, a matching protocol digest, and replays matching every selected/reference entry of that lock (A2).
 4. **Development-join check:** final-partition races are refused before a lock exists, and require `FINAL_REFIT` with the lock after it.
 5. **Ledger-first:** every final-partition resolution read through a join writes its ledger opening first. Ad hoc reads must be registered.
-6. **Coverage check:** final backtest replays cover the declared scope.
+6. **Coverage check:** final backtest replays cover the declared scope and attempt set separately for every locked procedure slot (A2).
 7. **Cohort check:** the primary cohort is recomputed from categories, and run validity from defect categories.
 
 ## Minimum audit artifacts
@@ -539,3 +552,8 @@ None required. The protocol shape, lock and ledger, accounting categories, and r
 - Trigger: #22 integration gate findings F2 and F4 (the #21 parts).
 - Independent review bounded to the amendment: see the #18 Amendment A1 review record (one joint review on PR #32).
 
+
+
+### Amendment A2 (#43 V1) - review scope
+
+Approved. Scope: predeclared references, slot-specific replay validation, complete comparison assembly with one race opening, per-slot accounting/identity/reproduction, and paired scoring. Upstream prediction/target semantics, category precedence and ledger labels are unchanged. Required verification: declared selected/B1/B0 comparison opens each race once; unknown references, mutated schedules/seeds and missing slots are refused before opening; reproduction compares every slot; mismatched cohorts cannot produce a primary paired claim. Independent scoped review PASS: PR #45 review `5489060100`, independent reviewer `/root/review_reconciliation`, 2026-10-12; substantive head `f44c37b7190dc118b65a80c16b10bb85024cc0e3`. No Blocking or Major findings. Two Minor wording clarifications (refit slot and comparison cohort) applied; reviewer requires no further cycle.
