@@ -6,6 +6,8 @@ Approved, including the split section. The bounded re-review on PR #40 (head `d2
 
 Under the non-convergence rule, those two scenarios were **split into Issue #41**, which gets its own independent review. They are fixed in this file and marked "split slice, #41". The #41 sub-slice passed its bounded re-review (see *Split sub-slice (#41) review*). Minor findings N3–N9 are applied. Every other entry stands as reviewed.
 
+**#43 reconciliation (V1-V6 coverage):** In review. Only the delta below is reopened; the prior reviewed catalog remains the baseline.
+
 ## Abstraction level
 
 This is a verification specification. It turns three sources into catalogued reference scenarios and acceptance fixtures with exact expected outcomes:
@@ -47,6 +49,8 @@ Implementation turns each entry into an automated test without inventing expecte
   - Unless given, stream order equals prefix order.
 - **Exactness.** Expected values are exact expressions (e.g. `−ln 0.25`, `600/1100`). Implementations compare floating-point results to 1e-12 unless an entry states otherwise.
 - **PENDING-OWNER.** The tested behaviour depends on a clarification routed under *Routing*. The fixture is written for the unambiguous part, and the open part is marked.
+
+**Final isolation (#43 V2).** Define `S-DEV` as the 39 S-RD development races: 2024 R10-R24 and 2025 R1-R24. Every REAL implementation fixture that creates or reads target-resolution, visit, terminal or entry-lap artifacts is restricted to `S-DEV`, disjoint from every declared final partition. Pre-lock cohort/truncation measurement has the same restriction. Source evidence census entries may read the already-committed verification evidence JSON to verify recorded support; they do not run V2 target reconstruction on final races. Final resolution artifacts are first read only through the locked evaluation join. The totals below are sums of the per-race fields in `capabilities_raceday_scope_v2.json` filtered to `season < 2026`; do not substitute the all-55 census totals.
 
 ## Traceability index
 
@@ -106,8 +110,10 @@ Implementation turns each entry into an automated test without inventing expecte
 | #21 R-11 | FX-RPL-23 |
 | #21 R-12 | FX-RPL-24 |
 | Gate O3 | FX-RPL-25 (PENDING-OWNER), FX-RPL-26 |
-| #35 parameters | FX-SUP-01…14 |
-| #37 parameters | FX-EVL-01…14 |
+| #35 parameters | FX-SUP-01…15 |
+| #37 parameters | FX-EVL-01…16 |
+| #21 A2 / #43 V1, O1 | FX-RPL-27…31 |
+| #43 V2 | Final-isolation convention; FX-RPL-32 |
 | Cross-component | FX-E2E-01…10 |
 
 ## Observation reconstruction (#18)
@@ -144,7 +150,7 @@ Implementation turns each entry into an automated test without inventing expecte
 | ID | Source | Basis | Level | Given → Expected |
 | --- | --- | --- | --- | --- |
 | FX-TGT-01 | T-1 | SYN | U | Driver 16 `InPit` False→True @5000, True→False @5022 → one `PitVisitArtifact`, entry 5000, exit 5022 |
-| FX-TGT-02 | T-1 | REAL(all 55 S-RD keys) | C | Jolpica stops (frozen responses, hashes as in `capabilities_raceday_scope_v2.json`) → each stop has exactly one visit with `c(E) + 1 ==` Jolpica lap. Total 1998/1998 |
+| FX-TGT-02 | T-1 | REAL(S-DEV) | C | Jolpica stops (frozen responses, hashes as in `capabilities_raceday_scope_v2.json`) → each stop has exactly one visit with `c(E) + 1 ==` Jolpica lap. Total 1334/1334 |
 | FX-TGT-03 | T-2 | SYN | C | `InPit` entry @1200 (before `Started`) → `OUTSIDE_RACE_PARTICIPATION`; no qualifying event |
 | FX-TGT-03a | T-2 (first-lap edge) | SYN | C | `Started` @3600, bounded [3595, 3605]; entry @3602, bounded [3597, 3607] → overlap gives `INDETERMINATE_RACE_PARTICIPATION`. An entry @3612 ([3607, 3617]) → `IN_RACE_PARTICIPATION` |
 | FX-TGT-04 | T-3 | SYN | C | Driver 31: last advance @5950, `Retired:true` @6000, entry @6100 ([6095, 6105] ≥ the terminal upper bound 6000) → `OUTSIDE_RACE_PARTICIPATION`. Any entry after the driver's finish terminal is likewise outside |
@@ -155,7 +161,7 @@ Implementation turns each entry into an automated test without inventing expecte
 | FX-TGT-09 | T-8 | SYN | U | Last update `{TyresNotChanged:"0", New:"false", Compound:"MEDIUM", StartLaps:8}`, previous stint MEDIUM → `CONFIRMED_TYRE_SERVICE`. Compound equality is not a negative |
 | FX-TGT-10 | T-9 | SYN | C | RCM "DRIVE THROUGH PENALTY FOR CAR 63" @7400. Driver 63's first in-race entry after it is @7647, and its last stint update has `TyresNotChanged:"1"`. RCM "PENALTY SERVED - DRIVE THROUGH PENALTY FOR CAR 63" @8950 (before `Finished`) → `CONFIRMED_NO_TYRE_SERVICE`. (A served-penalty visit with `TyresNotChanged:"0"` is a conflict: PENDING-OWNER, routed R-C) |
 | FX-TGT-10a | T-9 (stop-and-go) | SYN | C | As FX-TGT-10, with "STOP-AND-GO PENALTY FOR CAR 20" issued and served → `CONFIRMED_NO_TYRE_SERVICE` |
-| FX-TGT-11 | T-10 | REAL(S-RD) | C | The S-RD penalty test set (9 visits, `capabilities_raceday_scope_v2.json`) → all have last update `"1"`, none `"0"`. A visit with `"1"` and no penalty → `INDETERMINATE_TYRE_SERVICE` |
+| FX-TGT-11 | T-10 | REAL(S-DEV) | C | The S-DEV penalty test set (2 visits: 2025 R8 driver 63 and R20 driver 55, `capabilities_raceday_scope_v2.json`) → all have last update `"1"`, none `"0"`. A visit with `"1"` and no penalty → `INDETERMINATE_TYRE_SERVICE` |
 | FX-TGT-12 | T-11 | SYN | U | Drive-through opens stint 1 `{TyresNotChanged:"1", StartLaps:53}`, no penalty messages → `INDETERMINATE_TYRE_SERVICE`, despite the increment |
 | FX-TGT-13 | T-12 | SYN | U | No stint update in [entry, next entry) → `INDETERMINATE_TYRE_SERVICE` |
 | FX-TGT-14 | T-13 | SYN | U | T bounds [4995, 5005] → E @5011 ([5006, 5016]) is `STRICTLY_AFTER_T`. E @5009 is `INDETERMINATE_PREDICTION_RELATION`. E @4989 ([4984, 4994]) is `BEFORE_OR_AT_T`. E @4994 ([4989, 4999]) is indeterminate |
@@ -166,14 +172,14 @@ Implementation turns each entry into an automated test without inventing expecte
 | FX-TGT-17 | T-16 | SYN | C | Episode T bounds [5495, 5505], finish B = 9050. Driver 22: entry @6000 (exit @6004), entry @6008, both confirmed service. Bounds [5995, 6005] and [6003, 6013] overlap, but `TimingData` stream order fixes entry 1 before entry 2 (RA-3) → `OBSERVED_EVENT` on the 6000 entry. Truncation for genuinely unorderable candidates cannot occur within one stream in S-RD, so this sub-case is not constructible there |
 | FX-TGT-18 | T-17 | SYN | U | Driver 31: last advance @5950, `Retired:true` @6000 → terminal; B ∈ (5950, 6000] |
 | FX-TGT-19 | T-17 | SYN | U | (i) `Stopped:true` @6000 after the last advance (5950) and before the last `Finished` → terminal. (ii) `Stopped:true` @5000 with advances after 5100 (red flag) → not terminal. (iii) In-race black flag: RCM "BLACK FLAG ... CAR 27" @7000, no further advances, `Stopped` @7020 → terminal. (iv) A post-race disqualification exists only in final results (no archive signal) → not a participation terminal |
-| FX-TGT-20 | T-17 | REAL(S-RD) | C | Combined rule versus Jolpica non-finishers (disqualifications excluded) → 157/158 (`capabilities_raceday_scope_v2.json`); regression guard |
+| FX-TGT-20 | T-17 | REAL(S-DEV) | C | Combined rule versus Jolpica non-finishers (disqualifications excluded) → 84/84 (`capabilities_raceday_scope_v2.json`, S-DEV filter); regression guard |
 | FX-TGT-20a | T-17 (finish) | SYN | U | Leader `Finished` @9000. Driver 1 completes lap 57 @9000 → finish terminal B = 9000 (that completion). Lapped driver 18 completes lap 56 @9080, its first completion after `Finished` → B = 9080. Driver 20 completes nothing after 9000 and is not retired → coverage indeterminate; episodes needing B for no-event are `TRUNCATED_INDETERMINATE` |
 | FX-TGT-21 | T-18 | SYN | C | Driver 10: episode T bounds [5795, 5805], finish B = 9050. A `TimingData` gap over [6000, 6200], no confirmed event before 6000 → `TRUNCATED_INDETERMINATE`. Same gap but a confirmed in-scope event @5900 → `OBSERVED_EVENT` |
 | FX-TGT-22 | T-19 | SYN | C | Driver 16: episode T bounds [8195, 8205], no visits until its finish terminal B = 9050 ([9045, 9055]), complete coverage → `TERMINAL_NO_EVENT`. Same, but an `INDETERMINATE_TYRE_SERVICE` visit @8700 → `TRUNCATED_INDETERMINATE` |
 | FX-TGT-23 | T-20 | SYN | C | L20 (T = 5000) and L21 (T = 5090), one confirmed event @5200 (c = 22) → two episodes, both `OBSERVED_EVENT`, same `event_key` |
 | FX-TGT-24 | T-21 | SYN | C | Re-resolve under a second resolution run → two immutable artifacts; one selected per `resolution_run_ref`; the first is unchanged |
 | FX-TGT-25 | T-22 | REAL((2025,12), S-RD) | C | Resolve twice with identical inputs → identical resolution digests |
-| FX-TGT-26 | T-23 | REAL(all 55 S-RD keys) | C | The `c(E)` counter equals the #18 checkpoint counter. 0 jumps, 0 regressions (`capabilities_raceday_scope_v2.json`) |
+| FX-TGT-26 | T-23 | REAL(S-DEV) | C | The `c(E)` counter equals the #18 checkpoint counter. 0 jumps, 0 regressions (`capabilities_raceday_scope_v2.json`) |
 | FX-TGT-27 | T-24 | SYN | U | Advances lap 30 @4900, lap 31 @5000. Entry record after the lap-31 record in stream order → `c_exact` = 31. Entry before it → 30. (Equal-instant completion counts as completed) |
 | FX-TGT-28 | T-24 | SYN | U | Red flag after lap 40, classification countback to 39, as-raced counter 40 at entry → `c_exact` = 40 |
 | FX-TGT-29 | T-24 | SYN | U | Driver count jumps 30 → 32 before the entry → no `EntryLapContext`; `entry_lap_context_absent_reason` is set; still `OBSERVED_EVENT` |
@@ -240,6 +246,17 @@ Implementation turns each entry into an automated test without inventing expecte
 | FX-RPL-25 | Gate O3 | SYN | C | **PENDING-OWNER.** In a development join, the episode's resolution comes from a different initialization run than the observation's initialization. #21's development join states no lineage rule. Routed to #21 as an optional addition (R-D). Until then, this fixture asserts only that the mismatch is detectable (logged) |
 | FX-RPL-26 | Gate O3 | SYN | C | Replay whose `observation_reconstruction_run_ref` differs from the initialization run's observation run → current #21 behaviour: no decision is found for the replay's observations (replay step 2), so an upstream-linkage defect is recorded, then A0 rows, then the backtest is `DEFECTIVE` |
 
+### Locked comparison fixtures (#21 A2)
+
+| ID | Source | Basis | Level | Given -> Expected |
+| --- | --- | --- | --- | --- |
+| FX-RPL-27 | A2 / V1 | SYN | C | Lock predeclares SELECTED, B1 and B0 with development-only fits. Complete slot replays on one fresh final race, assembled into one BacktestRun -> exactly one ledger opening for that race, `PRIMARY_FINAL` shared by all slots; paired scoring adds no opening |
+| FX-RPL-28 | A2 / V1 | SYN | L | An undeclared reference, changed reference seed/schedule, missing slot, missing per-slot race/attempt, or duplicate per-slot attempt -> refused or defective before any final resolution read; cannot claim `PRIMARY` |
+| FX-RPL-29 | A2 / V1 | SYN | C | B1 is selected and its reference slot aliases SELECTED; B0 is the paired reference -> primary paired score is B1 minus B0 on the same cohort. A4 removes one record from one slot only -> intersection score is `SECONDARY`, unmatched/A4 counts visible; any A0/A5/A7/A8 in any slot -> comparison run `DEFECTIVE`, `PRIMARY` refused |
+| FX-RPL-30 | A2 reproduction | SYN | C | Rerun all slots under same lock and selected resolutions with identical semantic-keyed records -> `REPRODUCTION`. Change one reference distribution beyond tolerance -> `POST_HOC`. A reference-only opening before the selected comparison -> later race label `POST_HOC` |
+| FX-RPL-31 | O1 | SYN | C | A committed protocol reserves the final run identity / F2 inclusion rule; deterministic field resolution produces a new digest with retained lineage, before any opening -> lock accepted. Changed procedure, rule, source selection or intervening final opening -> new primary lock refused |
+| FX-RPL-32 | V2 | SYN | L | Pre-lock REAL target-regression or cohort-measurement request includes a declared final race -> refused before target resolution read. S-DEV-only request -> permitted through development accounting; existing frozen source-evidence census is not a V2 resolution read |
+
 ## Verification parameters (#35)
 
 | ID | Source | Basis | Level | Given → Expected |
@@ -255,9 +272,10 @@ Implementation turns each entry into an automated test without inventing expecte
 | FX-SUP-09 | #35 pre-race | SYN | U | `Started` @3400. Pre-race fact @3094.9 → admitted. @3095.0 → omitted |
 | FX-SUP-10 | #35 health (c) | SYN | U | A record after the last `Finished` → unhealthy; never a fact for in-race checkpoints |
 | FX-SUP-11 | #35 (D) | SYN | U | `TotalLaps` [(5, 58), (47, 0), (453, 58)] → 58. [(9.9, 0), (13.6, 44)] → 44. [(5, 0)] → `SCHEDULED_DISTANCE_UNAVAILABLE` |
-| FX-SUP-12 | #35 (C) | REAL(all 55 S-RD keys) | C | The `c(E)` method → 1998/1998 Jolpica in-lap matches |
+| FX-SUP-12 | #35 (C) | REAL(S-DEV) | C | The `c(E)` method → 1334/1334 Jolpica in-lap matches |
 | FX-SUP-13 | #35 (C) | SYN | U | All cars `Stopped:true` @5000, then advancing laps after 5600 → no terminal assigned |
 | FX-SUP-14 | #35 provenance | SYN | C | A positive-rule `CONFIRMED_TYRE_SERVICE` carries a reference to the support record noting limited independent validation |
+| FX-SUP-15 | PO exception / V6 | SYN | C | S-RD authority validation references the 2026-10-10 exception and RA-1-RA-4; each derived observation retains that lineage -> all references and assumptions auditable. Remove the decision or any residual-assumption reference -> acceptance fails; unsupported scopes are not upgraded by the exception |
 
 ## Evaluation protocol (#37)
 
@@ -270,6 +288,8 @@ Implementation turns each entry into an automated test without inventing expecte
 | FX-EVL-05 | §2 | SYN | U | Paired units (S_locked, S_ref) = (1.0, 1.2), (0.5, 0.4) → ΔS = −0.05 |
 | FX-EVL-06 | §3 | SYN | U | Paired differences by race: g1 [0.1, 0.3]; g2 [−0.2, 0.0, 0.2]; g3 [0.4]; g4 [−0.1, 0.1] (n = 8, G = 4) → ΔS = 0.1. CR2 variance = (1/64)·Σ_g (Σ residuals_g)² / (1 − n_g/8) = 0.0055238095238095. SE = 0.0743223352957207. 95 % interval with t(3, 0.975) = 3.182446305284263 → [−0.1365268413619644, 0.3365268413619644]. G < 10 → flagged **descriptive only** |
 | FX-EVL-07 | §3 | SYN | U | Wild cluster bootstrap (unrestricted, Webb six-point weights, B = 9,999, **percentile** interval): (i) if every unit difference equals 0.2, the interval is [0.2, 0.2] exactly; (ii) the same seed gives an identical interval |
+| FX-EVL-15 | section 9 / V6 | SYN | C | An S-RD score report -> cites the 2026-10-10 evidence exception, states authority rests on that exception, and carries RA-1-RA-4 in provenance. Omit the exception/assumptions -> report acceptance fails |
+| FX-EVL-16 | section 7 / V4 | SYN | C | F2 metadata passes, but after locking a lap-counter anomaly prevents supported entry context -> `DEFECTIVE`, no primary/confirmatory performance claim, anomaly and all declared races reported; no outcome-based race removal or replacement reduced claim |
 | FX-EVL-08 | §4 | SYN | C | B1 at T falls back to B0 when the compound is omitted, when the latest admissible stint update has `TyresNotChanged:"1"`, or when there has been no admissible stint update since the last entry |
 | FX-EVL-09 | §6 | SYN | U | A (rank 2, mean 1.000); C (rank 1, mean 1.020), with ΔS(C vs A) = 0.020: SE 0.030 → choose C. SE 0.010 → choose A |
 | FX-EVL-10 | §6 | SYN | U | The chosen candidate's ΔS against B1 ≥ 0 → lock B1; primary comparison is B1 against B0 |
@@ -423,3 +443,8 @@ All scenarios are `SYN` (except E2E-09) and use the defaults.
 - Outcome: **PASS**. Prior findings 1–4 and observations O1–O4 are resolved, and the Issue #41 acceptance criteria are met.
 - A follow-up commit fixed the Minor R1 (stub-sensitivity wording) and the observation (no checkpoints after the retirement).
 - Product Owner decision: none required.
+
+
+### #43 reconciliation - review scope
+
+In review. REAL target-truth regression is now S-DEV only. Recomputed committed-evidence expectations: 1334/1334 stop/lap matches, two penalty visits, 84/84 combined-terminal matches, zero lap jumps/regressions. Added A2 comparison/ledger/cohort/reproduction and protocol-lineage fixtures; final-isolation guard; PO exception validation/observation/report provenance fixtures; F2 structural-defect fixture. FX-EVL-07 consumes the variant explicitly owned by #37. No production tests or model work are introduced.
