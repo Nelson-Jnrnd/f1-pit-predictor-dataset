@@ -42,7 +42,7 @@ Header: Back to races, race name with a small country flag/circuit outline, Driv
 
 Checkpoint navigation: selected driver's completed-lap count, Previous, Next, full driver checkpoint slider and a keyboard-operable lap value. L0 is Race start; L20 means information available at lap-20 completion, forecasting entry in lap21 onward. The slider enumerates recorded CHECKPOINT attempts, including attempts without valid forecasts; it neither interpolates nor synthesizes missing snapshots. Explicit enumeration gaps are visible and not filled. SESSION/DRIVER_ENTRY failures are race/entry-level notices and are not fabricated lap checkpoints. Previous/Next stop at the ends.
 
-At race changes, driver and checkpoint reset explicitly to the default roster entry/L0; outcome visibility resets off. At driver changes, choose that driver's same completed-lap ordinal if it exists. Otherwise use its closest earlier recorded ordinal (or L0 if none earlier), announce the actual checkpoint chosen, and retain outcome visibility off. Driver laps are independent; never label this operation as common-time race-wide alignment.
+At race changes, driver and checkpoint reset explicitly to the default roster entry/L0; outcome visibility resets off. The proposed race-timing extension in [REPLAY_TIMING.md](REPLAY_TIMING.md) supersedes same-lap-ordinal driver switching: changing the prediction subject retains the race clock, shows its latest recorded attempt at or before that clock (including failure), and labels an older prediction. Previous/Next or choosing its prediction lap explicitly moves the race clock to that attempt. Comparison selection is independent. Race changes retain roster/L0 reset and outcomes off. Driver laps remain independent.
 
 **Forecast panel:**
 
@@ -149,7 +149,7 @@ Acceptance scenarios:
 - Select L20: display future in-laps starting at21, exact exported window/masses/full distribution; current compound/age/status remain as-of facts.
 - Toggle eventual outcome: snapshot and as-of-state identities/digests unchanged; exact/bounded/no-event/indeterminate/defective outcomes clearly differentiated; partially overlapping bounded outcomes never receive a definite window hit/miss.
 - Traverse failed checkpoint: no carry-forward forecast, interpolated probability or missing gap concealment.
-- Driver change: preserve ordinal only if recorded; otherwise announce fallback; no claim of shared race time.
+- Driver change: retain race time, select latest recorded attempt no later than that time, and label an older or unavailable forecast; tower/map share race time while the forecast retains its own boundary.
 - Evolution: no later snapshots before their selected checkpoint, no joins across gaps, no conflation of episodes/events after a stop.
 - S3/S4 preserve context and keyboard focus in user language. Required evidence assumptions and technical identities remain in research reports/artifacts, not product fields.
 - Export rejects malformed/unsupported bundles and any protected final data; a UI-only hidden asset cannot pass the release gate.
@@ -193,3 +193,8 @@ Independent review PASS after two localized copy/navigation corrections; bounded
 Review aids: https://standoutmcp.io/guides/fix-vibe-coded-ui-checklist and https://world.hey.com/kostac/spot-the-slop-a-ui-designer-s-guide-to-fixing-ai-defaults-4c448c9c . No checklist score or aesthetic guarantee is claimed.
 
 Asset registry: [REPLAY_EXPLORER_ASSETS.md](REPLAY_EXPLORER_ASSETS.md). Rendered PDF checked on all eight pages; no clipping or off-page characters. Review is design validation only; Product Owner approval remains required before implementation.
+
+
+## 10. Requested race-timing extension
+
+The Product Owner requested timing tower and track-position context on 12 October 2026, using existing F1_Telemetry_Charts information/interaction decisions. [REPLAY_TIMING.md](REPLAY_TIMING.md) proposes the detailed extension and owns its shared-clock/selection behavior. It supersedes earlier exclusions of track-position display and same-lap driver alignment; continuous animation and automatic playback remain excluded. S2 gains a map/tower with replacement timing tabs; the four surfaces remain. New provider/export coverage requires causal verification and protected-final gates. Detailed design remains proposed. Acceptance now includes fixed-clock subject switching with an explicitly older or missing forecast, distinct comparison selection and whole-field common-time alignment.
