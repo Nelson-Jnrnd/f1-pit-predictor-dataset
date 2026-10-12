@@ -2,7 +2,7 @@
 
 ## Status and scope
 
-**Proposed - awaiting Product Owner validation.** Replay Explorer as the sole interface direction is already approved in `decisions/2026-10-12-v2-replay-explorer-direction.md`. Screens, interactions and recommended technologies below remain proposals. No production implementation or deployment is authorized by this artifact.
+**Proposed - revised after 2026-10-12 UI feedback; awaiting Product Owner validation.** Replay Explorer as the sole interface direction is already approved in `decisions/2026-10-12-v2-replay-explorer-direction.md`. Screens, interactions and recommended technologies below remain proposals. No production implementation or deployment is authorized by this artifact.
 
 Baseline: `main` at `4d47e9f552796f68919db4c6e951c408cb03bd17`, including the verification integration PASS. Consume `design/SYSTEM_ARCHITECTURE.md`, `OBSERVATION_RECONSTRUCTION.md`, `TARGET_RECONSTRUCTION.md`, `PREDICTION_CONTRACT.md`, `REPLAY_BACKTEST.md`, `verification/EVALUATION_PROTOCOL.md`, and all approved decisions. This artifact owns presentation behavior and a read-only export boundary; it does not redefine any prediction or evaluation semantics.
 
@@ -20,25 +20,25 @@ Excluded from V1: Prediction Laboratory, Guided Race Story, separate model-compa
 | --- | --- | --- | --- |
 | S1 | Race catalogue | Find a published replay | App entry; Open replay leads to S2 |
 | S2 | Replay workspace | Inspect one driver's checkpoint forecast and optionally its outcome | S1 or shared URL; Back to races returns to S1 |
-| S3 | Prediction-details drawer | Explain the selected snapshot and data gaps | S2 Details; Close/Escape returns to unchanged S2 |
-| S4 | Methodology and replay-context panel | Explain target meaning, published model and evidence limits | About in S1/S2; Close/Escape returns to invoking view |
+| S3 | Full forecast drawer | Show the full forecast and relevant missing race information | S2 Full forecast / Why unavailable; Close/Escape returns to unchanged S2 |
+| S4 | About the prediction panel | Explain the prediction in motorsport vocabulary and provide image credits | About in S1/S2; Close/Escape returns to invoking view |
 
 S3 and S4 are overlays, not extra dashboard pages. Mobile layouts and no-forecast/error states are variants of these four surfaces, not additional features. The catalogue is the landing page; do not add an introductory home page or guided story.
 
 ### S1 - Race catalogue
 
-- Header: application name, short purpose statement, About.
+- Header: Replay Explorer, Season selector, About. No purpose paragraph or marketing hero. The first task is choosing a race.
 - One Season selector; only seasons with published bundles appear. Within a season, rows ordered by official round. No search field or additional filters in V1.
-- Each row: race name, date, number of driver entries, published-model label and Open replay. A single caption explains that only published replay sessions are listed.
+- Each row: season-correct circuit outline, country flag, race name/date and one Open action. Remove driver counts, model labels, repeated explanation and availability badges. Flags accompany readable names.
 - No fake availability for all supported raw-data races: the verified 55-race scope is not a promise that 55 replays already exist. Unsupported or protected sessions are absent from the public catalogue and build, not disabled rows with downloadable hidden data.
 - Opening selects the first canonical roster entry (numeric racing-number order) at race-start checkpoint L0. If that checkpoint has no forecast, show its explicit state; do not jump silently to the first successful forecast. Driver names are display labels; stable session/racing-number keys identify entries.
 - Empty catalogue: no published replays yet; no invented sample result. Fetch failure: plain error and Retry.
 
 ### S2 - Replay workspace
 
-**Top-level hierarchy:** race/driver context; checkpoint navigation; next-stop forecast; optional prediction-history expansion. Keep repository identifiers and caveats in S3/S4.
+**Top-level hierarchy:** race/driver identity; lap navigation; likely pit window. Earlier predictions and Full forecast are requested expansions. Internal identifiers/provenance stay in research artifacts and are absent from all product screens, including S3/S4.
 
-Header: Back to races, race name, Driver selector, published-model label, About. If a driver is absent in the same race URL, explain the unavailable selection rather than substitute another silently.
+Header: Back to races, race name with a small country flag/circuit outline, Driver selector and About. Selected-driver portrait, full name and season-correct team identify the subject. No model code, B0/B1 label, version or run badge. If a driver is absent in the same race URL, explain the unavailable selection rather than substitute another silently.
 
 Checkpoint navigation: selected driver's completed-lap count, Previous, Next, full driver checkpoint slider and a keyboard-operable lap value. L0 is Race start; L20 means information available at lap-20 completion, forecasting entry in lap21 onward. The slider enumerates recorded CHECKPOINT attempts, including attempts without valid forecasts; it neither interpolates nor synthesizes missing snapshots. Explicit enumeration gaps are visible and not filled. SESSION/DRIVER_ENTRY failures are race/entry-level notices and are not fabricated lap checkpoints. Previous/Next stop at the ends.
 
@@ -47,39 +47,44 @@ At race changes, driver and checkpoint reset explicitly to the default roster en
 **Forecast panel:**
 
 - Window label uses exported `PitWindowSummary`: e.g. Likely next-stop window: laps24-27. If it includes the open final region, show the final bound as 'lap57 or later', never a closed interval.
-- Four directly labelled masses are always available: before window, inside window, after window, no further qualifying stop. Display absolute probabilities; identify the default window as containing at least 80% of event probability, not an unconditional 80% chance.
-- Complete canonical event distribution in a bar chart, x axis = selected-driver in-lap, y axis = probability %. No-event is a separately labelled bar/quantity. Full remaining scope is available by default, ending with the open final bin. Long grids use readable ticks; any optional presentation grouping preserves summed mass and exposes constituent bins on inspection. No silent fixed-horizon crop, normalized event-only curve, tail loss or invented final lap.
+- Four masses stay visible in one compact strip, not four metric cards: Before lap24, Laps24-27, After lap27, No more stops, using actual bounds. Display absolute probabilities. Explain conditional window coverage in Full forecast/About when requested, without alpha or normalization terminology.
+- The complete distribution is accessible through Full forecast (S3): x axis = selected-driver pit-entry lap, y axis = probability %. The default main view shows only the compact before/window/after/no-more-stops strip alongside the window. No-event is separately labelled. Full forecast opens the complete remaining scope, ending with the open final bin. Long grids use readable ticks; any optional presentation grouping preserves summed mass and exposes constituent bins on inspection. No silent fixed-horizon crop, normalized event-only curve, tail loss or invented final lap.
 - Native-focusable chart targets or an equivalent numeric table make values accessible without hover; touch selection gives the same value. Colour does not carry meaning alone.
-- Compact state facts: compound, tyre age and track status, only if legitimately present in the selected canonical observation. Unavailable optional fields show Not available at this checkpoint. Do not source them from processed final lap rows. Historical truth from #19 never fills this area.
-- q=1 / P_event=0: No future qualifying stop predicted; Window none; preserve zero event masses. This is valid output, not a missing prediction. Any zero-probability display allowed by the contract is distinguished from the evaluation protocol's floor requirement.
+- Compact context: a labelled tyre graphic with compound/age (Medium, 10 laps), only from the canonical observation. Track status appears when relevant, such as Safety car, not as a permanent Clear row. No State at checkpoint panel. Additional helpful context is on request in Full forecast. Unavailable optional fields show Not available for this lap. Do not source them from processed final lap rows. Historical truth from #19 never fills this area.
+- q=1 / P_event=0: No further stop predicted; no highlighted window; preserve zero event masses. This is valid output, not a missing prediction. Any zero-probability display allowed by the contract is distinguished from the evaluation protocol's floor requirement.
 
-**Retrospective outcome comparison:** off by default. Toggle Show eventual outcome reveals only the selected episode's published resolution from the permitted backtest projection: observed tyre-service entry (exact in-lap or supported range), terminal no-event, or unresolved outcome. Truncated truth remains 'Outcome cannot be established', with no stop/no-stop guess and no score. Mapping defects are labelled 'Comparison unavailable' and never evaluated as an ordinary miss. The forecast and as-of state remain byte/content-identical when toggled.
+**Retrospective outcome comparison:** off by default. Toggle Show actual stop reveals only the selected episode's published resolution from the permitted backtest projection: observed tyre-service entry (exact in-lap or supported range), terminal no-event, or unresolved outcome. Truncated truth remains 'Actual stop uncertain', with no stop/no-stop guess and no score. Mapping defects are labelled 'Actual stop unavailable' and never evaluated as an ordinary miss. The forecast and as-of state remain byte/content-identical when toggled.
 
-The outcome is labelled Retrospective and separated from the causal state. When exact, its chart marker is at the matching exported region, not at an inferred rounded clock time. Set-valued mapping shows the full range. For comparison with a window, label it Fully inside, Fully outside, or Partly overlapping according to set containment/intersection; partial overlap is not a definite hit or miss. An exact entry outside the window, or a supported range entirely disjoint from it, is outside the window. A range contained in it is within the window. Partial overlap says: Outcome range overlaps the window; hit/miss cannot be established. A window miss is not a failed normalized forecast. No 'correct prediction' badge or strategy-optimality wording.
+The outcome is labelled Actual stop or Did not stop again and remains separate from the current-lap forecast/context. Retrospective is specification terminology, not UI copy. When exact, its chart marker is at the matching exported region, not at an inferred rounded clock time. Set-valued mapping shows the full range. For comparison with a window, label it Fully inside, Fully outside, or Partly overlapping according to set containment/intersection; partial overlap is not a definite hit or miss. An exact entry outside the window, or a supported range entirely disjoint from it, is outside the window. A range contained in it is within the window. Partial overlap says: The actual stop may have been inside or outside this window. A window miss is not a failed normalized forecast. No 'correct prediction' badge or strategy-optimality wording.
 
-**Prediction evolution (collapsible):** show saved window intervals for the same driver and model at earlier checkpoints up to the selected checkpoint only. Each is its own immutable target episode, even when several resolve to the same stop. No line across unavailable checkpoints; use gaps and status labels. Clicking a row selects that exact checkpoint. Outcome annotations appear only while retrospective visibility is enabled. After a stop, later eligible snapshots can concern a new next-stop question; do not align their windows to the old event or infer a single episode across all laps.
+**Earlier predictions (closed by default):** show saved window intervals for the same driver and model at earlier checkpoints up to the selected checkpoint only. Each is its own immutable target episode, even when several resolve to the same stop. No line across unavailable checkpoints; use gaps and status labels. Clicking a row selects that exact checkpoint. Outcome annotations appear only while retrospective visibility is enabled. After a stop, later eligible snapshots can concern a new next-stop question; do not align their windows to the old event or infer a single episode across all laps.
 
 No per-race model score, calibration dashboard or cross-model chart in S2. S4 may link to an existing published evaluation report without inventing a new report UI.
 
-### S3 - Prediction details
+### S3 - Full forecast
 
-Drawer header: driver, completed-lap checkpoint, Close. Groups:
+Drawer header: Full forecast, selected driver, Lap20, Close. Complete remaining-lap distribution is the primary content, with explicit No more stops probability. One short explanation translates the highlighted window. Optional context includes only facts that help interpret the forecast and important omissions. Use Pit-entry lap, Chance of a stop and Some race information is missing; never canonical grid, reconstruction quality or availability bounds.
 
-1. Forecast interpretation: complete distribution, window rule/alpha and before/inside/after/no-event masses.
-2. State availability: displayed fields and omissions with plain-language reasons; as-of reconstruction boundary and quality state. Technical availability bounds can be expanded, not presented as exact acquisition time.
-3. Identity: immutable snapshot id, observation id, target episode id and published model/version, using shortened display and full copyable values.
-4. Comparison: resolution/mapping state and its lineage only when Show eventual outcome is on. No future information leaks through closed details or hidden state areas before the user opts into retrospective viewing.
+No visible identity table, model version, copyable snapshot/observation/episode/run ids, lineage, JSON or protocol fields, even in expanded details. They remain in technical research artifacts. Actual-stop marks appear only while Show actual stop is enabled; future truth never enters the current-lap context. Missing forecasts have no fabricated chart or id. Escape closes, focus returns to opener; mobile uses a full-width sheet.
 
-For a missing forecast, Details shows the attempt/failure reason and available provenance, never a fabricated snapshot id. No raw-file explorer, edits or recomputation. Escape closes; focus returns to opener; content is scrollable; narrow screens use a full-width sheet.
+### S4 - About the prediction
 
-### S4 - Methodology and replay context
+Short panel in user vocabulary: the forecast estimates when this driver may next enter the pits for a tyre change; it can be wrong, and missing race information can prevent a prediction. Explain No more stops and the highlighted window in two short paragraphs. Keep project/authorship and image credits here, with links to a published research report if available.
 
-- What is predicted: next tyre-service pit entry after the checkpoint, with explicit probability of no further qualifying stop before participation ends.
-- How to read the window and full distribution; definition of completed-lap checkpoint and final open bin.
-- Selected race bundle, model/procedure label, replay id, observation/target/prediction contract versions, export schema version and source snapshot references; if opened from catalogue, only app-level context is shown.
-- Evidence-exception reference and residual assumptions RA-1..RA-4; state that archive availability authority rests on the approved exception. Exact details and repository references expand on demand.
-- Publication role: Development replay or Completed final evaluation, carrying actual `ledger_role`, `analysis_class` and qualifiers whenever evaluation results are linked. A development replay is not advertised as final evidence.
-- Reproducibility links to the repository revision and existing published evaluation report only if available. No training controls or editable methodological settings.
+No model codes, contract/schema versions, artifact ids, decision numbers, RA-1..RA-4 codes or evidence-exception terminology in product copy. Mandatory detailed evidence/provenance disclosure remains in every affected research score report and technical artifact; this panel does not replace it. A concise user explanation may say historical timing data is reconstructed and has limitations. The Explorer presents no primary-performance claim of its own.
+
+## 2a. Information selection and visual-review rules
+
+User feedback on 2026-10-12 is authoritative: select information by the visitor's immediate task, use motorsport vocabulary and real domain imagery. This replaces the information-dense mockups, not upstream prediction semantics.
+
+- Default screen answers which race/driver/lap, which pit window, how likely, and how to change lap. Secondary content requires an explicit action; it does not fill unused space.
+- One compact strip preserves the four mandatory masses. Complete distribution and earlier forecasts are distinct, closed-by-default expansions. Minimalism must not remove uncertainty or conceal failure states.
+- Use whitespace and ruled structure. Avoid equal-weight metric cards, a pale rounded panel around every group, decorative pills, generic SaaS heroes, ornamental gradients/shadows and purposeless animation. Retain focus, loading, empty and error behavior.
+- Circuit outlines identify races; country flags aid recognition; driver portraits identify the subject; tyre graphics encode compound with text. Match season/layout and roster identity. Images are static metadata, not a reason to add car/track animation or extra telemetry. Do not generate a circuit outline or driver likeness.
+- Missing imagery uses a text/initial fallback and does not block replay. Picture selection is separate from model input. Avoid unrelated stock or promotional imagery.
+- Sources inspected: driver portraits and tyres on F1_Telemetry_Charts branch chatbot, commit ae3485d695f07137f6778e03c3437ca1464fb7df; F1DB circuit SVG layouts; flag-icons country SVGs. Credits/original source references are retained. A repository code license is not assumed to grant photographic rights. Mockups do not authorize publication.
+- Anti-slop checklists are review aids, not product features, numerical quality scores or prescriptions to add decoration. Apply task hierarchy, restrained content and real motorsport identity.
+- Product-copy acceptance: no checkpoint, snapshot, immutable identity, canonical, artifact, resolution, protocol, B0/B1, schema or RA codes in visible labels/help/errors. Internal specifications/research reports intentionally retain technical vocabulary.
 
 ## 3. Exceptional and responsive states
 
@@ -87,15 +92,15 @@ For a missing forecast, Details shows the attempt/failure reason and available p
 | --- | --- |
 | Bundle loading / failed download | Skeleton then Retry; preserve selection; no sample result substitution |
 | Unknown URL race/driver/checkpoint | Specific unavailable-selection message; Back to races; offer recorded checkpoints without silently changing the request |
-| No canonical observation / uncertain eligibility / ineligible | No forecast panel; reason and Details; checkpoint remains selectable |
-| Prediction failure, including missing scheduled distance | Forecast unavailable; reason; never carry the previous forecast forward |
-| Valid prediction, indeterminate target | Forecast remains visible; opted-in outcome panel says unresolved; not scored |
+| No canonical observation / uncertain eligibility / ineligible | No forecast panel; concise reason and Why unavailable; lap remains selectable |
+| Prediction failure, including missing scheduled distance | No prediction for this lap; a concise user reason; never carry the previous forecast forward |
+| Valid prediction, indeterminate target | Forecast remains visible; opted-in actual-stop panel says uncertain; not scored |
 | Defective comparison / missing mapping | Forecast visible if valid; comparison unavailable; no success/miss score |
-| Optional state omission | Not available at this checkpoint; never blank=zero |
+| Optional state omission | Not available for this lap; never blank=zero |
 | Retired/finished driver | Render recorded checkpoint states only; no artificial forecasts after terminal participation |
 | Invalid schema/hash/probability normalization | Refuse affected bundle with a data-error message; do not repair probabilities in the browser |
 
-Responsive proposal: desktop >=1024px uses forecast + narrow context column; tablet 640-1023px stacks context; mobile <640px stacks controls/forecast/state and uses full-width details sheets. At 360px the chart retains readable labels and all information, using an accessible numeric table when needed. Controls have useful touch targets; charts are not shrunk until labels become illegible. Prefer light appearance with system dark support; colour mapping remains consistent. Respect reduced-motion; essential information never depends on animation.
+Responsive proposal: desktop >=1024px uses forecast + compact driver/tyre context; tablet 640-1023px stacks context; mobile <640px stacks controls/forecast/state and uses full-width details sheets. At 360px the chart retains readable labels and all information, using an accessible numeric table when needed. Controls have useful touch targets; charts are not shrunk until labels become illegible. Prefer light appearance with system dark support; colour mapping remains consistent. Respect reduced-motion; essential information never depends on animation.
 
 Keyboard: native selectors/slider; explicit previous/next buttons; focusable interactive chart/table rows; overlays trap focus and restore it on close. Share replay links preserve race, driver, checkpoint and bundle version. Use hash-based routing for simple static hosting. Retrospective visibility is excluded from shared links and defaults off when a link opens.
 
@@ -146,7 +151,7 @@ Acceptance scenarios:
 - Traverse failed checkpoint: no carry-forward forecast, interpolated probability or missing gap concealment.
 - Driver change: preserve ordinal only if recorded; otherwise announce fallback; no claim of shared race time.
 - Evolution: no later snapshots before their selected checkpoint, no joins across gaps, no conflation of episodes/events after a stop.
-- S3/S4 preserve context, keyboard focus, exception assumptions and technical identities without crowding S2.
+- S3/S4 preserve context and keyboard focus in user language. Required evidence assumptions and technical identities remain in research reports/artifacts, not product fields.
 - Export rejects malformed/unsupported bundles and any protected final data; a UI-only hidden asset cannot pass the release gate.
 - Shared URLs restore the exact immutable bundle and checkpoint; outcome visibility defaults off; missing version gives a precise error.
 - Desktop/tablet/mobile inspection: no clipping, readable charts, accessible value alternative, touch/keyboard operation and dark/reduced-motion support.
@@ -179,3 +184,12 @@ Official documentation checked 2026-10-12. These support capability descriptions
 - Scope: the Replay Explorer specification and product/decision amendments, against the approved pipeline semantics and user-selected direction. Rendered PDF layout is separately verified.
 - Detailed UX and technology choices remain proposed for Product Owner validation; this review does not authorize implementation or deployment.
 - GitHub review reference: draft PR #47, review `5490099069`, on substantive remote head `faef2ac9a3633d74c50961b3e749f81af95e10cb`.
+
+
+## 9. Visual/copy revision, 2026-10-12 - review status
+
+Independent review PASS after two localized copy/navigation corrections; bounded re-review and all eight rendered mockup pages passed. Reviewer: /root/review_ui_restraint. No Blocking, Major or required Minor findings remain. Non-blocking About wording and mobile-control-caption observations were incorporated. Default replay is reduced to driver/lap identity, a pit window and one compact strip preserving all four required masses. The full distribution stays available on request. Internal copy and implementation identities are removed from product surfaces; research provenance/report obligations remain unchanged. The previous review record covers the original draft, not this delta.
+
+Review aids: https://standoutmcp.io/guides/fix-vibe-coded-ui-checklist and https://world.hey.com/kostac/spot-the-slop-a-ui-designer-s-guide-to-fixing-ai-defaults-4c448c9c . No checklist score or aesthetic guarantee is claimed.
+
+Asset registry: [REPLAY_EXPLORER_ASSETS.md](REPLAY_EXPLORER_ASSETS.md). Rendered PDF checked on all eight pages; no clipping or off-page characters. Review is design validation only; Product Owner approval remains required before implementation.
