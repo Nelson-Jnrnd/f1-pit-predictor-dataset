@@ -53,3 +53,11 @@ scope. Per-run manifests preserve code revision, artifacts and release hash. Dur
 The implementation is intentionally bounded to the two frozen sources. Unsupported
 restart histories, lap jumps, roster mismatches, corrupt inputs and ambiguous
 cross-stream boundaries fail closed, rather than imply general corpus coverage.
+
+Historical positions are optional observation context, never model inputs. Generate
+research evidence with `python -m pipeline.positions evidence --output /tmp/evidence.json`.
+Only independently approved, reproducing evidence permits
+`python -m pipeline.positions release --output explorer/public/positions.json`.
+The sidecar binds the unchanged base release and exact boundary keys. Common-sample
+pit membership must be defensibly false; uncertain transitions and gap-carried
+states are omitted. No CarData authority or additional race coverage is implied.

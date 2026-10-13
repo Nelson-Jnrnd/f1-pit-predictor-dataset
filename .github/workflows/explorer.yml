@@ -1,10 +1,10 @@
 name: Replay Explorer
 on:
   pull_request:
-    paths: ['explorer/**', 'pipeline/**', 'research/development-race/**', '.github/workflows/explorer.yml']
+    paths: ['explorer/**', 'pipeline/**', 'research/development-race/**', 'research/position-evidence/**', 'verification/POSITION_AUSTRIA_2024.md', '.github/workflows/explorer.yml']
   push:
     branches: [main]
-    paths: ['explorer/**', 'pipeline/**', 'research/development-race/**', '.github/workflows/explorer.yml']
+    paths: ['explorer/**', 'pipeline/**', 'research/development-race/**', 'research/position-evidence/**', 'verification/POSITION_AUSTRIA_2024.md', '.github/workflows/explorer.yml']
 jobs:
   verify:
     runs-on: ubuntu-latest

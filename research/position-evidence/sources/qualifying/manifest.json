@@ -1,0 +1,40 @@
+{
+  "season": 2024,
+  "round": 11,
+  "date": "2024-06-29",
+  "session": "Q",
+  "files": {
+    "Position.z": {
+      "url": "https://livetiming.formula1.com/static/2024/2024-06-30_Austrian_Grand_Prix/2024-06-29_Qualifying/Position.z.jsonStream",
+      "last_modified": "Sat, 29 Jun 2024 15:23:11 GMT",
+      "etag": "\"7ed7d16111264a7b305f57273ee596a4\"",
+      "bytes": 3246423,
+      "sha256": "a13e2cf6e7c11f9911a9d0d7400a4cf63c6a81060a01d8e7280dba1c2304b4a2",
+      "retrieved_at": "2026-10-13T14:21:51.097020+00:00"
+    },
+    "TimingData": {
+      "url": "https://livetiming.formula1.com/static/2024/2024-06-30_Austrian_Grand_Prix/2024-06-29_Qualifying/TimingData.jsonStream",
+      "last_modified": "Sat, 29 Jun 2024 15:23:12 GMT",
+      "etag": "\"6569fc0e34e9b20a6cd39d1da84db493\"",
+      "bytes": 1061119,
+      "sha256": "f229e43733a609b6c86701ea076f3e2449ca45dd95cebc440909ca7a0ebd16d5",
+      "retrieved_at": "2026-10-13T14:21:50.937597+00:00"
+    },
+    "SessionInfo": {
+      "url": "https://livetiming.formula1.com/static/2024/2024-06-30_Austrian_Grand_Prix/2024-06-29_Qualifying/SessionInfo.jsonStream",
+      "last_modified": "Sat, 29 Jun 2024 15:23:12 GMT",
+      "etag": "\"1cbe86f4ea60f1cbc4b2025805e77ac1\"",
+      "bytes": 503,
+      "sha256": "f2a3da2f5bfacd9a2f6b00c0d6c4d7fe26eacac505cfca84fc0881fd2baf96ec",
+      "retrieved_at": "2026-10-13T14:21:56.970889+00:00"
+    },
+    "SessionStatus": {
+      "url": "https://livetiming.formula1.com/static/2024/2024-06-30_Austrian_Grand_Prix/2024-06-29_Qualifying/SessionStatus.jsonStream",
+      "last_modified": "Sat, 29 Jun 2024 15:23:12 GMT",
+      "etag": "\"c9054261d2bc13abb275f40cfa9e1964\"",
+      "bytes": 382,
+      "sha256": "b16322dd2f39522920d4fc79699f0fc0244cba57786dc88be0bb672621588429",
+      "retrieved_at": "2026-10-13T14:21:56.899046+00:00"
+    }
+  }
+}
