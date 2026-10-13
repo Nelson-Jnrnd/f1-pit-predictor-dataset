@@ -1,7 +1,7 @@
 {
-  "artifact_id": "17047e13041c218d4bd1d6d566f52378b8cbe98d9130a71e687f79cf3a948efb",
+  "artifact_id": "6dabb6879d84fcf594ab47db89c2c3c7dd9182b035b8f120297d34606f584b8e",
   "kind": "PositionAvailabilityAuthorityValidation",
-  "status": "CANDIDATE",
+  "status": "APPROVED",
   "scope": {
     "season": 2024,
     "round": 11,
@@ -1405,5 +1405,14 @@
     "Up to 20 seconds old; displayed samples are not exact car motion at T.",
     "OnTrack is not reliable track-membership proof; omit invalid/off-corridor/known-pit coordinates.",
     "No approval for CarData, other races, sectors, minis or final evaluation."
-  ]
+  ],
+  "review": {
+    "reviewer": "/root/review_position_authority",
+    "outcome": "PASS",
+    "type": "bounded-re-review",
+    "pr": "https://github.com/Nelson-Jnrnd/f1-pit-predictor-dataset/pull/50",
+    "review_url": "https://github.com/Nelson-Jnrnd/f1-pit-predictor-dataset/pull/50#pullrequestreview-5509140470",
+    "reviewed_head": "8f1e30e3cacf014f9bc38b0553858aa69d801654",
+    "reviewed_candidate_digest": "17047e13041c218d4bd1d6d566f52378b8cbe98d9130a71e687f79cf3a948efb"
+  }
 }

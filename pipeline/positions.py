@@ -302,6 +302,8 @@ def run(mode,output):
         candidate={k:v for k,v in evidence.items() if k not in ('artifact_id','status')}
         if comparable!=candidate:raise ValueError('Approved evidence does not reproduce against frozen sources')
         bundle=export(approved,rs,clock,approved=True);output.write_bytes(d.encoded(bundle)+b'\n')
+        descriptor=dict(schema=1,file=output.name,sha256=hashlib.sha256(output.read_bytes()).hexdigest(),baseBundleSha256=bundle['baseBundleSha256'])
+        (output.parent/'positions-release.json').write_text(json.dumps(descriptor,indent=2)+'\n')
         print('Released',len(bundle['frames']),'frames')
 
 

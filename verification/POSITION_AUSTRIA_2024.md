@@ -1,7 +1,10 @@
 # Scoped historical position evidence: Austria 2024 R11
 
-Status: Candidate, requires independent review. No release is authorized by this
-candidate status. This verifies only Position.z for race session 9550 (meeting 1239,
+Status: Approved after independent bounded re-review PASS. Review: [PR #50
+review 5509140470](https://github.com/Nelson-Jnrnd/f1-pit-predictor-dataset/pull/50#pullrequestreview-5509140470),
+reviewer `/root/review_position_authority`, reviewed candidate digest
+`17047e13041c218d4bd1d6d566f52378b8cbe98d9130a71e687f79cf3a948efb`.
+Prior sample-time pit finding resolved; all 116 affected points omitted. This verifies only Position.z for race session 9550 (meeting 1239,
 circuit 19). All other position scopes, CarData, sectors and minis stay unverified.
 Consumes SUPPORT_MATRIX S-RD, OBSERVATION_RECONSTRUCTION, REPLAY_TIMING and the existing
 10 October race-day archive evidence exception. This adds scoped evidence under that

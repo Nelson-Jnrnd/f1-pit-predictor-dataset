@@ -197,7 +197,8 @@ Total: **availability ∈ [P − 5 s, P + 5 s]** for any record with prefix P in
 | Scope | Endpoints | Authority level | Basis |
 | --- | --- | --- | --- |
 | **S-RD:** race sessions whose `TimingData` `Last-Modified` is on the race date or the next UTC day (2024 R10–R24, 2025 R1–R24, 2026 R1–R16 at 2026-10-10; later races when they pass the same check) | `TimingData`, `RaceControlMessages` (directly validated); `SessionStatus`, `LapCount`, `TimingAppData`, `DriverList` (RA-2) | **`VERIFIED_BOUNDED_TIME`** under the PO exception, with the bounds and rules above | F-A1–F-A4; RA-1–RA-4 |
-| S-RD, other endpoints (e.g. `TrackStatus`, `WeatherData`, `ExtrapolatedClock`, `CarData`, `Position`) | — | **`UNVERIFIED_ARCHIVE`** (not probed) | Omitted as optional domains under #18 |
+| S-RD, Austria 2024 R11 Position.z only | [Scoped approved evidence](POSITION_AUSTRIA_2024.md), PR #50 review 5509140470 | **`VERIFIED_BOUNDED_TIME`** under existing exception and RA-1–RA-4 | Optional common-sample map context only; no prediction inputs or CarData authority |
+| S-RD, other endpoints/scopes (e.g. `TrackStatus`, `WeatherData`, `ExtrapolatedClock`, `CarData`, `Position`) | — | **`UNVERIFIED_ARCHIVE`** (not probed) | Omitted as optional domains under #18 |
 | **S-RG:** files rewritten in June 2024 (2018–2021, 2023, 2024 R1–R9) | all | **`UNVERIFIED_ARCHIVE`**. Bahrain 2018 and Hungary 2018: **`UNSUPPORTED`** | Revision fidelity unproven (F-A1); the exception explicitly excludes rewritten files; F-A5 |
 | **S-22:** 2022 | all | **`UNSUPPORTED`** | HTTP 403 |
 
