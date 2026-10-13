@@ -9,3 +9,8 @@ One bounded re-review: technical PASS on the final substantive tree following `4
 Qualification: real-browser desktop/mobile layout, actual keyboard/focus behavior and visual readability are not verified. Local Chromium installs (project and runtime versions) returned invalid zero-byte archives; cloud browser could not reach the local development server (`ERR_CONNECTION_REFUSED`). DOM interaction tests are not a substitute for this visual gate. Keep the implementation PR draft until browser inspection is complete; no merge/deployment approval is claimed. GitHub review reference is to be appended after PR creation by the coordinating agent.
 
 Next dependency: integrate exactly one permitted development race only after its canonical prediction/export provenance, causal race-wide timing coverage and matched position geometry are verified. This validator intentionally accepts synthetic data only and does not perform a real/final release.
+
+
+## Product Owner acceptance
+
+On 13 October 2026, after receiving local testing instructions, Nelson Jeanrenaud accepted the synthetic viewer: “That's good I approve”. This authorizes integration of PR #48 and supersedes the draft hold above. It does not assert that every desktop/mobile/keyboard scenario was individually tested. Automated browser verification remains unperformed; the 16-test suite and production build passed both locally and in GitHub Actions run 38390050521. No public deployment or real/final data release is authorized.
