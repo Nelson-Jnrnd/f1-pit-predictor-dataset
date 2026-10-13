@@ -136,7 +136,7 @@ class ArtifactTests(unittest.TestCase):
 class TargetTests(unittest.TestCase):
     def fixture(self,entry=1200,service='CONFIRMED_TYRE_SERVICE',terminal=True,gaps=None):
         o={'artifact_id':'observation','prediction_boundary':{'prefix':1100,'stream':'TimingData','ordinal':2}}
-        init={'records':[{'eligibility_status':'ELIGIBLE','initialization':{'observation_artifact_ref':'observation','driver_entry_key':'1','target_episode_key':['observation','target']}}]}
+        init={'artifact_id':'initializations','records':[{'eligibility_status':'ELIGIBLE','initialization':{'observation_artifact_ref':'observation','driver_entry_key':'1','target_episode_key':['observation','target']}}]}
         event=p.artifact('QualifyingPitEventArtifact',pit_visit_ref='visit')
         visit=dict(entry=entry,ordinal=3,service=service,completed=3,entry_ref='entry',qualifying_event=event)
         term=p.artifact('TerminalBoundary',bounds=[1300,1310],evidence_refs=['last-lap','stopped']) if terminal else None
