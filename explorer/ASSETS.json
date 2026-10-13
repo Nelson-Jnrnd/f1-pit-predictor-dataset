@@ -1,0 +1,42 @@
+[
+  {
+    "file": "HAM.png",
+    "sha256": "9b1549c999a73004f14767ca6eb6cb29c7d27fd0742566008cec5dbe1aab402c",
+    "source": "F1_Telemetry_Charts@ae3485d695f07137f6778e03c3437ca1464fb7df"
+  },
+  {
+    "file": "NOR.png",
+    "sha256": "84fe151e914c05ce2888eaf4c792f306c7c8ee3b3547c20590cd24bb619ee3a1",
+    "source": "F1_Telemetry_Charts@ae3485d695f07137f6778e03c3437ca1464fb7df"
+  },
+  {
+    "file": "VER.png",
+    "sha256": "0281d4f71cea21f55000413ed5b957ae9b28d2b407709897ecd18532d7c5ad8f",
+    "source": "F1_Telemetry_Charts@ae3485d695f07137f6778e03c3437ca1464fb7df"
+  },
+  {
+    "file": "circuit.svg",
+    "sha256": "7cfcc668fa6cb01c42836552141588d3f9699789e5f1c1a1775d2b636b6bff32",
+    "source": "Jules Roy/F1DB (CC BY4.0)"
+  },
+  {
+    "file": "flag.svg",
+    "sha256": "f9cfaff858e95f830733ade9591037b5322dfb5827a53b70956a3d190bb49b9a",
+    "source": "lipis/flag-icons (MIT)"
+  },
+  {
+    "file": "hard.svg",
+    "sha256": "20cabadde3d9d1a1576923dbfed4f1d0ea87c77be5e546ed5bc5ac16ad6d54fb",
+    "source": "F1_Telemetry_Charts@ae3485d695f07137f6778e03c3437ca1464fb7df"
+  },
+  {
+    "file": "medium.svg",
+    "sha256": "df8b9a2c0fd881454a58cc3bce1879fdc52eb3e3c1a3031f82db29c16720e2b3",
+    "source": "F1_Telemetry_Charts@ae3485d695f07137f6778e03c3437ca1464fb7df"
+  },
+  {
+    "file": "soft.svg",
+    "sha256": "3e46b7f7a83e88b7d83769be9c7c6590087bc4ff04d8a99e6d21f27c79afc895",
+    "source": "F1_Telemetry_Charts@ae3485d695f07137f6778e03c3437ca1464fb7df"
+  }
+]
