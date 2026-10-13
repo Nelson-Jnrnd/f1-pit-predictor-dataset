@@ -1,17 +1,36 @@
-# Synthetic Replay Explorer
+# Replay Explorer
 
-Approved implementation milestone: `design/REPLAY_EXPLORER.md`, `design/REPLAY_TIMING.md`, and decision `2026-10-12-v2-replay-explorer-design-approval.md`.
+Local historical preview: Austria 2024 R11, B0 fitted on Spain 2024 R10. This is an
+engineering preview, not evidence of model quality. No public deployment is authorized.
 
-Run `npm ci`, `npm run dev` in this directory. `npm test` verifies presentation semantics; `npm run build` checks TypeScript and the static build. No production deployment is authorized. Data in this milestone is exclusively synthetic; it provides no trained-model or performance evidence. Real-race integration requires the observation/export owner's causal timing and matched position-geometry verification and development-only release validation.
+```sh
+npm ci
+npm run dev
+npm test
+npm run build
+```
 
-Images are cached reference assets from the registry in `design/REPLAY_EXPLORER_ASSETS.md`. Portraits retain their original F1 source rights. Circuit credit: Jules Roy / F1DB, CC BY 4.0. Flag credit: flag-icons, MIT. No photographic publication authorization is inferred.
+If this environment cannot enumerate network interfaces, use
+`node node_modules/vite/bin/vite.js --host 127.0.0.1 --port 5173` instead.
 
-## Current delivery boundary
+The app verifies the release SHA-256 before accepting the static bundle. Forecasts
+come from the offline Python pipeline; the browser never fits or predicts. Research
+provenance, reproducible sources/artifacts and limitations are under
+`research/development-race`. See `pipeline/README.md` to regenerate a fresh local run.
+The early B0 training-support gaps remain selectable failures, not fabricated tails.
 
-The bundled JSON is an authored, versioned synthetic fixture for three drivers, including lap0, a missing initial attempt, failed lap18, an explicitly older forecast at fixed race time, lapped-driver timing, unavailable positions, exact/bounded/uncertain/no-event outcomes, and terminal participation. The validator accepts only `kind: synthetic`; it is deliberately not an exporter for real research artifacts. It checks consumed identities, unique time/attempt joins, full probability grids, all four masses and canonical window-rule conformance without repairing data. Genuine artifact digests, model/run lineage, release manifests and protected-final ledger rules belong to the next development-race export integration and must precede accepting any non-synthetic bundle.
+Position availability and matching coordinates are not established by the approved
+source matrix: the map shows the 2024 Red Bull Ring outline with an unavailable notice
+and no invented car markers. All 20 cars remain selectable in race timing. Sector/minis
+values are explicitly unavailable. Missing tyre ages and pit states are not zero/false.
 
-Positions use fictional normalized progress on the exact same SVG path as the track drawing. Mini-sector performance is illustrative. Multiple-driver map sector shading is neutral because this fixture does not declare defensible official sector boundaries. Individual car selection is duplicated in a small driver chooser to resolve overlapping map markers.
+Clock navigation preserves equal-prefix source publication order as well as elapsed
+race seconds. Subject switching retains the field-wide instant and selects its latest
+recorded attempt, including failure. Comparison clicks never select the subject.
+Outcomes default off and do not alter timing or forecasts. The previous approved
+synthetic fixture remains for regression tests; it is not offered as a real race.
 
-No raw timing, prediction generation, target resolution, model fitting or remote data calls occur in the viewer. All requests load static app assets. Hash links retain bundle, subject, selected attempt and common race time; outcomes are excluded and default off. Browser Back/Forward restores state.
-
-Automated verification covers contract mutations and interactive clock, selection, navigation, failure, outcome and tab behavior. Real browser screenshots and mobile/keyboard visual checks remain a release gate when a browser runtime is available. This branch is not deployed.
+Images retain the credits and rights in `ASSETS.json` and
+`design/REPLAY_EXPLORER_ASSETS.md`. Missing portraits use readable name/team fallbacks.
+No photographic publication authorization is inferred. Browser visual/keyboard checks
+remain unverified in this environment; see the implementation review record.

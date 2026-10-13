@@ -1,2 +1,7 @@
 cache
 test
+node_modules/
+__pycache__/
+*.pyc
+explorer/dist/
+explorer/node_modules

@@ -1,10 +1,10 @@
 name: Replay Explorer
 on:
   pull_request:
-    paths: ['explorer/**', '.github/workflows/explorer.yml']
+    paths: ['explorer/**', 'pipeline/**', 'research/development-race/**', '.github/workflows/explorer.yml']
   push:
     branches: [main]
-    paths: ['explorer/**', '.github/workflows/explorer.yml']
+    paths: ['explorer/**', 'pipeline/**', 'research/development-race/**', '.github/workflows/explorer.yml']
 jobs:
   verify:
     runs-on: ubuntu-latest
@@ -19,5 +19,10 @@ jobs:
           cache: npm
           cache-dependency-path: explorer/package-lock.json
       - run: npm ci
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m unittest discover -s pipeline/tests -v
+        working-directory: .
       - run: npm test
       - run: npm run build

@@ -22,36 +22,46 @@ export type Attempt = {
   driver: string;
   lap: number;
   time: number;
+  order?: number;
   episode: string;
-  context: { compound: string; age: number };
+  context: { compound: string | null; age: number | null };
   state: "ok" | "failed";
   reason?: string;
   p?: number[];
   q?: number;
   window?: Window | null;
   outcome: Outcome;
+  scheduledDistance?: number;
+  boundaryAvailable?: boolean;
+  snapshotRef?: string;
+  observationRef?: string | null;
+  sourceAttemptRef?: string;
 };
 export type Row = {
   driver: string;
   position: number | null;
   gap: number | null;
   interval: number | null;
-  completed: number;
-  compound: string;
-  age: number;
+  completed: number | null;
+  compound: string | null;
+  age: number | null;
   last: number | null;
   best: number | null;
   sectors: (number | null)[];
   bestSectors: (number | null)[];
   mini: string[];
   progress: number | null;
-  pit: boolean;
+  pit: boolean | null;
+  gapText?: string | null;
+  intervalText?: string | null;
 };
-export type Frame = { time: number; rows: Row[] };
+export type Frame = { time: number; order?: number; rows: Row[] };
 export type Bundle = {
   schema: number;
   id: string;
-  kind: "synthetic";
+  kind: "synthetic" | "development";
+  raceMetadata?: { round: number; country: string; circuit: string; flag: string; circuitAsset: string };
+  provenance?: { sourceManifest: string; observationRun: string; replayRun: string; retrospectiveProjection: string; publishedModel: string; modelLabel: string; cutoff: string; authorityValidation: string; residualAssumptions: string[]; finalData: boolean; positionsAvailable: boolean; geometryValidated: boolean; protocol: string };
   race: string;
   season: number;
   date: string;
@@ -60,12 +70,12 @@ export type Bundle = {
   attempts: Attempt[];
   frames: Frame[];
 };
-export const latest = (bundle: Bundle, driver: string, time: number) =>
+export const latest = (bundle: Bundle, driver: string, time: number, order = Infinity) =>
   bundle.attempts
-    .filter((a) => a.driver === driver && a.time <= time)
-    .sort((a, b) => b.time - a.time)[0];
-export const atTime = (bundle: Bundle, time: number) =>
-  bundle.frames.find((f) => f.time === time);
+    .filter((a) => a.driver === driver && (a.time < time || a.time === time && (a.order ?? 0) <= order))
+    .sort((a, b) => b.time - a.time || (b.order ?? 0) - (a.order ?? 0))[0];
+export const atTime = (bundle: Bundle, time: number, order = 0) =>
+  bundle.frames.find((f) => f.time === time && (f.order ?? 0) === order);
 export function toggle(ids: string[], id: string) {
   return ids.includes(id) ? ids.filter((x) => x !== id) : [...ids, id];
 }
@@ -104,7 +114,7 @@ export function validate(value: unknown): Bundle {
   if (
     !b ||
     b.schema !== 1 ||
-    b.kind !== "synthetic" ||
+    !["synthetic", "development"].includes(b.kind) ||
     !text(b.id) ||
     !text(b.race) ||
     !text(b.date) ||
@@ -117,24 +127,38 @@ export function validate(value: unknown): Bundle {
     !Array.isArray(b.frames)
   )
     fail();
+  if (b.kind === "development") {
+    const p = b.provenance, m = b.raceMetadata;
+    if (!p || !m || !(b.season === 2024 && m.round >= 10 && m.round <= 24 || b.season === 2025 && m.round >= 1 && m.round <= 24) ||
+      p.finalData !== false || p.positionsAvailable !== false || p.geometryValidated !== false ||
+      ![p.sourceManifest, p.observationRun, p.replayRun, p.retrospectiveProjection, p.publishedModel, p.authorityValidation].every(x => typeof x === "string" && /^[0-9a-f]{64}$/.test(x)) ||
+      p.modelLabel !== "B0-only preview" || p.protocol !== "B0-prespecified-preview/v1" || !Array.isArray(p.residualAssumptions) || p.residualAssumptions.length !== 4 ||
+      !text(p.cutoff) || p.cutoff > b.date || !text(m.country) || !text(m.circuit) ||
+      ![m.flag, m.circuitAsset].every(x => typeof x === "string" && /^[a-z-]+\.svg$/.test(x))) fail();
+    for (const a of b.attempts) {
+      if (!integer(a.order) || typeof a.boundaryAvailable !== "boolean" || !text(a.sourceAttemptRef) ||
+        a.state === "ok" && (!a.boundaryAvailable || !text(a.snapshotRef) || !text(a.observationRef) || !integer(a.scheduledDistance) || a.scheduledDistance! <= 0)) fail();
+    }
+    if (b.frames.some(f => !integer(f.order) || f.rows.some(r => r.progress !== null))) fail();
+  }
   const ids = new Set(b.drivers.map((d) => d.id));
   if (
     ids.size !== b.drivers.length ||
     b.drivers.some((d) => ![d.id, d.code, d.name, d.team, d.color].every(text))
   )
     fail();
-  const frames = new Set<number>();
+  const frames = new Set<string>();
   for (const f of b.frames) {
     if (
       !finite(f.time) ||
       f.time < 0 ||
-      frames.has(f.time) ||
+      frames.has(`${f.time}:${f.order ?? 0}`) ||
       !Array.isArray(f.rows) ||
       f.rows.length !== ids.size ||
       new Set(f.rows.map((r) => r.driver)).size !== ids.size
     )
       fail();
-    frames.add(f.time);
+    frames.add(`${f.time}:${f.order ?? 0}`);
     for (const r of f.rows) {
       if (
         !ids.has(r.driver) ||
@@ -142,11 +166,9 @@ export function validate(value: unknown): Bundle {
         ![r.gap, r.interval, r.last, r.best].every(
           (v) => v === null || (finite(v) && v >= 0),
         ) ||
-        !integer(r.completed) ||
-        r.completed < 0 ||
-        !integer(r.age) ||
-        r.age < 0 ||
-        !["Medium", "Soft", "Hard"].includes(r.compound) ||
+        (r.completed !== null && (!integer(r.completed) || r.completed < 0)) ||
+        (r.age !== null && (!integer(r.age) || r.age < 0)) ||
+        (r.compound !== null && !["Medium", "Soft", "Hard", "Intermediate", "Wet"].includes(r.compound)) ||
         !nums(r.sectors) ||
         !nums(r.bestSectors) ||
         !Array.isArray(r.mini) ||
@@ -154,7 +176,7 @@ export function validate(value: unknown): Bundle {
         r.mini.some(
           (v) => !["best", "personal", "slower", "unavailable"].includes(v),
         ) ||
-        typeof r.pit !== "boolean" ||
+        (r.pit !== null && typeof r.pit !== "boolean") ||
         (r.progress !== null &&
           (!finite(r.progress) || r.progress < 0 || r.progress > 1))
       )
@@ -173,14 +195,13 @@ export function validate(value: unknown): Bundle {
       !text(a.episode) ||
       !finite(a.time) ||
       a.time < 0 ||
-      !frames.has(a.time) ||
+      !frames.has(`${a.time}:${a.order ?? 0}`) ||
       !integer(a.lap) ||
       a.lap < 0 ||
-      a.lap > b.distance ||
+      
       !a.context ||
-      !["Medium", "Soft", "Hard"].includes(a.context.compound) ||
-      !integer(a.context.age) ||
-      a.context.age < 0
+      (a.context.compound !== null && !["Medium", "Soft", "Hard", "Intermediate", "Wet"].includes(a.context.compound)) ||
+      (a.context.age !== null && (!integer(a.context.age) || a.context.age < 0))
     )
       fail();
     keys.add(key);
@@ -211,12 +232,12 @@ export function validate(value: unknown): Bundle {
         fail();
       continue;
     }
-    if (a.state !== "ok" || a.lap === b.distance) fail();
+    if (a.state !== "ok") fail();
     const p = a.p!,
       q = a.q!;
     if (
       !Array.isArray(p) ||
-      p.length !== Math.max(1, b.distance - a.lap) ||
+      p.length !== Math.max(1, (a.scheduledDistance ?? b.distance) - a.lap) ||
       ![...p, q].every((v) => finite(v) && v >= 0 && v <= 1) ||
       Math.abs(p.reduce((s, v) => s + v, 0) + q - 1) > 1e-9
     )
@@ -280,4 +301,19 @@ export function windowLabel(a: Attempt) {
   return a.window.b === a.p!.length - 1
     ? `Lap ${start} to ${end} or later`
     : `Laps ${start}–${end}`;
+}
+
+export async function loadBundle(base: string): Promise<Bundle> {
+  const releaseResponse = await fetch(base + "release.json");
+  if (!releaseResponse.ok) throw Error("The replay could not be loaded.");
+  const release = await releaseResponse.json();
+  if (release.schema !== 1 || typeof release.file !== "string" || !/^[a-z-]+\.json$/.test(release.file) ||
+      typeof release.sha256 !== "string" || !/^[a-f0-9]{64}$/.test(release.sha256)) throw Error("This replay cannot be opened.");
+  const response = await fetch(base + release.file);
+  if (!response.ok) throw Error("The replay could not be loaded.");
+  const raw = await response.text();
+  const hash = Array.from(new Uint8Array(await crypto.subtle.digest("SHA-256", new TextEncoder().encode(raw))))
+    .map(x => x.toString(16).padStart(2, "0")).join("");
+  if (hash !== release.sha256) throw Error("This replay cannot be opened.");
+  return validate(JSON.parse(raw));
 }

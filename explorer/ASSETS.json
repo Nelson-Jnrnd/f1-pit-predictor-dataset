@@ -38,5 +38,15 @@
     "file": "soft.svg",
     "sha256": "3e46b7f7a83e88b7d83769be9c7c6590087bc4ff04d8a99e6d21f27c79afc895",
     "source": "F1_Telemetry_Charts@ae3485d695f07137f6778e03c3437ca1464fb7df"
+  },
+  {
+    "file": "austria-circuit.svg",
+    "sha256": "53c8a10bbf92d222a73fda2a33b487edc62bdccf22bf09ab736c744f28a42f2f",
+    "source": "https://github.com/f1db/f1db/blob/main/src/assets/circuits/black/spielberg-3.svg"
+  },
+  {
+    "file": "austria-flag.svg",
+    "sha256": "c0e5cb3c1d59fd002afd6e2b0dd03787677ca3c9e7b2321f4af6d9e28256ebcd",
+    "source": "https://github.com/lipis/flag-icons/blob/main/flags/4x3/at.svg"
   }
 ]

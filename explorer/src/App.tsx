@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import type { Bundle, Attempt, Row } from "./model";
 import {
-  validate,
+  loadBundle,
   latest,
   atTime,
   toggle,
@@ -54,6 +54,7 @@ export default function App() {
   const [open, setOpen] = useState(false);
   const [subject, setSubject] = useState("1");
   const [time, setTime] = useState(0);
+  const [order, setOrder] = useState(0);
   const [selection, setSelection] = useState<string[]>([]);
   const [actual, setActual] = useState(false);
   const [history, setHistory] = useState(false);
@@ -62,12 +63,7 @@ export default function App() {
   const [mobile, setMobile] = useState("Race timing");
   const [context, setContext] = useState(true);
   useEffect(() => {
-    fetch(base + "synthetic.json")
-      .then((r) => {
-        if (!r.ok) throw Error("The replay could not be loaded.");
-        return r.json();
-      })
-      .then(validate)
+    loadBundle(base)
       .then((b) => {
         setB(b);
       })
@@ -87,50 +83,54 @@ export default function App() {
         (a) => a.driver === id && a.lap === Number(p.get("lap")),
       );
       const t = Number(p.get("time") ?? a?.time);
+      const ordinal = Number(p.get("order") ?? a?.order ?? 0);
       if (
         p.get("race") !== b!.id ||
         !b!.drivers.some((d) => d.id === id) ||
-        !b!.frames.some((f) => f.time === t) ||
+        !b!.frames.some((f) => f.time === t && (f.order ?? 0) === ordinal) ||
         (p.get("lap") === "none"
-          ? !!latest(b!, id, t)
-          : !a || latest(b!, id, t)?.id !== a.id)
+          ? !!latest(b!, id, t, ordinal)
+          : !a || latest(b!, id, t, ordinal)?.id !== a.id)
       ) {
         setError("This race, driver or lap is not available.");
         return;
       }
       setSubject(id);
       setTime(t);
+      setOrder(ordinal);
       setOpen(true);
     }
     restore();
     window.addEventListener("hashchange", restore);
     return () => window.removeEventListener("hashchange", restore);
   }, [b]);
-  const a = b ? latest(b, subject, time) : undefined,
+  const a = b ? latest(b, subject, time, order) : undefined,
     d = b?.drivers.find((d) => d.id === subject),
     attempts =
       b?.attempts
         .filter((x) => x.driver === subject)
         .sort((a, b) => a.time - b.time) || [],
     index = attempts.findIndex((x) => x.id === a?.id),
-    frame = b ? atTime(b, time) : undefined,
+    frame = b ? atTime(b, time, order) : undefined,
     ref =
       selection.length === 1
         ? frame?.rows.find((r) => r.driver === selection[0])
         : undefined;
-  function save(id: string, t: number) {
-    const a = latest(b!, id, t);
+  function save(id: string, t: number, ordinal = order) {
+    const a = latest(b!, id, t, ordinal);
     location.hash = new URLSearchParams({
       race: b!.id,
       driver: id,
       lap: a ? String(a.lap) : "none",
       time: String(t),
+      order: String(ordinal),
     }).toString();
   }
   function choose(x: Attempt) {
     setTime(x.time);
+    setOrder(x.order ?? 0);
     setActual(false);
-    save(subject, x.time);
+    save(subject, x.time, x.order ?? 0);
   }
   function driver(id: string) {
     setSubject(id);
@@ -169,7 +169,7 @@ export default function App() {
         >
           Replay Explorer
         </a>
-        <span className="muted small">Synthetic preview</span>
+        <span className="muted small">{b?.kind === "development" ? "Historical preview" : "Synthetic preview"}</span>
         <button onClick={() => setModal("about")}>About</button>
       </header>
       {error ? (
@@ -201,12 +201,12 @@ export default function App() {
           <article className="race-row">
             <img
               className="outline"
-              src={asset("circuit.svg")}
-              alt="Circuit de Barcelona-Catalunya outline"
+              src={asset(b.raceMetadata?.circuitAsset ?? "circuit.svg")}
+              alt={(b.raceMetadata?.circuit ?? "Circuit de Barcelona-Catalunya") + " outline"}
             />
             <div>
               <h2>
-                <img className="flag" src={asset("flag.svg")} alt="Spain" />{" "}
+                <img className="flag" src={asset(b.raceMetadata?.flag ?? "flag.svg")} alt={b.raceMetadata?.country ?? "Spain"} />{" "}
                 {b.race}
               </h2>
               <p>{b.date}</p>
@@ -217,15 +217,16 @@ export default function App() {
                 setOpen(true);
                 setSubject(b.drivers[0].id);
                 setTime(0);
+                setOrder(b.frames[0].order ?? 0);
                 setActual(false);
                 setSelection([]);
-                save(b.drivers[0].id, 0);
+                save(b.drivers[0].id, 0, b.frames[0].order ?? 0);
               }}
             >
               Open replay
             </button>
           </article>
-          <p className="caption">Illustrative timing and forecasts.</p>
+          <p className="caption">{b.kind === "development" ? "Historical timing and saved forecasts." : "Illustrative timing and forecasts."}</p>
         </section>
       ) : (
         <>
@@ -243,7 +244,7 @@ export default function App() {
                 Back to races
               </button>
               <h1>
-                <img className="flag" src={asset("flag.svg")} alt="Spain" />{" "}
+                <img className="flag" src={asset(b.raceMetadata?.flag ?? "flag.svg")} alt={b.raceMetadata?.country ?? "Spain"} />{" "}
                 {b.race} <span className="muted">2024</span>
               </h1>
             </div>
@@ -269,13 +270,13 @@ export default function App() {
               <div>
                 <strong>{d!.name}</strong>
                 <p className="muted small">{d!.team}</p>
-                {a && (
+                {a && a.context.compound && (
                   <span className="tyre">
                     <img
                       src={asset(a.context.compound.toLowerCase() + ".svg")}
                       alt=""
                     />
-                    {a.context.compound}, {a.context.age} laps
+                    {a.context.compound}, {a.context.age === null ? "age not available" : a.context.age + " laps"}
                   </span>
                 )}
               </div>
@@ -313,8 +314,8 @@ export default function App() {
                   Next
                 </button>
                 <span className="clock">
-                  Race time {Math.floor(time / 60)}:
-                  {String(time % 60).padStart(2, "0")}
+                  {a?.boundaryAvailable === false ? "Race time uncertain; recorded at " : "Race time "} {Math.floor(time / 60)}:
+                  {String(Math.floor(time % 60)).padStart(2, "0")}
                 </span>
               </div>
               <input
@@ -325,7 +326,7 @@ export default function App() {
                 value={Math.max(0, index)}
                 onChange={(e) => choose(attempts[Number(e.target.value)])}
               />
-              {a && a.time < time && (
+              {a && (a.time < time || a.time === time && (a.order ?? 0) < order) && (
                 <p className="notice">
                   Prediction from lap {a.lap}.{" "}
                   <button onClick={() => choose(a)}>
@@ -419,7 +420,7 @@ export default function App() {
               {history && (
                 <div className="history">
                   {attempts
-                    .filter((x) => x.time <= (a?.time ?? 0))
+                    .filter((x) => x.time < (a?.time ?? 0) || x.time === a?.time && (x.order ?? 0) <= (a?.order ?? 0))
                     .map((x) => (
                       <button key={x.id} onClick={() => choose(x)}>
                         {" "}
@@ -516,7 +517,7 @@ export default function App() {
                           <th>Pos</th>
                           <th>Driver</th>
                           {(tab === "Race"
-                            ? ["Interval", "Gap", "Tyre", "Last lap"]
+                            ? ["Interval", "Gap", "Tyre", "Last lap", "Lap"]
                             : tab === "Laps"
                               ? ["Last lap", "Best lap"]
                               : tab === "Minis"
@@ -568,19 +569,19 @@ export default function App() {
                               </td>
                               {tab === "Race" ? (
                                 <>
-                                  <td>{ref ? "—" : fmt(r.interval)}</td>
-                                  <td>{val(r.gap, ref?.gap ?? null)}</td>
+                                  <td>{ref ? "—" : r.intervalText ?? fmt(r.interval)}</td>
+                                  <td>{ref ? val(r.gap, ref.gap) : r.gapText ?? fmt(r.gap)}</td>
                                   <td>
                                     <span className="tyre">
-                                      <img
+                                      {r.compound && <img
                                         src={asset(
-                                          r.compound.toLowerCase() + ".svg",
+                                          (r.compound ?? "unavailable").toLowerCase() + ".svg",
                                         )}
-                                        alt={r.compound}
-                                      />
-                                      {ref
-                                        ? (r.age - ref.age > 0 ? "+" : "") +
-                                          String(r.age - ref.age)
+                                        alt={r.compound ?? "Tyre not available"}
+                                      />}
+                                      {r.age === null || (ref && ref.age === null) ? "Not available" : ref
+                                        ? (r.age! - ref.age! > 0 ? "+" : "") +
+                                          String(r.age! - ref.age!)
                                         : r.age}
                                     </span>
                                   </td>
@@ -593,6 +594,7 @@ export default function App() {
                                   >
                                     {val(r.last, ref?.last ?? null)}
                                   </td>
+                                  <td>{r.completed ?? "Not available"}</td>
                                 </>
                               ) : tab === "Laps" ? (
                                 <>
@@ -729,9 +731,7 @@ export default function App() {
                 finishes.
               </p>
               <p>
-                This preview uses illustrative timing and forecasts. Historical
-                race information can be incomplete, and a prediction can be
-                wrong.
+                {b?.kind === "development" ? "These saved forecasts use a simple historical baseline fitted on the preceding Spanish race. Car positions and sector comparisons are unavailable. Historical timing is reconstructed with conservative availability bounds." : "This preview uses illustrative timing and forecasts."} Race information can be incomplete, and a prediction can be wrong.
               </p>
               <h3>Image credits</h3>
               <p>
@@ -839,7 +839,7 @@ function TrackMap({
   const ref = useRef<SVGPathElement>(null),
     drag = useRef<{ x: number; y: number } | null>(null);
   useEffect(() => {
-    fetch(asset("circuit.svg"))
+    fetch(asset(b.raceMetadata?.circuitAsset ?? "circuit.svg"))
       .then((r) => r.text())
       .then((s) =>
         setPath(
@@ -919,7 +919,7 @@ function TrackMap({
           {selection.length === 1 &&
             rows
               .find((r) => r.driver === selection[0])
-              ?.mini.map((state, i) => (
+              ?.mini.filter(state => state !== "unavailable").map((state, i) => (
                 <path
                   key={i}
                   d={path}
@@ -977,7 +977,7 @@ function TrackMap({
       {!path && <p>Track map unavailable</p>}
       {rows.some((r) => r.progress === null) && (
         <p className="caption">
-          Some positions unavailable. All drivers remain in race timing.
+          {b.kind === "development" ? "Positions unavailable. All drivers remain in race timing." : "Some positions unavailable. All drivers remain in race timing."}
         </p>
       )}
       <div className="map-driver-chooser" aria-label="Drivers on track">
@@ -994,7 +994,7 @@ function TrackMap({
           ))}
       </div>
       <p className="caption">
-        Illustrative positions on the matching circuit outline.
+        {b.kind === "development" ? "Car positions unavailable. The circuit outline identifies the layout." : "Illustrative positions on the matching circuit outline."}
         {selection.length > 1
           ? " Sector comparisons unavailable."
           : selection.length === 1

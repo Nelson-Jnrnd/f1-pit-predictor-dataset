@@ -8,17 +8,19 @@ import {
   within,
 } from "@testing-library/react";
 import { afterEach, beforeEach, it, expect, vi } from "vitest";
+import { createHash, webcrypto } from "node:crypto";
 import App from "../src/App";
 import fixture from "../public/synthetic.json";
 beforeEach(() => {
   location.hash = "";
+  vi.stubGlobal("crypto", webcrypto);
   vi.stubGlobal(
     "fetch",
     vi.fn((url: string) =>
       Promise.resolve({
         ok: true,
-        json: () => Promise.resolve(structuredClone(fixture)),
-        text: () => Promise.resolve('<svg><path d="M0 0L500 500"/></svg>'),
+        json: () => Promise.resolve(url.endsWith("release.json") ? { schema: 1, file: "synthetic.json", sha256: createHash("sha256").update(JSON.stringify(fixture)).digest("hex") } : structuredClone(fixture)),
+        text: () => Promise.resolve(url.endsWith(".svg") ? '<svg><path d="M0 0L500 500"/></svg>' : JSON.stringify(fixture)),
       }),
     ),
   );
