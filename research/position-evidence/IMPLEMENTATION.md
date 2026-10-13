@@ -36,7 +36,9 @@ Sector/minis and unsupported information remain unavailable. No CSS/layout chang
   PASS after repair; all 116 affected points omitted. See scoped evidence document
   and PR #50 review 5509140470.
 - Independent implementation review PASS at substantive 76d298d; final production
-  byte binding is checked separately before recording completion.
+  byte verification and independent sidecar/descriptor regeneration PASS on
+  published head f1d64a94bde1913ab518cb9b0e3255352b272a3b.
+  Reviewer: `/root/review_development_replay`; [passing review 5509190450](https://github.com/Nelson-Jnrnd/f1-pit-predictor-dataset/pull/50#pullrequestreview-5509190450).
 
 Desktop/mobile visual presentation and native browser keyboard/dialog interaction
 remain **unverified**. The available environment lacks a usable local Chromium;
