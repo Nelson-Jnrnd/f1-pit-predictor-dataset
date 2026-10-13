@@ -48,7 +48,7 @@ tests, 21 frontend tests, the production build, regenerated hashes, terminal/eve
 lineage and unavailable counters. No Blocking, Major or Minor findings remain within
 the bounded scope. The PASS does not authorize merging or deployment.
 
-GitHub review reference will be recorded after opening the implementation PR.
+Passing GitHub record: [PR #49](https://github.com/Nelson-Jnrnd/f1-pit-predictor-dataset/pull/49), COMMENT review `5504448858`, anchored to published substantive head `5b61eb5356c73dfb307bf4973e8b5cecc5e76592`.
 
  Desktop/mobile visual presentation and native keyboard/dialog focus are
 unverified: invalid Chromium installation downloads, and cloud-browser localhost
