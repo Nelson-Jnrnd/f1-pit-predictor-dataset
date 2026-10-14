@@ -1,0 +1,5 @@
+# Released/research artifacts are byte-addressed. Preserve their published bytes
+# even when Windows core.autocrlf is enabled; do not normalize before hashing.
+explorer/public/*.json -text
+research/development-race/** -text
+research/position-evidence/*.json -text

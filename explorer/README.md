@@ -39,3 +39,18 @@ Images retain the credits and rights in `ASSETS.json` and
 `design/REPLAY_EXPLORER_ASSETS.md`. Missing portraits use readable name/team fallbacks.
 No photographic publication authorization is inferred. Browser visual/keyboard checks
 remain unverified in this environment; see the implementation review record.
+
+### Windows checkout
+
+Hash-addressed JSON releases preserve their published bytes via `.gitattributes`.
+Git CRLF conversion changes the SHA-256 even when JSON values are identical, so an
+older Windows checkout can reject the positions or entire replay. Keep integrity
+checks enabled. To refresh only the shipped JSON fixtures from Git, run from the
+repository root (this overwrites local changes to these generated files):
+
+```sh
+git -c core.autocrlf=false checkout-index --force -- explorer/public/development.json explorer/public/release.json explorer/public/positions.json explorer/public/positions-release.json explorer/public/synthetic.json research/position-evidence/candidate.json
+```
+
+Then run `npm test` and `npm run build` from `explorer`. No global Git configuration
+change, source refresh or prediction regeneration is required.
