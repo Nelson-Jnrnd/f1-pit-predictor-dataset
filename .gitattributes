@@ -3,3 +3,13 @@
 explorer/public/*.json -text
 research/development-race/** -text
 research/position-evidence/*.json -text
+
+# Keep frozen comparison hashes stable on Windows.
+research/model-comparison/REGISTRATION.md text eol=lf
+research/model-comparison/**/*.json -text
+research/model-comparison/**/*.jsonl -text
+research/model-comparison/**/*.gz -text
+research/model-comparison/**/*.xz -text
+pipeline/comparison*.py text eol=lf
+pipeline/development.py text eol=lf
+research/model-comparison/provenance/*.bundle -text
