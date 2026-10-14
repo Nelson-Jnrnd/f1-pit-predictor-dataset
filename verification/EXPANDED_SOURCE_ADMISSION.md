@@ -1,7 +1,8 @@
 # Expanded pre-2026 raw-source admission
 
-Status: verification in progress. No older scope is admitted for training until
-an explicit independent PASS and fixed manifest are committed.
+Status: approved. Independent bounded admission/protocol review PASS on
+e65374c83f8b674ad10224e51336dd9455c3ad58 (PR #56). The fixed manifest admits
+133 sessions and excludes 40. See research/expanded-pre2026/ADMISSION_REVIEW.md.
 Issue #53. Owner approval: decisions/2026-10-14-expanded-pre2026-admission-pending.md.
 
 ## Evidence boundary
