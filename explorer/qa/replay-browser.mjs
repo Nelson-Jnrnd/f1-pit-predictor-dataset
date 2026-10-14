@@ -6,40 +6,40 @@ const output='browser-checks';
 await mkdir(output,{recursive:true});
 const server=await createServer({server:{host:'127.0.0.1',port:4173,strictPort:true}});
 await server.listen();
-let browser;
+let browser, page;
 const checks=[];
 try {
  browser=await chromium.launch({channel:process.platform==='win32'?'msedge':undefined});
- const page=await browser.newPage({viewport:{width:1440,height:1000},colorScheme:'light'});
+ page=await browser.newPage({viewport:{width:1440,height:1000},colorScheme:'light'});
  await page.goto('http://127.0.0.1:4173');
  await page.getByRole('button',{name:'Open replay',exact:true}).click();
  await page.getByText('No prediction for this lap',{exact:true}).waitFor();
  await page.getByText(/This preview was trained on one earlier race/).waitFor();
  checks.push('Early forecast failure remains explicit; no jump to first success');
- await page.getByLabel('Prediction lap',{exact:true}).selectOption('45');
+ await page.getByRole('combobox',{name:/^Prediction lap/}).selectOption('45');
  await page.getByText(/Positions recorded approximately/).waitFor();
  const before=await page.locator('.clock').textContent();
- const drivers=await page.getByLabel('Prediction for',{exact:true}).locator('option').evaluateAll(options=>options.map(o=>({id:o.value,name:o.textContent})));
+ const drivers=await page.getByRole('combobox',{name:/^Prediction for/}).locator('option').evaluateAll(options=>options.map(o=>({id:o.value,name:o.textContent})));
  for(const driver of drivers){
-  await page.getByLabel('Prediction for',{exact:true}).selectOption(driver.id);
+  await page.getByRole('combobox',{name:/^Prediction for/}).selectOption(driver.id);
   await page.waitForFunction(()=>{const img=document.querySelector('img.portrait');return img?.complete&&img.naturalWidth>0;});
   assert.equal(await page.locator('.clock').textContent(),before);
  }
  checks.push('All20 actual portraits decode through driver switches at one fixed race clock');
  await page.route('**/assets/MAG.png',route=>route.abort());
- await page.getByLabel('Prediction for',{exact:true}).selectOption('20');
+ await page.getByRole('combobox',{name:/^Prediction for/}).selectOption('20');
  await page.getByRole('img',{name:'Portrait unavailable for Kevin Magnussen'}).waitFor();
- await page.getByLabel('Prediction for',{exact:true}).selectOption('4');
+ await page.getByRole('combobox',{name:/^Prediction for/}).selectOption('4');
  await page.waitForFunction(()=>{const img=document.querySelector('img.portrait');return img?.complete&&img.naturalWidth>0;});
  await page.unroute('**/assets/MAG.png');
  checks.push('Forced portrait error→Norris switch restores image without refresh');
- await page.getByLabel('Prediction for',{exact:true}).selectOption('1');
+ await page.getByRole('combobox',{name:/^Prediction for/}).selectOption('1');
  await page.locator('.timing-table').getByRole('button',{name:'NOR',exact:true}).focus();
  await page.keyboard.press('Enter');
- assert.equal(await page.getByLabel('Prediction for',{exact:true}).inputValue(),'1');
+ assert.equal(await page.getByRole('combobox',{name:/^Prediction for/}).inputValue(),'1');
  assert.equal(await page.locator('.timing-table').getByRole('button',{name:'NOR',exact:true}).getAttribute('aria-pressed'),'true');
  await page.getByRole('button',{name:'View prediction for Lewis Hamilton',exact:true}).click();
- assert.equal(await page.getByLabel('Prediction for',{exact:true}).inputValue(),'44');
+ assert.equal(await page.getByRole('combobox',{name:/^Prediction for/}).inputValue(),'44');
  assert.equal(await page.locator('.clock').textContent(),before);
  await page.getByRole('button',{name:'Full forecast',exact:true}).click();
  await page.getByRole('dialog').waitFor();
@@ -64,7 +64,7 @@ try {
  checks.push('Outcome isolation, zoom/rotate/fit and native pointer panning');
  assert.equal(await page.locator('.timing-table tbody tr').count(),20);
  assert.equal(await page.locator('.table-scroll').evaluate(e=>e.scrollWidth<=e.clientWidth),true);
- await page.getByLabel('Prediction for',{exact:true}).selectOption('1');
+ await page.getByRole('combobox',{name:/^Prediction for/}).selectOption('1');
  await page.waitForFunction(()=>document.querySelector('img.portrait')?.complete);
  await page.screenshot({path:output+'/desktop-light.png',fullPage:true});
  await page.emulateMedia({colorScheme:'dark'});
@@ -81,6 +81,7 @@ try {
  await writeFile(output+'/report.json',JSON.stringify({status:'PASS',browser:await browser.version(),checks},null,2));
  console.log(JSON.stringify({status:'PASS',checks},null,2));
 } catch(error){
+ if(page)await page.screenshot({path:output+'/failure.png',fullPage:true}).catch(()=>{});
  await writeFile(output+'/report.json',JSON.stringify({status:'FAIL',error:String(error),checks},null,2));
  throw error;
 } finally { await browser?.close();await server.close(); }
