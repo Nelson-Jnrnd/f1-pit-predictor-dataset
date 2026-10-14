@@ -300,3 +300,31 @@ Observations adopted: the alternative censoring and lap-level construction, and 
 Approved. V1: consumes #21 A2 with predeclared B1/B0 slots and one final comparison; the reserved final resolution identity avoids pre-lock inspection. V2: development-only target regression and accounting measurements preserve the accurate exposure declaration. V3: event-trajectory weighting is retrospective. V4: metadata-only F2 inclusion explicitly accepts and reports structural defects without selective race removal. V5: unrestricted percentile wild-bootstrap variant specified. O1: commitment-to-lock lineage recorded. No product decision or semantic change is required.
 
 Independent scoped reconciliation review: PR #45 review `5489060100`, independent reviewer `/root/review_reconciliation`, 2026-10-12; substantive head `f44c37b7190dc118b65a80c16b10bb85024cc0e3`. PASS; no Blocking or Major findings. The separate #43 integration re-check is still required.
+
+## Issue 53 expanded-development amendment (pending admission)
+
+The owner has authorized auditing and using all admitted pre-2026 data for the
+next experiment, chronological validation on later pre-2026 races, and one refit
+on all admitted pre-2026 races after model selection. The exact expanded partition
+cannot yet be fixed: older source admission conflicts with the explicit exclusion
+in the approved race-day evidence exception. SUPPORT_MATRIX verdicts, original
+P-F1/P-F2 scope, final partitions, ledger and prior-exposure declaration remain
+unchanged until that gate is resolved and independently reviewed.
+
+`research/full-pre2026/REGISTRATION.md` declares the proposed rolling-season rule
+and the additional practical measures. Those measures retain log score for model
+selection. The horizon is the union of the first up to three canonical regions,
+including an open final region when the grid is short. Unknown or boundary-crossing
+binary labels are excluded from confusion counts with their counts retained.
+Threshold selection maximizes F1 on a fixed 0.01..0.99 grid using pre-2026 validation
+only, with highest-threshold tie-break. The final threshold is frozen alongside
+selected/refitted models before any final opening.
+
+The delivered saved-run diagnostics are exploratory additions to PR #55. Their
+thresholds use 2025 R1–R18 and their later evaluation uses R19–R24. They create
+neither a final lock nor expanded-training evidence. Window coverage retains
+pit-window/v1 and compares conditional coverage with actual predicted conditional
+mass. Width is canonical region count, with open-ended share reported separately.
+Unique-stop detection deduplicates qualifying event identities and retains missing
+forecasts. Neither unknown outcomes nor repeated checkpoints create new negatives
+or independent stops.
