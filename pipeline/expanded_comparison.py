@@ -9,6 +9,7 @@ import math
 from pathlib import Path
 import subprocess
 import sys
+import time
 import uuid
 import numpy as np
 import scipy
@@ -111,7 +112,8 @@ def practical(rows):
 
 
 def main():
-    ap=argparse.ArgumentParser();ap.add_argument('--dataset',type=Path,default=e.ROOT/'dataset');ap.add_argument('--output',type=Path,default=e.ROOT/'evaluation');args=ap.parse_args()
+    ap=argparse.ArgumentParser();ap.add_argument('--dataset',type=Path,default=e.ROOT/'dataset');ap.add_argument('--output',type=Path,default=e.ROOT/'evaluation');ap.add_argument('--await-dataset-seconds',type=int,default=0);args=ap.parse_args()
+    if not 0<=args.await_dataset_seconds<=3600:raise ValueError('Dataset wait must be 0..3600 seconds')
     partition=data.read_json(args.dataset/'partition.json')
     for race in partition:e.require_pre2026(race['season'],race['round'])
     if partition!=sorted(partition,key=lambda r:r['date']) or len({(r['season'],r['round']) for r in partition})!=len(partition):raise ValueError('Invalid chronological partition')
@@ -130,6 +132,12 @@ def main():
     for year in years[1:]:
         validation=[r for r in partition if r['season']==year];cutoff=validation[0]['date'];training=[r for r in partition if r['date']<cutoff]
         folder=args.output/str(year);folder.mkdir(exist_ok=True)
+        required=[args.dataset/f"{r['season']}-{r['round']:02d}"/'manifest.json' for r in training+validation]
+        deadline=time.monotonic()+args.await_dataset_seconds
+        if not all(path.exists() for path in required):print(f'{year}: waiting for complete canonical race manifests (bounded)',flush=True)
+        while not all(path.exists() for path in required):
+            if time.monotonic()>=deadline:raise TimeoutError(f'{year}: canonical dataset wait timed out')
+            time.sleep(1)
         config=dict(year=year,cutoff=cutoff,training=training,validation=validation,registration_hash=reg,code_hash=code,dependencies=versions,
             admission_hash=hashlib.sha256((e.ROOT/'admission/verify.json').read_bytes()).hexdigest(),
             dataset_manifests=[hashlib.sha256((args.dataset/f"{r['season']}-{r['round']:02d}"/'manifest.json').read_bytes()).hexdigest() for r in training+validation])
