@@ -1,7 +1,7 @@
 # Train on more races and compare model choices
 
 Issue: [#53](https://github.com/Nelson-Jnrnd/f1-pit-predictor-dataset/issues/53).
-Status: task preparation. Independent authoring review pending.
+Status: prepared task. Independent scoped authoring review PASS.
 Starting point: PR #52 at 0469828240e06988f8af2c3d82f4cffee23e5853, stacked on #51, #50 and #49.
 
 ## Goal
@@ -88,3 +88,10 @@ Use the existing checks for calibration, window coverage, and uncertainty across
 - Independent review using one full scoped review and, if needed, one bounded re-review.
 
 Preparation creates this task only. Executing it does not authorize a final evaluation, replacing the viewer model, merging, or public release. Those remain separate steps.
+
+## Preparation review
+
+Reviewer: /root/review_model_comparison_task.
+Full scoped review: PASS on substantive head 18210cafdb8cf2958f0e1781997ddabdfdaa38ba, with no required findings.
+[GitHub review](https://github.com/Nelson-Jnrnd/f1-pit-predictor-dataset/pull/54#pullrequestreview-5516205576).
+This final note records the result only. It does not start task execution or change the reviewed scope.
