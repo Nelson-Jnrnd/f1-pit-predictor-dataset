@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "browser": "153.0.4234.48",
+  "checks": [
+    "Early forecast failure remains explicit; no jump to first success",
+    "All20 actual portraits decode through driver switches at one fixed race clock",
+    "Forced portrait error→Norris switch restores image without refresh",
+    "Native keyboard comparison, independent prediction action, modal Escape/focus return",
+    "Outcome isolation, zoom/rotate/fit and native pointer panning",
+    "Desktop table fits;390px mobile retains race clock, has no page overflow and preserves timing/map switch"
+  ]
+}
