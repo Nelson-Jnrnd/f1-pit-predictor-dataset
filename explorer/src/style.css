@@ -525,8 +525,13 @@ summary {
     width: 100%;
     margin: auto;
   }
+  .navigation { flex-wrap: wrap; }
   .clock {
-    display: none;
+    display: block;
+    flex-basis: 100%;
+    margin-left: 0;
+    margin-top: 5px;
+    text-align: left;
   }
 }
 @media (max-width: 640px) {

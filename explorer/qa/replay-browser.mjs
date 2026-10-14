@@ -76,12 +76,13 @@ try {
  await page.emulateMedia({colorScheme:'light'});
  await page.setViewportSize({width:390,height:844});
  assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
+ assert.equal(await page.locator('.clock').isVisible(),true);
  await page.screenshot({path:output+'/mobile-timing.png',fullPage:true});
  await page.getByRole('button',{name:'Track map',exact:true}).click();
  await page.screenshot({path:output+'/mobile-map.png',fullPage:true});
  assert.equal(await page.locator('.track').isVisible(),true);
  await page.getByRole('button',{name:'Track map',exact:true}).focus();await page.keyboard.press('Tab');
- checks.push('Desktop table fits;390px mobile has no page overflow and preserves timing/map switch');
+ checks.push('Desktop table fits;390px mobile retains race clock, has no page overflow and preserves timing/map switch');
  await writeFile(output+'/report.json',JSON.stringify({status:'PASS',browser:await browser.version(),checks},null,2));
  console.log(JSON.stringify({status:'PASS',checks},null,2));
 } catch(error){

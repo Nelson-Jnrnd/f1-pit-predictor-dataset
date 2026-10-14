@@ -554,7 +554,7 @@ export default function App() {
                                 (selection.includes(r.driver) ? "selected " : "") + (subject === r.driver ? "prediction-subject" : "")
                               }
                             >
-                              <td>{r.position ?? "—"}</td>
+                              <td>{r.position ?? fmt(null)}</td>
                               <td>
                                 <button
                                   className="driver-toggle"
@@ -569,8 +569,8 @@ export default function App() {
                               </td>
                               {tab === "Race" ? (
                                 <>
-                                  <td>{ref ? "—" : r.intervalText ?? fmt(r.interval)}</td>
-                                  <td>{ref ? val(r.gap, ref.gap) : r.gapText ?? fmt(r.gap)}</td>
+                                  <td>{ref ? <span aria-label="Interval not shown in relative mode">—</span> : r.position === 1 ? <span aria-label="No car ahead">—</span> : r.intervalText ?? fmt(r.interval, true)}</td>
+                                  <td>{ref ? val(r.gap, ref.gap) : r.position === 1 ? "Leader" : r.gapText ?? fmt(r.gap, true)}</td>
                                   <td>
                                     <span className="tyre">
                                       {r.compound && <img
