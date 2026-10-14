@@ -1,36 +1,34 @@
 # Expanded pre-2026 source admission
 
-Status: owner decision required. This record grants no exception.
-Owner: Product Owner. Issue: #53. Existing decision: 2026-10-10-v2-race-day-archive-evidence-exception.md.
+Status: approved by Product Owner on 14 October 2026 at 23:04 Europe/Zurich.
+Issue: #53. Extends decisions/2026-10-10-v2-race-day-archive-evidence-exception.md.
 
-## Blocker
+## Approved bounded extension
 
-The broader training request does not establish historical publication times or
-revision fidelity. The earlier approved exception explicitly excludes rewritten
-archives. The available 2018–2023 CSVs also lack the current qualifying-service
-labels and mix historical times. Combining them would silently change approved
-information and target rules. Under governance/DECISION_BOUNDARIES.md, an agent
-cannot approve that change.
+Older rewritten raw archives may undergo a separate independently reviewed
+availability and target-capability audit. Admission requires conservative clock
+checks and exclusions, verified target-service reconstruction, explicit revision-
+fidelity assumptions and raw-source lineage. Approval authorizes verification,
+not automatic admission of every older race. Legacy CSVs remain QA evidence only.
+Unavailable or unsupported sessions remain excluded with reasons.
 
-## Recommended resolution
+The Product Owner accepted that internal checks cannot prove every historical
+version visible on race day survived a bulk rewrite. Admitted older sessions and
+any mixed-data trained models/claims must carry this additional assumption.
+The original observation/target meaning, conservative omissions, unknown-outcome
+handling and 2026 exposure/lock rules remain unchanged.
 
-Approve a bounded extension of the archive evidence exception to older rewritten
-raw streams, conditional on a separate, independently reviewed era/session audit.
-Require conservative clock checks and exclusions, a verified target-service rule,
-explicit revision-fidelity assumptions, and traceable raw-source reconstruction.
-Keep legacy CSVs as QA evidence only. Keep inaccessible/unsupported sessions
-excluded with reasons. Do not relax 2026 locks or use 2026 to develop the audit.
+## Authority and continuation
 
-The material downside is that internal checks cannot prove that a rewritten stream
-preserves every version visible on race day. Expanded training and final claims
-would carry that additional assumption. Approval authorizes verification, not
-automatic admission of every older race. If this assumption is unacceptable,
-retain the 39 admitted races until stronger archival evidence becomes available.
+The owner replied 'Yes I approve' to the bounded proposal in the issue 53 follow-up.
+This resolves the owner-reserved evidence-standard gate. Agents may now acquire,
+verify and admit passing older raw scopes, reconcile the support matrix/protocol,
+run chronological pre-2026 experiments, select and refit on all admitted data.
+Independent review remains required before admission/training. This approval does
+not authorize a final outcome opening, merge, deployment or viewer replacement.
 
-## Work preserved and completed before asking
+## Preserved work
 
-Frozen PR #55 forecasts/models remain unchanged. The full CSV inventory, admitted
-source hash verification, registered expanded plan, added practical evaluation and
-separate B1 fitting diagnosis proceed without older admission. Expanded model
-selection, full-data refit and final lock remain blocked. No 2026 outcome read,
-merge, deployment or viewer change occurs.
+PR #55 frozen data/models/results and PR #56 audit/saved-run diagnostics remain
+unchanged. New source, reconstruction, experiment and final-refit outputs get
+separate identities. No CSV is promoted into a canonical observation or target.

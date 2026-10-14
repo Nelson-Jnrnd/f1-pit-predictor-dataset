@@ -376,3 +376,12 @@ The existing S-RD, S-RG and S-22 verdicts remain unchanged. Resolving older
 admission is a current-scope owner decision because the approved evidence
 exception expressly excludes rewritten archives. See
 `decisions/2026-10-14-expanded-pre2026-admission-pending.md`.
+
+### Owner-approved older raw-source extension
+
+On 14 October 2026 the owner approved the bounded proposal recorded above.
+`verification/EXPANDED_SOURCE_ADMISSION.md` and the complete per-session evidence
+under `research/expanded-pre2026/admission/` own the new support extension.
+Until their independent passing review and fixed list are committed, older
+sessions remain unadmitted. The original matrix remains the authority for the
+frozen earlier experiment. Known unsupported verdicts are preserved.

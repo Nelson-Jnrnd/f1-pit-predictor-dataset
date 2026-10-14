@@ -328,3 +328,15 @@ mass. Width is canonical region count, with open-ended share reported separately
 Unique-stop detection deduplicates qualifying event identities and retains missing
 forecasts. Neither unknown outcomes nor repeated checkpoints create new negatives
 or independent stops.
+
+### Owner-approved continuation and separate expanded protocol
+
+The owner approved bounded older raw-source verification on 14 October 2026.
+The earlier pending gate is resolved, conditional on independent source admission.
+The original P-F1/P-F2 experiment and frozen results remain unchanged.
+`research/expanded-pre2026/REGISTRATION.md` owns the new rolling-season experiment.
+It retains log score and explicitly declares B0 as reference when B1's unsupported
+fit prevents a full-cohort comparison. Its new fixed-penalty TYRE_RIDGE candidate
+uses the same causal input and complete output meaning. The expanded fixed list,
+source assumptions, registration and selectors must pass independent review before
+training/scoring. No final opening or original-lock bypass is authorized.

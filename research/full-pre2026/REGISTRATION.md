@@ -75,3 +75,12 @@ cohort, region-count width quantiles, and open-ended-window share. An open-ended
 window has no finite lap-width upper bound. Bounded outcomes straddling the window
 have unknown hit status and are excluded from binary coverage with counts retained.
 No unknown outcome becomes a negative. No result changes the frozen models.
+
+## Continuation supersession after owner approval
+
+This file remains the declaration for the saved PR #55 diagnostic only. For the
+new expanded experiment, research/expanded-pre2026/REGISTRATION.md supersedes its
+pending-admission, B1-selection-blocker and final-lock-creation clauses. It records
+the approved conditional admission, explicit B0 reference fallback, separate
+TYRE_RIDGE candidate and final-readiness-only delivery. Shared metric definitions
+remain applicable. No earlier result or declaration is rewritten retrospectively.

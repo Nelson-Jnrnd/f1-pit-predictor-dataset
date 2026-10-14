@@ -15,3 +15,8 @@ research/model-comparison/sources/**/*.gz
 research/model-comparison/dataset-2/**/*.gz
 research/model-comparison/dataset-2/**/*.xz
 research/model-comparison/evaluation-2/**/*.gz
+# Expanded raw sources and canonical payloads stay in private frozen evidence.
+research/expanded-pre2026/sources/**/*.gz
+research/expanded-pre2026/dataset/**/*.gz
+research/expanded-pre2026/dataset/**/*.xz
+research/expanded-pre2026/evaluation/**/*.gz

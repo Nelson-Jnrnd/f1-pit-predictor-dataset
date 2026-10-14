@@ -48,3 +48,11 @@ this gate before expanded reconstruction/training. Preserve protected-data guard
 Expanded selection/refit/final lock cannot be claimed complete while admission is
 blocked. A partial diagnostic report must distinguish saved 39-race results from
 the requested larger experiment. No final testing is authorized in this task.
+
+## Owner continuation approval
+
+The Product Owner approved the bounded older-archive exception on 14 October 2026
+at 23:04 Europe/Zurich. The decision record above now records approval. Continue
+with independent admission verification, expanded training and one final refit.
+Technical estimator/selection refinements must be explicitly registered, reviewed
+and committed before new validation scoring. Keep prior reports frozen.
