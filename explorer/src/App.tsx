@@ -930,11 +930,10 @@ function TrackMap({
         onPointerMove={(e) => {
           if (drag.current) {
             const s = 540 / e.currentTarget.getBoundingClientRect().width;
-            setPan((p) => ({
-              x: p.x + (e.clientX - drag.current!.x) * s,
-              y: p.y + (e.clientY - drag.current!.y) * s,
-            }));
+            const dx = (e.clientX - drag.current.x) * s;
+            const dy = (e.clientY - drag.current.y) * s;
             drag.current = { x: e.clientX, y: e.clientY };
+            setPan((p) => ({ x: p.x + dx, y: p.y + dy }));
           }
         }}
         onPointerUp={() => (drag.current = null)}

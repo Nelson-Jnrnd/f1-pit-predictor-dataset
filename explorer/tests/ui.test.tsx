@@ -6,6 +6,7 @@ import {
   waitFor,
   cleanup,
   within,
+  act,
 } from "@testing-library/react";
 import { afterEach, beforeEach, it, expect, vi } from "vitest";
 import { createHash, webcrypto } from "node:crypto";
@@ -179,4 +180,31 @@ it("marks only intersecting outcome bins including the open-final boundary", asy
       .textContent,
   ).toBe("Actual stop");
   expect(rows.at(-1)?.children[2].textContent).toBe("");
+});
+
+it("pans with stable pointer deltas and leaves marker clicks available for comparison", async () => {
+  await open();
+  vi.stubGlobal("PointerEvent", MouseEvent);
+  const svg = document.querySelector("svg.track")!;
+  const bounds = vi.spyOn(svg, "getBoundingClientRect").mockReturnValue({ x:0,y:0,left:0,top:0,right:540,bottom:540,width:540,height:540,toJSON:()=>({}) });
+  Object.defineProperty(svg, "setPointerCapture", { configurable:true,value:()=>{} });
+  try {
+    const background=svg.querySelector("rect")!;
+    act(()=>{
+      fireEvent.pointerDown(background,{clientX:100,clientY:100});
+      fireEvent.pointerMove(svg,{clientX:120,clientY:100});
+      fireEvent.pointerMove(svg,{clientX:140,clientY:100});
+      fireEvent.pointerUp(svg,{clientX:140,clientY:100});
+    });
+    expect(svg.querySelector("g")!.getAttribute("transform")).toContain("translate(60 20)");
+    const marker=await screen.findByRole("button",{name:"Compare Max Verstappen"});
+    act(()=>{
+      fireEvent.pointerDown(marker,{clientX:100,clientY:100});
+      fireEvent.pointerMove(svg,{clientX:130,clientY:100});
+      fireEvent.pointerUp(svg,{clientX:130,clientY:100});
+    });
+    expect(svg.querySelector("g")!.getAttribute("transform")).toContain("translate(60 20)");
+    fireEvent.click(marker);
+    expect(marker.getAttribute("aria-pressed")).toBe("true");
+  } finally { bounds.mockRestore(); }
 });
