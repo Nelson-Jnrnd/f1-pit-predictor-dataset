@@ -922,7 +922,7 @@ function TrackMap({
         viewBox="0 0 540 540"
         aria-label="Circuit map at selected race time. Drag to pan; select drivers to compare."
         onPointerDown={(e) => {
-          if (e.target === e.currentTarget) {
+          if (!(e.target as Element).closest('[role="button"]')) {
             drag.current = { x: e.clientX, y: e.clientY };
             e.currentTarget.setPointerCapture(e.pointerId);
           }
@@ -938,7 +938,9 @@ function TrackMap({
           }
         }}
         onPointerUp={() => (drag.current = null)}
+        onPointerCancel={() => (drag.current = null)}
       >
+        <rect width="540" height="540" fill="transparent" pointerEvents="all" aria-hidden="true" />
         <g
           transform={`translate(${pan.x + 20} ${pan.y + 20}) translate(250 250) rotate(${rotation}) scale(${zoom}) translate(-250 -250)`}
         >

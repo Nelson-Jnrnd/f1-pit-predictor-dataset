@@ -58,7 +58,7 @@ try {
  await page.getByRole('button',{name:'Fit',exact:true}).click();
  const beforePan=await page.locator('.track > g').getAttribute('transform');
  const svg=await page.locator('.track').boundingBox();
- await page.mouse.move(svg.x+3,svg.y+3);await page.mouse.down();await page.mouse.move(svg.x+25,svg.y+25);await page.mouse.up();
+ await page.mouse.move(svg.x+svg.width/2,svg.y+8);await page.mouse.down();await page.mouse.move(svg.x+svg.width/2+22,svg.y+30);await page.mouse.up();
  assert.notEqual(await page.locator('.track > g').getAttribute('transform'),beforePan);
  await page.getByRole('button',{name:'Fit',exact:true}).click();
  checks.push('Outcome isolation, zoom/rotate/fit and native pointer panning');
