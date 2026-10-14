@@ -43,4 +43,4 @@ The sole Minor clarification exposes the already-computable sensitivity deltas
 in REPORT.md. It changes no estimator, cohort, frozen result or conclusion.
 Frozen artifacts preserve the exact execution code/content hashes. Local review
 commit IDs are provenance strings; the GitHub review anchors the published tree.
-GitHub review reference will be recorded after the PR is created.
+GitHub independent review: [PASS](https://github.com/Nelson-Jnrnd/f1-pit-predictor-dataset/pull/55#pullrequestreview-5517455205), anchored to c1772682ae7f1cac4fef8b1d095db62d09856aee. The later commit records this link only.
