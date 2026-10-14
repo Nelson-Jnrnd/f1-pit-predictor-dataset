@@ -6,6 +6,20 @@ Product Owner communication should surface consequential project/research decisi
 
 Routine exploration and delegated decisions stay in repository artifacts. Material uncertainty and trade-offs must not be hidden.
 
+## Writing style
+
+Use plain, direct language in all project communication: chat replies, issue and PR text, reports, slides, documentation, and UI copy.
+
+- Put the answer or result first.
+- Keep sentences and paragraphs short. Use only the detail needed for the task.
+- Avoid jargon. When a technical term is necessary, explain it in ordinary words.
+- Prefer a concrete example to a long abstract explanation.
+- Clearly separate decisions from findings. Do not say an approach works better unless a comparison supports it.
+- Keep exact names and technical detail where needed for code, mathematics, reproducibility, or source references.
+- Use a professional tone without emojis or decorative symbols.
+
+The Product Owner requested this rule on 14 October 2026. It applies to future work as well as the current task.
+
 ## No-decision status
 
 When no Product Owner decision is required, report:
