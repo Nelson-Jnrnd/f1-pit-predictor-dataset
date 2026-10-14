@@ -8,6 +8,7 @@ from . import development as d, comparison_data as data, expanded_sources as e
 
 def reconstruct_race(race,sources,output,admission):
     year,rnd=race['season'],race['round']; e.require_pre2026(year,rnd)
+    e.require_review(admission)
     evidence=next((r for r in admission['results'] if r['race']==race and r['status']=='ADMITTED'),None)
     if evidence is None:raise ValueError('Session has no admitted evidence')
     folder=Path(output)/f'{year}-{rnd:02d}'; done=folder/'manifest.json'
@@ -44,7 +45,7 @@ def reconstruct_race(race,sources,output,admission):
             row['initialization_run_ref']=initializations['artifact_id']
             row['tyre']=data.tyre_view(o)
             try: row['grid']=d.grid(o)
-            except ValueError as e: row['grid_failure']=str(e)
+            except ValueError as error: row['grid_failure']=str(error)
             if 'initialization' in init:
                 row['episode_ref']=init['initialization']['artifact_id']
                 row['target_episode_key']=init['initialization']['target_episode_key']

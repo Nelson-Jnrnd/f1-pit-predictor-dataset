@@ -12,6 +12,22 @@ class ExpandedTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError,'Protected'):e.read_raw(dict(season=2026,round=1))
             with self.assertRaisesRegex(ValueError,'Protected'):e.acquire(dict(season=2026,round=1))
             with self.assertRaisesRegex(ValueError,'Protected'):c.open_race(Path('/x'),dict(season=2026,round=1),Path('/ledger'),'join',1)
+    def test_unreviewed_admission_cannot_reconstruct(self):
+        from pipeline import expanded_data
+        with patch.object(e,'read_raw',side_effect=AssertionError('Unreviewed read')):
+            with self.assertRaisesRegex(ValueError,'review'):expanded_data.reconstruct_race(dict(season=2018,round=3),Path('/x'),Path('/y'),{'results':[]})
+    def test_review_attestation_binds_the_admitted_list(self):
+        import hashlib
+        from pipeline import development
+        content={'version':'test','results':[],'code_hash':hashlib.sha256(Path(e.__file__).read_bytes()).hexdigest()}
+        admission={**content,'independent_review_pass':True,'reviewed_content_hash':development.digest(content)}
+        e.require_review(admission)
+        admission['results'].append({'changed':True})
+        with self.assertRaisesRegex(ValueError,'content changed'):e.require_review(admission)
+    def test_forged_pre2026_identity_cannot_address_final_source(self):
+        race=dict(season=2018,round=1,date='2018-03-25',session='R',path='2026/2026-03-08_Test/2026-03-08_Race/')
+        with patch.object(e,'fetch_raw',side_effect=AssertionError('Protected address')):
+            with self.assertRaisesRegex(ValueError,'address'):e.acquire(race)
     def test_training_cutoff_checked_before_read(self):
         with patch.object(Path,'read_bytes',side_effect=AssertionError('Late read')):
             with self.assertRaisesRegex(ValueError,'cutoff'):c.open_race(Path('/x'),dict(season=2019,round=1,date='2019-01-01'),Path('/ledger'),'join',1,'2019-01-01')

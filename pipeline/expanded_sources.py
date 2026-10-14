@@ -12,6 +12,7 @@ import re
 import urllib.error
 from . import development as d, comparison_data as data
 
+EXECUTION_CODE_HASH=hashlib.sha256(Path(__file__).read_bytes()).hexdigest()
 ROOT=d.ROOT/'research/expanded-pre2026'
 AUTHORITY='verification/EXPANDED_SOURCE_ADMISSION.md'
 ASSUMPTIONS=d.ASSUMPTIONS[:3]+['RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven',
@@ -23,11 +24,28 @@ def require_pre2026(year,rnd):
         raise ValueError('Protected or unsupported season/round refused before any source read')
 
 
+def require_review(admission):
+    if not admission.get('independent_review_pass'):raise ValueError('Independent admission review required')
+    fields={k:v for k,v in admission.items() if k not in ('independent_review_pass','reviewer','reviewed_content_hash','review_ref')}
+    if d.digest(fields)!=admission.get('reviewed_content_hash'):raise ValueError('Reviewed admission content changed')
+    if hashlib.sha256(Path(__file__).read_bytes()).hexdigest()!=admission.get('code_hash'):raise ValueError('Reviewed admission code changed')
+
+
 def races():
     # Existing file contains HTTP/date/path metadata only. No source or target outcomes.
     rows=data.read_json(d.ROOT/'verification/evidence/headscan_v1.json')['rows']
     return [dict(season=r['season'],round=r['round'],date=r['race_date'],session='R',path=r['path'])
             for r in rows if r['season']<2026]
+
+
+def validate_address(race):
+    require_pre2026(race['season'],race['round'])
+    parts=race.get('path','').strip('/').split('/')
+    if len(parts)!=3 or parts[0]!=str(race['season']) or not parts[-1].endswith('_Race') or race.get('session')!='R':
+        raise ValueError('Raw source address disagrees with pre-2026 race identity')
+    session_date=dt.date.fromisoformat(parts[-1][:10]);date=dt.date.fromisoformat(race['date'])
+    if session_date.year!=race['season'] or abs((session_date-date).days)>1:
+        raise ValueError('Raw source date disagrees with race identity')
 
 
 def fetch_raw(url):
@@ -49,7 +67,7 @@ def source_folder(race,sources=ROOT/'sources'):
 
 
 def acquire(race,sources=ROOT/'sources'):
-    require_pre2026(race['season'],race['round']);folder=source_folder(race,sources)
+    validate_address(race);folder=source_folder(race,sources)
     if (race['season'],race['round']) in data.PARTITION:
         d.read_source(race['season'],race['round'],folder)
         return dict(race=race,status='FROZEN_EXISTING',folder=str(folder.relative_to(d.ROOT)))
@@ -72,12 +90,13 @@ def acquire(race,sources=ROOT/'sources'):
 
 
 def read_raw(race,sources=ROOT/'sources'):
-    require_pre2026(race['season'],race['round']);folder=source_folder(race,sources)
+    validate_address(race);folder=source_folder(race,sources)
     manifest=data.read_json(folder/'manifest.json')
     if any(manifest[k]!=race[k] for k in ('season','round','date','session')):raise ValueError('Raw race identity mismatch')
     if set(manifest['files'])!=d.FEEDS:raise ValueError('Missing required raw endpoint')
     records={}
     for feed,meta in manifest['files'].items():
+        if meta.get('url')!=data.BASE+race['path']+feed+'.jsonStream':raise ValueError('Endpoint address mismatch')
         raw=gzip.decompress((folder/(feed+'.jsonStream.gz')).read_bytes())
         if hashlib.sha256(raw).hexdigest()!=meta['sha256'] or len(raw)!=meta['bytes']:raise ValueError('Raw source hash mismatch')
         rs=[]
@@ -204,7 +223,7 @@ def main():
         tasks={pool.submit(acquire if args.stage=='acquire' else verify,r,args.sources):r for r in rs}
         for future in as_completed(tasks):
             result=future.result();results.append(result);results.sort(key=lambda r:(r['race']['season'],r['race']['round']))
-            data.write_json(args.output/(args.stage+'.json'),dict(version='expanded-source-admission/v1',results=results,code_hash=hashlib.sha256(Path(__file__).read_bytes()).hexdigest()))
+            data.write_json(args.output/(args.stage+'.json'),dict(version='expanded-source-admission/v1',results=results,code_hash=EXECUTION_CODE_HASH))
             print(f"{len(results)}/{len(rs)} {result['race']['season']} R{result['race']['round']} {result['status']} {result.get('reason',result.get('error',''))}",flush=True)
 
 if __name__=='__main__':main()

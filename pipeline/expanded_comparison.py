@@ -42,7 +42,7 @@ def forecasts(checkpoints,models,date,run):
             model=models[name]
             if model['cutoff']>date:raise ValueError('Model cutoff after inference race')
             row=dict(key=cp['key'],observation_ref=cp['observation_ref'],model=name,model_ref=model['artifact_id'],run_id=run,
-                phase=c.phase(cp),tyre_fallback=cp.get('tyre',{}).get('fallback') if name in ('B1','TYRE_RIDGE') else None)
+                phase=c.phase(cp),model_fit_failure=model.get('fit_failure'),tyre_fallback=cp.get('tyre',{}).get('fallback') if name in ('B1','TYRE_RIDGE') else None)
             if name=='TYRE_RIDGE' and 'levels' in model and cp.get('tyre',{}).get('compound') not in model['levels'] and not row['tyre_fallback']:
                 row['tyre_fallback']='COMPOUND_NOT_IN_TRAINING'
             if 'grid' in cp:row['k_tercile']=int(np.searchsorted(model['k_terciles'],cp['grid']['K_T'],side='right'))
@@ -66,12 +66,13 @@ def forecasts(checkpoints,models,date,run):
 
 def selection(rows):
     stats={name:c.summarize([r for r in rows if r['model']==name]) for name in m.IDS}
+    for name in m.IDS:stats[name]['fitting_failures']=sorted({r['model_fit_failure'] for r in rows if r['model']==name and r.get('model_fit_failure')})
     scored={name:{tuple(r['key']):r for r in rows if r['model']==name and 'score' in r} for name in m.IDS}
     expected={tuple(r['key']) for r in rows if r.get('expected_cohort')}
     defects=any(stats[n]['fit_or_forecast_defect'] for n in m.IDS)
     # Every core candidate must cover the exact cohort; B1's fitting failure is explicit.
     core=('B0','PERCENT_AHEAD','PERCENT_PROGRESS','TYRE_RIDGE')
-    b1_supported=bool(expected) and scored['B1'].keys()==expected
+    b1_supported=bool(expected) and scored['B1'].keys()==expected and not stats['B1']['fitting_failures']
     eligible=list(core)+(['B1'] if b1_supported else [])
     pairs={}
     for i,a in enumerate(m.IDS):
@@ -82,7 +83,7 @@ def selection(rows):
             if common:pair['difference_a_minus_b']=c.uncertainty([(key[0],scored[a][key]['score']-scored[b][key]['score']) for key in sorted(common)])
             pairs[a+' vs '+b]=pair
     chosen=None;reason='Full common cohort or valid run unavailable'
-    if expected and not defects and all(scored[n].keys()==expected for n in core):
+    if expected and not defects and all(scored[n].keys()==expected and not stats[n]['fitting_failures'] for n in core):
         best=min(eligible,key=lambda n:(stats[n]['mean_log_score'],RANKS[n]));options=[best]
         for n in eligible:
             if RANKS[n]>=RANKS[best]:continue
@@ -115,7 +116,7 @@ def main():
     for race in partition:e.require_pre2026(race['season'],race['round'])
     if partition!=sorted(partition,key=lambda r:r['date']) or len({(r['season'],r['round']) for r in partition})!=len(partition):raise ValueError('Invalid chronological partition')
     admission=data.read_json(e.ROOT/'admission/verify.json')
-    if not admission.get('independent_review_pass'):raise ValueError('Admission review required')
+    e.require_review(admission)
     expected_partition=[r['race'] for r in admission['results'] if r['status']=='ADMITTED']
     if partition!=expected_partition:raise ValueError('Partition differs from independently admitted list')
     versions=dict(python=f'{sys.version_info.major}.{sys.version_info.minor}',numpy=np.__version__,scipy=scipy.__version__)
@@ -163,7 +164,8 @@ def main():
         names=('models.json','predictions.json.gz','scores.json.gz','practical.json.gz','summary.json')
         data.write_json(folder/'complete.json',dict(config=config,hashes={n:hashlib.sha256((folder/n).read_bytes()).hexdigest() for n in names},run_id=run,revision=d.revision()))
         (folder/'predictions.partial.json.gz').unlink(missing_ok=True);scores_all.extend(scores);practical_all.extend(practical_rows)
-    summary=selection(scores_all);summary['practical']=practical(practical_all);summary['registration_hash']=reg;summary['code_hash']=code
+    summary=selection(scores_all);summary['by_season']={str(year):selection([r for r in scores_all if r['key'][0].startswith(str(year)+'-')]) for year in years[1:]}
+    summary['practical']=practical(practical_all);summary['registration_hash']=reg;summary['code_hash']=code
     data.write_json(args.output/'summary.json',summary)
     if summary['selected'] is None:print('No supported selection; final refit withheld',flush=True);return
     # Freeze procedure selection and alert rules before full-data refit; no final read.
