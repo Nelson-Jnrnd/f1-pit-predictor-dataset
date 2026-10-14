@@ -100,7 +100,8 @@ TP means an alert followed by a qualifying stop inside the canonical horizon.
 FP means an alert with a known outcome outside it. FN means a missed positive
 checkpoint. TN means no alert and a known outcome outside it.
 
-The later cohort has 6,489 known outcomes and 315 unknown outcomes. A positive
+The later cohort has 6,489 known outcomes and 210 unknown eligible outcomes. Another
+105 attempts have no eligible canonical observation. A positive
 occurs at only 7.55% of known checkpoints. Always alerting gives 7.55% precision
 and 100% recall. Never alerting gives zero recall and undefined precision.
 B0's 7.9% precision is barely above always alerting. Percentage completed reduces

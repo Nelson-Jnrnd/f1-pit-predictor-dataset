@@ -20,9 +20,10 @@ class PracticalTests(unittest.TestCase):
         self.assertEqual(p.window_hit({'kind':'REALIZED_REGION_SET','a':2,'b':3},2,4),1)
         self.assertEqual(p.window_hit({'kind':'REALIZED_REGION_SET','a':0,'b':1},2,4),0)
     def test_confusion_counts_unknown_and_missing(self):
-        rows=[dict(y3=1,p3=.9),dict(y3=0,p3=.8),dict(y3=1,p3=.1),dict(y3=0,p3=.1),dict(y3=None,p3=.9),dict(y3=1,p3=None)]
+        rows=[dict(y3=1,p3=.9),dict(y3=0,p3=.8),dict(y3=1,p3=.1),dict(y3=0,p3=.1),dict(y3=None,p3=.9),dict(y3=1,p3=None),dict(y3=None,p3=None,eligible=False)]
         result=p.confusion(rows,.5)
         self.assertEqual([result[k] for k in ('TP','FP','FN','TN')],[1,1,1,1])
+        self.assertEqual(result['excluded_attempts'],1)
         self.assertEqual(result['unknown_binary'],1);self.assertEqual(result['missing_forecast_known_binary'],1)
         self.assertEqual(result['precision'],.5);self.assertEqual(result['recall'],.5)
         self.assertIsNone(p.confusion([],1)['precision'])

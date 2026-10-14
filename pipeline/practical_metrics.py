@@ -42,7 +42,8 @@ def confusion(rows,threshold):
     ratio=lambda a,b:a/b if b else None
     return dict(n=len(scored),TP=tp,FP=fp,FN=fn,TN=tn,precision=ratio(tp,tp+fp),
         recall=ratio(tp,tp+fn),f1=ratio(2*tp,2*tp+fp+fn),prevalence=ratio(tp+fn,len(scored)),
-        unknown_binary=sum(r.get('y3') is None for r in rows),
+        unknown_binary=sum(r.get('eligible',True) and r.get('y3') is None for r in rows),
+        excluded_attempts=sum(not r.get('eligible',True) for r in rows),
         missing_forecast_known_binary=sum(r.get('y3') is not None and r.get('p3') is None for r in rows))
 
 

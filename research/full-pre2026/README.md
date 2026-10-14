@@ -27,5 +27,9 @@ The tyre investigation repeats only training fits to diagnose their components.
 Its mean-loss optimization probe emits numerical diagnostics, no model artifact
 or forecast. It does not change B1 or reuse a probe as a repaired candidate.
 
-Results: REPORT.md, audit.json, practical-2/summary.json and
+Results: REPORT.md, audit.json, practical-3/summary.json and
 tyre-diagnostic-1/summary.json. REVIEW.md records the independent outcome.
+
+practical-2 is superseded by practical-3, which separates unknown eligible outcomes
+from attempts without an eligible observation. Forecasts, thresholds and scores
+are identical. Its ledger remains as historical diagnostic provenance.
