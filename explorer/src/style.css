@@ -265,8 +265,9 @@ input[type="checkbox"] {
 }
 .race-context {
   display: grid;
-  grid-template-columns: minmax(280px, 0.85fr) minmax(500px, 1.3fr);
-  gap: 32px;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 0.46fr);
+  gap: 24px;
+  align-items: start;
 }
 .map-controls {
   display: flex;
@@ -282,7 +283,7 @@ input[type="checkbox"] {
 }
 .track {
   width: 100%;
-  height: 360px;
+  height: 330px;
   touch-action: none;
 }
 .circuit {
@@ -438,6 +439,56 @@ summary {
   clip: rect(0, 0, 0, 0);
   overflow: hidden;
 }
+
+.portrait-fallback {
+  display: grid; place-items: center; flex-shrink: 0;
+  border: 1px solid var(--line); color: var(--muted);
+  font-size: 24px; font-weight: bold;
+}
+.timing-heading {
+  display: flex; justify-content: space-between; align-items: baseline;
+  gap: 16px; margin-bottom: 12px;
+}
+.tower-panel { min-width: 0; }
+.map-panel { min-width: 0; border-left: 1px solid var(--line); padding-left: 20px; }
+.tower-panel .table-scroll { max-height: 720px; }
+.timing-table { font-size: 14px; min-width: 360px; }
+.timing-table[data-view="Race"] { min-width: 660px; }
+.timing-table[data-view="Last sectors"],
+.timing-table[data-view="Best sectors"] { min-width: 530px; }
+.timing-table td, .timing-table th { padding: 3px 10px; text-align: right; height: 38px; }
+.timing-table th {
+  position: sticky; top: 0; z-index: 2; background: var(--paper);
+  border-bottom: 2px solid var(--line); font-size: 12px; font-weight: bold;
+}
+.timing-table td { font-family: Consolas, "SFMono-Regular", monospace; font-variant-numeric: tabular-nums; }
+.timing-table th:first-child, .timing-table td:first-child {
+  width: 42px; min-width: 42px; text-align: center;
+  position: sticky; left: 0; background: var(--paper); z-index: 1;
+}
+.timing-table th:nth-child(2), .timing-table td:nth-child(2) {
+  min-width: 98px; text-align: left; padding-left: 0;
+  position: sticky; left: 42px; background: var(--paper); z-index: 1;
+  border-right: 1px solid var(--line);
+}
+.timing-table th:first-child, .timing-table th:nth-child(2) { z-index: 3; }
+.timing-table tbody tr:nth-child(even) { background: color-mix(in srgb, var(--ink) 3%, var(--paper)); }
+.timing-table .selected, .timing-table .selected td:nth-child(-n+2) {
+  background: color-mix(in srgb, var(--accent) 12%, var(--paper));
+}
+.timing-table .driver-toggle {
+  font-family: Arial, sans-serif; font-size: 14px; min-height: 32px;
+  min-width: 82px; text-align: left; padding: 5px 9px;
+}
+.pit-marker { display: inline-block; font-size: 10px; text-transform: uppercase; margin-left: 7px; }
+.timing-table .tyre { justify-content: flex-end; gap: 6px; }
+.timing-table th:last-child, .timing-table td:last-child { text-align: center; width: 58px; }
+.timing-table .view-prediction { min-height: 32px; min-width: 34px; font-size: 18px; padding: 0 6px; }
+.timing-table .prediction-subject .view-prediction { border-color: var(--accent); color: var(--accent); font-weight: bold; }
+.unavailable { color: var(--muted); }
+.map-driver-chooser { display: flex; flex-wrap: wrap; gap: 4px; }
+.map-driver-chooser button { font-size: 11px; min-height: 30px; padding: 4px 7px; }
+.map-driver-chooser button[aria-pressed="true"] { border-color: var(--accent); font-weight: bold; }
 @media (prefers-color-scheme: dark) {
   :root {
     --paper: #191b1c;
@@ -467,6 +518,9 @@ summary {
     height: 310px;
   }
   .map-panel {
+    border-left: 0;
+    border-top: 1px solid var(--line);
+    padding: 18px 0 0;
     max-width: 600px;
     width: 100%;
     margin: auto;
@@ -568,6 +622,9 @@ summary {
   .tabs button {
     padding: 12px 10px;
   }
+  .timing-table .driver-toggle, .timing-table .view-prediction { min-height: 40px; }
+  .tower-panel .table-scroll { max-height: 70vh; }
+  .timing-heading { gap: 8px; }
   .race-row {
     gap: 16px;
     flex-wrap: wrap;

@@ -12,6 +12,7 @@ import {
   overlap,
 } from "./model";
 import "./style.css";
+import DriverPortrait from "./DriverPortrait";
 import { loadPositions, positionAt } from "./positions";
 import type { PositionBundle, PositionFrame } from "./positions";
 const base = import.meta.env.BASE_URL,
@@ -48,7 +49,7 @@ function Modal({
   );
 }
 const fmt = (v: number | null, s = false) =>
-  v === null ? "Not available" : `${s && v > 0 ? "+" : ""}${v.toFixed(3)}`;
+  v === null ? <span className="unavailable" aria-label="Not available" title="Not available">—</span> : `${s && v > 0 ? "+" : ""}${v.toFixed(3)}`;
 export default function App() {
   const [b, setB] = useState<Bundle>();
   const [positions, setPositions] = useState<PositionBundle>();
@@ -153,7 +154,11 @@ export default function App() {
   function compare(id: string) {
     setSelection(toggle(selection, id));
   }
-  function val(raw: number | null, r: number | null) {
+  function val(raw: number | null, r: number | null, lapTime = false) {
+    if (!ref && lapTime && raw !== null) {
+      const ms = Math.round(raw * 1000);
+      return `${Math.floor(ms / 60000)}:${((ms % 60000) / 1000).toFixed(3).padStart(6, "0")}`;
+    }
     return fmt(ref ? difference(raw, r) : raw, !!ref);
   }
   function fastest(row: Row, v: number | null, get: (r: Row) => number | null) {
@@ -274,12 +279,7 @@ export default function App() {
           </div>
           <section className="prediction">
             <div className="identity">
-              <img
-                className="portrait"
-                src={asset(d!.code + ".png")}
-                alt=""
-                onError={(e) => (e.currentTarget.hidden = true)}
-              />
+              <DriverPortrait key={d!.id} src={asset(d!.code + ".png")} code={d!.code} name={d!.name} />
               <div>
                 <strong>{d!.name}</strong>
                 <p className="muted small">{d!.team}</p>
@@ -353,7 +353,9 @@ export default function App() {
                 <>
                   <h2>No prediction for this lap</h2>
                   <p>
-                    {a.reason}{" "}
+                    {a.reason === "The historical baseline has insufficient training evidence for this lap."
+                      ? "This preview was trained on one earlier race. It lacks support for the full remaining race at this lap."
+                      : a.reason}{" "}
                     <button onClick={() => setModal("forecast")}>
                       Why unavailable
                     </button>
@@ -457,13 +459,6 @@ export default function App() {
             >
               {context ? "Hide race context" : "Show race context"}
             </button>
-            <span>
-              {ref
-                ? `Relative to ${b.drivers.find((d) => d.id === ref.driver)!.code}`
-                : selection.length > 1
-                  ? `${selection.length} drivers compared`
-                  : ""}
-            </span>
             {selection.length > 0 && (
               <button onClick={() => setSelection([])}>Clear selection</button>
             )}
@@ -484,26 +479,14 @@ export default function App() {
               <div className="race-context">
                 <section
                   className={
-                    "map-panel " +
-                    (mobile === "Track map" ? "mobile-visible" : "")
-                  }
-                >
-                  <TrackMap
-                    b={b}
-                    rows={frame?.rows || []}
-                    selection={selection}
-                    compare={compare}
-                    positions={positions}
-                    positionFrame={positionAt(positions, time, order)}
-                    positionError={positionError}
-                  />
-                </section>
-                <section
-                  className={
                     "tower-panel " +
                     (mobile === "Race timing" ? "mobile-visible" : "")
                   }
                 >
+                  <header className="timing-heading">
+                    <h2>Race timing</h2>
+                    <span className="caption">{ref ? `Relative to ${b.drivers.find(d => d.id === ref.driver)!.code}` : selection.length > 1 ? `${selection.length} drivers compared` : "Absolute timing"}</span>
+                  </header>
                   <div className="tabs" role="tablist" aria-label="Timing view">
                     {[
                       "Race",
@@ -524,14 +507,14 @@ export default function App() {
                     ))}
                   </div>
                   <div className="table-scroll">
-                    <table>
+                    <table className="timing-table" data-view={tab}>
                       <caption className="sr-only">
                         {tab} at race time {time} seconds
                       </caption>
                       <thead>
                         <tr>
-                          <th>Pos</th>
-                          <th>Driver</th>
+                          <th scope="col">Pos</th>
+                          <th scope="col">Driver</th>
                           {(tab === "Race"
                             ? ["Interval", "Gap", "Tyre", "Last lap", "Lap"]
                             : tab === "Laps"
@@ -547,10 +530,10 @@ export default function App() {
                                       : "Theoretical",
                                   ]
                           ).map((c) => (
-                            <th key={c}>{c}</th>
+                            <th scope="col" key={c}>{c}</th>
                           ))}
                           <th>
-                            <span className="sr-only">Prediction</span>
+                            <span>Forecast</span>
                           </th>
                         </tr>
                       </thead>
@@ -568,7 +551,7 @@ export default function App() {
                             <tr
                               key={r.driver}
                               className={
-                                selection.includes(r.driver) ? "selected" : ""
+                                (selection.includes(r.driver) ? "selected " : "") + (subject === r.driver ? "prediction-subject" : "")
                               }
                             >
                               <td>{r.position ?? "—"}</td>
@@ -576,11 +559,12 @@ export default function App() {
                                 <button
                                   className="driver-toggle"
                                   style={{ borderLeftColor: d.color }}
+                                  title={`${d.name}: toggle comparison`}
                                   aria-pressed={selection.includes(r.driver)}
                                   onClick={() => compare(r.driver)}
                                 >
                                   {d.code}
-                                  {r.pit && " · Pit"}
+                                  {r.pit && <span className="pit-marker">Pit</span>}
                                 </button>
                               </td>
                               {tab === "Race" ? (
@@ -595,7 +579,7 @@ export default function App() {
                                         )}
                                         alt={r.compound ?? "Tyre not available"}
                                       />}
-                                      {r.age === null || (ref && ref.age === null) ? "Not available" : ref
+                                      {r.age === null || (ref && ref.age === null) ? fmt(null) : ref
                                         ? (r.age! - ref.age! > 0 ? "+" : "") +
                                           String(r.age! - ref.age!)
                                         : r.age}
@@ -608,9 +592,9 @@ export default function App() {
                                         : ""
                                     }
                                   >
-                                    {val(r.last, ref?.last ?? null)}
+                                    {val(r.last, ref?.last ?? null, true)}
                                   </td>
-                                  <td>{r.completed ?? "Not available"}</td>
+                                  <td>{r.completed ?? fmt(null)}</td>
                                 </>
                               ) : tab === "Laps" ? (
                                 <>
@@ -623,7 +607,7 @@ export default function App() {
                                           : ""
                                       }
                                     >
-                                      {val(r[k], ref?.[k] ?? null)}
+                                      {val(r[k], ref?.[k] ?? null, true)}
                                     </td>
                                   ))}
                                 </>
@@ -693,7 +677,7 @@ export default function App() {
                                     }
                                   >
                                     {tab === "Last sectors"
-                                      ? val(r.last, ref?.last ?? null)
+                                      ? val(r.last, ref?.last ?? null, true)
                                       : val(
                                           sectors.some((v) => v === null)
                                             ? null
@@ -707,6 +691,7 @@ export default function App() {
                                                 (s, v) => s + v!,
                                                 0,
                                               ),
+                                          true,
                                         )}
                                   </td>
                                 </>
@@ -715,9 +700,11 @@ export default function App() {
                                 <button
                                   className="view-prediction"
                                   aria-label={`View prediction for ${d.name}`}
+                                  title={`View prediction for ${d.name}`}
+                                  aria-current={subject === r.driver ? "true" : undefined}
                                   onClick={() => driver(r.driver)}
                                 >
-                                  View prediction
+                                  <span aria-hidden="true">↗</span>
                                 </button>
                               </td>
                             </tr>
@@ -726,6 +713,22 @@ export default function App() {
                       </tbody>
                     </table>
                   </div>
+                </section>
+                <section
+                  className={
+                    "map-panel " +
+                    (mobile === "Track map" ? "mobile-visible" : "")
+                  }
+                >
+                  <TrackMap
+                    b={b}
+                    rows={frame?.rows || []}
+                    selection={selection}
+                    compare={compare}
+                    positions={positions}
+                    positionFrame={positionAt(positions, time, order)}
+                    positionError={positionError}
+                  />
                 </section>
               </div>
             </>
@@ -1020,7 +1023,9 @@ function TrackMap({
       </div>
       <p className="caption">
         {b.kind === "development" ? positions ? "Track geometry from the preceding qualifying session." : "Car positions unavailable. The circuit outline identifies the layout." : "Illustrative positions on the matching circuit outline."}
-        {selection.length > 1
+        {b.kind === "development" && selection.length > 0
+          ? " Sector comparisons unavailable."
+          : selection.length > 1
           ? " Sector comparisons unavailable."
           : selection.length === 1
             ? " Purple: session best; green: personal best; yellow: slower; grey: unavailable."
