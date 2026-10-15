@@ -4,7 +4,10 @@ from pipeline import hypotheses as run, hypothesis_models as hm, comparison_data
 
 
 def main():
-    output=run.ROOT/'evaluation';run.verify(output,'completion.json')
+    output=run.ROOT/'evaluation'
+    if (output/'delivery-complete.json').exists():
+        run.verify(output,'delivery-complete.json');print('Complete delivery verified; no writes',flush=True);return
+    run.verify(output,'completion.json')
     config=data.read_json(output/'inputs.json');items=[]
     tasks=[(output/'H4_RECENT'/str(y)/'model.json',f'H4-{y}') for y in run.YEARS]
     refit=data.read_json(output/'all-pre2026-refit.json')

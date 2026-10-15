@@ -53,7 +53,7 @@ const chosen=s.recommended,best=s.raw_best;const alert=models[chosen].practical.
 }
 {
  const sl=slide('Training and evaluation','H1-H3 use all earlier admitted races. H4 uses the latest two earlier admitted seasons. 2018 is training only. No admitted 2022 season exists. Unknown outcomes are retained but not assigned no-stop labels. Thresholds use validation through 2024 and apply unchanged in 2025. All of this is development, not fresh confirmation.');
- table(sl,[['Validation year','Earlier races, H1–H3','Validation races'],...[[2019,18,19],[2020,37,12],[2021,49,16],[2023,65,21],[2024,86,23],[2025,109,24]].map(r=>r.map(String))],[300,480,372],154,364,24);
+ table(sl,[['Validation year','Train H1 to H3','Train H4','Validation races'],...[[2019,18,18,19],[2020,37,37,12],[2021,49,31,16],[2023,65,28,21],[2024,86,37,23],[2025,109,44,24]].map(r=>r.map(String))],[300,284,284,284],154,364,24);
  text(sl,'93,650 identical scored checkpoints across 115 races',64,548,1152,48,30,BLUE,true);
  text(sl,'29,166 eligible outcomes remain unknown. No new 2026 data were opened.',64,610,1152,46,24,GRAY);
 }
@@ -61,7 +61,7 @@ const chosen=s.recommended,best=s.raw_best;const alert=models[chosen].practical.
  const sl=slide('Probability scores for every hypothesis','Mean full-distribution negative log probability of the observed region/no-event outcome. Lower is better. Positive improvement favours the hypothesis. These values are not percentage accuracy. Intervals cluster by race and condition on the fitted procedures.');
  table(sl,[['Model','Log score','Improvement','95% interval'],...ids.map(n=>[names[n],score(n),n==='RF_CONTEXT'?'Reference':s.models[n].improvement_over_reference.mean.toFixed(4),n==='RF_CONTEXT'?'':s.models[n].improvement_over_reference.cr2_95.map(v=>v.toFixed(4)).join(' to ')])],[335,175,190,452],165,357,24);
  text(sl,'Lower score means less penalty for the observed stop timing or no-stop result.',64,556,1152,65,25);
- text(sl,'A score change does not directly measure the percentage of correct alerts.',64,620,1152,36,23,GRAY);
+ text(sl,`Earlier benchmark scores: race progress ${prior.models.PERCENT_PROGRESS.mean_log_score.toFixed(4)}. Lap baseline ${prior.models.B0.mean_log_score.toFixed(4)}.`,64,620,1152,36,23,GRAY);
 }
 {
  const sl=slide('Scores across validation seasons','Seasonal log scores on the same matched scored checkpoints. The chart axis is restricted to the displayed score range to show differences. Scores across seasons also reflect different race composition and censoring.');
@@ -81,28 +81,29 @@ const chosen=s.recommended,best=s.raw_best;const alert=models[chosen].practical.
 }
 {
  const sl=slide('Exploratory 2025 alert performance','Threshold maximizes F1 through 2024 on 0.01..0.99, ties highest. 2025 remains previously exposed development. Alerts concern first up to three canonical regions, usually current lap plus next two, with an open-ended last region in short grids. Multiple alerts may concern one stop.');
- table(sl,[['Model','Precision','Recall','False alerts','Stops found'],...ids.map(n=>{const a=models[n].practical.diagnostic_2025,v=a.checkpoint,st=a.unique_stops;return [names[n],pct(v.precision),pct(v.recall),num(v.FP),`${st.detected}/${st.with_known_horizon_checkpoint}`]})],[335,180,170,220,247],164,360,24);
+ text(sl,'An alert usually concerns the current lap and the next two laps.',64,129,1152,30,24,GRAY);
+ table(sl,[['Model','Precision','Recall','F1','False alerts','Stops found'],...ids.map(n=>{const a=models[n].practical.diagnostic_2025,v=a.checkpoint,st=a.unique_stops;return [names[n],pct(v.precision),pct(v.recall),pct(v.f1),num(v.FP),`${st.detected}/${st.with_known_horizon_checkpoint}`]})],[335,145,145,130,200,197],164,360,23);
  text(sl,'Precision: share of alerts that are correct. Recall: share of positive checkpoints alerted.',64,560,1152,65,24);
  text(sl,'Stops found counts distinct stops with known evidence inside the alert horizon.',64,625,1152,34,22,GRAY);
 }
 {
  const sl=slide(`${names[chosen]}: correct and false alerts`,'Checkpoint confusion in 2025 at the threshold selected using earlier validation years. Distinct-stop detection has a different denominator from checkpoint recall. Repeated positive alerts concern already-counted detected stops.');
  table(sl,[['2025 outcome','Model alerts','Model stays silent'],['Stop inside horizon',num(conf.TP)+' correct alerts',num(conf.FN)+' missed positives'],['No stop inside horizon',num(conf.FP)+' false alerts',num(conf.TN)+' correct silence']],[390,381,381],174,228,27);
- text(sl,`${pct(1-conf.precision)} of alerts are false at threshold ${alert.threshold.toFixed(2)}`,64,444,1152,54,34,BLUE,true);
- text(sl,`${alert.false_alerts_per_driver_race.toFixed(1)} false alerts per eligible driver-race\n${alert.unique_stops.detected} of ${alert.unique_stops.with_known_horizon_checkpoint} distinct stops detected. ${num(alert.unique_stops.repeated_positive_alerts)} repeated positive alerts.`,64,526,1152,98,26);
+ text(sl,`${pct(1-conf.precision)} of scored alerts are false at threshold ${alert.threshold.toFixed(2)}`,64,444,1152,54,34,BLUE,true);
+ text(sl,`${alert.false_alerts_per_driver_race.toFixed(1)} false checkpoint alerts per eligible driver-race\n${alert.unique_stops.detected} of ${alert.unique_stops.with_known_horizon_checkpoint} distinct stops detected. ${num(alert.unique_stops.repeated_positive_alerts)} repeated positive alerts.`,64,526,1152,98,26);
 }
 {
  const sl=slide('Calibration and timing windows','Brier score averages squared short-horizon probability error over known binary outcomes. Event coverage is conditional on realized events; predicted mass is mean conditional mass in the selected window. Region width can be open ended at the tail.');
  table(sl,[['Model','Brier score','Median width','Coverage','Predicted mass'],...ids.map(n=>{const v=models[n].practical.validation,w=v.conditional_window_coverage;return [names[n],v.brier_p3.toFixed(4),`${v.window_width.quantiles.median.toFixed(0)} regions`,pct(w.observed),pct(w.expected)]})],[335,190,205,200,222],164,355,23);
  text(sl,'Brier: lower is better. Coverage should agree with the predicted window mass.',64,561,1152,58,25);
- text(sl,'A wide window can cover many stops while giving little timing precision.',64,625,1152,35,24,GRAY);
+ text(sl,'Regions are lap-based. The last region can be open ended. Wide windows are less precise.',64,625,1152,35,22,GRAY);
 }
 {
  const sl=slide('Recommendation and remaining limits','Exact settings, results, 99-threshold tradeoffs, uncertainty, saved models and provenance are retained. Candidate budget is ten of ten. Future research would require a newly bounded reviewed experiment. No viewer replacement, follow-up merge, deployment or final evaluation is part of this delivery.');
- text(sl,`Retain ${names[chosen]} as the research recommendation`,64,166,1152,110,37,BLUE,true);
+ text(sl,`${names[chosen]} is the research recommendation`,64,166,1152,110,37,BLUE,true);
  text(sl,`Raw best score: ${names[best]} (${score(best)}).\nThe registered rule accounts for race-level uncertainty.`,64,300,1152,105,29);
  text(sl,'Practical use remains limited by false alerts, missed stops and broad timing windows.',64,438,1152,90,30,INK,true);
- text(sl,'All findings use development races. Earlier unknown outcomes exceed 40%.\nFour tests exhaust the current candidate budget. The viewer remains unchanged.',64,567,1152,82,25,GRAY);
+ text(sl,'Earlier unknown outcomes exceed 40%. All findings remain development evidence.\nNext research direction: verify circuit and track-status inputs for a new experiment.',64,567,1152,82,25,GRAY);
 }
 
 const draft=path.join(build,'hypotheses-draft.pptx');await(await PresentationFile.exportPptx(p)).save(draft);

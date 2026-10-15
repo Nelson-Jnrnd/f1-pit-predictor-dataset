@@ -1,10 +1,10 @@
 name: Replay Explorer
 on:
   pull_request:
-    paths: ['.gitattributes', 'explorer/**', 'pipeline/**', 'research/model-comparison/**', 'research/race-context/**', 'research/development-race/**', 'research/position-evidence/**', 'verification/POSITION_AUSTRIA_2024.md', '.github/workflows/explorer.yml']
+    paths: ['.gitattributes', 'explorer/**', 'pipeline/**', 'research/model-comparison/**', 'research/race-context/**', 'research/hypotheses/**', 'research/development-race/**', 'research/position-evidence/**', 'verification/POSITION_AUSTRIA_2024.md', '.github/workflows/explorer.yml']
   push:
     branches: [main]
-    paths: ['.gitattributes', 'explorer/**', 'pipeline/**', 'research/model-comparison/**', 'research/race-context/**', 'research/development-race/**', 'research/position-evidence/**', 'verification/POSITION_AUSTRIA_2024.md', '.github/workflows/explorer.yml']
+    paths: ['.gitattributes', 'explorer/**', 'pipeline/**', 'research/model-comparison/**', 'research/race-context/**', 'research/hypotheses/**', 'research/development-race/**', 'research/position-evidence/**', 'verification/POSITION_AUSTRIA_2024.md', '.github/workflows/explorer.yml']
 jobs:
   verify:
     runs-on: ubuntu-latest

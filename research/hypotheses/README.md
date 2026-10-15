@@ -13,6 +13,7 @@ OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 timeout 3600 python -m pipeline.hypothe
 OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 timeout 3600 python -m pipeline.hypotheses --candidate H3_BOOST
 OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 timeout 3600 python -m pipeline.hypotheses --candidate H4_RECENT
 OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 timeout 3600 python -m pipeline.hypotheses --finish
+OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 timeout 1800 env PYTHONPATH=. python research/hypotheses/preserve_b0.py
 PYTHONPATH=. python research/hypotheses/build_report.py
 ```
 
@@ -35,6 +36,15 @@ It verifies the original execution, not equivalence to arbitrary changed current
 code. For another procedure use a newly reviewed registration and new output path.
 Per-candidate summaries may be deterministically regenerated from immutable folds
 before final completion. Final completion binds the whole delivery.
+
+Independent review found that recomputed B0 metadata was referenced but not
+separately saved. `preserve_b0.py` deterministically reconstructs its exact artifact
+identity from each H4 scope and any newly selected refit scope. It must match
+B0_ref, q_open and k_terciles exactly. It preserves the original completion,
+models and forecasts, adds supplemental B0 JSON and an actual read ledger, then
+binds everything in delivery-complete.json. Repeating the helper verifies that
+complete delivery and exits without writes. The pipeline CLI alone verifies its
+original completion; use the helper to verify the complete supplemented delivery.
 
 Private evidence includes the exact execution source snapshot and local Git
 provenance. Git publication uses equivalent source trees through the GitHub

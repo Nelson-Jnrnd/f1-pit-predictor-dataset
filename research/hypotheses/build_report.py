@@ -10,8 +10,10 @@ def main():
     s=data.read_json(ROOT/'evaluation/summary.json');order=list(NAMES)
     models={**s['models'],'RF_CONTEXT':s['reference']}
     pct=lambda x:f'{100*x:.1f}%' if x is not None else 'undefined'
+    chosen_alert=models[s['recommended']]['practical']['diagnostic_2025']['checkpoint']
     lines=['# Four pit-prediction hypotheses', '',
         f"The lowest probability penalty is {s['means'][s['raw_best']]:.6f} from {NAMES[s['raw_best']]}. The registered uncertainty rule recommends {NAMES[s['recommended']]}. These are exploratory development findings.", '',
+        f"Among exploratory 2025 alerts with known outcomes, {chosen_alert['FP']:,} of {chosen_alert['TP']+chosen_alert['FP']:,} alerts are false. Precision is {pct(chosen_alert['precision'])} and recall is {pct(chosen_alert['recall'])}. False alerts and missed stops remain material. These results do not establish dependable operational use.", '',
         '## Scores', '', '| Hypothesis | Mean log score | Improvement over current forest | 95% race-cluster interval |', '| --- | ---: | ---: | --- |']
     for n in order:
         r=s['models'].get(n);delta=r['improvement_over_reference'] if r else None
@@ -29,7 +31,7 @@ def main():
         pr=models[n]['practical'];a=pr['diagnostic_2025'];v=a['checkpoint'];st=a['unique_stops']
         lines.append(f"| {NAMES[n]} | {a['threshold']:.2f} | {pct(v['precision'])} | {pct(v['recall'])} | {pct(v['f1'])} | {v['FP']:,} | {st['detected']}/{st['with_known_horizon_checkpoint']} |")
     best=models[s['recommended']]['practical']['diagnostic_2025'];v=best['checkpoint'];st=best['unique_stops']
-    lines+=['',f"Recommended-model confusion: TP={v['TP']:,}, FP={v['FP']:,}, FN={v['FN']:,}, TN={v['TN']:,}. False alerts per eligible driver-race: {best['false_alerts_per_driver_race']:.2f}. Repeated positive checkpoint alerts: {st['repeated_positive_alerts']:,}.", '',
+    lines+=['',f"Recommended-model confusion: TP={v['TP']:,}, FP={v['FP']:,}, FN={v['FN']:,}, TN={v['TN']:,}. False checkpoint alerts per eligible driver-race: {best['false_alerts_per_driver_race']:.2f}. Repeated positive checkpoint alerts: {st['repeated_positive_alerts']:,}.", '',
         'These alerts concern the first up to three canonical regions, usually the current lap and next two. Short grids retain an open-ended final region. Several alerts can concern the same stop. Distinct-stop detection uses stops with known in-horizon evidence, which excludes stops without such evidence.', '',
         f"Positive prevalence in 2025 is {pct(v['prevalence'])}. Always alerting has that precision and 100% recall. Never alerting has zero recall and undefined precision. Unknown eligible outcomes: {v['unknown_binary']:,}. Excluded attempts: {v['excluded_attempts']:,}. Missing forecasts on known binary outcomes: {v['missing_forecast_known_binary']}.", '',
         '## Calibration and timing windows', '', '| Model | Short-horizon Brier | Median window regions | Event coverage | Predicted conditional mass |', '| --- | ---: | ---: | ---: | ---: |']
