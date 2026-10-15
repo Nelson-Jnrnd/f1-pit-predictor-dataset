@@ -115,7 +115,7 @@ for n in s['models']:
 u=alert['unique_stops']
 text+=f'''
 Selected-model confusion: **{counts['TP']:,} correct alerts**, **{counts['FP']:,}
-false alerts, **{counts['FN']:,} missed positive checkpoints**, and
+false alerts**, **{counts['FN']:,} missed positive checkpoints**, and
 **{counts['TN']:,} correct no-alert checkpoints**. Positive prevalence is
 {pct(counts['prevalence'])}. Always alerting yields that precision and100% recall;
 never alerting yields0% recall and undefined precision. Accuracy alone would hide
@@ -182,6 +182,6 @@ prediction quality.
 import re
 text=re.sub(r'(?<=[A-Za-z]{2})(?=\d)', ' ',text)
 text=re.sub(r'(?<=\d)(?=[A-Za-z])', ' ',text)
-text=text.replace('of**','of **').replace('is**','is **').replace('for**','for **')
+text=text.replace('of**','of **').replace('is**','is **').replace('for**','for **').replace('versus**','versus **').replace('spans**','spans **').replace('CR 2','CR2').replace(';2025','; 2025').replace('binary outcomes:','binary outcomes: ')
 (root/'REPORT.md').write_text(text)
 print('Report generated from frozen summary')

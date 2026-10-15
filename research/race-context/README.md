@@ -81,3 +81,9 @@ numeric arrays for confusion counts; all99 thresholds must exactly match the
 original policy on mixed known/unknown/missing fixtures. Forest settings, targets,
 forecasts, selection and threshold rules do not change. The ordinary runner also
 converts NumPy summary scalars to native JSON values before writing.
+
+The in-flight recovery's last metadata-only completion check used the previous
+pinned runner hash after the final serialization edit. A fresh
+`python -m pipeline.race_integrity complete` validated the finished refit and bound
+all 62 payloads. Original failure logs are retained in the private validation archive;
+no completed forest fit or forecast was rerun to resolve that metadata check.
