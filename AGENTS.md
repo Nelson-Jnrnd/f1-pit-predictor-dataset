@@ -30,3 +30,7 @@ Before working on a bounded task, read:
 12. Architecture/design, verification, and implementation may refine lower-level details but may not silently change approved product or prediction semantics.
 
 Start with the smallest artifact set that satisfies the current task. Avoid speculative governance, architecture, schemas, APIs, libraries, or algorithms outside scope.
+
+## Communication
+
+Follow the plain-language writing rule in `governance/USER_INTERACTION.md#writing-style` for every project text, including chat, issues, reports, slides, documentation, and UI copy.
