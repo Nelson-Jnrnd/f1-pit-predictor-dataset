@@ -19,10 +19,15 @@ provenance, reproducible sources/artifacts and limitations are under
 `research/development-race`. See `pipeline/README.md` to regenerate a fresh local run.
 The early B0 training-support gaps remain selectable failures, not fabricated tails.
 
-Position availability and matching coordinates are not established by the approved
-source matrix: the map shows the 2024 Red Bull Ring outline with an unavailable notice
-and no invented car markers. All 20 cars remain selectable in race timing. Sector/minis
-values are explicitly unavailable. Missing tyre ages and pit states are not zero/false.
+Historical coordinates are a separate hash-bound sidecar for Austria 2024 R11.
+All displayed cars share one defensibly published common sample; the map explicitly
+labels its age. Matching geometry comes from the preceding qualifying session,
+fixed before race start. No interpolation or race-future fitting is used. Unknown,
+invalid, off-corridor and sample-time pit positions are omitted; all 20 cars remain
+selectable in race timing. Sector/minis remain unavailable. See
+`verification/POSITION_AUSTRIA_2024.md` and `research/position-evidence` for the scoped
+archive authority, inherited assumptions and limitations. Missing or rejected
+position exports leave the original timing and forecast bundle usable.
 
 Clock navigation preserves equal-prefix source publication order as well as elapsed
 race seconds. Subject switching retains the field-wide instant and selects its latest

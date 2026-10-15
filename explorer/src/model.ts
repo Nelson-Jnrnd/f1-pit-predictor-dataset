@@ -315,5 +315,10 @@ export async function loadBundle(base: string): Promise<Bundle> {
   const hash = Array.from(new Uint8Array(await crypto.subtle.digest("SHA-256", new TextEncoder().encode(raw))))
     .map(x => x.toString(16).padStart(2, "0")).join("");
   if (hash !== release.sha256) throw Error("This replay cannot be opened.");
-  return validate(JSON.parse(raw));
+  const bundle = validate(JSON.parse(raw));
+  verifiedBundleHashes.set(bundle, hash);
+  return bundle;
 }
+
+const verifiedBundleHashes = new WeakMap<Bundle, string>();
+export const verifiedBundleHash = (bundle: Bundle) => verifiedBundleHashes.get(bundle);

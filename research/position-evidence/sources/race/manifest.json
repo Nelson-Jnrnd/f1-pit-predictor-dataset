@@ -1,0 +1,24 @@
+{
+  "season": 2024,
+  "round": 11,
+  "date": "2024-06-30",
+  "session": "R",
+  "files": {
+    "Position.z": {
+      "url": "https://livetiming.formula1.com/static/2024/2024-06-30_Austrian_Grand_Prix/2024-06-30_Race/Position.z.jsonStream",
+      "last_modified": "Sun, 30 Jun 2024 14:51:34 GMT",
+      "etag": "\"3a9672e2582d83e3893a97484ac235df\"",
+      "bytes": 8283451,
+      "sha256": "8543bfc9819ef8b9145284b4fff09899bbeddcfc973d48dcf638a95ed0a645ea",
+      "retrieved_at": "2026-10-13T14:21:51.173636+00:00"
+    },
+    "SessionInfo": {
+      "url": "https://livetiming.formula1.com/static/2024/2024-06-30_Austrian_Grand_Prix/2024-06-30_Race/SessionInfo.jsonStream",
+      "last_modified": "Sun, 30 Jun 2024 14:51:35 GMT",
+      "etag": "\"f9f50651433a9099167d78b9dc94388a\"",
+      "bytes": 485,
+      "sha256": "e4d1c124378c41af4eb2d7af2d3022d57dac45989404e204bdd22abb4fcffaed",
+      "retrieved_at": "2026-10-13T14:21:50.526790+00:00"
+    }
+  }
+}

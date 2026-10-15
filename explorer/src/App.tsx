@@ -12,6 +12,8 @@ import {
   overlap,
 } from "./model";
 import "./style.css";
+import { loadPositions, positionAt } from "./positions";
+import type { PositionBundle, PositionFrame } from "./positions";
 const base = import.meta.env.BASE_URL,
   asset = (s: string) => base + "assets/" + s;
 function Modal({
@@ -49,6 +51,8 @@ const fmt = (v: number | null, s = false) =>
   v === null ? "Not available" : `${s && v > 0 ? "+" : ""}${v.toFixed(3)}`;
 export default function App() {
   const [b, setB] = useState<Bundle>();
+  const [positions, setPositions] = useState<PositionBundle>();
+  const [positionError, setPositionError] = useState("");
   const [error, setError] = useState("");
   const [retry, setRetry] = useState(0);
   const [open, setOpen] = useState(false);
@@ -69,6 +73,15 @@ export default function App() {
       })
       .catch((e) => setError(e.message));
   }, [retry]);
+  useEffect(() => {
+    if (!b || b.kind !== "development") return;
+    let active = true;
+    setPositions(undefined);
+    setPositionError("");
+    loadPositions(base, b).then(p => { if (active) setPositions(p); })
+      .catch(e => { if (active) setPositionError(e.message); });
+    return () => { active = false; };
+  }, [b]);
   useEffect(() => {
     if (!b) return;
     function restore() {
@@ -480,6 +493,9 @@ export default function App() {
                     rows={frame?.rows || []}
                     selection={selection}
                     compare={compare}
+                    positions={positions}
+                    positionFrame={positionAt(positions, time, order)}
+                    positionError={positionError}
                   />
                 </section>
                 <section
@@ -731,7 +747,7 @@ export default function App() {
                 finishes.
               </p>
               <p>
-                {b?.kind === "development" ? "These saved forecasts use a simple historical baseline fitted on the preceding Spanish race. Car positions and sector comparisons are unavailable. Historical timing is reconstructed with conservative availability bounds." : "This preview uses illustrative timing and forecasts."} Race information can be incomplete, and a prediction can be wrong.
+                {b?.kind === "development" ? "These saved forecasts use a simple historical baseline fitted on the preceding Spanish race. Position samples can be older than the selected race time. Sector comparisons are unavailable. Historical timing is reconstructed with conservative availability bounds." : "This preview uses illustrative timing and forecasts."} Race information can be incomplete, and a prediction can be wrong.
               </p>
               <h3>Image credits</h3>
               <p>
@@ -825,11 +841,17 @@ function TrackMap({
   rows,
   selection,
   compare,
+  positions,
+  positionFrame,
+  positionError,
 }: {
   b: Bundle;
   rows: Row[];
   selection: string[];
   compare: (id: string) => void;
+  positions?: PositionBundle;
+  positionFrame?: PositionFrame;
+  positionError?: string;
 }) {
   const [path, setPath] = useState(""),
     [zoom, setZoom] = useState(1),
@@ -863,6 +885,8 @@ function TrackMap({
         }),
     );
   }, [path, rows]);
+  const displayPath = positions ? positions.geometry.map((p, i) => `${i ? "L" : "M"}${p[0]} ${p[1]}`).join(" ") + " Z" : path;
+  const displayPoints = b.kind === "development" ? positionFrame?.points.map(p => ({ id: p.driver, x: p.x, y: p.y })) ?? [] : points;
   return (
     <>
       <div className="map-controls">
@@ -915,7 +939,7 @@ function TrackMap({
         <g
           transform={`translate(${pan.x + 20} ${pan.y + 20}) translate(250 250) rotate(${rotation}) scale(${zoom}) translate(-250 -250)`}
         >
-          <path ref={ref} d={path} className="circuit" />
+          <path ref={ref} d={displayPath} className="circuit" />
           {selection.length === 1 &&
             rows
               .find((r) => r.driver === selection[0])
@@ -939,7 +963,7 @@ function TrackMap({
                   strokeDashoffset={-i}
                 />
               ))}
-          {points.map((p) => {
+          {displayPoints.map((p) => {
             const d = b.drivers.find((d) => d.id === p.id)!;
             return (
               <g
@@ -974,27 +998,28 @@ function TrackMap({
           })}
         </g>
       </svg>
-      {!path && <p>Track map unavailable</p>}
-      {rows.some((r) => r.progress === null) && (
+      {!displayPath && <p>Track map unavailable</p>}
+      {positionError && <p role="status">{positionError}</p>}
+      {positionFrame?.sample && <p className="caption">Positions recorded approximately {Math.round(positionFrame.time - positionFrame.sample.time)} seconds earlier.</p>}
+      {(b.kind === "development" ? displayPoints.length < rows.length : rows.some((r) => r.progress === null)) && (
         <p className="caption">
-          {b.kind === "development" ? "Positions unavailable. All drivers remain in race timing." : "Some positions unavailable. All drivers remain in race timing."}
+          {b.kind === "development" && !displayPoints.length ? "Positions unavailable. All drivers remain in race timing." : "Some positions unavailable. All drivers remain in race timing."}
         </p>
       )}
       <div className="map-driver-chooser" aria-label="Drivers on track">
-        {rows
-          .filter((r) => r.progress !== null)
-          .map((r) => (
+        {(b.kind === "development" ? displayPoints.map(p => p.id) : rows.filter(r => r.progress !== null).map(r => r.driver))
+          .map((id) => (
             <button
-              key={r.driver}
-              aria-pressed={selection.includes(r.driver)}
-              onClick={() => compare(r.driver)}
+              key={id}
+              aria-pressed={selection.includes(id)}
+              onClick={() => compare(id)}
             >
-              {b.drivers.find((d) => d.id === r.driver)!.code}
+              {b.drivers.find((d) => d.id === id)!.code}
             </button>
           ))}
       </div>
       <p className="caption">
-        {b.kind === "development" ? "Car positions unavailable. The circuit outline identifies the layout." : "Illustrative positions on the matching circuit outline."}
+        {b.kind === "development" ? positions ? "Track geometry from the preceding qualifying session." : "Car positions unavailable. The circuit outline identifies the layout." : "Illustrative positions on the matching circuit outline."}
         {selection.length > 1
           ? " Sector comparisons unavailable."
           : selection.length === 1
