@@ -13,7 +13,7 @@ from . import race_features as features
 ROOT=features.ROOT
 EXECUTION='d132510'
 # Any runner change requires fresh explicit review of original-cache equivalence.
-APPROVED_RUNNER_SHA='c082b19a178eb8f6976d1079d8616a9f02e18d5cfb3431909e45b9567e8ea11c'
+APPROVED_RUNNER_SHA='cc9078a163259bc98b90d124c69513f580bf8fd0d7bbfce13e606cd4b4d8958e'
 MODULES=('race_context.py','race_models.py','race_features.py','comparison.py','comparison_data.py',
          'comparison_models.py','expanded_models.py','expanded_comparison.py','expanded_sources.py','development.py','practical_metrics.py')
 

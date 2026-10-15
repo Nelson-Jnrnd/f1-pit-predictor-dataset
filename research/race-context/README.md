@@ -61,3 +61,23 @@ record. It never silently rewrites an old completion config or model identity.
 Completed runs are immutable: invoking the updated runner on a completed delivery
 verifies its bound payloads and exits without rewriting summaries, selections,
 refit models or artifact IDs. Use a new output path for a new execution.
+
+## Aggregate recovery
+
+The initial forecast execution completed all six folds, but saving the pooled
+summary failed because repeated-alert sums contained NumPy integer scalars.
+No summary, selection or full-data refit was saved by that failed attempt.
+All completed forecasts and their hashes survived unchanged. Run:
+
+```sh
+python -m pipeline.race_finish
+```
+
+This verifies the exact original fold/code identities, aggregates the saved JSON
+scores and practical rows, freezes selection with the complete input/fold bindings,
+and performs the first selected full-data refit. Its analysis-code identity is
+separate from the original forecast-execution identity. The recovery uses cached
+numeric arrays for confusion counts; all99 thresholds must exactly match the
+original policy on mixed known/unknown/missing fixtures. Forest settings, targets,
+forecasts, selection and threshold rules do not change. The ordinary runner also
+converts NumPy summary scalars to native JSON values before writing.

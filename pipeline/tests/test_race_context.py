@@ -95,4 +95,15 @@ class RaceIntegrityTests(unittest.TestCase):
                 integrity.verify_completed_output(root)
 
 
+    def test_recovery_confusion_matches_original_at_every_threshold(self):
+        from pipeline import race_finish, practical_metrics as metrics
+        rows=[dict(y3=y,p3=prob,eligible=eligible) for y in (0,1,None)
+              for prob in (None,0.,np.float64(.24),1.) for eligible in (False,True)]
+        for threshold in metrics.THRESHOLDS:
+            self.assertEqual(metrics.confusion(rows,threshold),race_finish.confusion(rows,threshold))
+        # A different cohort must not reuse cached arrays from an earlier list.
+        rows2=[dict(y3=1,p3=1.)]
+        self.assertEqual(metrics.confusion(rows2,.5),race_finish.confusion(rows2,.5))
+
+
 if __name__=='__main__':unittest.main()

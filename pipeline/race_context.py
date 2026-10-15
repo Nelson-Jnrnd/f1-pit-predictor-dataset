@@ -190,6 +190,8 @@ def main():
         (folder/'predictions.partial.json.gz').unlink(missing_ok=True);scores_all.extend(scores);practical_all.extend(practical_rows)
     summary=selection(scores_all);summary['by_season']={str(year):selection([r for r in scores_all if r['key'][0].startswith(str(year)+'-')]) for year in sorted({r['season'] for r in partition})[1:]}
     summary['practical']=practical(practical_all);summary.update(registration_hash=reg,code_hash=code,dependencies=versions)
+    # NumPy comparison/sum scalars carry the same value but need native JSON types.
+    summary=json.loads(json.dumps(summary,default=lambda value:value.item()))
     data.write_json(args.output/'summary.json',summary)
     if summary['selected'] is None:raise ValueError('No supported selection')
     input_identity=dict(partition_sha256=d.digest(partition),audit_sha256=sha(ROOT/'features/audit.json'),
