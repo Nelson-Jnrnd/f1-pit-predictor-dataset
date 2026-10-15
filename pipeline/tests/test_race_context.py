@@ -1,0 +1,109 @@
+import copy
+from pathlib import Path
+import tempfile
+import unittest
+import numpy as np
+from pipeline import race_features as f, race_models as rf, comparison_models as m
+
+
+def observation(lap=8):
+    return dict(artifact_id='obs',semantic_observation_key=['2024-R10-R','1',lap],selected_driver_completed_laps=lap,
+        canonical_state=dict(timing={'1':dict(_last_time_completed_lap=lap,LastLapTime={'Value':'1:30.0'},
+            BestLapTime={'Lap':4,'Value':'1:28.5'},Position='3',GapToLeader='+4.5',IntervalToPositionAhead={'Value':'+0.9'})}),
+        causal_input_fact_refs=['source:4'])
+
+
+class RaceFeaturesTests(unittest.TestCase):
+    def test_unfinished_or_future_lap_values_never_supply_pace(self):
+        o=observation();o['canonical_state']['timing']['1']['_last_time_completed_lap']=9
+        o['canonical_state']['timing']['1']['BestLapTime']['Lap']=9
+        values=f.view(o)['values']
+        self.assertIsNone(values['last_lap']);self.assertIsNone(values['best_lap']);self.assertIsNone(values['pace_delta'])
+
+    def test_future_and_target_fields_are_ignored(self):
+        o=observation();before=f.view(o)
+        o['canonical_state']['timing']['1'].update(PitStatus='InLap',NextCompound='SOFT',NumberOfPitStops=4,CurrentLapTime='0:54')
+        self.assertEqual(before,f.view(o))
+
+    def test_lapped_or_invalid_fields_stay_missing(self):
+        o=observation();t=o['canonical_state']['timing']['1'];t.update(GapToLeader='1 LAP',Position='-1',IntervalToPositionAhead={'Value':'nan'})
+        result=f.view(o)
+        self.assertTrue({'gap','position','interval'}<=set(result['omissions']))
+        self.assertEqual(result['values']['pace_delta'],1.5)
+
+    def test_inference_freezes_context_and_advances_only_registered_projection(self):
+        row=dict(grid=dict(L=8,N_T=60,K_T=52),tyre=dict(age=4,compound='MEDIUM'),race_features=f.view(observation()))
+        first=rf.design(row,0,'RF_CONTEXT');later=rf.design(row,10,'RF_CONTEXT')
+        self.assertEqual(first[14:],later[14:]);self.assertEqual(later[6]-first[6],10)
+        row['tyre']={'fallback':'STINT_MISSING'}
+        values=rf.design(row,4,'RF_TYRE');self.assertEqual(values[6:8],[-1.,1.]);self.assertEqual(sum(values[8:]),0)
+
+    def test_forest_output_retains_terminal_mass_and_matches_grid(self):
+        row=dict(grid=dict(L=8,N_T=12,K_T=4),tyre=dict(age=4,compound='MEDIUM'),race_features=f.view(observation()))
+        units=[(copy.deepcopy(row),dict(kind='REALIZED_REGION',j=1)) for _ in range(250)]
+        units.extend((copy.deepcopy(row),dict(kind='REALIZED_NO_EVENT')) for _ in range(250))
+        b0=dict(cutoff='2024-01-01',q_open=.8,k_terciles=[3,8],dataset_refs=[])
+        with tempfile.TemporaryDirectory() as tmp:
+            model,estimator=rf.fit(units,'RF_CONTEXT',b0,Path(tmp),'reg')
+            rows=[row,{**row,'grid':dict(L=12,N_T=12,K_T=1)}]
+            distributions=rf.distributions(rows,'RF_CONTEXT',model,estimator)
+        for dist in distributions:
+            p=dist['event_region_probabilities'];q=dist['terminal_no_event_probability']
+            self.assertEqual(len(p),dist['region_grid']['K_T']);self.assertAlmostEqual(sum(p)+q,1)
+            self.assertTrue(all(np.isfinite(v) and v>=1e-6 for v in p+[q]))
+        self.assertAlmostEqual(distributions[1]['terminal_no_event_probability'],.8*(1-2e-6)+1e-6)
+        self.assertIsNone(model['parameters']['class_weight'])
+
+
+class RaceIntegrityTests(unittest.TestCase):
+    def test_original_execution_guard_detects_transitive_dependency_change(self):
+        from unittest.mock import patch
+        import shutil
+        from pipeline import race_integrity as integrity
+        integrity.verify_original_numerics()
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp);(root/'pipeline').mkdir()
+            for name in integrity.MODULES:
+                shutil.copyfile(integrity.d.ROOT/'pipeline'/name,root/'pipeline'/name)
+            path=root/'pipeline/comparison_models.py'
+            path.write_text(path.read_text()+'\n# Simulated dependency revision\n')
+            with patch.object(integrity.d,'ROOT',root):
+                with self.assertRaisesRegex(ValueError,'digest mismatch'):
+                    integrity.verify_original_numerics()
+
+    def test_full_refit_rejects_changed_saved_artifact(self):
+        from unittest.mock import patch
+        from pipeline import race_integrity as integrity, comparison_data as data
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp);(root/'evaluation').mkdir()
+            path=root/'evaluation/all-pre2026-refit.json';path.write_text('{}')
+            data.write_json(root/'DELIVERY.json',dict(evidence={'evaluation/all-pre2026-refit.json':'wrong'}))
+            with patch.object(integrity.e,'ROOT',root):
+                with self.assertRaisesRegex(ValueError,'hash mismatch'):
+                    integrity.verified_full_refit([])
+
+
+    def test_completed_delivery_rejects_payload_changes(self):
+        from pipeline import race_integrity as integrity, comparison_data as data
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp);payload=root/'all-pre2026-refit.json'
+            data.write_json(payload,dict(training_races=[]))
+            data.write_json(root/'completion.json',dict(files={payload.name:integrity.sha(payload)}))
+            integrity.verify_completed_output(root)
+            payload.write_text('{}')
+            with self.assertRaisesRegex(ValueError,'payload changed'):
+                integrity.verify_completed_output(root)
+
+
+    def test_recovery_confusion_matches_original_at_every_threshold(self):
+        from pipeline import race_finish, practical_metrics as metrics
+        rows=[dict(y3=y,p3=prob,eligible=eligible) for y in (0,1,None)
+              for prob in (None,0.,np.float64(.24),1.) for eligible in (False,True)]
+        for threshold in metrics.THRESHOLDS:
+            self.assertEqual(metrics.confusion(rows,threshold),race_finish.confusion(rows,threshold))
+        # A different cohort must not reuse cached arrays from an earlier list.
+        rows2=[dict(y3=1,p3=1.)]
+        self.assertEqual(metrics.confusion(rows2,.5),race_finish.confusion(rows2,.5))
+
+
+if __name__=='__main__':unittest.main()

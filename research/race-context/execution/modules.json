@@ -1,0 +1,17 @@
+{
+  "execution_local_revision": "d132510",
+  "modules": {
+    "race_context.py": "9e952947080bf1ba84b5d8759b570b9686ae21e6ed072e70c9aa8fd0d254bcf7",
+    "race_models.py": "9ac1bd356ec9580209e8d5a35ba11d95d015c043f62bc4fc30b1ed3838975789",
+    "race_features.py": "a2638bef5e99f529589c976c88bb683a4e676e9adfa34be0420e461890229301",
+    "comparison.py": "44a848c23480ace65cc2c41c55e8d573a33b5f9c1b6d6da4d8e15f5ff99e3ff1",
+    "comparison_data.py": "61dd1dd5239b0d732ee82a7829ebf59cfe8b173c04e361672804d268850eaf37",
+    "comparison_models.py": "e671ecacd6903cc16c90793e2af0c18a463154343cbe4169c70cae90895ec7a4",
+    "expanded_models.py": "d0a489c43f6101f35758fb3b8a3addcbf147ae16c494779b7b67c627df02a6c5",
+    "expanded_comparison.py": "52d2f1e3d9e43c4543c9904abd178121aca013093a5e0b13c4e6c0561b1f9cef",
+    "expanded_sources.py": "8e439946fe5c4a723e8c995b253d907939f8ce1143335974fb3ffb70aa669efb",
+    "development.py": "e1604257d2448d7ec80c67a0bb1626e7f31a601216b93d8e899f5c070b1d1f34",
+    "practical_metrics.py": "0a95d9ca8a136943afc14db2f85bb150a41148302e94eb52c4468e7506fb7a69"
+  },
+  "interpretation": "Exact original code hashes; original runner snapshot retained for portable metadata-only identity verification"
+}

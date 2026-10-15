@@ -385,3 +385,19 @@ under `research/expanded-pre2026/admission/` own the new support extension.
 Until their independent passing review and fixed list are committed, older
 sessions remain unadmitted. The original matrix remains the authority for the
 frozen earlier experiment. Known unsupported verdicts are preserved.
+
+## Issue #57 timing-feature extension
+
+The bounded interpretation in research/race-context/REGISTRATION.md permits only
+completed-lap timing, timing-tower rank and numeric gap/interval leaves from the
+already admitted TimingData state. It does not admit track coordinates, sectors,
+speeds, weather or track status. Original observation quality and all historical
+artifacts remain immutable. The private feature audit references their exact
+identities and records this narrower interpretation separately.
+
+All 133 admitted races retain their source-specific assumptions: RA1–4 for the
+39 race-day sessions; RA1–3/5/6 for the 94 older sessions. Internal raw-state checks
+cannot establish independent rank correctness or historical-version fidelity.
+Missing values remain explicit. FEATURE_REVIEW.md and its hash attestation gate
+training after full parent/row/missingness checks and five raw-state samples per
+race. No 2026 scope is widened or opened.

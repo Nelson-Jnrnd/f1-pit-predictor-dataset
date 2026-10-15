@@ -13,3 +13,7 @@ research/model-comparison/**/*.xz -text
 pipeline/comparison*.py text eol=lf
 pipeline/development.py text eol=lf
 research/model-comparison/provenance/*.bundle -text
+
+# Keep issue57 execution and feature-attestation hashes portable on Windows.
+pipeline/*.py text eol=lf
+research/race-context/** -text
