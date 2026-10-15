@@ -368,6 +368,7 @@ def initialize(observation_run):
 
 def retrospective_catalog(records, clock, source, allow_restarts=False):
     """Target-owned retrospective traversal. No output enters causal observations."""
+    authority = source.get('availability_validation_ref', AUTHORITY)
     visits, laps, state, advance = {}, {}, {}, {}
     for r in records['TimingData']:
         p = r['prefix']
@@ -390,7 +391,7 @@ def retrospective_catalog(records, clock, source, allow_restarts=False):
             terminal[d] = artifact('TerminalBoundary', bounds=[finishing[0]-5,finishing[0]+5], driver_entry_key=d,
                 terminal_kind='DRIVER_PARTICIPATION_TERMINAL', method_version='finish-crossing-after-leader/v1',
                 evidence_refs=[finishing[3]]+[r['ref'] for r in records['SessionStatus'] if r['payload']['Status']=='Finished'],
-                support_validation_ref=AUTHORITY)
+                support_validation_ref=authority)
             continue
         last_advance = seq[-1][0]
         end_flag = next((r for r in records['TimingData'] if last_advance <= r['prefix'] <= clock['end']
@@ -402,7 +403,7 @@ def retrospective_catalog(records, clock, source, allow_restarts=False):
                              r['payload'].get('Lines', {}).get(d, {}).get('Retired') is True)), None)
         terminal[d] = artifact('TerminalBoundary',bounds=[last_advance-5,end_flag['prefix']+5],driver_entry_key=d,
             terminal_kind='DRIVER_PARTICIPATION_TERMINAL',method_version='last-advance-to-terminal-flag/v1',
-            evidence_refs=[seq[-1][3],end_flag['ref']],support_validation_ref=AUTHORITY) if end_flag is not None else None
+            evidence_refs=[seq[-1][3],end_flag['ref']],support_validation_ref=authority) if end_flag is not None else None
     for d, vs in visits.items():
         for i, v in enumerate(vs):
             hi = vs[i+1]['entry'] if i+1 < len(vs) else clock['end'] + 5
@@ -422,7 +423,7 @@ def retrospective_catalog(records, clock, source, allow_restarts=False):
             v['kind']='ReconstructedPitVisitArtifact'
             v['source_snapshot_manifest_ref']=source['artifact_id']
             v['source_lineage']=[v['entry_ref']]+refs
-            v['support_validation_ref']=AUTHORITY
+            v['support_validation_ref']=authority
             v['pit_entry_occurrence']=dict(lower_bound=v['entry']-5,upper_bound=v['entry']+5,source_evidence_refs=[v['entry_ref']])
             v['visit_artifact']=artifact('ReconstructedPitVisitArtifact',**{k:value for k,value in v.items() if k!='kind'})
             term=terminal.get(d)
@@ -431,14 +432,14 @@ def retrospective_catalog(records, clock, source, allow_restarts=False):
                     driver_entry_key=d,pit_entry_occurrence=v['pit_entry_occurrence'],
                     service_qualification='CONFIRMED_TYRE_SERVICE',source_lineage=v['source_lineage'],
                     race_participation_scope='RACE_PARTICIPATION',terminal_boundary_ref=term['artifact_id'],
-                    visit_terminal_relation='STRICTLY_BEFORE_TERMINAL',support_validation_ref=AUTHORITY)
+                    visit_terminal_relation='STRICTLY_BEFORE_TERMINAL',support_validation_ref=authority)
             # The enclosing catalog binds the visit and its independently typed event.
 
     return artifact('RetrospectiveCatalog', visits=visits, terminal=terminal, source_snapshot_manifest_ref=source['artifact_id'],
                     coverage=dict(source_record_integrity='PASS', streams={f:dict(record_count=len(rs),first_prefix=rs[0]['prefix'],last_prefix=rs[-1]['prefix']) for f,rs in records.items()},
                                   unsupported_windows=clock['unhealthy'],validated_capabilities=['pit-entry','service-positive','lap-counter','terminal-bounds'],
-                                  support_validation_ref=AUTHORITY),
-                    method_version=VERSION, validation_ref=AUTHORITY,
+                                  support_validation_ref=authority),
+                    method_version=VERSION, validation_ref=authority,
                     limitations=['No independent tyre-change ground truth', 'Penalty negatives conservatively indeterminate'])
 
 
@@ -481,7 +482,7 @@ def resolve(initializations, observations, catalog, clock):
         if event:
             fields.update(qualifying_event_ref=event['qualifying_event']['artifact_id'], entry_lap_context=artifact('EntryLapContext',
                 qualifying_event_ref=event['qualifying_event']['artifact_id'], c_exact=event['completed'], entry_ref=event['entry_ref'],
-                derivation_version='stream-counter/v1', validation_ref=AUTHORITY))
+                derivation_version='stream-counter/v1', validation_ref=catalog.get('validation_ref', AUTHORITY)))
         resolutions.append(artifact('TargetResolutionArtifact', **fields))
     return artifact('ResolutionRun', resolution_run_id=resolution_run_id, repository_revision=revision(), target_initialization_run_ref=initializations['artifact_id'], records=resolutions)
 

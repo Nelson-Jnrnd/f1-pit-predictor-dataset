@@ -1,0 +1,2315 @@
+{
+  "evidence": {
+    "REGISTRATION.md": "435a50fec97254749ad300211f3e7fa49c6ad07137947e5176f02a8100b8e01c",
+    "admission/verify.json": "0d171fcc90d1bfa1c24e31e938c6c6b0916334e6779f1241a12761be52371c70",
+    "dataset/2018-01/manifest.json": "989207d821c74a83b667002a2ce723a5ab276d23ecc3a528495136bbbdbed542",
+    "dataset/2018-03/manifest.json": "a3ec6f086e945f027cfaecd2c29a4757ed60900f3a434b167dab0b0d44e7f1d8",
+    "dataset/2018-04/manifest.json": "a31c28f239d73b2350f953b4c3c58d83a17a2762c52dce5441e2e2a360159278",
+    "dataset/2018-05/manifest.json": "b310faccb7e8d55bf5cc1d9073146033935f465722402f1034326bdda9a55cf6",
+    "dataset/2018-06/manifest.json": "e82fafc6081bcba73d288053fa5ffd4ebcfe79fc4e47d2bf8e81803496fa1fb7",
+    "dataset/2018-08/manifest.json": "f2a74c87133eff7b3aab465e71eff5a5df33d4ab986c4d9a975153553d73e30b",
+    "dataset/2018-09/manifest.json": "8f4808e4399c06e300180cd989939f3e8745f4813a8a29a98db0121594867492",
+    "dataset/2018-10/manifest.json": "9798e358ff6e0e4d03d181396a53eec8b3f5531ae1848306c28f05c2c0f81cba",
+    "dataset/2018-11/manifest.json": "10f167271b6524a22c2cab798484ac0929c27939a53ed6e70ee15392cda00469",
+    "dataset/2018-13/manifest.json": "1756acc29f472ed41c1fb6f804c3ae740ce6a140aff6c9cb3a20306fa8484664",
+    "dataset/2018-14/manifest.json": "363751ae709d82a44e3d88948103079cd35fac79373d09c84fc1ecd3884fcd1f",
+    "dataset/2018-15/manifest.json": "f185630ca26154eb0ccf04b150523935e709b14e73d5a1c4e762c8b67d60c9fd",
+    "dataset/2018-16/manifest.json": "4faeede8577db27ca9b777ff4ce7dcc4352f85630eae27380d1f2a5bb5c48775",
+    "dataset/2018-17/manifest.json": "4d6672348e79fc3c4b7f44dce393f5641a2f6215488aea33a1e3e4242f78ac5e",
+    "dataset/2018-18/manifest.json": "534eb07378b3b7dd21531b4151b3ca83bcea80091108fd0b4931a720fedd922e",
+    "dataset/2018-19/manifest.json": "5fba0ba88a1153f2b22cb86f10f7eb1dd9953b31bd1eaca0a01c48ace37426df",
+    "dataset/2018-20/manifest.json": "d10787ca10e5eec0dd7cefb7e56f1a19b47ff0c4fee1fc03d91ed232cca410ea",
+    "dataset/2018-21/manifest.json": "5924ca75fe3eb72187565200714de1ed03bf549107bf954749dd98d49f36f52b",
+    "dataset/2019-01/manifest.json": "731df2b2bb6dd511ed141a0c4cf4b807a748a67a9b74450d6b0de4366774ad94",
+    "dataset/2019-02/manifest.json": "542fb9d1566df25645457e54c6460e03b40621d934ce79a5e0b0ac67f05f6525",
+    "dataset/2019-03/manifest.json": "3d8de15c7ea6dcb496d7c56b690d59e3f6e7f6c81613c04980868e606bc3ef40",
+    "dataset/2019-04/manifest.json": "20dd04ece09296592e524bde36e3df60f7566d6ef5ba7d1e074f3e575937f4e9",
+    "dataset/2019-05/manifest.json": "5897e589b9ebd061a84dfaaa091e67a754a8249cfc37498ffdf5cd22cf71efb0",
+    "dataset/2019-06/manifest.json": "91fc4cb62125127095af0d6bc95782c138137e4d3a1092fbfe777a0728b7edeb",
+    "dataset/2019-07/manifest.json": "6c2ca3d440baddbffd44d436cde97f518a4c59d0d96e43a9e382303212be962a",
+    "dataset/2019-08/manifest.json": "309c04fe5fef23115f35355862c7999f8b0d21f7373c681b1fe02ec3b18bbf1a",
+    "dataset/2019-09/manifest.json": "14067b2b0689b8b4df8fc56debfec36cbea316603dc89ae7b958f2a2fde4ba94",
+    "dataset/2019-10/manifest.json": "990659d1e4f7761e4d7274450642c1c7fc5ebda0ab4b7e7d05dff0cac12a57c3",
+    "dataset/2019-11/manifest.json": "4eb3a92c0074e86fe89d53f7e96730dbef296da069c468f8d08c5dfbff44f8c7",
+    "dataset/2019-12/manifest.json": "5140e592f11d8d50f6c0fe5bbc9e52b82f4a386d45a433cb2cb68cda5a5a89df",
+    "dataset/2019-13/manifest.json": "7f74e05c2d5e93107dacda775c2745de69f4a98c3b9c67f636e3df6ae47a14f2",
+    "dataset/2019-14/manifest.json": "1a922e18e4cba4a115cca0491beb292a3fe5476e619e024c63c0ec9aba9615cf",
+    "dataset/2019-15/manifest.json": "85a73fecb651549ad0a660b6ce31aec79ddb75156d4a55ec39802292b7e44612",
+    "dataset/2019-16/manifest.json": "46b318c2649e3476208f8246c2b79561091121a3e243a0d16251fe49e867be8a",
+    "dataset/2019-18/manifest.json": "ed118dbd68e062371a8f939941e2347e0cc2a444dac11676cacb61139835f898",
+    "dataset/2019-19/manifest.json": "976985b98dc5e1c38f57645988bad4633954bef7b6edadd3634746de9f54291f",
+    "dataset/2019-20/manifest.json": "a098c73756423bdc883acc5e17dfd9cd11df69f9ae2ef5a3daaff52b56298266",
+    "dataset/2020-02/manifest.json": "af08c0b87817bfb358d8ac154de1d1cc4d9fe9092781be3f8aa330cebc132aac",
+    "dataset/2020-03/manifest.json": "95289625e95b94e16fcee6de86bddac9b7641e7cae52499a7124bca6c0b0d43a",
+    "dataset/2020-05/manifest.json": "33f87726a4debcf42749fd10f779f199efc3113a53118e284f2a1491e2648b19",
+    "dataset/2020-06/manifest.json": "d18117f8f6335dddec001d8077516711ea355959ac1466b8b371e7e99999ea2c",
+    "dataset/2020-08/manifest.json": "dba2f47f0cded0a51848c20fe48652388c711d622596071157d8a843cc34a1cf",
+    "dataset/2020-09/manifest.json": "bdea9492c7bc9a1b1edd92e6daa7ed84e1282b39005623b363261a7c0a2a0f5e",
+    "dataset/2020-10/manifest.json": "8a37498eae612aafae0bb80272234c3e414778db5fc6238534b61fa4f6a3cc49",
+    "dataset/2020-13/manifest.json": "72b2b59e0a01a577425de034ea0c9fca922504001e7b6fbf3bcee5d70d0837e9",
+    "dataset/2020-14/manifest.json": "0d8b1a7c3da43c6e1d790d244ddaf98a7c1749232dddd75152e1cee7338591eb",
+    "dataset/2020-15/manifest.json": "fa10b16683cd17f82e5d53b2c8bde47e819f0f632d36503077c57a29dd541d0e",
+    "dataset/2020-16/manifest.json": "aaca08adfee43c44da8cf1d2a83129ff4628b5241c9078f73db2cb08a5c0043b",
+    "dataset/2020-17/manifest.json": "5d321edeaf2e0655b2ee50d2ee91b2f7b0a5788162ca7dbe1c66411cff5e9ab0",
+    "dataset/2021-01/manifest.json": "7f256067c910d6adece91f04fa67668cce53ecb06ba3e8f7eb9d080aa7a4b11e",
+    "dataset/2021-02/manifest.json": "501fd0124a24dce8dd73b4f6d302d7975201d1fc07fb182ff36a3cb9f337388c",
+    "dataset/2021-05/manifest.json": "0e547ab5f19e12865c4c8abae2c5413dc3350aa447995e184db0815b6c31df2a",
+    "dataset/2021-07/manifest.json": "097f954cbfeebd13b49808125941bb8d4f58b6f1114146bc6091d65515e06267",
+    "dataset/2021-08/manifest.json": "547d83870f34e755763b2cdff5e5e79142cfa40ade17a98a5649eb892c657890",
+    "dataset/2021-09/manifest.json": "4decd3c87c47678d26ab89551394d5caa950d0d5c2d90b553cb49e0a2d781654",
+    "dataset/2021-13/manifest.json": "ae832538828990e0cf9ca5d294870b71ed488e4881b5a3e3af012da38bbd801c",
+    "dataset/2021-14/manifest.json": "366f4cd13791e44ec4b2a9a701340f3fb0f1bb748298ffec2ded362598f932a9",
+    "dataset/2021-15/manifest.json": "3c6c7b238254ac7dd36885063de73a10eda64bc9b5b8ba156831c0bf7768f843",
+    "dataset/2021-16/manifest.json": "1501765869ef9e0c7a2edc330bf86143737c935a2ef796fbf5cac29948982519",
+    "dataset/2021-17/manifest.json": "c1cdef95ac5521683daf1a0e31ea8e1e646a22111f08e6ae24ae208968be397f",
+    "dataset/2021-18/manifest.json": "b36f379961ac0499ddd0c67a08ae990af43185a67d3957915968269aa4d74c9e",
+    "dataset/2021-19/manifest.json": "202ba1cb7f8e074ccaedb0c6be7341fc43efc102b33153912c60c6e007340614",
+    "dataset/2021-20/manifest.json": "8dd51fe300c67253cfa2b24357a07016ce12455a97e50118ab9782efd421f5fe",
+    "dataset/2021-21/manifest.json": "5501d21f8322a4c002b03747f977474d36ab9fb1bbe88177e11a2dede7e41ac8",
+    "dataset/2021-22/manifest.json": "bfe3d5305324ffc4cd50731269630967b65d40f6d79ce049f363d527eb83fd8a",
+    "dataset/2023-01/manifest.json": "9e641f01e73e7e6a231ed51c97047779ce7da407ff797ff4335898db04fe3d49",
+    "dataset/2023-02/manifest.json": "887f83c34afacc791b0bd6c901d1f37a7e74cc20bdec3ed7a1a29ceedb3a74b9",
+    "dataset/2023-03/manifest.json": "4849e9fe4fa956d43d6e9de6ce89231aaf6e5ee5fe23b756bde9059ab2fa8028",
+    "dataset/2023-04/manifest.json": "d66b16c9d0411fe27d5e9ac4583fffd3e25405103bae301829c4ddb803dc84af",
+    "dataset/2023-05/manifest.json": "bd561e196eb5e830de3d1484a2898e0ab8d3dc01fb1ce685ab75470bd076eb70",
+    "dataset/2023-06/manifest.json": "ec25e871503bf9cec3caef4446f20189e2d567e5ce27a5c069b56040006dd2ec",
+    "dataset/2023-07/manifest.json": "ba509c74e3216b9c4759c0cbb2a57899ffa2dc336947af3a4d669ff6b09daf91",
+    "dataset/2023-08/manifest.json": "cd204b75dfe2e516f8783ce48fc406c31286479703b9fb7a2f543c99453f83db",
+    "dataset/2023-09/manifest.json": "49ca5d803da2121e8e49b7b2e1163760ba82fbb5c5d593195569dd02634d5f39",
+    "dataset/2023-10/manifest.json": "3eae91ac183d354715479a633d695e6e0596461c5a95b1be4958a7b8c3af9e2d",
+    "dataset/2023-11/manifest.json": "9e9d37a580ddcfcb339e955d1e027d54d41d39be599627cde149dbfb26749989",
+    "dataset/2023-12/manifest.json": "72de5783451b1218b9997d6aa9a1ddc2e7ac9375f4362ae443cac0f466382d54",
+    "dataset/2023-13/manifest.json": "cc420e140f08c08f933732177797241b5cb08445a48db334560bf4c88cc1a85f",
+    "dataset/2023-15/manifest.json": "9a3ad51f5adf5ec5eab9fc4578209e746636b4b088ed78f262f2c0d68f3164b3",
+    "dataset/2023-16/manifest.json": "a1a9e5cf9378295f5f42e99315eeba7cf23c313d01d4840a50ad8f9e90b11ce4",
+    "dataset/2023-17/manifest.json": "7dedc9b8ecb56deb502ac2a04b17c055e793423e1a9ca29b4920410e57812b94",
+    "dataset/2023-18/manifest.json": "87924d907f6f2d02326c3fe8ded71f1b061d9e1780dac25e76d4bb7ee8bc3075",
+    "dataset/2023-19/manifest.json": "e65d282429c65aaf9c380f7dd6686635feeb355d96101f119362c1aa707586c3",
+    "dataset/2023-20/manifest.json": "8d7fa8e8c1e3f157ea716765c85c15984c747b10d560f132d2bcf41ecb8fca52",
+    "dataset/2023-21/manifest.json": "6b21bef664af5821d40b06376f1c2ff1ae8e5fb89a12017fe32a84ad475cc9f8",
+    "dataset/2023-22/manifest.json": "577410ae615d0d9cc4e94ab73721ccb743780a98d182d66621b10884e1e968ea",
+    "dataset/2024-01/manifest.json": "c1ec64cbb0e237b0f6f8a2f5421c15f7d2866e2e6affd116788e7781fb772205",
+    "dataset/2024-02/manifest.json": "38bbcac292207b2c5f05e6938112b0cad088475b90c32e9820e2bc7f2982f54b",
+    "dataset/2024-03/manifest.json": "499be5586cb74e6eeb0df781deb03c88d51e843be8aa66ffaeb98951d0cdc12e",
+    "dataset/2024-04/manifest.json": "3600a1526121a3e7c669c4e7025d9aa09d87de595d47be285ccc4cd9454eaa30",
+    "dataset/2024-05/manifest.json": "16dd9cd30e58295b892ee52c3042f39cb1e94936a66fecad0679322ca5e1f9b6",
+    "dataset/2024-06/manifest.json": "898177793e8bc3daa43d441957470f62fd12f621993a84419fe874636019d7e4",
+    "dataset/2024-07/manifest.json": "e7b867e0d0cf4a7b8f8404591949d504de7eb3761828404dff60a33cf91f9a32",
+    "dataset/2024-08/manifest.json": "5e20fb9447d7f97297e5f8122e5c6baa9734a67b907763e293c67fe27d916ab0",
+    "dataset/2024-10/manifest.json": "66879bee23a6cec96278aa59928b1429927d6692420ef6b42591edad02ccd81e",
+    "dataset/2024-11/manifest.json": "0740e84d3475aac3020cff70b8c54a8def06d0934de8e73e92a730820ba64166",
+    "dataset/2024-12/manifest.json": "fe7ffa38f2460560649f64077d27f520a42abaebff45e076cacd067f48de712c",
+    "dataset/2024-13/manifest.json": "eae8816f2b77f5f508fbbf623ccc5ce072860a85c8b03cc4a931e3bf7999b66c",
+    "dataset/2024-14/manifest.json": "d552c15d9dbbffad8bc8e695172bdc5a197555cd50d9e7a4f8e03fe0f13ed746",
+    "dataset/2024-15/manifest.json": "66352e8e842b25bf9f87a402e34dbc6a71469a66dfbb180fc4a5256a982a8cc1",
+    "dataset/2024-16/manifest.json": "dbd7abb9f6ab8779fc3cb78ca538e8eb8e64ca798803031203135cdf0df1aed6",
+    "dataset/2024-17/manifest.json": "dc8c15b42f9704236ff7035d2da5ac71a82ce47289b69005337f9735ac371b76",
+    "dataset/2024-18/manifest.json": "eef4238f26b40dcc5ea58961522a3d416a7cf1304b3fb748106cdb74e1142d1c",
+    "dataset/2024-19/manifest.json": "a5a611a2815cde5b5e712d9e999bc7c5ac50294f1d54deabe4f7558aff17bab2",
+    "dataset/2024-20/manifest.json": "38975ae5444befbbc816e6222201d0b8dd206540d2e0d4b898901f42dc6e937a",
+    "dataset/2024-21/manifest.json": "09a5fc4b619e5dc440ecc104623a9e5986a9c402661e7fd41d099fc61b1fa419",
+    "dataset/2024-22/manifest.json": "d6030196022ad216468d85aef3027f7577e83fd465e233b055f4a7a20e75da23",
+    "dataset/2024-23/manifest.json": "82c16cd8bf1ea3fc40ca6844861e29e64bc99212d743b266e180a1fd84a5e254",
+    "dataset/2024-24/manifest.json": "624821dd7024937c39db21dfd9043cd672c518e2fb1e3a7d976f3bedbbd3302e",
+    "dataset/2025-01/manifest.json": "746543decbbb8e01ac381956bca5f80f7ff7c1c0343e200cfced993eb68875ae",
+    "dataset/2025-02/manifest.json": "26ca71a76937d5e508fe154d3018e92c00ad349bd9ef1ac559da9e8a14f63bb2",
+    "dataset/2025-03/manifest.json": "d29005b0591513276eaef83c5768755829966736c47d475af275d734b72364d3",
+    "dataset/2025-04/manifest.json": "d9cc95f041ba59ef3d220a07b8316ed5dee1b2aa4d98928f2d7fefcc9c90136f",
+    "dataset/2025-05/manifest.json": "ead08bba532559f13076ef1bb69a57b20bffa7d8d73cbe223e6ee5382b09a2d5",
+    "dataset/2025-06/manifest.json": "1b982b893b2c1bca7f49b10430f8cc077d6eadacefe41718544ee3d733136d65",
+    "dataset/2025-07/manifest.json": "35d50c9596997010c881c461db60ab9de776340348667e66b151acbee1ff9efd",
+    "dataset/2025-08/manifest.json": "dfeeab9c33b82f3bb2bc23c2657e7afcd4d643cc8f3993af6a376712a7248bf0",
+    "dataset/2025-09/manifest.json": "51d9ea48380b4673ed8bd60f0794818593836c2132af8e9844617e88479577cb",
+    "dataset/2025-10/manifest.json": "626012dbf4be80943097f588f980f7804649c5128b05a2b2807cb480fd48c8c3",
+    "dataset/2025-11/manifest.json": "017f438e8980ba60dc1dc5d29d176018f77a9d741f69248f3ffd4935657f9f7b",
+    "dataset/2025-12/manifest.json": "f5cb30e9d363a66b84b45b9ae236878c6c2ac0c6425a866b25932ec64c3cdf69",
+    "dataset/2025-13/manifest.json": "dee8e4ef7e30990c36f0e99f638e79d75abb0073478dcb847aaa6ce11628c58b",
+    "dataset/2025-14/manifest.json": "b2c2714615fea912239447b45e6b7cf12253685b32d4d5f23eb88294e4fd7f0f",
+    "dataset/2025-15/manifest.json": "e5bfc9e44fb47173cdda626a5599f0b0d46588e7ec063c917ccb723e3a83d141",
+    "dataset/2025-16/manifest.json": "fcb143d39ee82563f4a68cd929b145de913a9fbf1535648548e1bec68b594c29",
+    "dataset/2025-17/manifest.json": "024885559fa0915ed34b38664288c721bee81f1df2dfd8904e6649de682c9663",
+    "dataset/2025-18/manifest.json": "03a3bf5e133d62ca7ba746c9729df8c1bf3aa23b945168b985277a84af0d40e9",
+    "dataset/2025-19/manifest.json": "fe5bf099ac311f73d803ef0b390c408fd015bf9f464cb655baa12d31e722dc0c",
+    "dataset/2025-20/manifest.json": "f15e38e4d4149aec9beee91b47da4da9d5b3ad5a258f970ae3c8a42833a1f2b4",
+    "dataset/2025-21/manifest.json": "c994106aa7b44a3f023c3aa5388558b989c437156572b43b27adf4f30db7f2f4",
+    "dataset/2025-22/manifest.json": "5d003cc16416d3fa03bb8bc5bed70e8243e8ea6517b9fed7f7f0349a00ee975f",
+    "dataset/2025-23/manifest.json": "5478b3672198a125a572210b6550c7d7b77b242351d8621c5b8297a065ac228d",
+    "dataset/2025-24/manifest.json": "e3c5d385a3c62c331e3a8dfa47999f5dd3bc8dc49b27dd77d4f3d30bd7fee0d5",
+    "dataset/partition.json": "850c8fec58c336846a5b6d8e69ac9ad3ac38af33359586fbb704800bb79a7bce",
+    "evaluation/2019/complete.json": "4fb5b77fb2bd184c563600ef1dfed6ec98fca06d30835cd176698f86288a35a9",
+    "evaluation/2019/models.json": "11ed3d6851c567bd02cad0a6d0d1446e5adf361c52fa14e4b81d8c711b4f1a4a",
+    "evaluation/2019/summary.json": "fc0cd4dbf5ae4df89d42861c13bc1a0c4437df8431ce29662c163828f046988e",
+    "evaluation/2020/complete.json": "dff036eb451ebbaba3e0212985ace662ecfe2423d60e11e99e73cb5b6165abcf",
+    "evaluation/2020/models.json": "591299cf37ca8cf483865b1d3c9687782be24079a5348ae4aaff9635fb7e5179",
+    "evaluation/2020/summary.json": "f967bf49f3d70b86bc6f425fe1caa70c905d239e825e55b93e8bb438acb84dd1",
+    "evaluation/2021/complete.json": "6026cea80a4e664c5bd86d9eb69b99cb0bb959cd9b7adff52070363ffce61dd6",
+    "evaluation/2021/models.json": "98e3ce0b382188494a6861d7ba3559f2fdaf7c75a9251d8578fa97e7a8fd4705",
+    "evaluation/2021/summary.json": "280c366351ba33d7c013b852641b242ea943982896cd3ad8cabda4be3ec45590",
+    "evaluation/2023/complete.json": "d04d01e2a7d3ab76bdcd30b7c5d88bc4b39b8147dc111efb03402a60c7e15945",
+    "evaluation/2023/models.json": "f91db8006dcb36e9b547a76033b5e0452e4f6ef1ade711739ad396b9ca583f1c",
+    "evaluation/2023/summary.json": "d183617118cb043e9704a3e1faf139cac614929ef717ec243fb449b9118aeea8",
+    "evaluation/2024/complete.json": "a9b31ec6917e7a0be080b8f66d9bd95bbdfa249a8cac17bf5d61cc06cea6ed33",
+    "evaluation/2024/models.json": "55c9e9a6c3806750f3a85948bb9d26cef340f95b53b6033e82ef1507b8669537",
+    "evaluation/2024/summary.json": "ccd40a5117d2a4e334f354091d8ab9878dd75ecfec30453690524d903aeb26ec",
+    "evaluation/2025/complete.json": "7c3a44af094f3ab46f00e50ebbaeb92a94f942b4238ae9d989e71d2d4bf5a0ee",
+    "evaluation/2025/models.json": "3acb50e2a91e41e416807667aa39558bcd6b6725898b365fac7ea5e081e22861",
+    "evaluation/2025/summary.json": "98a5e5358c8585254b155dc3139723e5eee3bec53501234820d7d4a95d718950",
+    "evaluation/all-pre2026-refit.json": "e7b676d2522b4bfc51623bd84861ee46e0ee193e48beda71ad870fff3d4e3ca5",
+    "evaluation/ledger.jsonl": "abea60e4d596ff35c76c954633593830b6bc0958d4bfddde73e1af4977e3509c",
+    "evaluation/selection-freeze.json": "4f8eeb8f0d174ba68de953c2b5ad02b91d96e3f1106274f4f9129e73f7ed9c6d",
+    "evaluation/summary.json": "5a2efffecb1d958025d12d673226c5792a419c3c32ddb3406c8a9129e5d4e48f"
+  },
+  "final_lock_created": false,
+  "final_outcomes_opened": false,
+  "source_assumptions": [
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2018-03-25",
+        "path": "2018/2018-03-25_Australian_Grand_Prix/2018-03-25_Race/",
+        "round": 1,
+        "season": 2018,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2018-04-15",
+        "path": "2018/2018-04-15_Chinese_Grand_Prix/2018-04-15_Race/",
+        "round": 3,
+        "season": 2018,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2018-04-29",
+        "path": "2018/2018-04-29_Azerbaijan_Grand_Prix/2018-04-29_Race/",
+        "round": 4,
+        "season": 2018,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2018-05-13",
+        "path": "2018/2018-05-13_Spanish_Grand_Prix/2018-05-13_Race/",
+        "round": 5,
+        "season": 2018,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2018-05-27",
+        "path": "2018/2018-05-27_Monaco_Grand_Prix/2018-05-27_Race/",
+        "round": 6,
+        "season": 2018,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2018-06-24",
+        "path": "2018/2018-06-24_French_Grand_Prix/2018-06-24_Race/",
+        "round": 8,
+        "season": 2018,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2018-07-01",
+        "path": "2018/2018-07-01_Austrian_Grand_Prix/2018-07-01_Race/",
+        "round": 9,
+        "season": 2018,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2018-07-08",
+        "path": "2018/2018-07-08_British_Grand_Prix/2018-07-08_Race/",
+        "round": 10,
+        "season": 2018,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2018-07-22",
+        "path": "2018/2018-07-22_German_Grand_Prix/2018-07-22_Race/",
+        "round": 11,
+        "season": 2018,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2018-08-26",
+        "path": "2018/2018-08-26_Belgian_Grand_Prix/2018-08-26_Race/",
+        "round": 13,
+        "season": 2018,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2018-09-02",
+        "path": "2018/2018-09-02_Italian_Grand_Prix/2018-09-02_Race/",
+        "round": 14,
+        "season": 2018,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2018-09-16",
+        "path": "2018/2018-09-16_Singapore_Grand_Prix/2018-09-16_Race/",
+        "round": 15,
+        "season": 2018,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2018-09-30",
+        "path": "2018/2018-09-30_Russian_Grand_Prix/2018-09-30_Race/",
+        "round": 16,
+        "season": 2018,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2018-10-07",
+        "path": "2018/2018-10-07_Japanese_Grand_Prix/2018-10-07_Race/",
+        "round": 17,
+        "season": 2018,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2018-10-21",
+        "path": "2018/2018-10-21_United_States_Grand_Prix/2018-10-21_Race/",
+        "round": 18,
+        "season": 2018,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2018-10-28",
+        "path": "2018/2018-10-28_Mexican_Grand_Prix/2018-10-28_Race/",
+        "round": 19,
+        "season": 2018,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2018-11-11",
+        "path": "2018/2018-11-11_Brazilian_Grand_Prix/2018-11-11_Race/",
+        "round": 20,
+        "season": 2018,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2018-11-25",
+        "path": "2018/2018-11-25_Abu_Dhabi_Grand_Prix/2018-11-25_Race/",
+        "round": 21,
+        "season": 2018,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2019-03-17",
+        "path": "2019/2019-03-17_Australian_Grand_Prix/2019-03-17_Race/",
+        "round": 1,
+        "season": 2019,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2019-03-31",
+        "path": "2019/2019-03-31_Bahrain_Grand_Prix/2019-03-31_Race/",
+        "round": 2,
+        "season": 2019,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2019-04-14",
+        "path": "2019/2019-04-14_Chinese_Grand_Prix/2019-04-14_Race/",
+        "round": 3,
+        "season": 2019,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2019-04-28",
+        "path": "2019/2019-04-28_Azerbaijan_Grand_Prix/2019-04-28_Race/",
+        "round": 4,
+        "season": 2019,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2019-05-12",
+        "path": "2019/2019-05-12_Spanish_Grand_Prix/2019-05-12_Race/",
+        "round": 5,
+        "season": 2019,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2019-05-26",
+        "path": "2019/2019-05-26_Monaco_Grand_Prix/2019-05-26_Race/",
+        "round": 6,
+        "season": 2019,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2019-06-09",
+        "path": "2019/2019-06-09_Canadian_Grand_Prix/2019-06-09_Race/",
+        "round": 7,
+        "season": 2019,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2019-06-23",
+        "path": "2019/2019-06-23_French_Grand_Prix/2019-06-23_Race/",
+        "round": 8,
+        "season": 2019,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2019-06-30",
+        "path": "2019/2019-06-30_Austrian_Grand_Prix/2019-06-30_Race/",
+        "round": 9,
+        "season": 2019,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2019-07-14",
+        "path": "2019/2019-07-14_British_Grand_Prix/2019-07-14_Race/",
+        "round": 10,
+        "season": 2019,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2019-07-28",
+        "path": "2019/2019-07-28_German_Grand_Prix/2019-07-28_Race/",
+        "round": 11,
+        "season": 2019,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2019-08-04",
+        "path": "2019/2019-08-04_Hungarian_Grand_Prix/2019-08-04_Race/",
+        "round": 12,
+        "season": 2019,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2019-09-01",
+        "path": "2019/2019-09-01_Belgian_Grand_Prix/2019-09-01_Race/",
+        "round": 13,
+        "season": 2019,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2019-09-08",
+        "path": "2019/2019-09-08_Italian_Grand_Prix/2019-09-08_Race/",
+        "round": 14,
+        "season": 2019,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2019-09-22",
+        "path": "2019/2019-09-22_Singapore_Grand_Prix/2019-09-22_Race/",
+        "round": 15,
+        "season": 2019,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2019-09-29",
+        "path": "2019/2019-09-29_Russian_Grand_Prix/2019-09-29_Race/",
+        "round": 16,
+        "season": 2019,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2019-10-27",
+        "path": "2019/2019-10-27_Mexican_Grand_Prix/2019-10-27_Race/",
+        "round": 18,
+        "season": 2019,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2019-11-03",
+        "path": "2019/2019-11-03_United_States_Grand_Prix/2019-11-03_Race/",
+        "round": 19,
+        "season": 2019,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2019-11-17",
+        "path": "2019/2019-11-17_Brazilian_Grand_Prix/2019-11-17_Race/",
+        "round": 20,
+        "season": 2019,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2020-07-12",
+        "path": "2020/2020-07-12_Styrian_Grand_Prix/2020-07-12_Race/",
+        "round": 2,
+        "season": 2020,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2020-07-19",
+        "path": "2020/2020-07-19_Hungarian_Grand_Prix/2020-07-19_Race/",
+        "round": 3,
+        "season": 2020,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2020-08-09",
+        "path": "2020/2020-08-09_70th_Anniversary_Grand_Prix/2020-08-09_Race/",
+        "round": 5,
+        "season": 2020,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2020-08-16",
+        "path": "2020/2020-08-16_Spanish_Grand_Prix/2020-08-16_Race/",
+        "round": 6,
+        "season": 2020,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2020-09-06",
+        "path": "2020/2020-09-06_Italian_Grand_Prix/2020-09-06_Race/",
+        "round": 8,
+        "season": 2020,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2020-09-13",
+        "path": "2020/2020-09-13_Tuscan_Grand_Prix/2020-09-13_Race/",
+        "round": 9,
+        "season": 2020,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2020-09-27",
+        "path": "2020/2020-09-27_Russian_Grand_Prix/2020-09-27_Race/",
+        "round": 10,
+        "season": 2020,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2020-11-01",
+        "path": "2020/2020-11-01_Emilia_Romagna_Grand_Prix/2020-11-01_Race/",
+        "round": 13,
+        "season": 2020,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2020-11-15",
+        "path": "2020/2020-11-15_Turkish_Grand_Prix/2020-11-15_Race/",
+        "round": 14,
+        "season": 2020,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2020-11-29",
+        "path": "2020/2020-11-29_Bahrain_Grand_Prix/2020-11-29_Race/",
+        "round": 15,
+        "season": 2020,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2020-12-06",
+        "path": "2020/2020-12-06_Sakhir_Grand_Prix/2020-12-06_Race/",
+        "round": 16,
+        "season": 2020,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2020-12-13",
+        "path": "2020/2020-12-13_Abu_Dhabi_Grand_Prix/2020-12-13_Race/",
+        "round": 17,
+        "season": 2020,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2021-03-28",
+        "path": "2021/2021-03-28_Bahrain_Grand_Prix/2021-03-28_Race/",
+        "round": 1,
+        "season": 2021,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2021-04-18",
+        "path": "2021/2021-04-18_Emilia_Romagna_Grand_Prix/2021-04-18_Race/",
+        "round": 2,
+        "season": 2021,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2021-05-23",
+        "path": "2021/2021-05-23_Monaco_Grand_Prix/2021-05-23_Race/",
+        "round": 5,
+        "season": 2021,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2021-06-20",
+        "path": "2021/2021-06-20_French_Grand_Prix/2021-06-20_Race/",
+        "round": 7,
+        "season": 2021,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2021-06-27",
+        "path": "2021/2021-06-27_Styrian_Grand_Prix/2021-06-27_Race/",
+        "round": 8,
+        "season": 2021,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2021-07-04",
+        "path": "2021/2021-07-04_Austrian_Grand_Prix/2021-07-04_Race/",
+        "round": 9,
+        "season": 2021,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2021-09-05",
+        "path": "2021/2021-09-05_Dutch_Grand_Prix/2021-09-05_Race/",
+        "round": 13,
+        "season": 2021,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2021-09-12",
+        "path": "2021/2021-09-12_Italian_Grand_Prix/2021-09-12_Race/",
+        "round": 14,
+        "season": 2021,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2021-09-26",
+        "path": "2021/2021-09-26_Russian_Grand_Prix/2021-09-26_Race/",
+        "round": 15,
+        "season": 2021,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2021-10-10",
+        "path": "2021/2021-10-10_Turkish_Grand_Prix/2021-10-10_Race/",
+        "round": 16,
+        "season": 2021,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2021-10-24",
+        "path": "2021/2021-10-24_United_States_Grand_Prix/2021-10-24_Race/",
+        "round": 17,
+        "season": 2021,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2021-11-07",
+        "path": "2021/2021-11-07_Mexico_City_Grand_Prix/2021-11-07_Race/",
+        "round": 18,
+        "season": 2021,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2021-11-14",
+        "path": "2021/2021-11-14_S\u00e3o_Paulo_Grand_Prix/2021-11-14_Race/",
+        "round": 19,
+        "season": 2021,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2021-11-21",
+        "path": "2021/2021-11-21_Qatar_Grand_Prix/2021-11-21_Race/",
+        "round": 20,
+        "season": 2021,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2021-12-05",
+        "path": "2021/2021-12-05_Saudi_Arabian_Grand_Prix/2021-12-05_Race/",
+        "round": 21,
+        "season": 2021,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2021-12-12",
+        "path": "2021/2021-12-12_Abu_Dhabi_Grand_Prix/2021-12-12_Race/",
+        "round": 22,
+        "season": 2021,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2023-03-05",
+        "path": "2023/2023-03-05_Bahrain_Grand_Prix/2023-03-05_Race/",
+        "round": 1,
+        "season": 2023,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2023-03-19",
+        "path": "2023/2023-03-19_Saudi_Arabian_Grand_Prix/2023-03-19_Race/",
+        "round": 2,
+        "season": 2023,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2023-04-02",
+        "path": "2023/2023-04-02_Australian_Grand_Prix/2023-04-02_Race/",
+        "round": 3,
+        "season": 2023,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2023-04-30",
+        "path": "2023/2023-04-30_Azerbaijan_Grand_Prix/2023-04-30_Race/",
+        "round": 4,
+        "season": 2023,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2023-05-07",
+        "path": "2023/2023-05-07_Miami_Grand_Prix/2023-05-07_Race/",
+        "round": 5,
+        "season": 2023,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2023-05-28",
+        "path": "2023/2023-05-28_Monaco_Grand_Prix/2023-05-28_Race/",
+        "round": 6,
+        "season": 2023,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2023-06-04",
+        "path": "2023/2023-06-04_Spanish_Grand_Prix/2023-06-04_Race/",
+        "round": 7,
+        "season": 2023,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2023-06-18",
+        "path": "2023/2023-06-18_Canadian_Grand_Prix/2023-06-18_Race/",
+        "round": 8,
+        "season": 2023,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2023-07-02",
+        "path": "2023/2023-07-02_Austrian_Grand_Prix/2023-07-02_Race/",
+        "round": 9,
+        "season": 2023,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2023-07-09",
+        "path": "2023/2023-07-09_British_Grand_Prix/2023-07-09_Race/",
+        "round": 10,
+        "season": 2023,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2023-07-23",
+        "path": "2023/2023-07-23_Hungarian_Grand_Prix/2023-07-23_Race/",
+        "round": 11,
+        "season": 2023,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2023-07-30",
+        "path": "2023/2023-07-30_Belgian_Grand_Prix/2023-07-30_Race/",
+        "round": 12,
+        "season": 2023,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2023-08-27",
+        "path": "2023/2023-08-27_Dutch_Grand_Prix/2023-08-27_Race/",
+        "round": 13,
+        "season": 2023,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2023-09-17",
+        "path": "2023/2023-09-17_Singapore_Grand_Prix/2023-09-17_Race/",
+        "round": 15,
+        "season": 2023,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2023-09-24",
+        "path": "2023/2023-09-24_Japanese_Grand_Prix/2023-09-24_Race/",
+        "round": 16,
+        "season": 2023,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2023-10-08",
+        "path": "2023/2023-10-08_Qatar_Grand_Prix/2023-10-08_Race/",
+        "round": 17,
+        "season": 2023,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2023-10-22",
+        "path": "2023/2023-10-22_United_States_Grand_Prix/2023-10-22_Race/",
+        "round": 18,
+        "season": 2023,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2023-10-29",
+        "path": "2023/2023-10-29_Mexico_City_Grand_Prix/2023-10-29_Race/",
+        "round": 19,
+        "season": 2023,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2023-11-05",
+        "path": "2023/2023-11-05_S\u00e3o_Paulo_Grand_Prix/2023-11-05_Race/",
+        "round": 20,
+        "season": 2023,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2023-11-19",
+        "path": "2023/2023-11-18_Las_Vegas_Grand_Prix/2023-11-18_Race/",
+        "round": 21,
+        "season": 2023,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2023-11-26",
+        "path": "2023/2023-11-26_Abu_Dhabi_Grand_Prix/2023-11-26_Race/",
+        "round": 22,
+        "season": 2023,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2024-03-02",
+        "path": "2024/2024-03-02_Bahrain_Grand_Prix/2024-03-02_Race/",
+        "round": 1,
+        "season": 2024,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2024-03-09",
+        "path": "2024/2024-03-09_Saudi_Arabian_Grand_Prix/2024-03-09_Race/",
+        "round": 2,
+        "season": 2024,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2024-03-24",
+        "path": "2024/2024-03-24_Australian_Grand_Prix/2024-03-24_Race/",
+        "round": 3,
+        "season": 2024,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2024-04-07",
+        "path": "2024/2024-04-07_Japanese_Grand_Prix/2024-04-07_Race/",
+        "round": 4,
+        "season": 2024,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2024-04-21",
+        "path": "2024/2024-04-21_Chinese_Grand_Prix/2024-04-21_Race/",
+        "round": 5,
+        "season": 2024,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2024-05-05",
+        "path": "2024/2024-05-05_Miami_Grand_Prix/2024-05-05_Race/",
+        "round": 6,
+        "season": 2024,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2024-05-19",
+        "path": "2024/2024-05-19_Emilia_Romagna_Grand_Prix/2024-05-19_Race/",
+        "round": 7,
+        "season": 2024,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-5: rewritten archives retain contemporaneous record versions/order; not independently proven",
+        "RA-6: healthy rewritten prefix windows have the same \u00b15s availability bound and shared clock, conditional on per-session checks"
+      ],
+      "race": {
+        "date": "2024-05-26",
+        "path": "2024/2024-05-26_Monaco_Grand_Prix/2024-05-26_Race/",
+        "round": 8,
+        "season": 2024,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-4 race-day files retain delivered versions"
+      ],
+      "race": {
+        "date": "2024-06-23",
+        "path": "2024/2024-06-23_Spanish_Grand_Prix/2024-06-23_Race/",
+        "round": 10,
+        "season": 2024,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-4 race-day files retain delivered versions"
+      ],
+      "race": {
+        "date": "2024-06-30",
+        "path": "2024/2024-06-30_Austrian_Grand_Prix/2024-06-30_Race/",
+        "round": 11,
+        "season": 2024,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-4 race-day files retain delivered versions"
+      ],
+      "race": {
+        "date": "2024-07-07",
+        "path": "2024/2024-07-07_British_Grand_Prix/2024-07-07_Race/",
+        "round": 12,
+        "season": 2024,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-4 race-day files retain delivered versions"
+      ],
+      "race": {
+        "date": "2024-07-21",
+        "path": "2024/2024-07-21_Hungarian_Grand_Prix/2024-07-21_Race/",
+        "round": 13,
+        "season": 2024,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-4 race-day files retain delivered versions"
+      ],
+      "race": {
+        "date": "2024-07-28",
+        "path": "2024/2024-07-28_Belgian_Grand_Prix/2024-07-28_Race/",
+        "round": 14,
+        "season": 2024,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-4 race-day files retain delivered versions"
+      ],
+      "race": {
+        "date": "2024-08-25",
+        "path": "2024/2024-08-25_Dutch_Grand_Prix/2024-08-25_Race/",
+        "round": 15,
+        "season": 2024,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-4 race-day files retain delivered versions"
+      ],
+      "race": {
+        "date": "2024-09-01",
+        "path": "2024/2024-09-01_Italian_Grand_Prix/2024-09-01_Race/",
+        "round": 16,
+        "season": 2024,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-4 race-day files retain delivered versions"
+      ],
+      "race": {
+        "date": "2024-09-15",
+        "path": "2024/2024-09-15_Azerbaijan_Grand_Prix/2024-09-15_Race/",
+        "round": 17,
+        "season": 2024,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-4 race-day files retain delivered versions"
+      ],
+      "race": {
+        "date": "2024-09-22",
+        "path": "2024/2024-09-22_Singapore_Grand_Prix/2024-09-22_Race/",
+        "round": 18,
+        "season": 2024,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-4 race-day files retain delivered versions"
+      ],
+      "race": {
+        "date": "2024-10-20",
+        "path": "2024/2024-10-20_United_States_Grand_Prix/2024-10-20_Race/",
+        "round": 19,
+        "season": 2024,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-4 race-day files retain delivered versions"
+      ],
+      "race": {
+        "date": "2024-10-27",
+        "path": "2024/2024-10-27_Mexico_City_Grand_Prix/2024-10-27_Race/",
+        "round": 20,
+        "season": 2024,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-4 race-day files retain delivered versions"
+      ],
+      "race": {
+        "date": "2024-11-03",
+        "path": "2024/2024-11-03_S\u00e3o_Paulo_Grand_Prix/2024-11-03_Race/",
+        "round": 21,
+        "season": 2024,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-4 race-day files retain delivered versions"
+      ],
+      "race": {
+        "date": "2024-11-23",
+        "path": "2024/2024-11-23_Las_Vegas_Grand_Prix/2024-11-23_Race/",
+        "round": 22,
+        "season": 2024,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-4 race-day files retain delivered versions"
+      ],
+      "race": {
+        "date": "2024-12-01",
+        "path": "2024/2024-12-01_Qatar_Grand_Prix/2024-12-01_Race/",
+        "round": 23,
+        "season": 2024,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-4 race-day files retain delivered versions"
+      ],
+      "race": {
+        "date": "2024-12-08",
+        "path": "2024/2024-12-08_Abu_Dhabi_Grand_Prix/2024-12-08_Race/",
+        "round": 24,
+        "season": 2024,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-4 race-day files retain delivered versions"
+      ],
+      "race": {
+        "date": "2025-03-16",
+        "path": "2025/2025-03-16_Australian_Grand_Prix/2025-03-16_Race/",
+        "round": 1,
+        "season": 2025,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-4 race-day files retain delivered versions"
+      ],
+      "race": {
+        "date": "2025-03-23",
+        "path": "2025/2025-03-23_Chinese_Grand_Prix/2025-03-23_Race/",
+        "round": 2,
+        "season": 2025,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-4 race-day files retain delivered versions"
+      ],
+      "race": {
+        "date": "2025-04-06",
+        "path": "2025/2025-04-06_Japanese_Grand_Prix/2025-04-06_Race/",
+        "round": 3,
+        "season": 2025,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-4 race-day files retain delivered versions"
+      ],
+      "race": {
+        "date": "2025-04-13",
+        "path": "2025/2025-04-13_Bahrain_Grand_Prix/2025-04-13_Race/",
+        "round": 4,
+        "season": 2025,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-4 race-day files retain delivered versions"
+      ],
+      "race": {
+        "date": "2025-04-20",
+        "path": "2025/2025-04-20_Saudi_Arabian_Grand_Prix/2025-04-20_Race/",
+        "round": 5,
+        "season": 2025,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-4 race-day files retain delivered versions"
+      ],
+      "race": {
+        "date": "2025-05-04",
+        "path": "2025/2025-05-04_Miami_Grand_Prix/2025-05-04_Race/",
+        "round": 6,
+        "season": 2025,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-4 race-day files retain delivered versions"
+      ],
+      "race": {
+        "date": "2025-05-18",
+        "path": "2025/2025-05-18_Emilia_Romagna_Grand_Prix/2025-05-18_Race/",
+        "round": 7,
+        "season": 2025,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-4 race-day files retain delivered versions"
+      ],
+      "race": {
+        "date": "2025-05-25",
+        "path": "2025/2025-05-25_Monaco_Grand_Prix/2025-05-25_Race/",
+        "round": 8,
+        "season": 2025,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-4 race-day files retain delivered versions"
+      ],
+      "race": {
+        "date": "2025-06-01",
+        "path": "2025/2025-06-01_Spanish_Grand_Prix/2025-06-01_Race/",
+        "round": 9,
+        "season": 2025,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-4 race-day files retain delivered versions"
+      ],
+      "race": {
+        "date": "2025-06-15",
+        "path": "2025/2025-06-15_Canadian_Grand_Prix/2025-06-15_Race/",
+        "round": 10,
+        "season": 2025,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-4 race-day files retain delivered versions"
+      ],
+      "race": {
+        "date": "2025-06-29",
+        "path": "2025/2025-06-29_Austrian_Grand_Prix/2025-06-29_Race/",
+        "round": 11,
+        "season": 2025,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-4 race-day files retain delivered versions"
+      ],
+      "race": {
+        "date": "2025-07-06",
+        "path": "2025/2025-07-06_British_Grand_Prix/2025-07-06_Race/",
+        "round": 12,
+        "season": 2025,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-4 race-day files retain delivered versions"
+      ],
+      "race": {
+        "date": "2025-07-27",
+        "path": "2025/2025-07-27_Belgian_Grand_Prix/2025-07-27_Race/",
+        "round": 13,
+        "season": 2025,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-4 race-day files retain delivered versions"
+      ],
+      "race": {
+        "date": "2025-08-03",
+        "path": "2025/2025-08-03_Hungarian_Grand_Prix/2025-08-03_Race/",
+        "round": 14,
+        "season": 2025,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-4 race-day files retain delivered versions"
+      ],
+      "race": {
+        "date": "2025-08-31",
+        "path": "2025/2025-08-31_Dutch_Grand_Prix/2025-08-31_Race/",
+        "round": 15,
+        "season": 2025,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-4 race-day files retain delivered versions"
+      ],
+      "race": {
+        "date": "2025-09-07",
+        "path": "2025/2025-09-07_Italian_Grand_Prix/2025-09-07_Race/",
+        "round": 16,
+        "season": 2025,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-4 race-day files retain delivered versions"
+      ],
+      "race": {
+        "date": "2025-09-21",
+        "path": "2025/2025-09-21_Azerbaijan_Grand_Prix/2025-09-21_Race/",
+        "round": 17,
+        "season": 2025,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-4 race-day files retain delivered versions"
+      ],
+      "race": {
+        "date": "2025-10-05",
+        "path": "2025/2025-10-05_Singapore_Grand_Prix/2025-10-05_Race/",
+        "round": 18,
+        "season": 2025,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-4 race-day files retain delivered versions"
+      ],
+      "race": {
+        "date": "2025-10-19",
+        "path": "2025/2025-10-19_United_States_Grand_Prix/2025-10-19_Race/",
+        "round": 19,
+        "season": 2025,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-4 race-day files retain delivered versions"
+      ],
+      "race": {
+        "date": "2025-10-26",
+        "path": "2025/2025-10-26_Mexico_City_Grand_Prix/2025-10-26_Race/",
+        "round": 20,
+        "season": 2025,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-4 race-day files retain delivered versions"
+      ],
+      "race": {
+        "date": "2025-11-09",
+        "path": "2025/2025-11-09_S\u00e3o_Paulo_Grand_Prix/2025-11-09_Race/",
+        "round": 21,
+        "season": 2025,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-4 race-day files retain delivered versions"
+      ],
+      "race": {
+        "date": "2025-11-23",
+        "path": "2025/2025-11-22_Las_Vegas_Grand_Prix/2025-11-22_Race/",
+        "round": 22,
+        "season": 2025,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-4 race-day files retain delivered versions"
+      ],
+      "race": {
+        "date": "2025-11-30",
+        "path": "2025/2025-11-30_Qatar_Grand_Prix/2025-11-30_Race/",
+        "round": 23,
+        "season": 2025,
+        "session": "R"
+      }
+    },
+    {
+      "assumptions": [
+        "RA-1 recorder approximately public receipt (3 s)",
+        "RA-2 shared recorder clock for admitted endpoints",
+        "RA-3 in-stream delivery and occurrence order",
+        "RA-4 race-day files retain delivered versions"
+      ],
+      "race": {
+        "date": "2025-12-07",
+        "path": "2025/2025-12-07_Abu_Dhabi_Grand_Prix/2025-12-07_Race/",
+        "round": 24,
+        "season": 2025,
+        "session": "R"
+      }
+    }
+  ],
+  "status": "DEVELOPMENT_ONLY",
+  "validation_archives": [
+    {
+      "bytes": 42092770,
+      "file_id": "file_00000000603c81f5a8d001bde0c9fc40",
+      "file_name": "F1_Expanded_Validation_53_2019.zip",
+      "library_file_id": "libfile_073cd1da14f081919de225cfb2a04354",
+      "sha256": "d69c2634436a447145431989a9ec6145849d13bf2e0587cb6170fee3e1a1ea88",
+      "version": 0
+    },
+    {
+      "bytes": 27412478,
+      "file_id": "file_00000000b7f881fd95b6053f9f82bf61",
+      "file_name": "F1_Expanded_Validation_53_2020.zip",
+      "library_file_id": "libfile_b0cd12fce9948191af4ccee54e92ee50",
+      "sha256": "4aab6e18012cbb2c89b2af05f0b106cf02c7d98b2941730259d61185f5ec090e",
+      "version": 0
+    },
+    {
+      "bytes": 38812558,
+      "file_id": "file_000000003a6c81f9a12b817207c770b7",
+      "file_name": "F1_Expanded_Validation_53_2021.zip",
+      "library_file_id": "libfile_71c35f22a884819190b5b5d14cfa1335",
+      "sha256": "5a5d21bac8b4dd837f013522d31d65b63e6577f3e0ceb317558a9470049ab599",
+      "version": 0
+    },
+    {
+      "bytes": 57517656,
+      "file_id": "file_00000000c40481f595e3e6909d32a716",
+      "file_name": "F1_Expanded_Validation_53_2023.zip",
+      "library_file_id": "libfile_b1c4ba22d9c88191b361d77577c58c01",
+      "sha256": "db271d579c3e7ae0e33919154a7d38d30c71e4a8f1719055e94bb201ff140e1b",
+      "version": 0
+    },
+    {
+      "bytes": 62660636,
+      "file_id": "file_00000000ef7881f89596acfdd918e5d8",
+      "file_name": "F1_Expanded_Validation_53_2024.zip",
+      "library_file_id": "libfile_2e24c9a1d93c8191a6061867adb2d3f1",
+      "sha256": "2f2e0578ce90d7a342fd48d2887bef8fd6806db1212551d71b39d3bcf39f886e",
+      "version": 0
+    },
+    {
+      "bytes": 65846424,
+      "file_id": "file_00000000fb28820e864f5919afabe70d",
+      "file_name": "F1_Expanded_Validation_53_2025.zip",
+      "library_file_id": "libfile_3bc56aca8a5481918e6f69ca890af3c8",
+      "sha256": "7f65f0cc266ae1eee4a6af77363e1938143d0412aa1417eeb189a971186e02f2",
+      "version": 0
+    },
+    {
+      "bytes": 2865143,
+      "file_id": "file_0000000046d88230a6d7dae3ba077744",
+      "file_name": "F1_Expanded_Validation_53_final.zip",
+      "library_file_id": "libfile_94821e26b9948191aae068f3be27f92f",
+      "sha256": "3ccd84a34064d91e8507f9d42a32befea867b9e223af19cef5366b0f958d06e9",
+      "version": 0
+    }
+  ],
+  "version": "expanded-delivery/v1"
+}
