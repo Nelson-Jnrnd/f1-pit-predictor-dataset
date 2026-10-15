@@ -54,3 +54,16 @@ git -c core.autocrlf=false checkout-index --force -- explorer/public/development
 
 Then run `npm test` and `npm run build` from `explorer`. No global Git configuration
 change, source refresh or prediction regeneration is required.
+
+### User-review refinements
+
+All20 Austria2024 portraits are bundled with source/hash credits. Image failure
+uses a readable fallback and cannot hide a different driver's next portrait.
+Timing leads the race-context layout; comparisons, prediction actions and the
+single race clock remain separate. Early failures are frozen training-support
+limitations; genuine forecasts first appear at lap33 in this release.
+
+On Windows with Edge installed, `npm run test:browser` runs the real-browser checks
+against private localhost and writes desktop/mobile captures to browser-checks.
+See research/replay-readability/REPORT.md for validated head, CI/review references,
+immutable-data checks and remaining physical-device/browser limitations.

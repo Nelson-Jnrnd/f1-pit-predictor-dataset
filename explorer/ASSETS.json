@@ -48,5 +48,90 @@
     "file": "austria-flag.svg",
     "sha256": "c0e5cb3c1d59fd002afd6e2b0dd03787677ca3c9e7b2321f4af6d9e28256ebcd",
     "source": "https://github.com/lipis/flag-icons/blob/main/flags/4x3/at.svg"
+  },
+  {
+    "file": "SAR.png",
+    "sha256": "d2780e372319f8baee99cbfcd98bb7e205d749e19646613a573ed5416deab155",
+    "source": "https://github.com/Nelson-Jnrnd/F1_Telemetry_Charts/blob/ae3485d695f07137f6778e03c3437ca1464fb7df/frontend/public/portraits/2024/SAR.png"
+  },
+  {
+    "file": "RIC.png",
+    "sha256": "417fecdb398979764ca4134589c20e74d139194f84baa5a72b939a23d40442de",
+    "source": "https://github.com/Nelson-Jnrnd/F1_Telemetry_Charts/blob/ae3485d695f07137f6778e03c3437ca1464fb7df/frontend/public/portraits/2024/RIC.png"
+  },
+  {
+    "file": "GAS.png",
+    "sha256": "3a341d400b79e4799735b78ae5086a331220a260f3f0ee2133f33278649dd77b",
+    "source": "https://github.com/Nelson-Jnrnd/F1_Telemetry_Charts/blob/ae3485d695f07137f6778e03c3437ca1464fb7df/frontend/public/portraits/2024/GAS.png"
+  },
+  {
+    "file": "PER.png",
+    "sha256": "6ffd12f31ee92d79f7302552182777430107a2192e87386aef57fe8f5dc1957a",
+    "source": "https://github.com/Nelson-Jnrnd/F1_Telemetry_Charts/blob/ae3485d695f07137f6778e03c3437ca1464fb7df/frontend/public/portraits/2024/PER.png"
+  },
+  {
+    "file": "ALO.png",
+    "sha256": "0c590b8604e25290a07c180e4327c58c8c4952df409c88df18eb901fd366dac4",
+    "source": "https://github.com/Nelson-Jnrnd/F1_Telemetry_Charts/blob/ae3485d695f07137f6778e03c3437ca1464fb7df/frontend/public/portraits/2024/ALO.png"
+  },
+  {
+    "file": "LEC.png",
+    "sha256": "16c62e7951fe60c80d33a425b650e09453382e19b423751f24acb7b2e76a7eab",
+    "source": "https://github.com/Nelson-Jnrnd/F1_Telemetry_Charts/blob/ae3485d695f07137f6778e03c3437ca1464fb7df/frontend/public/portraits/2024/LEC.png"
+  },
+  {
+    "file": "STR.png",
+    "sha256": "07e06e8437a25c4bf7caf762207afb5cac741747d7787a5fc3d617a6d8631b4a",
+    "source": "https://github.com/Nelson-Jnrnd/F1_Telemetry_Charts/blob/ae3485d695f07137f6778e03c3437ca1464fb7df/frontend/public/portraits/2024/STR.png"
+  },
+  {
+    "file": "MAG.png",
+    "sha256": "93cdfd31fb36632c709f1cad5d9d9173368d915012fe1bac4bf8821eac9f0abb",
+    "source": "https://github.com/Nelson-Jnrnd/F1_Telemetry_Charts/blob/ae3485d695f07137f6778e03c3437ca1464fb7df/frontend/public/portraits/2024/MAG.png"
+  },
+  {
+    "file": "TSU.png",
+    "sha256": "9cc2e2b5392dfdd4e74020a99199939a6e6616c0f15bc44ceb77f553b7e94eaf",
+    "source": "https://github.com/Nelson-Jnrnd/F1_Telemetry_Charts/blob/ae3485d695f07137f6778e03c3437ca1464fb7df/frontend/public/portraits/2024/TSU.png"
+  },
+  {
+    "file": "ALB.png",
+    "sha256": "34c05615cda9459425a6340d2445afa5690118f00d63a89acb9528fc167b6444",
+    "source": "https://github.com/Nelson-Jnrnd/F1_Telemetry_Charts/blob/ae3485d695f07137f6778e03c3437ca1464fb7df/frontend/public/portraits/2024/ALB.png"
+  },
+  {
+    "file": "ZHO.png",
+    "sha256": "496309a9018bc7d324da3cbe57518144aa378336176742f41a16fe9c18730732",
+    "source": "https://github.com/Nelson-Jnrnd/F1_Telemetry_Charts/blob/ae3485d695f07137f6778e03c3437ca1464fb7df/frontend/public/portraits/2024/ZHO.png"
+  },
+  {
+    "file": "HUL.png",
+    "sha256": "994de313089f1f84606c9e567b7953a9ee279439999719daf32593f4234c88a4",
+    "source": "https://github.com/Nelson-Jnrnd/F1_Telemetry_Charts/blob/ae3485d695f07137f6778e03c3437ca1464fb7df/frontend/public/portraits/2024/HUL.png"
+  },
+  {
+    "file": "OCO.png",
+    "sha256": "c1432600e7ff313bf7203485667b12961a5c88fed0849276cecbaf9e430e711f",
+    "source": "https://github.com/Nelson-Jnrnd/F1_Telemetry_Charts/blob/ae3485d695f07137f6778e03c3437ca1464fb7df/frontend/public/portraits/2024/OCO.png"
+  },
+  {
+    "file": "SAI.png",
+    "sha256": "a44e0c1549f2b47f01bd8b0780756ffe7a8f7e67a4829578320ccf78e8961d34",
+    "source": "https://github.com/Nelson-Jnrnd/F1_Telemetry_Charts/blob/ae3485d695f07137f6778e03c3437ca1464fb7df/frontend/public/portraits/2024/SAI.png"
+  },
+  {
+    "file": "RUS.png",
+    "sha256": "b7ddf6c6f56b8860221b39875d65c8e84f2139f327c530879dea16971566f7c0",
+    "source": "https://github.com/Nelson-Jnrnd/F1_Telemetry_Charts/blob/ae3485d695f07137f6778e03c3437ca1464fb7df/frontend/public/portraits/2024/RUS.png"
+  },
+  {
+    "file": "BOT.png",
+    "sha256": "23c3f5919258db55503250611947bdde0fa1dec050d35d47d0659f8acdb4d0ad",
+    "source": "https://github.com/Nelson-Jnrnd/F1_Telemetry_Charts/blob/ae3485d695f07137f6778e03c3437ca1464fb7df/frontend/public/portraits/2024/BOT.png"
+  },
+  {
+    "file": "PIA.png",
+    "sha256": "74a64f5042e1e6f9493779b826c1d82585dce2a4d986fedfdaf2b84fd9fdceda",
+    "source": "https://github.com/Nelson-Jnrnd/F1_Telemetry_Charts/blob/ae3485d695f07137f6778e03c3437ca1464fb7df/frontend/public/portraits/2024/PIA.png"
   }
 ]
