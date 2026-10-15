@@ -7,7 +7,8 @@ PR. It does not approve merge, viewer replacement, deployment or final testing.
 Reviewer: independent agent `/root/review_implementation`, 15 October 2026.
 Reference: issue #57, PR [#58](https://github.com/Nelson-Jnrnd/f1-pit-predictor-dataset/pull/58).
 Reviewed implementation head: `24f6149446314f86726edd8309dfb8da23a4451f`.
-The author must link the corresponding GitHub review record after publication.
+Passing GitHub record: [COMMENT review 5534723612](https://github.com/Nelson-Jnrnd/f1-pit-predictor-dataset/pull/58#pullrequestreview-5534723612),
+anchored to published head `6eb019d7bc85eaba9c21c2f923431023cf0c1e19`.
 
 ## Full scoped review and bounded rework
 
