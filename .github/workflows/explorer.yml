@@ -1,10 +1,10 @@
 name: Replay Explorer
 on:
   pull_request:
-    paths: ['explorer/**', 'pipeline/**', 'research/development-race/**', 'research/position-evidence/**', 'verification/POSITION_AUSTRIA_2024.md', '.github/workflows/explorer.yml']
+    paths: ['.gitattributes', 'explorer/**', 'pipeline/**', 'research/development-race/**', 'research/position-evidence/**', 'verification/POSITION_AUSTRIA_2024.md', '.github/workflows/explorer.yml']
   push:
     branches: [main]
-    paths: ['explorer/**', 'pipeline/**', 'research/development-race/**', 'research/position-evidence/**', 'verification/POSITION_AUSTRIA_2024.md', '.github/workflows/explorer.yml']
+    paths: ['.gitattributes', 'explorer/**', 'pipeline/**', 'research/development-race/**', 'research/position-evidence/**', 'verification/POSITION_AUSTRIA_2024.md', '.github/workflows/explorer.yml']
 jobs:
   verify:
     runs-on: ubuntu-latest
@@ -24,5 +24,21 @@ jobs:
           python-version: '3.12'
       - run: python -m unittest discover -s pipeline/tests -v
         working-directory: .
+      - run: npm test
+      - run: npm run build
+
+  windows-frontend:
+    runs-on: windows-latest
+    defaults:
+      run:
+        working-directory: explorer
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: explorer/package-lock.json
+      - run: npm ci
       - run: npm test
       - run: npm run build
