@@ -1,0 +1,59 @@
+{
+  "season": 2024,
+  "round": 10,
+  "date": "2024-06-23",
+  "session": "R",
+  "provider": "F1 static archive",
+  "acquisition_mode": "historical_archive",
+  "adapter": "archive-prefix/v1",
+  "files": {
+    "SessionStatus": {
+      "url": "https://livetiming.formula1.com/static/2024/2024-06-23_Spanish_Grand_Prix/2024-06-23_Race/SessionStatus.jsonStream",
+      "last_modified": "Sun, 23 Jun 2024 15:00:08 GMT",
+      "etag": "\"8eecac2ba98f2831a82de3a640e6b563\"",
+      "sha256": "9acfadcf2b0fe077c10d2c5062c70a4e70e0cf0e0883c7504d8fc64ccba4f75f",
+      "bytes": 174,
+      "retrieved_at": "2026-10-13T12:26:58.157627+00:00"
+    },
+    "TimingData": {
+      "url": "https://livetiming.formula1.com/static/2024/2024-06-23_Spanish_Grand_Prix/2024-06-23_Race/TimingData.jsonStream",
+      "last_modified": "Sun, 23 Jun 2024 15:00:08 GMT",
+      "etag": "\"cf31449045ade7090ea8279068cddc53\"",
+      "sha256": "140492ab8f9264ee2004e1f7bf440884d7b86cbd6785b36d86ad07d7261e65ac",
+      "bytes": 6457541,
+      "retrieved_at": "2026-10-13T12:26:58.976476+00:00"
+    },
+    "TimingAppData": {
+      "url": "https://livetiming.formula1.com/static/2024/2024-06-23_Spanish_Grand_Prix/2024-06-23_Race/TimingAppData.jsonStream",
+      "last_modified": "Sun, 23 Jun 2024 15:00:08 GMT",
+      "etag": "\"31fd111b92a6fcd6fe487aa50339639c\"",
+      "sha256": "8fa395bf3dfe0709dced6cb9d6c55b29b44c1c54407732dabf0b4258cc89cb94",
+      "bytes": 106535,
+      "retrieved_at": "2026-10-13T12:26:58.380608+00:00"
+    },
+    "LapCount": {
+      "url": "https://livetiming.formula1.com/static/2024/2024-06-23_Spanish_Grand_Prix/2024-06-23_Race/LapCount.jsonStream",
+      "last_modified": "Sun, 23 Jun 2024 15:00:07 GMT",
+      "etag": "\"3510be205952538afb97f60f6b181385\"",
+      "sha256": "251877924165431ff85a8123a5d6e5f2238079f728ecb32eb320f164e5062776",
+      "bytes": 2055,
+      "retrieved_at": "2026-10-13T12:26:58.484155+00:00"
+    },
+    "RaceControlMessages": {
+      "url": "https://livetiming.formula1.com/static/2024/2024-06-23_Spanish_Grand_Prix/2024-06-23_Race/RaceControlMessages.jsonStream",
+      "last_modified": "Sun, 23 Jun 2024 15:00:07 GMT",
+      "etag": "\"0e68e000d6abd0a4c38aa04bcdbeb6e7\"",
+      "sha256": "7f41db0e50e85d42d67b4a66b47874b37361df0194132abbb7423c2ca1d13b35",
+      "bytes": 20190,
+      "retrieved_at": "2026-10-13T12:26:58.467114+00:00"
+    },
+    "DriverList": {
+      "url": "https://livetiming.formula1.com/static/2024/2024-06-23_Spanish_Grand_Prix/2024-06-23_Race/DriverList.jsonStream",
+      "last_modified": "Sun, 23 Jun 2024 15:00:06 GMT",
+      "etag": "\"805db5e25d24c690e5ced74fda253484\"",
+      "sha256": "f0dad56ecea45f22c168fe5344f314e1755e1e3f192bee4ade34f9d29ba019b0",
+      "bytes": 19398,
+      "retrieved_at": "2026-10-13T12:26:58.467476+00:00"
+    }
+  }
+}
