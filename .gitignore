@@ -25,3 +25,6 @@ research/race-context/features/*.gz
 research/race-context/evaluation/**/*.gz
 research/race-context/evaluation/**/*.joblib
 research/race-context/features/*.json
+research/race-context/evaluation/**/*.json
+research/race-context/evaluation/*.json
+research/race-context/evaluation/*.jsonl

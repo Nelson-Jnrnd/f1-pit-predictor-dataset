@@ -55,4 +55,32 @@ class RaceFeaturesTests(unittest.TestCase):
         self.assertIsNone(model['parameters']['class_weight'])
 
 
+class RaceIntegrityTests(unittest.TestCase):
+    def test_original_execution_guard_detects_transitive_dependency_change(self):
+        from unittest.mock import patch
+        import shutil
+        from pipeline import race_integrity as integrity
+        integrity.verify_original_numerics()
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp);(root/'pipeline').mkdir()
+            for name in integrity.MODULES:
+                shutil.copyfile(integrity.d.ROOT/'pipeline'/name,root/'pipeline'/name)
+            path=root/'pipeline/comparison_models.py'
+            path.write_text(path.read_text()+'\n# Simulated dependency revision\n')
+            with patch.object(integrity.d,'ROOT',root):
+                with self.assertRaisesRegex(ValueError,'digest mismatch'):
+                    integrity.verify_original_numerics()
+
+    def test_full_refit_rejects_changed_saved_artifact(self):
+        from unittest.mock import patch
+        from pipeline import race_integrity as integrity, comparison_data as data
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp);(root/'evaluation').mkdir()
+            path=root/'evaluation/all-pre2026-refit.json';path.write_text('{}')
+            data.write_json(root/'DELIVERY.json',dict(evidence={'evaluation/all-pre2026-refit.json':'wrong'}))
+            with patch.object(integrity.e,'ROOT',root):
+                with self.assertRaisesRegex(ValueError,'hash mismatch'):
+                    integrity.verified_full_refit([])
+
+
 if __name__=='__main__':unittest.main()

@@ -1,0 +1,14 @@
+{
+  "audit_sha256": "32b75a1703a308d0a36a976b04572dea534a86a9024ab8a387cfa01580c3cd6b",
+  "issue": 57,
+  "observations": 137822,
+  "pass": true,
+  "pr": "https://github.com/Nelson-Jnrnd/f1-pit-predictor-dataset/pull/58",
+  "races": 133,
+  "raw_state_samples": 665,
+  "registration_sha256": "2e31fe27a905f4e5ce4f6fae93330ece7fcdde7bef71c372a0d8e277d63e22fd",
+  "review_date": "2026-10-15",
+  "reviewer": "/root/review_protocol",
+  "scope": "TimingData feature admission only; no 2026, results, merge or viewer authorization",
+  "source_verification_sha256": "d865369b7bfd918eeea9d51130ba05d13bd10350541f2eac62f4efe89cf166ab"
+}
