@@ -86,9 +86,9 @@ def utc(s):
     return dt.datetime.fromisoformat(s.replace('Z', '+00:00')).timestamp()
 
 
-def read_source(season, rnd):
+def read_source(season, rnd, directory=None):
     require_development(season, rnd)
-    d = SOURCES / str(rnd)
+    d = Path(directory) if directory is not None else SOURCES / str(rnd)
     m = json.loads((d / 'manifest.json').read_text())
     if (m['season'], m['round'], m['session']) != (season, rnd, 'R'):
         raise ValueError('Source identity mismatch')
@@ -120,13 +120,15 @@ def read_source(season, rnd):
     return artifact('SourceSnapshotManifest', **m, residual_assumptions=ASSUMPTIONS), result
 
 
-def clock_evidence(records):
+def clock_evidence(records, allow_restarts=False):
     status = records['SessionStatus']
     starts = [r['prefix'] for r in status if r['payload']['Status'] == 'Started']
     ends = [r['prefix'] for r in status if r['payload']['Status'] == 'Finished']
-    if len(starts) != 1 or len(ends) != 1:
+    if not starts or not ends or (not allow_restarts and (len(starts) != 1 or len(ends) != 1)):
         raise ValueError('Preview provider has no validated restart implementation')
-    start, end = starts[0], ends[0]
+    start, end = starts[0], ends[-1]
+    if allow_restarts and (any(p >= end for p in starts) or any(p < start for p in ends)):
+        raise ValueError('Unsupported lifecycle ordering')
     advance, last, checks, flagged = {}, {}, [], []
     for r in records['TimingData']:
         p = r['prefix']
@@ -263,7 +265,7 @@ class CausalReducer:
         return copy.deepcopy(self.state), sorted(set(self.refs.values()))
 
 
-def reconstruct(source, records, clock):
+def reconstruct(source, records, clock, reducer_factory=CausalReducer):
     observation_run_id = str(uuid.uuid4())
     race = f"{source['season']}-R{source['round']}-R"
     start_trigger = next(r for r in records['SessionStatus'] if r['payload']['Status'] == 'Started')
@@ -295,7 +297,7 @@ def reconstruct(source, records, clock):
     states = {}
     all_triggers = {r['ref']:r for ds in triggers.values() for r in ds.values()}
     for trigger_stream in ('SessionStatus','TimingData'):
-        reducers = {feed:CausalReducer(records[feed],clock,feed not in ('SessionStatus','LapCount'))
+        reducers = {feed:reducer_factory(records[feed],clock,feed not in ('SessionStatus','LapCount'))
                     for feed in ('TimingData','TimingAppData','SessionStatus','LapCount')}
         for trigger in sorted((r for r in all_triggers.values() if r['stream']==trigger_stream),key=lambda r:r['ordinal']):
             if healthy(trigger['prefix'],clock):
@@ -364,7 +366,7 @@ def initialize(observation_run):
     return artifact('TargetInitializationRun', target_initialization_run_id=initialization_run_id, repository_revision=revision(), observation_reconstruction_run_ref=observation_run['artifact_id'], records=records)
 
 
-def retrospective_catalog(records, clock, source):
+def retrospective_catalog(records, clock, source, allow_restarts=False):
     """Target-owned retrospective traversal. No output enters causal observations."""
     visits, laps, state, advance = {}, {}, {}, {}
     for r in records['TimingData']:
@@ -393,7 +395,11 @@ def retrospective_catalog(records, clock, source):
         last_advance = seq[-1][0]
         end_flag = next((r for r in records['TimingData'] if last_advance <= r['prefix'] <= clock['end']
                         and any(v.get('Retired') is True or v.get('Stopped') is True
-                                for k, v in r['payload'].get('Lines', {}).items() if k == d)), None)
+                                for k, v in r['payload'].get('Lines', {}).items() if k == d)
+                        and (not allow_restarts or
+                             not any(s['payload'].get('Status') == 'Started' and s['prefix'] > r['prefix']
+                                     for s in records['SessionStatus']) or
+                             r['payload'].get('Lines', {}).get(d, {}).get('Retired') is True)), None)
         terminal[d] = artifact('TerminalBoundary',bounds=[last_advance-5,end_flag['prefix']+5],driver_entry_key=d,
             terminal_kind='DRIVER_PARTICIPATION_TERMINAL',method_version='last-advance-to-terminal-flag/v1',
             evidence_refs=[seq[-1][3],end_flag['ref']],support_validation_ref=AUTHORITY) if end_flag is not None else None

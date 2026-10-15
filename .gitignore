@@ -5,3 +5,13 @@ __pycache__/
 *.pyc
 explorer/dist/
 explorer/node_modules
+# Superseded local scratch runs; reviewed evidence is dataset-2/evaluation-2.
+research/model-comparison/dataset-1/
+research/model-comparison/evaluation-1/
+research/model-comparison/run-1/
+research/model-comparison/acquisition-2/
+# Large experiment payloads are delivered in the separate frozen data archive.
+research/model-comparison/sources/**/*.gz
+research/model-comparison/dataset-2/**/*.gz
+research/model-comparison/dataset-2/**/*.xz
+research/model-comparison/evaluation-2/**/*.gz

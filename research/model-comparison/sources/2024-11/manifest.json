@@ -1,0 +1,59 @@
+{
+  "season": 2024,
+  "round": 11,
+  "date": "2024-06-30",
+  "session": "R",
+  "provider": "F1 static archive",
+  "acquisition_mode": "historical_archive",
+  "adapter": "archive-prefix/v1",
+  "files": {
+    "SessionStatus": {
+      "url": "https://livetiming.formula1.com/static/2024/2024-06-30_Austrian_Grand_Prix/2024-06-30_Race/SessionStatus.jsonStream",
+      "last_modified": "Sun, 30 Jun 2024 14:51:35 GMT",
+      "etag": "\"a6252d585253f4069e243ed075e07577\"",
+      "sha256": "2d2d8d2d886c854a552314277ca5eb90f27c4d09ab2b3824f11c95e9e41df0bb",
+      "bytes": 174,
+      "retrieved_at": "2026-10-13T12:28:42.703236+00:00"
+    },
+    "TimingData": {
+      "url": "https://livetiming.formula1.com/static/2024/2024-06-30_Austrian_Grand_Prix/2024-06-30_Race/TimingData.jsonStream",
+      "last_modified": "Sun, 30 Jun 2024 14:51:35 GMT",
+      "etag": "\"6ff4109738a2bb682869d2140dc15475\"",
+      "sha256": "5873f388eac49927d3e4cdf2d79e4209d338d14507aa92ef9184fc7a325af93d",
+      "bytes": 6598439,
+      "retrieved_at": "2026-10-13T12:28:43.927179+00:00"
+    },
+    "TimingAppData": {
+      "url": "https://livetiming.formula1.com/static/2024/2024-06-30_Austrian_Grand_Prix/2024-06-30_Race/TimingAppData.jsonStream",
+      "last_modified": "Sun, 30 Jun 2024 14:51:35 GMT",
+      "etag": "\"467b7c786f4c1a55942a30637fe3fcf5\"",
+      "sha256": "be780cdd94ce33c99fef592ec1de8fb8abbf1aadab1dfc7cfefed4579d8fbb76",
+      "bytes": 107625,
+      "retrieved_at": "2026-10-13T12:28:42.965247+00:00"
+    },
+    "LapCount": {
+      "url": "https://livetiming.formula1.com/static/2024/2024-06-30_Austrian_Grand_Prix/2024-06-30_Race/LapCount.jsonStream",
+      "last_modified": "Sun, 30 Jun 2024 14:51:34 GMT",
+      "etag": "\"f3694242e9b24387f6a3647df1974702\"",
+      "sha256": "fba2789c5dc06c797d87682ee3957b2f43b52e9f19f67aa2f9bbc802c66a1727",
+      "bytes": 2210,
+      "retrieved_at": "2026-10-13T12:28:42.702956+00:00"
+    },
+    "RaceControlMessages": {
+      "url": "https://livetiming.formula1.com/static/2024/2024-06-30_Austrian_Grand_Prix/2024-06-30_Race/RaceControlMessages.jsonStream",
+      "last_modified": "Sun, 30 Jun 2024 14:51:35 GMT",
+      "etag": "\"a20ede656e382fe99ff080ee3c3f00b6\"",
+      "sha256": "ebd18a7fc593db406962116589f45385467347336e0bb197280718e4239c1ce5",
+      "bytes": 23825,
+      "retrieved_at": "2026-10-13T12:28:42.779327+00:00"
+    },
+    "DriverList": {
+      "url": "https://livetiming.formula1.com/static/2024/2024-06-30_Austrian_Grand_Prix/2024-06-30_Race/DriverList.jsonStream",
+      "last_modified": "Sun, 30 Jun 2024 14:51:33 GMT",
+      "etag": "\"aba0f55fcba06e7a42c1791a38b9c5ab\"",
+      "sha256": "02cf8147bc75689df48b94fc8749a587761615d133ab188e0c3b882862c9898d",
+      "bytes": 18735,
+      "retrieved_at": "2026-10-13T12:28:42.779779+00:00"
+    }
+  }
+}
