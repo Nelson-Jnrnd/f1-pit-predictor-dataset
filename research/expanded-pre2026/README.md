@@ -2,8 +2,8 @@
 
 Use Python 3.12, NumPy 2.3.5 and SciPy 1.17.0, pinned in
 research/model-comparison/requirements.txt. Recover the original private #55 ZIP
-as specified in research/model-comparison/DATASET.md. The expanded private ZIP
-will contain additional raw and canonical payloads; Git holds their manifests,
+as specified in research/model-comparison/DATASET.md. The private archives in DATASET.md
+contain additional raw and canonical payloads; Git holds their manifests,
 model artifacts, admission evidence, summaries and ledger.
 
 ```sh

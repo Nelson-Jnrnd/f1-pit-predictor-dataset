@@ -1,7 +1,8 @@
 # Issue 53: all available pre-2026 data
 
-Status: audit and diagnostic implementation complete; independent bounded review PASS. Expanded training is
-blocked by older-source admission. This task supersedes the next experiment's
+Status: original audit and diagnostic implementation independently passed. The
+owner-approved continuation admits 133 independently verified pre-2026 races.
+Expanded registration and results live in research/expanded-pre2026. This task supersedes the next experiment's
 scope, preserving the completed TASK, REGISTRATION, REPORT and REVIEW from
 research/model-comparison and PRs #54/#55 unchanged.
 
