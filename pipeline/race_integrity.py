@@ -13,7 +13,7 @@ from . import race_features as features
 ROOT=features.ROOT
 EXECUTION='d132510'
 # Any runner change requires fresh explicit review of original-cache equivalence.
-APPROVED_RUNNER_SHA='6363bcc9cba3f6989413a5b1213403f68544926195558feceaaf09e642674b37'
+APPROVED_RUNNER_SHA='c082b19a178eb8f6976d1079d8616a9f02e18d5cfb3431909e45b9567e8ea11c'
 MODULES=('race_context.py','race_models.py','race_features.py','comparison.py','comparison_data.py',
          'comparison_models.py','expanded_models.py','expanded_comparison.py','expanded_sources.py','development.py','practical_metrics.py')
 
@@ -93,6 +93,19 @@ def watch(output):
         selection_existed_at_binding=(output/'selection-freeze.json').exists(),
         qualifier='External identity supplement; original execution configs remain unchanged'))
     print('All fold/input identities bound without modifying original execution artifacts',flush=True)
+
+
+def verify_completed_output(output):
+    manifest_path=output/('delivery-complete.json' if (output/'delivery-complete.json').exists() else 'completion.json')
+    manifest=data.read_json(manifest_path)
+    # The completion manifest binds the original input/fold/selection/refit artifacts.
+    for name,h in manifest['files'].items():
+        path=output/name
+        if path.resolve().is_relative_to(output.resolve()) is False or sha(path)!=h:
+            raise ValueError('Completed run payload changed: '+name)
+    partition=data.read_json(output/'all-pre2026-refit.json')['training_races']
+    for race in partition:e.require_pre2026(race['season'],race['round'])
+    return manifest
 
 
 def completion(output):

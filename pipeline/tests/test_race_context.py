@@ -83,4 +83,16 @@ class RaceIntegrityTests(unittest.TestCase):
                     integrity.verified_full_refit([])
 
 
+    def test_completed_delivery_rejects_payload_changes(self):
+        from pipeline import race_integrity as integrity, comparison_data as data
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp);payload=root/'all-pre2026-refit.json'
+            data.write_json(payload,dict(training_races=[]))
+            data.write_json(root/'completion.json',dict(files={payload.name:integrity.sha(payload)}))
+            integrity.verify_completed_output(root)
+            payload.write_text('{}')
+            with self.assertRaisesRegex(ValueError,'payload changed'):
+                integrity.verify_completed_output(root)
+
+
 if __name__=='__main__':unittest.main()

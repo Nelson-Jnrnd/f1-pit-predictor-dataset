@@ -8,7 +8,9 @@ Reviewer: independent agent `/root/review_protocol`, 15 October 2026.
 Base repository head: `031397cc7a618c1df67e17b9a24d809313e2731f`.
 Reviewed registration SHA-256:
 `2e31fe27a905f4e5ce4f6fae93330ece7fcdde7bef71c372a0d8e277d63e22fd`.
-Review reference: issue #57; the author must link the eventual PR review record.
+Review reference: issue #57; PR [#58 review 5534382417](https://github.com/Nelson-Jnrnd/f1-pit-predictor-dataset/pull/58#pullrequestreview-5534382417),
+submitted as `COMMENT` against published head
+`7d6a983ea9b788a48fc17d9a032d1c281e58067f`.
 
 ## Scope inspected
 

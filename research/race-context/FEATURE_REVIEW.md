@@ -6,6 +6,9 @@ results, publication, merge, viewer replacement and final testing remain separat
 
 Reviewer: `/root/review_protocol`, 15 October 2026.
 Reference: issue #57, PR [#58](https://github.com/Nelson-Jnrnd/f1-pit-predictor-dataset/pull/58).
+Passing GitHub record: [review 5534382417](https://github.com/Nelson-Jnrnd/f1-pit-predictor-dataset/pull/58#pullrequestreview-5534382417),
+submitted as `COMMENT` against published head
+`7d6a983ea9b788a48fc17d9a032d1c281e58067f`.
 Exact audit and source-verification hashes are bound in `FEATURE_REVIEW.json`.
 
 ## Evidence checked

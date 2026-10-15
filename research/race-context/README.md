@@ -57,3 +57,7 @@ the start. It rejects old cache identities by default. The explicit
 --resume-original-execution option accepts only the proved unchanged numerical
 core and identical input configuration, retaining a separate identity-upgrade
 record. It never silently rewrites an old completion config or model identity.
+
+Completed runs are immutable: invoking the updated runner on a completed delivery
+verifies its bound payloads and exits without rewriting summaries, selections,
+refit models or artifact IDs. Use a new output path for a new execution.

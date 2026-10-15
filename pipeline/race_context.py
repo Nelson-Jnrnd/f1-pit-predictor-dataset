@@ -123,6 +123,10 @@ def practical(rows):
 
 def main():
     ap=argparse.ArgumentParser();ap.add_argument('--dataset',type=Path,default=e.ROOT/'dataset');ap.add_argument('--output',type=Path,default=ROOT/'evaluation');ap.add_argument('--resume-original-execution',action='store_true');args=ap.parse_args()
+    if (args.output/'delivery-complete.json').exists() or (args.output/'completion.json').exists():
+        integrity.verify_completed_output(args.output)
+        print('Completed run verified; original model and result identities retained',flush=True)
+        return
     audit=data.read_json(ROOT/'features/audit.json');attest=data.read_json(ROOT/'FEATURE_REVIEW.json')
     if not attest.get('pass') or attest['audit_sha256']!=sha(ROOT/'features/audit.json') or attest['source_verification_sha256']!=sha(ROOT/'features/source-verification.json'):
         raise ValueError('Independent current feature review required')
