@@ -83,6 +83,7 @@ B1 failures and unmatched counts stay visible. A smaller fallback cohort cannot 
 '''
 diff=v['pairs'].get('B0 vs '+sel,{}).get('difference_a_minus_b')
 if diff:text+=f"\nB0 minus selected-model log score is {diff['mean']:.6f}, with 95% race-cluster\ninterval {diff['cr2_95'][0]:.6f} to {diff['cr2_95'][1]:.6f}. Positive values favour\nthe selected model. This interval is conditional on the fitted procedures.\n"
+if diff and diff['cr2_95'][0]<=0<=diff['cr2_95'][1]:text+='\nThe interval includes no difference. This comparison does not establish a clear\nprobability-score advantage over B0.\n'
 text+='''
 ## Practical alerts in 2025
 
@@ -99,6 +100,10 @@ Prior 2025 exposure makes it exploratory.
 for label,k in [('Correct alerts','TP'),('False alerts','FP'),('Missed positive checkpoints','FN'),('Correct no-alert checkpoints','TN')]:text+=f"| {label} | {bc[k]:,} | {cp[k]:,} |\n"
 for label,k in [('Precision','precision'),('Recall','recall'),('Positive prevalence','prevalence')]:text+=f"| {label} | {pct(bc[k])} | {pct(cp[k])} |\n"
 text+=f'''| Earlier-season threshold | {b['threshold']:.2f} | {diag['threshold']:.2f} |
+
+The baseline's earlier-selected {b['threshold']:.2f} threshold raises no alerts in 2025. Its
+precision is undefined and recall is zero. The threshold stays fixed despite
+this later result.
 
 The selected diagnostic includes {cp['n']:,} known binary outcomes,
 {cp['unknown_binary']:,} unknown eligible outcomes and {cp['excluded_attempts']:,}
@@ -169,7 +174,9 @@ RA1–4. Independent checks cannot prove every historical version or independent
 tyre-change ground truth. The owner approved that evidence tradeoff. Negative or
 missing tyre-service evidence remains indeterminate.
 
-No 2026 source or outcome was opened. No canonical EvaluationLock or final claim
+This experiment adds no 2026 source or outcome exposure. Earlier declared final-
+partition exposure remains binding and must qualify later final claims.
+No canonical EvaluationLock or final claim
 is created. Final resolution-run identity and F2 metadata-only fixed-list resolution
 remain separate gated work under the existing evaluation protocol. No merge,
 deployment, public data release or viewer replacement occurred.

@@ -36,13 +36,13 @@ const pct=x=>x==null?'Undefined':`${(100*x).toFixed(1)}%`,num=x=>x.toLocaleStrin
 const w=p.validation.window_width,cov=p.validation.conditional_window_coverage;
 {
  const s=slide('Pit prediction results','Development under approved archive assumptions. The registered rule uses pooled log score, then prefers a simpler procedure within one race-level standard error. No 2026 source or outcome was opened.');
- txt(s,`${names[chosen]} wins the registered comparison`,72,185,1136,110,39,true);
- txt(s,`Mean validation log score: ${r.models[chosen].mean_log_score.toFixed(3)}\nLap baseline: ${r.models.B0.mean_log_score.toFixed(3)}. Lower is better.`,72,330,1136,115,31);
- txt(s,`2025 alerts: ${pct(dc.precision)} precision and ${pct(dc.recall)} recall.\nThese development results still contain many false alerts.`,72,515,1136,105,28,false,muted);
+ txt(s,`${names[chosen]} is the selected model`,72,185,1136,110,39,true);
+ txt(s,`Log score is a probability penalty.\nSelected model: ${r.models[chosen].mean_log_score.toFixed(3)}. Lap baseline: ${r.models.B0.mean_log_score.toFixed(3)}.\nLower is better.`,72,330,1136,115,31);
+ txt(s,`2025 alerts: ${pct(dc.precision)} are correct.\nAt checkpoints with an upcoming stop, ${pct(dc.recall)} raise an alert.\nBased on known checkpoint outcomes.`,72,515,1136,105,28,false,muted);
 }
 {
  const s=slide('Chronological data split','Each fold trains on every admitted earlier race. No random split of checkpoints or drivers. All133races enter the final refit after selection. 2022archives unavailable.');
- table(s,[['Validation season','Earlier training races','Validation races'],['2019','18','19'],['2020','37','12'],['2021','49','16'],['2023','65','21'],['2024','86','23'],['2025','109','24']],[450,385,301],163,385,26);
+ table(s,[['Validation season','Earlier training races','Validation races'],['2019','18','19'],['2020','37','12'],['2021','49','16'],['2023','65','21'],['2024','86','23'],['2025','109','24']],[450,385,301],163,399,26);
  txt(s,'115 validation races. 2018 supplies the initial training data.\nAfter selection, the final fit uses all 133 admitted races.',72,585,1136,94,27);
 }
 {
@@ -56,14 +56,14 @@ const w=p.validation.window_width,cov=p.validation.conditional_window_coverage;
  const rows=[['Model','Mean log score','Forecasts / eligible']];
  for(const id of ['B0','PERCENT_AHEAD','PERCENT_PROGRESS','TYRE_RIDGE','B1'])rows.push([names[id],r.models[id].fitting_failures.length?'Unsupported':r.models[id].mean_log_score.toFixed(4),`${num(r.models[id].forecast_count)} / ${num(r.models[id].eligible)}`]);
  table(s,rows,[455,280,401],167,340,25);
- txt(s,'Tyre features use age and compound known at the checkpoint.\nThe stable tyre candidate uses a fixed penalty to support fitting.',72,548,1136,88,26);
- txt(s,'The original tyre model still fails. Partial fallback cannot win selection.',72,653,1136,35,22,false,muted);
+ txt(s,'The rule prefers a simpler model when scores are close across races.\nThe stable tyre model uses known age and compound with a fixed penalty.',72,548,1136,88,26);
+ txt(s,'The original tyre model still fails. Partial fallback cannot win selection.',72,653,1136,35,23,false,muted);
 }
 {
  const s=slide('2025 alerts and confusion matrix','Thresholds maximizeF1 on0.01–0.99grid through2024only, tieshighest. Exploratory due earlier2025exposure. R0currentinlapaftercheckpoint,R1,R2. Shortgridsincludeopenfinalregion. Knowncheckpointcounts only.');
  table(s,[['Known checkpoints','Lap baseline',names[chosen]],['Correct alerts',num(bc.TP),num(dc.TP)],['False alerts',num(bc.FP),num(dc.FP)],['Missed positive checkpoints',num(bc.FN),num(dc.FN)],['Correct no-alert checkpoints',num(bc.TN),num(dc.TN)],['Precision / recall',`${pct(bc.precision)} / ${pct(bc.recall)}`,`${pct(dc.precision)} / ${pct(dc.recall)}`]],[490,323,323],157,355,24);
- txt(s,`Alert threshold: ${d.threshold.toFixed(2)}. Always alerting gives ${pct(dc.prevalence)} precision.\n${num(dc.unknown_binary)} unknown outcomes stay outside this matrix.`,72,548,1136,85,26);
- txt(s,'Horizon: current in-lap after the checkpoint and next two canonical regions.\nA short grid can include the open final region. Several alerts can refer to one stop.',72,642,1136,64,21,false,muted);
+ txt(s,`Earlier thresholds: B0 ${b.diagnostic_2025.threshold.toFixed(2)}, selected model ${d.threshold.toFixed(2)}.\nB0 raises no 2025 alerts. Always alerting: ${pct(dc.prevalence)} precision.\n${num(dc.unknown_binary)} unknown outcomes stay outside this matrix.`,72,548,1136,90,24);
+ txt(s,'Horizon: current in-lap after the checkpoint and next two canonical regions.\nA short grid can include the open final region. Several alerts can refer to one stop.',72,642,1136,64,23,false,muted);
 }
 {
  const s=slide('Pit windows and identifiable stops','Conditional event coverage across validation uses window/v1 and actual predicted conditional mass. Region count measures width. Open tail has no finite lap upper bound. 2025event_ref deduplication counts each identifiable known-horizon stop once.');
@@ -74,22 +74,23 @@ const w=p.validation.window_width,cov=p.validation.conditional_window_coverage;
 {
  const s=slide('Probability calibration and uncertainty','Reliability groups sort forecast probabilities. Brier score uses known binary outcomes. CR2+t, Webb9999seed5302026 and leave-one-race-out group checkpoints by race. No calibration correction fitted.');
  const cal=p.validation.calibration_p3,high=cal[cal.length-1];
- table(s,[['Probability check','Predicted','Observed'],['Highest alert-probability group',pct(high.predicted),pct(high.observed)],['Selected model Brier score',p.validation.brier_p3.toFixed(4),'Lower is better'],['Lap baseline Brier score',b.validation.brier_p3.toFixed(4),'Lower is better']],[620,258,258],177,267,25);
+ table(s,[['Probability check','Predicted','Observed'],['Highest alert-probability group',pct(high.predicted),pct(high.observed)]],[620,258,258],177,145,25);
+ txt(s,`Three-region probability error (Brier):\n${p.validation.brier_p3.toFixed(4)} selected model, ${b.validation.brier_p3.toFixed(4)} baseline. Lower is better.`,72,365,1136,90,28);
  const diff=r.pairs[`B0 vs ${chosen}`]?.difference_a_minus_b;
  txt(s,diff?`Log-score gain over B0: ${diff.mean.toFixed(3)}\n95% interval by race: ${diff.cr2_95[0].toFixed(3)} to ${diff.cr2_95[1].toFixed(3)}`:'The baseline wins the registered simplicity rule.',72,490,1136,93,29);
  txt(s,'Uncertainty groups checkpoints by race. Unknown outcomes remain excluded.\nHistorical archive assumptions limit what the comparison can establish.',72,617,1136,77,24,false,muted);
 }
 {
- const s=slide('Frozen procedure and final-test boundary','Selection freeze precedes all133refit. Final threshold uses all chronological validation and has in-sample pooled selection diagnostics. Earlier-threshold2025diagnostic is separate. Final resolution-run and F2fixedmetadata-list gates remain. No EvaluationLock claim.');
+ const s=slide('Final fits and 2026 testing','Selection freeze precedes all133refit. Final threshold uses all chronological validation and has in-sample pooled selection diagnostics. Earlier-threshold2025diagnostic is separate. Final resolution-run and F2fixedmetadata-list gates remain. No EvaluationLock claim.');
  txt(s,'Model selection and refit complete',72,175,1136,50,33,true);
  txt(s,`${names[chosen]} and the lap baseline now have saved fits using\nall 133 admitted pre-2026 races. Final alert threshold: ${p.final_threshold.threshold.toFixed(2)}.`,72,250,1136,125,29);
  txt(s,'2026 remains reserved for final testing',72,420,1136,50,33,true);
- txt(s,'Final testing still requires the existing resolution, fixed-list and lock gates.\nNo 2026 outcomes entered model development or threshold selection.',72,491,1136,102,27);
+ txt(s,'Final testing still requires the existing resolution, fixed-list and lock gates.\nThis experiment adds no 2026 outcome exposure.\nEarlier exposure declarations still apply.',72,491,1136,102,27);
  txt(s,'The current viewer stays in place. No merge or deployment.',72,642,1136,40,25,false,muted);
 }
 await fs.mkdir(out,{recursive:true});
 const candidatePath=path.join(build,'expanded-candidate.pptx');await (await PresentationFile.exportPptx(presentation)).save(candidatePath);
-const finalPath=path.join(out,'F1_Issue_53_Expanded_Report.pptx');
-await finalizePresentation({workspaceDir,candidatePath,finalPath,pythonExecutable:process.env.CODEX_PRIMARY_RUNTIME_PYTHON,integrityValidatorPath:'/root/.codex/skills/builtins/presentations/container_tools/inspect_presentation_package_integrity.py',layoutValidatorPath:'/root/.codex/skills/builtins/presentations/container_tools/inspect_presentation_layout_geometry.py',layoutArgs:['--expected-slide-size-emu','12192000,6858000','--validate-heading-fit',...[2,3,4,5,6,7].flatMap(n=>['--require-native-table-slide',String(n)])],requiredNativeTableOwnerSlides:[2,3,4,5,6,7],fontPolicy:{basis:'design',families:[font]},verifyArtifactToolImport:true,receiptPath:path.join(build,'expanded-validation.json')});
+const finalPath=path.join(out,'F1_Issue_53_Expanded_Report_Final.pptx');
+await finalizePresentation({workspaceDir,candidatePath,finalPath,pythonExecutable:process.env.CODEX_PRIMARY_RUNTIME_PYTHON,integrityValidatorPath:'/root/.codex/skills/builtins/presentations/container_tools/inspect_presentation_package_integrity.py',layoutValidatorPath:'/root/.codex/skills/builtins/presentations/container_tools/inspect_presentation_layout_geometry.py',layoutArgs:['--expected-slide-size-emu','12192000,6858000','--validate-heading-fit',...[2,3,4,5,6,7].flatMap(n=>['--require-native-table-slide',String(n)])],requiredNativeTableOwnerSlides:[2,3,4,5,6,7],fontPolicy:{basis:'design',families:[font]},verifyArtifactToolImport:true,receiptPath:path.join(build,'expanded-final-validation.json')});
 for(let i=0;i<presentation.slides.items.length;i++){const b=await presentation.export({slide:presentation.slides.items[i],format:'png',scale:1});await fs.writeFile(path.join(build,`expanded-slide-${i+1}.png`),new Uint8Array(await b.arrayBuffer()));}
 console.log(finalPath);
