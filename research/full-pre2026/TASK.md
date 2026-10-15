@@ -3,8 +3,8 @@
 Status: original audit and diagnostic implementation independently passed. The
 owner-approved continuation admits 133 independently verified pre-2026 races.
 Expanded registration and results live in research/expanded-pre2026. The six
-chronological folds, selection freeze and all-133-race refit are complete. Final
-delivery review is pending. No final EvaluationLock or 2026 test is claimed. This task supersedes the next experiment's
+chronological folds, selection freeze and all-133-race refit are complete. Independent
+implementation and delivery review PASS. See research/expanded-pre2026/REVIEW.md. No final EvaluationLock or 2026 test is claimed. This task supersedes the next experiment's
 scope, preserving the completed TASK, REGISTRATION, REPORT and REVIEW from
 research/model-comparison and PRs #54/#55 unchanged.
 
