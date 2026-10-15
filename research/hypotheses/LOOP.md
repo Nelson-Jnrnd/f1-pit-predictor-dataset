@@ -38,3 +38,20 @@ Next: H4 keeps the original forest and inputs but limits training to the latest
 two admitted earlier seasons. This tests whether the training-history procedure
 transfers better. Recency, training volume and archive completeness vary together;
 it cannot establish an isolated causal effect of older seasons.
+
+## H4: recent-season training
+
+The six-fold mean log score is 2.229888, worse than RF_CONTEXT's 2.169202.
+The registered recent-history procedure does not improve complete timing
+prediction. This does not establish that older seasons are always helpful;
+training volume, archive completeness and terminal-allocation fitting also vary.
+
+The execution stopped during 2024 validation. Exact saved model/fold caches
+allowed recovery without retraining completed models. All 11,220 preserved
+partial forecast distributions match the resumed probabilities within 1e-12
+(largest difference 2.22e-16). Original partial identities and actual repeat
+reads remain saved. The interruption cause was not established.
+
+The four tests exhaust the current candidate budget. Freeze the registered
+recommendation and thresholds, complete the declared pre-2026 refit, then report
+the weak practical results. No additional tuning or 2026 opening follows.

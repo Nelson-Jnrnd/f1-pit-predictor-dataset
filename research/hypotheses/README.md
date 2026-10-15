@@ -46,6 +46,26 @@ binds everything in delivery-complete.json. Repeating the helper verifies that
 complete delivery and exits without writes. The pipeline CLI alone verifies its
 original completion; use the helper to verify the complete supplemented delivery.
 
+## H4 execution interruption
+
+The first H4 execution stopped during 2024 validation. The session/process was
+absent; no traceback or cgroup OOM event established a cause. Four completed
+folds and the 2024 fitted estimator survived. Existing partial race forecasts
+were copied into interrupted-validation before an exact-cache resume. No
+completed model was retrained and no completed fold was rewritten. Validation
+forecasts for that incomplete fold receive new snapshot/run identities; their
+numerical probabilities are checked against the preserved partial forecasts.
+The actual read ledger records repeated reads. This is execution recovery, not
+a parameter retry or a new candidate. interruption.json records the event.
+
+The first completion captured a redirected stdout log before its final success
+message was printed. The original completion expected the empty stdout snapshot.
+The full captured log is preserved separately; the exact original empty snapshot
+was restored, without changing the completion, models, forecasts, scores or
+selection. stdout-binding-repair.json records both hashes. The supplemental
+delivery binds this explicit repair. Subsequent validation logs stay outside the
+bound result directory.
+
 Private evidence includes the exact execution source snapshot and local Git
 provenance. Git publication uses equivalent source trees through the GitHub
 connector because CLI write authentication is unavailable. Local execution
@@ -54,6 +74,7 @@ rewritten to impersonate a later published commit.
 
 The presentation builder is build_presentation.mjs. It reads the final summary
 directly, requires the bundled Artifact Tool runtime, and exports editable PPTX
-plus a PDF copy. Exact commands and validation status are recorded in the review
+and rendered previews. A PDF copy can be exported through the bundled soffice
+converter. Exact commands and validation status are recorded in the review
 and private validation evidence. The retrieval receipt identifies saved private
 archives. Detailed payloads are not public release material.

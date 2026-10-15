@@ -19,6 +19,8 @@ def main():
         r=s['models'].get(n);delta=r['improvement_over_reference'] if r else None
         interval=' to '.join(f'{v:.6f}' for v in delta['cr2_95']) if delta else None
         lines.append(f"| {NAMES[n]} | {s['means'][n]:.6f} | {delta['mean']:.6f} | {interval} |" if delta else f"| {NAMES[n]} | {s['means'][n]:.6f} | Reference | |")
+    interpretations=data.read_json(ROOT/'INTERPRETATIONS.json')
+    for n in order[1:]:lines+=['',f'{NAMES[n]}: {interpretations[n]}','']
     lines+=['', 'Lower log score is better. It measures the penalty assigned to the observed stop timing or no-stop outcome. It is not percentage accuracy. Positive improvement favours the new procedure. Every model has the same 93,650 scored checkpoints across 115 validation races.', '',
         '## Hypotheses and decisions', '',
         'H1 replaces the raw lap grid with percentage features and scales tyre age by scheduled distance. It retains inverse scheduled distance, so this tests a different representation rather than removing race-length information.', '',

@@ -41,8 +41,8 @@ const chosen=s.recommended,best=s.raw_best;const alert=models[chosen].practical.
 
 {
  const sl=slide('Pit-stop prediction experiments');
- text(sl,'Four hypotheses, trained and tested',64,164,1100,90,46,BLUE,true);
- text(sl,`${names[chosen]} is the registered recommendation`,64,282,1110,90,36,INK,true);
+ text(sl,'No clear practical improvement',64,164,1100,90,46,BLUE,true);
+ text(sl,'Percentage inputs narrowly win the timing score',64,282,1110,90,36,INK,true);
  text(sl,`Probability score: ${score(chosen)}\n2025 alert precision: ${pct(conf.precision)}. Recall: ${pct(conf.recall)}.`,64,402,1100,120,30);
  text(sl,'Exploratory pre-2026 development results. Lower probability score is better.',64,582,1100,56,23,GRAY);
 }
@@ -67,7 +67,7 @@ const chosen=s.recommended,best=s.raw_best;const alert=models[chosen].practical.
  const sl=slide('Scores across validation seasons','Seasonal log scores on the same matched scored checkpoints. The chart axis is restricted to the displayed score range to show differences. Scores across seasons also reflect different race composition and censoring.');
  const colors=['#13283F','#16857B','#D17B20','#7A4BA5','#3F7FBA'];
  const allScores=ids.flatMap(n=>['2019','2020','2021','2023','2024','2025'].map(y=>n==='RF_CONTEXT'?prior.by_season[y].models.RF_CONTEXT.mean_log_score:s.models[n].by_season[y].mean_log_score));
- const chart=sl.charts.add('line',{position:{left:64,top:155,width:1152,height:440},categories:['2019','2020','2021','2023','2024','2025'],series:ids.map((n,i)=>({name:names[n],values:['2019','2020','2021','2023','2024','2025'].map(y=>n==='RF_CONTEXT'?prior.by_season[y].models.RF_CONTEXT.mean_log_score:s.models[n].by_season[y].mean_log_score),line:{style:'solid',fill:colors[i],width:2.5}})),hasLegend:true,legend:{position:'bottom',textStyle:{typeface:FONT,fontSize:19}},xAxis:{textStyle:{typeface:FONT,fontSize:22}},yAxis:{min:Math.floor(Math.min(...allScores)*10)/10,max:Math.ceil(Math.max(...allScores)*10)/10,textStyle:{typeface:FONT,fontSize:20},numberFormatCode:'0.00',majorGridlines:{style:'solid',fill:'#D5DEE6',width:.6}},lineOptions:{smooth:false}});
+ const chart=sl.charts.add('line',{position:{left:64,top:155,width:1152,height:440},categories:['2019','2020','2021','2023','2024','2025'],series:ids.map((n,i)=>({name:names[n],values:['2019','2020','2021','2023','2024','2025'].map(y=>Number((n==='RF_CONTEXT'?prior.by_season[y].models.RF_CONTEXT.mean_log_score:s.models[n].by_season[y].mean_log_score).toFixed(6))),line:{style:'solid',fill:colors[i],width:2.5}})),hasLegend:true,legend:{position:'bottom',textStyle:{typeface:FONT,fontSize:19}},xAxis:{textStyle:{typeface:FONT,fontSize:22}},yAxis:{min:Math.floor(Math.min(...allScores)*10)/10,max:Math.ceil(Math.max(...allScores)*10)/10,textStyle:{typeface:FONT,fontSize:20},numberFormatCode:'0.00',majorGridlines:{style:'solid',fill:'#D5DEE6',width:.6}},lineOptions:{smooth:false}});
  applyPresentationChartFont(chart,{fontFamily:FONT});
  text(sl,'Lower is better. The race mix and unknown-outcome share differ by season.',64,618,1152,44,24,GRAY);
 }
@@ -83,7 +83,7 @@ const chosen=s.recommended,best=s.raw_best;const alert=models[chosen].practical.
  const sl=slide('Exploratory 2025 alert performance','Threshold maximizes F1 through 2024 on 0.01..0.99, ties highest. 2025 remains previously exposed development. Alerts concern first up to three canonical regions, usually current lap plus next two, with an open-ended last region in short grids. Multiple alerts may concern one stop.');
  text(sl,'An alert usually concerns the current lap and the next two laps.',64,129,1152,30,24,GRAY);
  table(sl,[['Model','Precision','Recall','F1','False alerts','Stops found'],...ids.map(n=>{const a=models[n].practical.diagnostic_2025,v=a.checkpoint,st=a.unique_stops;return [names[n],pct(v.precision),pct(v.recall),pct(v.f1),num(v.FP),`${st.detected}/${st.with_known_horizon_checkpoint}`]})],[335,145,145,130,200,197],164,360,23);
- text(sl,'Precision: share of alerts that are correct. Recall: share of positive checkpoints alerted.',64,560,1152,65,24);
+ text(sl,'Precision: correct share of alerts. Recall: near-stop cases detected. F1 balances the two.',64,560,1152,65,24);
  text(sl,'Stops found counts distinct stops with known evidence inside the alert horizon.',64,625,1152,34,22,GRAY);
 }
 {
@@ -107,12 +107,12 @@ const chosen=s.recommended,best=s.raw_best;const alert=models[chosen].practical.
 }
 
 const draft=path.join(build,'hypotheses-draft.pptx');await(await PresentationFile.exportPptx(p)).save(draft);
-const final=path.join(out,'F1_Hypothesis_Experiments.pptx');
+const final=path.join(out,'F1_Hypothesis_Report.pptx');
 await finalizePresentation({workspaceDir:workspace,candidatePath:draft,finalPath:final,pythonExecutable:process.env.CODEX_PRIMARY_RUNTIME_PYTHON,
  integrityValidatorPath:path.join(skill,'container_tools/inspect_presentation_package_integrity.py'),layoutValidatorPath:path.join(skill,'container_tools/inspect_presentation_layout_geometry.py'),
- layoutArgs:['--expected-slide-size-emu','12192000,6858000','--validate-bullet-geometry','--validate-heading-fit'],
+ layoutArgs:['--expected-slide-size-emu','12192000,6858000','--validate-bullet-geometry','--validate-heading-fit',...[2,3,4,7,8,9].flatMap(n=>['--require-native-table-slide',String(n)])],
  requiredNativeTableOwnerSlides:[2,3,4,7,8,9],requiredNativeChartOwnerSlides:[5],explicitTotalSlideCount:10,
- fontPolicy:{basis:'design',families:[FONT]},verifyArtifactToolImport:true,receiptPath:path.join(build,'validation.json')});
-await fs.writeFile(path.join(out,'F1_Hypothesis_Experiments.pdf'),new Uint8Array(await(await p.export({format:'pdf'})).arrayBuffer()));
+ materializeLiteralChartWorkbooks:true,
+ fontPolicy:{basis:'design',families:[FONT]},verifyArtifactToolImport:true,receiptPath:path.join(build,'validation-report.json')});
 for(const [i,sl] of p.slides.items.entries())await fs.writeFile(path.join(build,`slide-${i+1}.png`),new Uint8Array(await(await p.export({slide:sl,format:'png',scale:1})).arrayBuffer()));
 console.log(JSON.stringify({pptx:final,slides:p.slides.items.length}));
