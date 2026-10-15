@@ -91,3 +91,9 @@ V2 predicts what a team/driver is likely to do. It does not recommend what they 
 - **Review reference:** PR #3 review `pullrequestreview-5139550659`, PASS on head `567c1c851526e310cdbf083f3599804603812272`.
 - **Review date:** 2026-09-08
 - **Findings:** No Blocking, Major, or Minor findings.
+
+## Thesis continuation implementation direction (15 October 2026)
+
+Issue #57 builds on useful thesis features and modelling lessons. Exact reproduction
+is not required. Random Forest is a reference; timing-only models remain benchmarks.
+See decisions/2026-10-15-thesis-race-context.md and research/race-context/REGISTRATION.md.

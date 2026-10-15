@@ -20,3 +20,8 @@ research/expanded-pre2026/sources/**/*.gz
 research/expanded-pre2026/dataset/**/*.gz
 research/expanded-pre2026/dataset/**/*.xz
 research/expanded-pre2026/evaluation/**/*.gz
+# Issue 57 private feature and prediction payloads.
+research/race-context/features/*.gz
+research/race-context/evaluation/**/*.gz
+research/race-context/evaluation/**/*.joblib
+research/race-context/features/*.json

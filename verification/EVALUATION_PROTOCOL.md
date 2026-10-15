@@ -98,7 +98,7 @@ All baselines share these rules:
 | --- | --- | --- |
 | **B0** (climatology) | Pooled discrete hazard by lap offset `λ(h)` for `h = 0..39`, with the last bin pooling `h ≥ 40`. `q_open` is the pooled empirical share of terminal no-event among episodes that survive into the final region | `RegionGrid` only |
 | **B1** (tyre-age hazard) | `logit λ_h = β0 + β1·a + β2·a² + β_c[compound] + β4·f_h`, where `a = stint_age_at_T + h` and `f_h = (N_T − (L + h)) / N_T`. Compound levels are `SOFT`, `MEDIUM`, `HARD`, `INTERMEDIATE`, `WET` and `OTHER`. `q_open = logit⁻¹(γ0 + γ1·f_T + γ_c[compound])`, with `f_T = (N_T − L) / N_T` | Current stint age and compound (#18 `TimingAppData` facts admissible at T, under RA-2 and the #35 10 s cross-stream margin), plus `L` and `N_T` |
-| **B-thesis** (secondary) | The `p_0` of B1, scored by Brier on the event "entry in `R_0`", for continuity with the thesis-era binary framing | as B1 |
+| **B1-R0** (secondary; historically B-thesis) | The `p_0` of B1, scored by Brier on the event "entry in `R_0`", for continuity with the thesis-era binary framing | as B1 |
 
 - **B1 omission rule.** B1 emits B0's distribution for an observation when the canonical state at T shows **any** of the following:
   - stint age or compound is omitted, i.e. not admissible;
@@ -120,7 +120,7 @@ All baselines share these rules:
 | Ranked probability score over `R_0 < … < R_{K_T−1} <` no-event, normalized by `K_T`. A10 reports the minimum and maximum over the set | `SECONDARY` |
 | Reliability tables (10 equal-count bins) for `P(R_0)`, `P(R_0 ∪ R_1 ∪ R_2)` and `q`, over the full cohort | `SECONDARY` |
 | Sharpness: mean forecast entropy | `SECONDARY` |
-| Brier score for "entry in `R_0`", for the locked procedure, B1 and B-thesis | `SECONDARY` |
+| Brier score for "entry in `R_0`", for the locked procedure, B1 and B1-R0 | `SECONDARY` |
 | Randomized probability integral transform of the realized offset, over **event outcomes only** (A9/A10), uniform within the region or set, with a descriptive χ² | `RETROSPECTIVE_DIAGNOSTIC` |
 | Pit-window (`pit-window/v1`, α = 0.8) conditional coverage among event outcomes, compared with the mean of `mass_in_window / P_event`, not with α, because discrete windows hold at least α of the event mass | `RETROSPECTIVE_DIAGNOSTIC` |
 | Calibration of the window's absolute `mass_in_window`, over the full cohort | `SECONDARY` |
@@ -340,3 +340,10 @@ fit prevents a full-cohort comparison. Its new fixed-penalty TYRE_RIDGE candidat
 uses the same causal input and complete output meaning. The expanded fixed list,
 source assumptions, registration and selectors must pass independent review before
 training/scoring. No final opening or original-lock bypass is authorized.
+
+## Issue #57 development extension
+
+See research/race-context/REGISTRATION.md and decisions/2026-10-15-thesis-race-context.md.
+B1-R0 is a diagnostic of B1, not the thesis Random Forest. Historical B-thesis
+result identities remain unchanged. The new RF procedures consume three additional
+candidate slots (six of ten total); independent review gates execution.
