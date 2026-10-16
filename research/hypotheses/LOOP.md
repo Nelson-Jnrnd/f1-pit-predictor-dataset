@@ -49,8 +49,8 @@ training volume, archive completeness and terminal-allocation fitting also vary.
 The execution stopped during 2024 validation. Exact saved model/fold caches
 allowed recovery without retraining completed models. All 11,220 preserved
 partial forecast distributions match the resumed probabilities within 1e-12
-(largest difference 2.22e-16). Original partial identities and actual repeat
-reads remain saved. The interruption cause was not established.
+(largest difference 2.22e-16). Original partial identities and repeat reads were checked before the outage.
+These root records were lost in the workspace reset and cannot be re-audited. The interruption cause was not established.
 
 The four tests exhaust the current candidate budget. Freeze the registered
 recommendation and thresholds, complete the declared pre-2026 refit, then report

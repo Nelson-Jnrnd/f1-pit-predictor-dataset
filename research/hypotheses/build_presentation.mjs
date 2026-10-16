@@ -99,11 +99,11 @@ const chosen=s.recommended,best=s.raw_best;const alert=models[chosen].practical.
  text(sl,'Regions are lap-based. The last region can be open ended. Wide windows are less precise.',64,625,1152,35,22,GRAY);
 }
 {
- const sl=slide('Recommendation and remaining limits','Exact settings, results, 99-threshold tradeoffs, uncertainty, saved models and provenance are retained. Candidate budget is ten of ten. Future research would require a newly bounded reviewed experiment. No viewer replacement, follow-up merge, deployment or final evaluation is part of this delivery.');
+ const sl=slide('Recommendation and evidence limits','Four candidate archives retain all validation models, forecasts, scores and tradeoffs. The workspace reset lost original root ledgers, completions, selected model and interruption evidence. Recovery repeats only the frozen final H1 fit with all133actual reads. Historical prediction-before-label ordering and interruption parity cannot be re-audited from missing root evidence. Prior independent checks remain recorded conclusions. Candidate budget is ten of ten. Future research would require a newly bounded reviewed experiment. No viewer replacement, follow-up merge, deployment or final evaluation is part of this delivery.');
  text(sl,`${names[chosen]} is the research recommendation`,64,166,1152,110,37,BLUE,true);
  text(sl,`Raw best score: ${names[best]} (${score(best)}).\nThe registered rule accounts for race-level uncertainty.`,64,300,1152,105,29);
  text(sl,'Practical use remains limited by false alerts, missed stops and broad timing windows.',64,438,1152,90,30,INK,true);
- text(sl,'Earlier unknown outcomes exceed 40%. All findings remain development evidence.\nNext research direction: verify circuit and track-status inputs for a new experiment.',64,567,1152,82,25,GRAY);
+ text(sl,'Candidate models and scores survived the reset. Some original audit records were lost.\nA new final fit records all 133 race reads. Historical read timing cannot be re-audited.\nAll findings remain exploratory development evidence.',64,550,1152,110,23,GRAY);
 }
 
 const draft=path.join(build,'hypotheses-draft.pptx');await(await PresentationFile.exportPptx(p)).save(draft);
