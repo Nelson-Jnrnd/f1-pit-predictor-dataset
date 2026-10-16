@@ -17,3 +17,6 @@ research/model-comparison/provenance/*.bundle -text
 # Keep issue57 execution and feature-attestation hashes portable on Windows.
 pipeline/*.py text eol=lf
 research/race-context/** -text
+
+# Preserve hypothesis registration and execution evidence bytes.
+research/hypotheses/** -text
