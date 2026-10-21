@@ -1,0 +1,6 @@
+{
+  "H1_PERCENT": "A small timing-score gain remains uncertain across races. More stops are detected, but precision falls and false alerts rise.",
+  "H2_DETAIL": "Timing scores worsen clearly. Alert recall rises slightly, with more false alerts. Depth and leaf size change together.",
+  "H3_BOOST": "This fixed boosting setup scores worse for full timing. Its 2025 F1 improves slightly. The two objectives give different rankings.",
+  "H4_RECENT": "Recent seasons score worse. The test also changes the amount and completeness of training data, plus the estimate of no further stop."
+}

@@ -347,3 +347,10 @@ See research/race-context/REGISTRATION.md and decisions/2026-10-15-thesis-race-c
 B1-R0 is a diagnostic of B1, not the thesis Random Forest. Historical B-thesis
 result identities remain unchanged. The new RF procedures consume three additional
 candidate slots (six of ten total); independent review gates execution.
+
+## Bounded hypothesis follow-up
+
+The owner authorized four further exploratory training hypotheses after #58.
+research/hypotheses/REGISTRATION.md declares them before scoring and consumes
+the remaining four slots (ten of ten). All findings remain development evidence.
+The 2026 locks, existing saved results and output/target semantics remain unchanged.

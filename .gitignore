@@ -28,3 +28,5 @@ research/race-context/features/*.json
 research/race-context/evaluation/**/*.json
 research/race-context/evaluation/*.json
 research/race-context/evaluation/*.jsonl
+research/race-context/run-logs/
+research/hypotheses/evaluation/
