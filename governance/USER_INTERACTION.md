@@ -20,6 +20,21 @@ Use plain, direct language in all project communication: chat replies, issue and
 
 The Product Owner requested this rule on 14 October 2026. It applies to future work as well as the current task.
 
+## Explanatory slides: ELI5
+
+Explanatory slides must follow ELI5 ("explain like I am five"): make the idea understandable to someone with no technical background. Keep an adult, professional tone.
+
+- Give each slide one main point in everyday words.
+- Explain what happened, why it matters and what we should do next.
+- Use a concrete example or a simple visual when it helps.
+- Explain necessary terms and abbreviations before using them. Avoid internal code names in the main explanation.
+- For every number, say what it counts and what it is compared with. Keep only the numbers needed to understand the point.
+- Put formulas, implementation details and audit records in notes or an appendix.
+- Keep uncertainty and limitations visible when they change the conclusion. Simpler language must not change the meaning.
+- Check whether a reader unfamiliar with the project can explain the slide back in one sentence. Rewrite it if they cannot.
+
+The Product Owner requested this rule on 21 October 2026. It applies to every agent preparing explanatory slides for this project.
+
 ## No-decision status
 
 When no Product Owner decision is required, report:
