@@ -34,3 +34,5 @@ Start with the smallest artifact set that satisfies the current task. Avoid spec
 ## Communication
 
 Follow the plain-language writing rule in `governance/USER_INTERACTION.md#writing-style` for every project text, including chat, issues, reports, slides, documentation, and UI copy.
+
+Explanatory slides must follow the ELI5 rule in `governance/USER_INTERACTION.md#explanatory-slides-eli5`. This applies to every agent.
