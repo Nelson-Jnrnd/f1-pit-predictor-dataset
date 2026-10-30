@@ -61,3 +61,7 @@ Only independently approved, reproducing evidence permits
 The sidecar binds the unchanged base release and exact boundary keys. Common-sample
 pit membership must be defensibly false; uncertain transitions and gap-carried
 states are omitted. No CarData authority or additional race coverage is implied.
+
+## Race-control messages
+
+The reusable prediction-time message handler is documented in [RACE_CONTROL_MESSAGES.md](RACE_CONTROL_MESSAGES.md). It is not connected to the current model feature set.
